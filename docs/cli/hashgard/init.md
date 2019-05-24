@@ -12,14 +12,14 @@ hashgard init [flags]
 
 ## Flags
 
-| Name，shorthand| type  | Default     | description                                                  | Required  |
-| ----------- | ------ | ----------- | ------------------------------------------------------------ | -------- |
-| -h, --help  |        |             | help for init                                           | No  |
-| --chain-id  | string |             | genesis file chain-id, if left blank will be randomly created    | N0  |
-| --moniker   | string |             | set the validator's moniker | Yes     |
-| --overwrite | bool   |             | overwrite the genesis.json file                                      | No   |
-| --home      | string | ~/.hashgard | directory for config and data                                          | No   |
-| --trace     | bool   |             |  print out full stack trace on errors                                   | No  |
+| Name，shorthand| Type  | Default     | description                                                  | Required  |
+| ----------- | ------ | ----------- | ------------------------------- | -------- |
+| -h, --help  |        |             | help for init                             | false  |
+| --chain-id  | string |             | genesis file chain-id, if left blank will be randomly created    | false  |
+| --moniker   | string |             | set the validator's moniker | true    |
+| --overwrite | bool   |             | overwrite the genesis.json file         | false   |
+| --home      | string | ~/.hashgard | directory for config and data                                          | false   |
+| --trace     | bool   |             |  print out full stack trace on errors                                   | false  |
 
 ## Example
 

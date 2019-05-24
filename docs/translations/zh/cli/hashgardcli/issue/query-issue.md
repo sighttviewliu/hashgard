@@ -2,18 +2,22 @@
 
 ## 描述
 查询指定issue-id值的发行的信息。
-## 使用方式
+
+## 用法
 ```
 hashgardcli issue query-issue [issue-id] [flags]
 ```
-## Global Flags
 
- ### 参考：[hashgardcli](../README.md)
+## Flags
+
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
+
 ### 查询发行信息
+
 ```shell
-hashgardcli issue query-issue coin174876e800 
+hashgardcli issue query-issue coin174876e800
 ```
 ```txt
 {
@@ -27,11 +31,11 @@ Issue:
   Decimals:         			18
   IssueTime:					1558179518
   Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
-  BurnOwnerDisabled:  			false 
-  BurnHolderDisabled:  			false 
-  BurnFromDisabled:  			false 
-  FreezeDisabled:  				false 
-  MintingFinished:  			false 
+  BurnOwnerDisabled:  			false
+  BurnHolderDisabled:  			false
+  BurnFromDisabled:  			false
+  FreezeDisabled:  				false
+  MintingFinished:  			false
  }
 }
 ```

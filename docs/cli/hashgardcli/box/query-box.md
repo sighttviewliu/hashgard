@@ -10,9 +10,9 @@ hashgardcli box query-box [box-id]
 
 ### Subcommands
 
-| Name  | type  | Required  | Default| Description    |
+| Name  | Type  | Required  | Default| Description    |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | Yes       |        | box id|
+| box-id | string | true      |        | box id|
 
 
 

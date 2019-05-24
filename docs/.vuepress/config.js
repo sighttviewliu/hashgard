@@ -72,16 +72,8 @@ module.exports = {
               title: 'Guide',
               children: [
                 ['/learn/installation', 'installation'],
-                ['/learn/Guide/AccountGuide', 'AccountGuide'],
+                ['/feature/AccountGuide.md', 'AccountGuide'],
                 ['/learn/Guide/', 'testnet Guide'],
-                ['/learn/Guide/Delegate', 'Delegate'],
-                ['/learn/Guide/Deposit', 'Deposit'],
-                ['/learn/Guide/genesis', 'genesis'],
-                ['/learn/Guide/GreatValidator', 'GreatValidator'],
-                ['/learn/Guide/Redelegate', 'Redelegate'],
-                ['/learn/Guide/SubmitProposal', 'SubmitProposal'],
-                ['/learn/Guide/unbond', 'unbond'],
-                ['/learn/Guide/Vote', 'Vote']
               ]
             }
           ],
@@ -98,7 +90,10 @@ module.exports = {
                 ['/cli/hashgardcli/stake/', 'stake'],
                 ['/cli/hashgardcli/status', 'status'],
                 ['/cli/hashgardcli/tendermint/', 'tendermint'],
-                ['/cli/hashgardcli/slashing/', 'slashing']
+                ['/cli/hashgardcli/slashing/', 'slashing'],
+                ['/cli/hashgardcli/issue/', 'issue'],
+                ['/cli/hashgardcli/box/', 'box'],
+                ['/cli/hashgardcli/faucet/send.md', 'faucet']
               ]
             },
             {
@@ -160,8 +155,11 @@ module.exports = {
                 ['/translations/zh/cli/hashgardcli/keys/', 'keys'],
                 ['/translations/zh/cli/hashgardcli/stake/', 'stake'],
                 ['/translations/zh/cli/hashgardcli/status', 'status'],
-                  ['/translations/zh/cli/hashgardcli/tendermint/', 'tendermint'],
-                    ['/translations/zh/cli/hashgardcli/slashing/', 'slashing'],
+                ['/translations/zh/cli/hashgardcli/tendermint/', 'tendermint'],
+                ['/translations/zh/cli/hashgardcli/slashing/', 'slashing'],
+                ['/translations/zh/cli/hashgardcli/issue/', 'issue'],
+                ['/translations/zh/cli/hashgardcli/box/', 'box'],
+                ['/translations/zh/cli/hashgardcli/faucet/send.md', 'faucet']
 
               ],
             },
@@ -199,21 +197,12 @@ module.exports = {
 
               ],
             },
-
             {
               title: '教程',
               children: [
                 ['/translations/zh/learn/installation', '安装hashgard'],
                 ['/translations/zh/learn/Guide/AccountGuide', '账户类型说明'],
                 ['/translations/zh/learn/Guide/', '测试网络指南'],
-                ['/translations/zh/learn/Guide/genesis', '创建节点'],
-                ['/translations/zh/learn/Guide/GreatValidator', '创建验证人节点'],
-                ['/translations/zh/learn/Guide/Delegate', '委托'],
-                ['/translations/zh/learn/Guide/Redelegate', '重新委托'],
-                ['/translations/zh/learn/Guide/unbond', '解绑委托'],
-                ['/translations/zh/learn/Guide/SubmitProposal', '提交在线治理'],
-                ['/translations/zh/learn/Guide/Deposit', '抵押'],
-                ['/translations/zh/learn/Guide/Vote', '投票']
               ],
             },
           ],

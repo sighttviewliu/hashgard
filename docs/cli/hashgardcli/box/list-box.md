@@ -5,12 +5,12 @@ Query box list
 
 ## Usage
 ```shell
-hashgardcli box list-box [flag] 
+hashgardcli box list-box [flag]
 ```
 
 ### flag
 
-| 名称    | type    |
+| Name    | Description   |
 | ------- | -------- |
 | lock    | lock box |
 | deposit | deposit box|
@@ -133,8 +133,3 @@ The result is as follows：
 
 
 ```
-
-
-
-
-

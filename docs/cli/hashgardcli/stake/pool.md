@@ -29,5 +29,4 @@ Loose Tokens: 99890.0000000000
 Bonded Tokens: 310.0000000000
 Token Supply: 100200.0000000000
 Bonded Ratio: 0.0030938124
-
 ```

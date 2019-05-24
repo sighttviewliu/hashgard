@@ -14,21 +14,21 @@ Create a new deposit box
 ### Subcommands
 
 
-| Name            | type  | Required  | Default| Description            |
+| Name         | Type  | Required  | Default| Description            |
 | ------------ | ------ | -------- | ------ | -------------------- |
-| name         | string | Yes       |        | depositbox name     |
-| total-amount | string | yes       |        | Total amount and coin type of deposit accepted |
+| name         | string | true      |        | depositbox name     |
+| total-amount | string | true      |        | Total amount and coin Type of deposit accepted |
 
 ### Flags
 
-| Name            | type  | Required  | Default| Description                      |
+| Name            | Type  | Required  | Default| Description                      |
 | ---------------- | ------ | -------- | ------ | ------------------------------ |
-| --bottom-line    | Int    | Yes      | ""     | depositBox bottom line        |
-| --price          | int    | Yes      | ""     |  depositBox unit price |
-| --start-time     | int    | Yes       | ""     | depositBox start time               |
-| --establish-time | int    | Yes      | ""     | Box establish time              |
-| --maturity-time  | int    | Yes      | ""     | Box maturity time                   |
-| --interest       | string | Yes      | ""     | Add indent to JSON response           |
+| --bottom-line    | Int    | true     | ""     | depositBox bottom line        |
+| --price          | int    | true     | ""     |  depositBox unit price |
+| --start-time     | int    | true      | ""     | depositBox start time               |
+| --establish-time | int    | true     | ""     | Box establish time              |
+| --maturity-time  | int    | true     | ""     | Box maturity time                   |
+| --interest       | string | true     | ""     | Add indent to JSON response           |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 
@@ -51,7 +51,7 @@ After the password is confirmed，The result is as follows：
     - action = box_create
     - category = box
     - box-id = boxab3jlxpt2ps
-    - box-type = deposit
+    - box-Type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     }
 ```

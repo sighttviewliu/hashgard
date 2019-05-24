@@ -4,12 +4,14 @@
 
 更改用于保护私钥的密码
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli keys update <name> [flags]
 ```
-
+## Flags
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+ 
 ## 例子
 
 ### 修改密码

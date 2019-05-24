@@ -8,11 +8,11 @@
 ```
  hashgardcli issue burn-from [issue-id] [acc-address][amount] --from
 ```
-## Global Flags
+## Flags
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
-### 销毁代币
+### burn token 
 ```shell
 hashgardcli issue burn-from coin174876e801 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 88 --from
 ```
@@ -26,7 +26,7 @@ hashgardcli issue burn-from coin174876e801 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7m
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 29892
-  Tags: 
+  Tags:
     - action = issue_burn_from
     - category = issue
     - issue-id = coin174876e802

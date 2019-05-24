@@ -14,7 +14,7 @@ hashgardcli distribution params [flags]
 
 **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询参数信息
 

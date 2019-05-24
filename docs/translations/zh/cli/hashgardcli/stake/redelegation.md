@@ -14,7 +14,7 @@ hashgardcli stake redelegation [delegator-addr] [src-validator-addr] [dst-valida
 
 **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询重新委托记录
 

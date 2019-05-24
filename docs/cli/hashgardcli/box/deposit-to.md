@@ -14,10 +14,10 @@ hashgardcli box deposit-to [box-id] [amount]  --from
 
 ### Subcommands
 
-| Name | type  | Required  | Default| Description    |
+| Name | Type  | Required  | Default| Description    |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | Yes  |        | box id |
-| amount | int   | Yes  |        | amount deposited  |
+| box-id | string | true |        | box id |
+| amount | int   | true |        | amount deposited  |
 
 
 
@@ -26,6 +26,7 @@ hashgardcli box deposit-to [box-id] [amount]  --from
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
+
 ### deposit
 
 ```
@@ -51,7 +52,7 @@ The result is as follows：
     - action = box_deposit
     - category = box
     - box-id = boxab3jlxpt2pw
-    - box-type = deposit
+    - box-Type = deposit
     - sender = gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65
     - operation = deposit-to
 }

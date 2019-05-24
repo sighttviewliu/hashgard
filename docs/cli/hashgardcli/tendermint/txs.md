@@ -12,11 +12,11 @@ hashgardcli tendermint txs [flags]
 
 ## Flags
 
-| Name，shorthand | type  | Required|Default| Description   |
+| Name，shorthand | Type  | Required|Default| Description   |
 | ---------- | ------ | ---- | ------ | ------------------------- |
-| --limit    | int    | No  | 32     | Query number of transactions results per page returned     |
-| --page     | int    | No  | 1      |  Query a specific page of paginated results|
-| --tags     | string | Yes  |        | tag:value list of tags that must match|
+| --limit    | int    | false  | 32     | Query number of transactions results per page returned     |
+| --page     | int    | false  | 1      |  Query a specific page of paginated results|
+| --tags     | string | true |        | tag:value list of tags that must match|
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

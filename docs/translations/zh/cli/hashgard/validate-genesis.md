@@ -4,7 +4,7 @@
 
 验证 genesis 文件内容的有效性
 
-## 使用方式
+## 用法
 
 ```
 hashgard validate-genesis [file] [flags]
@@ -12,13 +12,13 @@ hashgard validate-genesis [file] [flags]
 
 ## 参数
 
-| 命令，缩写 | 类型   | 默认值                          | 描述             | 是否必须 |
+| 名称，缩写 | 类型   | 默认值                          | 描述             | 必需 |
 | ---------- | ------ | ------------------------------- | ---------------- | -------- |
 | [file]     | string | ~/.hashgard/config/genesis.json | genesis 文件位置 | 否       |
 
 ## Flags
 
-| 命令，缩写 | 类型   | 默认值      | 描述                             | 是否必须 |
+| 名称，缩写 | 类型   | 默认值      | 描述                             | 必需 |
 | ---------- | ------ | ----------- | -------------------------------- | -------- |
 | -h, --help |        |             | add-genesis-account 模块帮助文档 | 否       |
 | --home     | string | ~/.hashgard | 配置和数据的目录                 | 否       |

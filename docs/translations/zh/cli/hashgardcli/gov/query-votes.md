@@ -4,19 +4,19 @@
 
 查询指定提案的投票情况
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli gov query-votes [proposal-id] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 
-### Query votes
+### 查询投票
 
 ```shell
 hashgardcli gov query-votes 1 --trust-node -o=json --indent

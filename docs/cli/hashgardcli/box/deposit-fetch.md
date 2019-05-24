@@ -14,10 +14,10 @@ hashgardcli box deposit-fetch [box-id] [amount]  --from
 
 ## Subcommands
 
-| Name  | type  | Required  | Default| Description      |
+| Name  | Type  | Required  | Default| Description      |
 | ------ | ------ | -------- | ------ | -------------- |
-| box-id | string | Yes    |        | Box id  |
-| amount | Int    | Yes       |        | Number of retrieved |
+| box-id | string | true   |        | Box id  |
+| amount | Int    | true      |        | Number of retrieved |
 
 
 
@@ -52,7 +52,7 @@ The result is as follows：
     - action = box_interest
     - category = box
     - box-id = boxab3jlxpt2pt
-    - box-type = deposit
+    - box-Type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = fetch
 }

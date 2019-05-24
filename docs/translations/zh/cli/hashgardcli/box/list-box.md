@@ -3,19 +3,19 @@
 ## 描述
 查询指定类型盒子列表
 
-## 使用方式
+## 用法
 ```shell
-hashgardcli box list-box [flag] 
+hashgardcli box list-box [flag]
 ```
 
 ### flag
 
-| 名称    | 类型     |
+| 名称    | 描述  |
 | ------- | -------- |
 | lock    | 锁仓盒子 |
 | deposit | 存款盒子 |
-| future  | 远期支付盒子   |
-
+| future  | 远期支付盒子  |"type"
+ ### 全局flags 参考：[hashgardcli](../README.md)
 
 
 ## 例子
@@ -132,8 +132,3 @@ hashgardcli box list-box future
 
 
 ```
-
-
-
-
-

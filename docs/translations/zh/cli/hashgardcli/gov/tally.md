@@ -4,15 +4,15 @@
 
 查询指定提案的投票统计
 
-## 使用方式
+## 用法
 
 ```
  hashgardcli gov tally [proposal-id] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
  
 
 ## 例子

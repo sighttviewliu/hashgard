@@ -1,18 +1,18 @@
 # hashgardcli issue freeze
 
 ## Description
-在没有关闭通证冻结的前提下，owenr冻结用户的转入转出功能。
+When the freeze function is turned on，Owenr freezes the transfer of the specified address.
 ## Usage
 ```shell
- hashgardcli issue freeze [freeze-type] [issue-id][acc-address][end-time] --from
+ hashgardcli issue freeze [freeze-Type] [issue-id][acc-address][end-time] --from
 ```
-### freeze-type
+### freeze-Type
 
-| 命令   | Description            |
+| Name   | Description            |
 | ------ | -------------------- |
-| in     | 该账号本通证转入功能 |
-| out    | 该账号本通证转出功能 |
-| In-out | 该账号转入和转出功能 |
+| in     | Transfer in|
+| out    | Transfer out|
+| In-out | Transfer in and out |
 
 
 
@@ -21,11 +21,12 @@
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
-### 冻结某账户转入功能
+
+### Freeze specified account transfer 
 ```shell
 hashgardcli issue freeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n\ 253382641454 --from
 ```
-输入正确的密码后，你就冻结了该地址的该通证的转入功能。
+The result is as follows：
 ```txt
 {
 Height: 2570
@@ -35,12 +36,12 @@ Height: 2570
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 16459
-  Tags: 
+  Tags:
     - action = issue_freeze
     - category = issue
     - issue-id = coin174876e800
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-    - freeze-type = in
+    - freeze-Type = in
 
 }
 ```

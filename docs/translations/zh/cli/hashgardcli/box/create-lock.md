@@ -2,13 +2,13 @@
 
 ## 描述
 用户将自己的通证进行限定期限的锁定。
-## 使用方式
+## 用法
 ```
- hashgardcli box create-lock [name] [total-amount] [end-time] --from 
+ hashgardcli box create-lock [name] [total-amount] [end-time] --from
 ```
-### 命令解释
+### 子命令
 
-| 名称         | 类型   | 是否必须 | 默认值 | 描述                 |
+| 名称         | 类型   | 必需 | 默认值 | 描述                 |
 | ------------ | ------ | -------- | ------ | -------------------- |
 | name         | string | 是       |        | 盒子的名称       |
 | total-amount | string | 是       |        | 锁定通证的种类和数量 |
@@ -16,14 +16,14 @@
 
 
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ ### 全局flags 参考：[hashgardcli](../README.md)
 
 ## 例子
 ### 创建锁定盒子
 ```shell
-hashgardcli box create-lock ff 1000coin174876e800 1558066440 --from 
+hashgardcli box create-lock ff 1000coin174876e800 1558066440 --from
 ```
 输入正确的密码后，锁定完成。
 ```txt
@@ -34,11 +34,11 @@ hashgardcli box create-lock ff 1000coin174876e800 1558066440 --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 70033
-  Tags: 
+  Tags:
     - action = box_create
     - category = box
     - box-id = boxaa3jlxpt2pt
-    - box-type = lock
+    - box-Type = lock
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     }
 ```
@@ -66,10 +66,7 @@ hashgardcli bank account gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
 
 ### 相关命令
 
-| 命令                      | 描述                   |
+| 名称                      | 描述                   |
 | ------------------------- | ---------------------- |
 | [query-box](query-box.md) | 对指定盒子进行信息查询 |
 | [list-box](list-box.md)  | 罗列指定类型盒子列表   |
-
-
-

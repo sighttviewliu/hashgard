@@ -7,7 +7,7 @@ Query the all the parameters for the governance process
 ## Usage
 
 ```
- hashgardcli gov param [param-type] [flags]
+ hashgardcli gov param [param-Type] [flags]
 ```
 ## Flags
 

@@ -1,18 +1,18 @@
-# hashgardcli box create-future 
+# hashgardcli box create-future
 
 ## 描述
 创建一个远期支付盒子，可以设定多个时间点对不同账户的账户进行远期支付。
 
-## 使用方式
+## 用法
 ```shell
-hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-file]  --from 
+hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-file]  --from
 ```
 
 
 
 ### 命令解释
 
-| 名称          | 类型   | 是否必须 | 默认值 | 描述                   |
+| 名称          | 类型   | 必需 | 默认值 | 描述                   |
 | ------------- | ------ | -------- | ------ | ---------------------- |
 | name          | string | 是       |        | 盒子的名称         |
 | total-amount  | string | 是       |        | 支付的种类和数量       |
@@ -34,14 +34,13 @@ hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-f
 ```
 
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
-
+ ### 全局flags 参考：[hashgardcli](../README.md)
 ## 例子
 ### 创建远期支付盒子
 ```shell
-hashgardcli box create-future pay 1800gard  2 ./future.json --from 
+hashgardcli box create-future pay 1800gard  2 ./future.json --from
 ```
 输入正确的密码后，远期支付盒子创建完成。
 ```txt
@@ -53,7 +52,7 @@ hashgardcli box create-future pay 1800gard  2 ./future.json --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 43797
-  Tags: 
+  Tags:
     - action = box_create_future
     - category = box
     - box-id = boxac3jlxpt2ps
@@ -65,7 +64,7 @@ hashgardcli box create-future pay 1800gard  2 ./future.json --from
 为盒子存入需要支付的存款
 
 ```
-hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from 
+hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from
 ```
 
 返回信息
@@ -79,11 +78,11 @@ hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 140217
-  Tags: 
+  Tags:
     - action = box_deposit
     - category = box
     - box-id = boxac3jlxpt2ps
-    - box-type = future
+    - box-Type = future
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = deposit-to
 }
@@ -92,7 +91,7 @@ hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from
 查询盒子信息
 
 ```
-hashgardcli box query-box boxac3jlxpt2ps 
+hashgardcli box query-box boxac3jlxpt2ps
 ```
 
 返回盒子信息
@@ -125,11 +124,8 @@ FutureInfo:
 
 ### 相关命令
 
-| 命令                        | 描述                   |
+| 名称                        | 描述                   |
 | --------------------------- | ---------------------- |
 | [deposit-to](deposit-to.md) | 对存款盒子进行分红存入 |
 | [query-box](query-box.md)   | 对指定盒子进行信息查询 |
 | [list-box](list-box.md)    | 罗列指定类型盒子列表   |
-
-
-

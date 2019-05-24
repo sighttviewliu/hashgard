@@ -2,13 +2,13 @@
 
 ## 描述
 某个代币的Owner在没有关闭持币者自己可以销毁自己持有该代币前提下，持币者对自己持有的该代币进行销毁。
-## 使用方式
+## 用法
 ```
  hashgardcli issue burn-from [issue-id] [acc-address][amount] --from
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 ### 销毁代币

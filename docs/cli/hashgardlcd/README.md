@@ -22,7 +22,7 @@ hashgardlcd has three subcommands:
 
 #### Flags
 
-| Parameter   | type  | Default                 | Required| description                         |
+| Parameter   | Type  | Default                 | Required| description                         |
 | ------------ | ------ | ----------------------- | -------- | ----- |
 | cors         | string | ""    | false    | Set the domains that can make CORS requests（\*all）   |
 | laddr     | string | "tcp://localhost:1317"  | false  | Address for server to listen on|
@@ -32,15 +32,15 @@ hashgardlcd has three subcommands:
 | ssl-keyfile  | int    | 1000                    | false    | ssl-key 文件所在目录，不设置 ssl 证书时会被忽略 |
 | tls          | bool   | false                   | false    | Open SSL/TLS                                    |
 | height       | int    | （last block height）    | false    | Get the latest block                          |
-| node         | string | "tcp://localhost:26657" | false    | Full node rpc address                            |
+| falsede         | string | "tcp://localhost:26657" | false    | Full node rpc address                            |
 | trust-node   | bool   | false                   | false    | Trust connected full nodes (Don't verify proofs for responses)   |
 | help         | bool   | false                   | false    | Print the help                                |
 | indent       | bool   | false                   | false    | Output result formatting                      |
 | ledger       | bool   | false                   | false    | Use ledger  wallet                            |
 
-#### Global flags
+#### Flags
 
-| Parameter | type  | Default               | Required| description                                      |
+| Parameter | Type  | Default               | Required| description                                      |
 | -------- | ------ | --------------------- | -------- | ----------------------------------------------- |
 | chain-id | string | null                  | true     | Chain ID of tendermint node                      |
 | encoding | string | "hex"                 | false    | Binary encoding (hex|b64|btc)|
@@ -88,7 +88,7 @@ Once hashgardlcd is started,  you can open localhost:1317/swagger-ui/ in your ex
     1. `POST /tx/sign`:  Sign a transaction
     2. `POST /tx/broadcast`: Broadcast a signed StdTx with amino encoding signature and public key
     3. `POST /txs/send`: Send a signed StdTx with amino encoding signature and public key
-    4. `GET /bank/coin/{coin-type}`: Get coin type
+    4. `GET /bank/coin/{coin-Type}`: Get coin Type
     5. `GET /bank/token-stats`: Get token statistic
     6. `GET /bank/balances/{address}`: Get account token balances
     7. `POST /bank/accounts/{address}/transfers`: Send coins
@@ -151,7 +151,7 @@ These apis are picked out from above section. And they can be used to build and 
 
 They all support the these special query parameters below. By default, their values are all false. And each parameter has its unique priority( Here 0 is the top priority). If multiple parameters are specified to true, then the parameters with lower priority will be ignored. For instance, if generate-only is true, then all other parameters, such as simulate and commit will be ignored.
 
-| parameter name| type| Default| Priority| Description                 |
+| parameter name| Type| Default| Priority| Description                 |
 | ------------- | ---- | ------ | ------ | -------------------------- |
 | generate-only | bool | false  | 0      | Build an unsigned transaction and return it back|
 | simulate      | bool | false  | 1      | Ignore the gas field and perform a simulation of a transaction, but don’t broadcast it  |

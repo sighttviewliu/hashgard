@@ -1,4 +1,4 @@
-# hashgardcli distribution 
+# hashgardcli distribution
 
 ## 介绍
 
@@ -18,8 +18,8 @@ hashgardcli distribution --help
 
 ## 子命令
 
-| 名称                            | 功能                                                   |
-| --------------------------------| --------------------------------------------------------------|
+| 名称                            | 功能    |
+| --------------------------------| ------------------------|
 | [params](params.md)  | 查询分配参数信息 |
 | [outstanding-rewards](outstanding-rewards.md)  | 查询优先（未提取）奖励 |
 | [commission](commission.md)  | 查询验证人和委托人的佣金奖励 |

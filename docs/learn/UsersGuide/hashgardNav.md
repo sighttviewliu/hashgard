@@ -1,10 +1,10 @@
-## hashgardNav
+## hashgard Portal
 
 
 
-### 官方
+### Official
 
-[Website](https://www.hashgard.io/#/)
+[Official Website](https://www.hashgard.io/#/)
 
 [企业服务官网](https://www.hashgard.com/)
 
@@ -28,7 +28,7 @@
 
 [weibo](https://www.weibo.com/p/1005056511186474/home?from=page_100505&mod=TAB&is_all=1&display=0&retcode=6102)
 
-微信公众号：临界Hashgard
+wechat：临界Hashgard
 
 ### market
 

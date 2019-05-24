@@ -6,7 +6,7 @@
 
 
 
-|  账户类型   |    ConsAddress     |     ValAddress     |
+|  Name |    ConsAddress     |     ValAddress     |
 | :---------: | :----------------: | :----------------: |
 | AccAddress  |      普通账户      | 转账，委托，投票等 |
 | ConsAddress | tendermint共识地址 |   验证者进行签名   |
@@ -21,7 +21,7 @@
 
 
 
-`ValAddress`和`ConsAddress`本质是同一个地址，也就是来自于`priv_validator.json`文件的地址。 
+`ValAddress`和`ConsAddress`本质是同一个地址，也就是来自于`priv_validator.json`文件的地址。
 通过客户端产生一个普通的`AccAddress`，此地址所代表的账户可以把自己的代币利用`create-validator`命令对来自于`priv_validator.json`文件的公钥进行创建验证者申请，一旦申请交易成功，`AccAddress`这个地址所代表的账户就和来自于`priv_validator.json`文件的`ValAddress`地址产生了映射，以后别的普通账户要对一个验证者进行委托，委托的对象将会是`AccAddress`这个地址所代表的账户，而不是直接委托给来自于`priv_validator.json`文件的`ValAddress`地址，因为地址不可以委托，只能账户才能接受委托。
 
 

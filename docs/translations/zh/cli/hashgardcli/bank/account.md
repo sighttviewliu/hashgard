@@ -4,19 +4,19 @@
 
 查询账户信息
 
-## 使用方式
+## 用法
 
 ```
-hashgardcli bank account [address] [flags] 
+hashgardcli bank account [address] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ ### 全局flags 参考：[hashgardcli](../README.md)
 
 ## 例子
 
-### 查询账户信息 
+### 查询账户信息
 
 ```
  hashgardcli bank account gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx -o json --trust-node --indent

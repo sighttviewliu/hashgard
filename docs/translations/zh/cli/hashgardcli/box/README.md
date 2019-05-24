@@ -8,7 +8,7 @@
 - 存款盒子
 - 远期支付盒子
 
-## 使用方式
+## 用法
 
 ```shell
 hashgardcli box [command]
@@ -22,7 +22,7 @@ hashgardcli box --help
 
 ## 相关命令
 
-| 命令                                        | 描述                                   |
+| 名称                                   | 描述                                   |
 | ------------------------------------------- | -------------------------------------- |
 | [create-lock](create-lock.md)               | 创建一个锁定存款的盒子。               |
 | [create-deposit](create-deposit.md)         | 创建一个存款盒子。                  |
@@ -34,4 +34,3 @@ hashgardcli box --help
 | [describe](describe.md)                     | 对于盒子的描述与介绍。                 |
 | [list-box](list-box.md)                     | 查询不同类型盒子列表                   |
 | [query-box](query-box.md)                   | 指定查询盒子信息内容                   |
-

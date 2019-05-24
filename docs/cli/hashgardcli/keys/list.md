@@ -24,7 +24,6 @@ hashgardcli keys list
 You'll get all the local public keys with 'address' and 'pubkey' element.
 
 ```txt
-NAME:	TYPE:	ADDRESS:						            PUBKEY:
+NAME:	Type:	ADDRESS:						            PUBKEY:
 abc  	local	gardva2eu9qhwn5fx58kvl87x05ee4qrgh44yd8teh	gardpub1addwnpepqvu549hgyhnxlveqmtdn2xywygxpgzcsqefxur47zkz4e0e9x67hvjr6r6p
 ```
-

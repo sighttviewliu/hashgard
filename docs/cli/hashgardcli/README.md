@@ -1,9 +1,9 @@
 # Command Line Client
 
-## Global flags of commands
+## Flags of commands
 
-| Name, shorthand| type  | Required| Default               | Description                                                  |
-| ------------ | ------ | ----- | --------------------- | ------------------------------------------------------------ |
+| Name, shorthand| Type  | Required| Default               | Description    |
+| ------------ | ------ | ----- | -------------------- | ------------ |
 | --chain-id   | string | false | ""                    | Chain ID of tendermint node                                |
 | --encoding   | string | false | "hex"                 | Encoding format(hex, b64, btc)                             |
 | --home       | string | false | "\$HOME/.hashgardcli" | directory for config and data                              |
@@ -17,7 +17,7 @@
 
 ## Flags of query
 
-| Name,shorthand | type| Required| Default| Description          |
+| Name,shorthand | Type| Required| Default| Description          |
 | ---------- | ---- | ----- | ------ | --------------------------|
 | --height   | int  | false | 0      | Block height to query, omit to get most recent provable block |
 
@@ -25,7 +25,7 @@ All query commands has these global flags. Their unique flags will be introduced
 
 ##  Flags of commands to send transactions
 
-|Name, shorthand| type  | Required| Default| Description            |
+|Name, shorthand| Type  | Required| Default| Description            |
 | ---------------- | ------ | ----- | ------ | ---------------- |
 | --account-number | int    | false | 0      | AccountNumber to sign the tx                |
 | --async          | bool   | false | false  | broadcast transactions asynchronously(only works with commit = false)|

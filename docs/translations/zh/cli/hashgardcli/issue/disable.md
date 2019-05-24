@@ -4,7 +4,7 @@
 
 对代币的高级功能进行关闭，且该关闭不可逆。
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli issue disable [issue-id][flags] --from
@@ -12,7 +12,7 @@ hashgardcli issue disable [issue-id][flags] --from
 
 ## Flags
 
-| 名称          | 类型 | 是否必须 | 默认值 | 描述                                    |
+| 名称          | 类型 | 必需 | 默认值 | 描述                                    |
 | ------------- | ---- | -------- | ------ | --------------------------------------- |
 | --burn-owner  | bool | 否       | false  | 关闭代币所有者销毁自己持有的代币功能    |
 | --burn-holder | bool | 否       | false  | 关闭普通账号销毁该自己持有的代币功能    |
@@ -20,9 +20,7 @@ hashgardcli issue disable [issue-id][flags] --from
 | --minting     | bool | 否       | false  | 关闭增发功能                        |
 | --freeze      | bool | 否       | false  | 关闭冻结用户转入转出功能                |
 
-## Global Flags
-
-### 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 
@@ -32,7 +30,7 @@ hashgardcli issue disable [issue-id][flags] --from
 hashgardcli issue disable coin174876e800 minting --from=
 ```
 
-输入正确的密码之后，你就讲你的通证的增发功能关闭了。
+输入正确的密码之后，你就将你的通证的增发功能关闭了。
 
 ```txt
 {
@@ -43,7 +41,7 @@ hashgardcli issue disable coin174876e800 minting --from=
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 23013
-  Tags: 
+  Tags:
     - action = issue_disable_feature
     - category = issue
     - issue-id = coin174876e800
@@ -55,7 +53,7 @@ hashgardcli issue disable coin174876e800 minting --from=
 查询该通证情况
 
 ```shell
-hashgardcli issue query-issue coin174876e800 
+hashgardcli issue query-issue coin174876e800
 ```
 
 你会看到增发代币的功能已经关闭。
@@ -72,11 +70,11 @@ hashgardcli issue query-issue coin174876e800
   Decimals:         			18
   IssueTime:					1558163118
   Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
-  BurnOwnerDisabled:  			false 
-  BurnHolderDisabled:  			false 
-  BurnFromDisabled:  			false 
-  FreezeDisabled:  				false 
-  MintingFinished:  			true 
+  BurnOwnerDisabled:  			false
+  BurnHolderDisabled:  			false
+  BurnFromDisabled:  			false
+  FreezeDisabled:  				false
+  MintingFinished:  			true
 
 }
 ```

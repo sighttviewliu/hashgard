@@ -12,10 +12,10 @@ hashgardcli keys delete <name> [flags]
 
 ## Flags
 
-| Name, shorthand | type| Required  | Default    | Description                                                    |
-| --------------- | --------- | ------------------------------------------------------------ | --------------- | --------------- |
-| -f, --force | bool | No| false | Remove the key unconditionally without asking for the passphrase     |
-| -y, --yes | bool | No| false | Skip confirmation prompt when deleting offline or ledger key references|
+| Name, shorthand | Type| Required  | Default    | Description    |
+| ------------- | ------ | --------- | --------- | ------------- |
+| -f, --force | bool | false| false | Remove the key unconditionally without asking for the passphrase     |
+| -y, --yes | bool | false| false | Skip confirmation prompt when deleting offline or ledger key references|
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

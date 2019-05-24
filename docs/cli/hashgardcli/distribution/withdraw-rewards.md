@@ -12,9 +12,9 @@ hashgardcli distribution withdraw-rewards [validator-addr] [flags]
 
 ## Flags
 
-| Name               | type  | Required| Default | description        |
+| Name               | Type  | Required| Default | description        |
 | --------------------- | -----  | -------- | -------- | --- |
-| --commission | bool | No| false  | also withdraw validator's commission |
+| --commission | bool | false| false  | also withdraw validator's commission |
 
 ## Flags
 

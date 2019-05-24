@@ -52,7 +52,9 @@
 6. [status command](./status.md)
 7. [tendermint command](./tendermint/README.md)
 8. [slashing command](./slashing/README.md)
-9. 
+9. [issue command](./issue/README.md)
+10. [box command](./box/README.md)
+11. [faucet command](./faucet/send.md)
 
 ## hashgardcli config 命令
 

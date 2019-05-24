@@ -14,7 +14,7 @@ hashgardcli stake delegate [validator-addr] [amount] [flags]
 
 **全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 ```shell
 hashgardcli stake delegate \

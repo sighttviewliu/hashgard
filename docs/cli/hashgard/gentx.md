@@ -23,22 +23,22 @@ delegation amount:           100000000000000000000agard
 
 ## Flags
 
-| Name，shorthand               | type  | Default        | description                                         | Required  |
+| Name，shorthand               | Type  | Default        | description                                         | Required  |
 | ---------------------------- | ------ | -------------- | ------------------------------------- | -------- |
 | --amount                     | string |                |  Amount of coins to bond                | `Yes`     |
-| --commission-max-change-rate | string |                | The maximum commission change rate percentage (per day) | No  |
-| --commission-max-rate        | string |                | The maximum commission rate percentage           | No  |
-| --commission-rate            | string |                | The initial commission rate percentage           | No  |
-| --home-client                | string | ~/.hashgardcli | client's home directory                          | No  |
-| --ip                         | string | localhost IP   | The node's public IP                             | No  |
+| --commission-max-change-rate | string |                | The maximum commission change rate percentage (per day) | false  |
+| --commission-max-rate        | string |                | The maximum commission rate percentage           | false  |
+| --commission-rate            | string |                | The initial commission rate percentage           | false  |
+| --home-client                | string | ~/.hashgardcli | client's home directory        | false  |
+| --ip                         | string | localhost IP   | The node's public IP                             | false  |
 | --min-self-delegation        | string |                | The minimum self delegation required on the validator  | `true`     |
-| --name                       | string |                | name of private key with which to sign the gentx   | No  |
-| --node-id                    | string |            | The node's NodeID                                  | No  |
-| --output-document            | string |                | write the genesis transaction JSON document to the given file instead of the default location| No  |
-| --pubkey                     | string |                | The Bech32 encoded PubKey of the validator                   | No  |
-| -h, --help                   |        |                | help for gentx                               | No  |
-| --home                       | string | ~/.hashgard    | directory for config and data                     | No  |
-| --trace                      | bool   |                | print out full stack trace on error         | No  |
+| --name                       | string |                | name of private key with which to sign the gentx   | false  |
+| --node-id                    | string |            | The node's NodeID                                  | false  |
+| --output-document            | string |                | write the genesis transaction JSON document to the given file instead of the default location| false  |
+| --pubkey                     | string |                | The Bech32 encoded PubKey of the validator                   | false  |
+| -h, --help                   |        |                | help for gentx                               | false  |
+| --home                       | string | ~/.hashgard    | directory for config and data                     | false  |
+| --trace                      | bool   |                | print out full stack trace on error         | false  |
 
 ## Example
 

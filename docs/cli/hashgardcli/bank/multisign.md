@@ -14,9 +14,9 @@ hashgardcli bank multisign [file] [name] [[signature]...] [flags]
 
 ## Flags
 
-| Name   | Type   | Required | Default | Description                                                  |
+| Name   | Type   | Required | Default | Description        |
 | ----------------- | ------ | -------- | ------- | --------------- |
-| --offline         | bool   | false    | false   | Off-chain mode, do not query the full node                   |
+| --offline         | bool   | false    | false   | Off-chain mode, do not query the full node    |
 | --output-document | string | false    | false   | The document will be written to the given file instead of STDOUT |
 | --signature-only  | bool   | false    | false   | Print only the generated signature and then exit             |
 
@@ -47,7 +47,7 @@ hashgardcli keys show --address a123
 ```
 
 ```bash
-NAME:   TYPE:   ADDRESS:                                                PUBKEY:
+NAME:   Type:   ADDRESS:                                                PUBKEY:
 a123  offline gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n     gardpub1ytql0csgqgfzd666axrjzq7lfft2evw9r7j0u3t7yj4qjy5rczhncv8ysykrp35cpjpklsj5rcfzd666axrjzquew3ad0vgywr7gmgszly9wnw2mwxc3k7dttlmm780g5y9djw8vcgfzd666axrjzq63kk98gyurzz2rewxxhd4dxvvdfsnsdtegajrcez3exg3yu9q0a5kpkkj3
 ```
 

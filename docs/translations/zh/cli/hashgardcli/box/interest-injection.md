@@ -5,31 +5,31 @@
 
 
 
-## 使用方式
+## 用法
 ```shell
-hashgardcli box interest-injection [box-id] [amount]  --from 
+hashgardcli box interest-injection [box-id] [amount]  --from
 ```
 
 
 
-### 命令解释
+### 子命令
 
-| 名称   | 类型   | 是否必须 | 默认值 | 描述                   |
+| 名称   | 类型   | 必需 | 默认值 | 描述                   |
 | ------ | ------ | -------- | ------ | ---------------------- |
 | box-id | string | 是       |        | 盒子的id           |
 | amount | int    | 是       |        | 注入存款盒子的利息数量 |
 
 
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 ### 进行利息的注入
 
 ```
-hashgardcli box interest-injection boxab3jlxpt2ps 9898  --from 
+hashgardcli box interest-injection boxab3jlxpt2ps 9898  --from
 ```
 
 PS：interest-injection注入的数量是指按最大值和时间来计算的。譬如发行一个10000gard的存款盒子，周期是10天，达成存款数量为2000，利息总量是500apple。那么日利率为500/10/10000=0.5%。在establish-time的时候，如果只有5000gard存入，那么系统会自动退回500*5000/10000=250gard 至利息注入的账户。
@@ -47,11 +47,11 @@ PS：interest-injection注入的数量是指按最大值和时间来计算的。
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 50800
-  Tags: 
+  Tags:
     - action = box_interest
     - category = box
     - box-id = boxab3jlxpt2ps
-    - box-type = deposit
+    - box-Type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = injection
 }
@@ -63,9 +63,6 @@ PS：interest-injection注入的数量是指按最大值和时间来计算的。
 
 ### 相关命令
 
-| 命令                                | 描述                     |
+| 名称                                | 描述                     |
 | ----------------------------------- | ------------------------ |
 | [interest-fetch](interest-fetch.md) | 用户对已经存入的利息取回 |
-
-
-

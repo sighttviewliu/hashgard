@@ -4,18 +4,17 @@
 
 离线广播事务
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli bank broadcast [file_path] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ ### 全局flags 参考：[hashgardcli](../README.md)
 
 ## 例子
 
 ```
 hashgardcli bank broadcast mytxn.json --chain-id=hashgard
 ```
-

@@ -14,7 +14,7 @@ hashgardcli slashing signing-info [validator-conspub] [flags]
 
 **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询验证人的签名信息
 

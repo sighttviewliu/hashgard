@@ -12,7 +12,7 @@ hashgardcli stake edit-validator [flags]
 
 ## Flags
 
-| Name             | type  | Required| Default           | Description           |
+| Name             | Type  | Required| Default           | Description           |
 | ----------------- | ------ | -------- | ----------------- | -------------------- |
 | --commission-rate | float  | false    | 0.0               | The new commission rate percentage|
 | --details         | string | false    | "[do-not-modify]" | The validator's (optional) details |

@@ -4,7 +4,7 @@
 
 签名生成的离线传输文件。该文件由 --generate-only 标志生成。
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli bank sign [file] [flags]
@@ -12,7 +12,7 @@ hashgardcli bank sign [file] [flags]
 
 ## Flags
 
-| 命令       | 类型    | 是否必须 | 默认值                | 描述                                                         |
+| 名称       | 类型    | 必需 | 默认值                | 描述                                                         |
 | ---------------- | ------- | -------- | --------------------- | ------------------------------------------------------------ |
 | --append | bool | 否 | true | 将签名附加到现有签名。如果禁用，旧签名将被覆盖。如果--multisig打开则忽略（默认为true） |
 | --multisig | string | 否 | | 代表交易签署的multisig帐户的地址 |
@@ -22,9 +22,7 @@ hashgardcli bank sign [file] [flags]
 | --signature-only | bool | 否 | | 仅打印生成的签名，然后退出 |
 | --validate-signatures | bool | 否 | false | 打印必须签署交易的地址，已签名的地址，并确保签名的顺序正确 |
 
-## Global Flags
-
- ### 参考：[hashgardcli](../README.md)
+ ### 全局flags 参考：[hashgardcli](../README.md)
 
 ## 例子
 

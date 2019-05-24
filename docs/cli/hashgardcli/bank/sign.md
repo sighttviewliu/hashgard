@@ -12,15 +12,15 @@ hashgardcli bank sign [file] [flags]
 
 ## Flags
 
-| Name   | type   | Required  | Default        | Description                  |
+| Name   | Type   | Required  | Default        | Description                  |
 | ---------------- | ------- | -------- | --------------------- | ------------------------------------------------------------ |
-| --append | bool | No| true | Append the signature to the existing ones. If disabled, old signatures would be overwritten. Ignored if --multisig is on |
-| --multisig | string | No| |  Address of the multisig account on behalf of which the transaction shall be signed |
-| --from | string | No| |  Name or address of private key with which to sign|
-| --offline | bool | No| false |  Offline mode; Do not query a full node|
+| --append | bool | false| true | Append the signature to the existing ones. If disabled, old signatures would be overwritten. Ignored if --multisig is on |
+| --multisig | string | false| |  Address of the multisig account on behalf of which the transaction shall be signed |
+| --from | string | false| |  Name or address of private key with which to sign|
+| --offline | bool | false| false |  Offline mode; Do not query a full node|
 | --output-document | string |  |  | The document will be written to the given file instead of STDOUT |
-| --signature-only | bool | No| | Print only the generated signature, then exit|
-| --validate-signatures | bool | No| false |  Print the addresses that must sign the transaction, those who have already signed it, and make sure that signatures are in the correct order|
+| --signature-only | bool | false| | Print only the generated signature, then exit|
+| --validate-signatures | bool | false| false |  Print the addresses that must sign the transaction, those who have already signed it, and make sure that signatures are in the correct order|
 
 
 **Global flags, query command flags** [hashgardcli](../README.md)

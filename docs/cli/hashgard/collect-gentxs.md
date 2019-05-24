@@ -10,12 +10,12 @@ hashgard collect-gentxs [flags]
 ```
 
 ## Flags
-| Name，shorthand| type  | Default                   | description                   | Required |
+| Name，shorthand| Type  | Default                   | description                   | Required |
 | ----------- | ------ | ------------------------- | ------------------------------ | -------- |
-| --gentx-dir | string | ~/.hashgard/config/gentx/ |  override default "gentx" directory from which collect and execute genesis transactions| No  |
-| -h, --help  |        |                           |  help for collect-gentxs                    | No  |
-| --home      | string | ~/.hashgard               |  directory for config and data              | No  |
-| --trace     | bool   |                           | print out full stack trace on erro          | No  |
+| --gentx-dir | string | ~/.hashgard/config/gentx/ |  override default "gentx" directory from which collect and execute genesis transactions| false  |
+| -h, --help  |        |                           |  help for collect-gentxs                    | false  |
+| --home      | string | ~/.hashgard               |  directory for config and data              | false  |
+| --trace     | bool   |                           | print out full stack trace on erro          | false  |
 
 ## Example
 `hashgard collect-gentxs`

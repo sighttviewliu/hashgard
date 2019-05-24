@@ -4,15 +4,15 @@
 
 查询保证金的充值明细
 
-## 使用方式
+## 用法
 
 ```
  hashgardcli gov query-deposit [proposal-id] [depositer-addr] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 

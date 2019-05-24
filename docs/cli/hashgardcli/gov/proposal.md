@@ -12,7 +12,7 @@ hashgardcli gov proposal [proposal-id] [flags]
 ## Flags
 
 **Global flags, query command flags** [hashgardcli](../README.md)
- 
+
 ## Example
 
 ### Query specified proposal
@@ -30,7 +30,7 @@ The result is as follows：
     "proposal_id": "1",
     "title": "notice proposal",
     "description": "a new text proposal",
-    "proposal_type": "Text",
+    "proposal_Type": "Text",
     "proposal_status": "DepositPeriod",
     "tally_result": {
       "yes": "0.0000000000",

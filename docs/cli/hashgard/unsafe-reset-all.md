@@ -14,8 +14,8 @@ hashgard unsafe-reset-all [flags]
 
 | Name, shorthand|Default     | description               | Required  |
 | ---------- | ----------- | ------------------------- | -------- |
-| -h, --help |             | help for unsafe-reset-all| No  |
-| --home     | ~/.hashgard | directory for config and data  | No    |
+| -h, --help |             | help for unsafe-reset-all| false  |
+| --home     | ~/.hashgard | directory for config and data  | false    |
 
 ## Example
 

@@ -2,13 +2,13 @@
 
 ## 描述
 Owner可以对自己代币进行补充描述，描述文件使用不超过1024字节的json格式。可以自定义各种属性，也可以使用官方推荐的模板。
-## 使用方式
+## 用法
 ```
  hashgardcli issue describe [issue-id] [description-file] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 ### 给代币设置描述

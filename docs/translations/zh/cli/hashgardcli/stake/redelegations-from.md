@@ -14,7 +14,7 @@ hashgardcli stake redelegations-from [validator-address] [flags]
 
 **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 基于某一验证人的所有重新委托查询
 

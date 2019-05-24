@@ -12,7 +12,7 @@ hashgardcli stake create-validator [flags]
 
 ## Flags
 
-| Name                         | type  | Required| Default| Description                                   |
+| Name                         | Type  | Required| Default| Description      |
 | ---------------------------- | ------ | -------- | ------ | --------------------------- |
 | --address-delegator          | string | false    | ""     | delegator address                          |
 | --amount                     | string | true     | ""     | Amount of coins to bond                    |

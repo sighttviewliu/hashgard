@@ -2,13 +2,13 @@
 
 ## 描述
 Owner可以对自己发行的盒子进行补充描述，描述文件使用不超过1024字节的json格式。可以自定义各种属性，也可以使用官方推荐的模板。
-## 使用方式
+## 用法
 ```
  hashgardcli box describe [box-id] [description-file] --from
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 ### 给盒子设置描述
@@ -38,7 +38,7 @@ hashgardcli box describe boxac3jlxpt2pt ./description.json  --from
     - action = box_description
     - category = box
     - box-id = boxac3jlxpt2pt
-    - box-type = future
+    - box-Type = future
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
 }
 ```

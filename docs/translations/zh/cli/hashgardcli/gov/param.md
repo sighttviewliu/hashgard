@@ -4,14 +4,14 @@
 
 查询治理过程的参数（投票）
 
-## 使用方式
+## 用法
 
 ```
- hashgardcli gov param [param-type] [flags]
+ hashgardcli gov param [param-Type] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
  
 
 ## 例子

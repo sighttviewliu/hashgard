@@ -4,14 +4,14 @@
 
 查询单个提案的详情
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli gov proposal [proposal-id] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
  
 ## 例子
 
@@ -30,7 +30,7 @@ hashgardcli gov proposal 1 --trust-node -o=json --indent
     "proposal_id": "1",
     "title": "notice proposal",
     "description": "a new text proposal",
-    "proposal_type": "Text",
+    "proposal_Type": "Text",
     "proposal_status": "DepositPeriod",
     "tally_result": {
       "yes": "0.0000000000",

@@ -1,6 +1,6 @@
 # hashgardcli slashing unjail
 
-## Description 
+## Description
 
 在 PoS 网络中，验证人的收益主要来自于 staking 抵押获利，
 但是若他们不能保持在线，就会被当作一种作恶行为。

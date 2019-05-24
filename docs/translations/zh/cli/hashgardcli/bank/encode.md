@@ -5,18 +5,18 @@
 对使用--generate-only标志创建的事务进行编码，并使用sign命令进行签名。
 从<file>读取事务，将其序列化为Amino wire协议，并将其输出为base64。
 如果您提供短划线（ - ）参数来代替输入文件名，则该命令将从标准输入读取。
-## 使用方式
+## 用法
 
 ```
 hashgardcli bank encode [file] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ ### 全局flags 参考：[hashgardcli](../README.md)
 
 ## 例子
 
-### 发送通证到指定地址 
+### 发送通证到指定地址
 
 ```
 hashgardcli bank encode sign.json

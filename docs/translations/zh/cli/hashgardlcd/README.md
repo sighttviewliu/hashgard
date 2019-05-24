@@ -10,7 +10,7 @@
 
 hashgardlcd 有三个子命令:
 
-| 子命令  | 功能                      | 示例命令                                  |
+| 名称 | 功能                      | 例子命令                                  |
 | ------- | ------------------------- | ----------------------------------------- |
 | help    | 打印帮助信息              | hashgardlcd help                          |
 | version | 打印版本信息              | hashgardlcd version                       |
@@ -22,7 +22,7 @@ hashgardlcd 有三个子命令:
 
 #### Flags
 
-| 参数名称     | 类型   | 默认值                  | 是否必填 | 功能描述                                        |
+| 名称     | 类型   | 默认值                  | 是否必填 | 功能描述                                        |
 | ------------ | ------ | ----------------------- | -------- | ----------------------------------------------- |
 | cors         | string | ""                      | false    | 允许跨域访问的地址（\*允许所有）                |
 | laddr        | string | "tcp://localhost:1317"  | false    | 侦听的地址和端口                                |
@@ -32,7 +32,7 @@ hashgardlcd 有三个子命令:
 | ssl-keyfile  | int    | 1000                    | false    | ssl-key 文件所在目录，不设置 ssl 证书时会被忽略 |
 | tls          | bool   | false                   | false    | 打开 SSL/TLS                                    |
 | height       | int    | （最新区块高度）        | false    | 查询的区块高度                                  |
-| node         | string | "tcp://localhost:26657" | false    | 全节点的 rpc 地址                               |
+| falsede         | string | "tcp://localhost:26657" | false    | 全节点的 rpc 地址                               |
 | trust-node   | bool   | false                   | false    | 是否信任全节点                                  |
 | help         | bool   | false                   | false    | 打印帮助信息                                    |
 | indent       | bool   | false                   | false    | 输出结果格式化                                  |
@@ -40,7 +40,7 @@ hashgardlcd 有三个子命令:
 
 #### 全局 flags
 
-| 参数名称 | 类型   | 默认值                | 是否必填 | 功能描述                                        |
+| 名称 | 类型   | 默认值                | 是否必填 | 功能描述                                        |
 | -------- | ------ | --------------------- | -------- | ----------------------------------------------- |
 | chain-id | string | null                  | true     | Tendermint 节点的 chain ID                      |
 | encoding | string | "hex"                 | false    | 设置字节编码，(可选 hex、b64、btc)              |
@@ -48,7 +48,7 @@ hashgardlcd 有三个子命令:
 | output   | string | text                  | false    | 输出格式(text、json)                            |
 | trace    | bool   | false                 | false    | 报错时是否打印完整调用栈                        |
 
-## 示例命令
+## 例子命令
 
 1. 默认情况下，hashgardLCD 不信任连接全节点。但是如果您确定连接的完整节点是可信的，那么您应该在启动 hashgardLCD 时加上`--trust-node`：
 
@@ -88,7 +88,7 @@ hashgardlcd 启动以后，您可以在浏览器中访问`localhost:1317/swagger
     1. `POST /tx/sign`: 签名交易
     2. `POST /tx/broadcast`: 广播一个 amino 编码的交易
     3. `POST /txs/send`: 广播一个非 amino 编码的交易
-    4. `GET /bank/coin/{coin-type}`: 查询 coin 的类型信息
+    4. `GET /bank/coin/{coin-Type}`: 查询 coin 的类型信息
     5. `GET /bank/token-stats`: 查询 token 统计信息
     6. `GET /bank/balances/{address}`: 查询账户的 token 数量
     7. `POST /bank/accounts/{address}/transfers`: 发起转账交易

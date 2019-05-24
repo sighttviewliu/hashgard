@@ -12,29 +12,29 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
 
 ## Flags
 
-| Name          | type| Required  | Default| Description                               |
+| Name          | Type| Required  | Default| Description                               |
 | ------------- | ---- | -------- | ------ | --------------------------------------- |
-| --decimals    | int  | Yes    | 18     | Decimals of the token |
-| --burn-owner  | Bool | No   | false  | Disable token owner burn the token |
-| --burn-holder | bool | No  | false  | 关闭普通账号销毁该自己持有的代币功能    |
-| --burn-from   | bool | No   | false  | 关闭Owner销毁非管理员账户持有的代币功能 |
-| --minting     | bool | No   | false  | 是否不再增发功能                        |
-| --freeze      | bool | No | false  | 关闭冻结用户转入转出功能                |
+| --decimals    | int  | true   | 18     | Decimals of the token |
+| --burn-owner  | Bool | false   | false  | Disable owner to burn your own token|
+| --burn-holder | bool | false  | false  | Disable Non-owner users burn their own tokens|
+| --burn-from   | bool | false   | false  | Disable owner burning other user tokens|
+| --minting     | bool | false   | false  | Disable the mint              |
+| --freeze      | bool | false | false  | Disable freeze          |
 
 
 
-## Global Flags
+## Flags
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
 
-### 发行一个新币
+### Issue a new coin
 
 ```shell
 hashgardcli issue create issuename AAA 10000000000000 --from
 ```
 
-输入正确的密码之后，你就完成发行了一个代币，需要注意的是要记下你的issue-id值，这是可以检索及操作你的代币的唯一要素。
+The result is as follows：
 
 ```txt
 {
@@ -45,7 +45,7 @@ hashgardcli issue create issuename AAA 10000000000000 --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 43428
-  Tags: 
+  Tags:
     - action = issue
     - category = issue
     - issue-id = coin174876e802
@@ -53,13 +53,13 @@ hashgardcli issue create issuename AAA 10000000000000 --from
 }
 ```
 
-查询自己的账号
+Query account
 
 ```shell
 hashgardcli bank account gard1f203m5q7hr4tkf0vredrn4wpxkx7zngn4pntye
 ```
 
-你将会看到你的持币列表里多了一个形如“币名（issue-id）”特殊名称的币。后续对该币的操作请使用issue-id的值来进行，包括进行转账操作，要转的币也请使用该issue-id。
+There is a `coin (issue-id)` token in your token list.
 
 ```
 {

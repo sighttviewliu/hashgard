@@ -14,7 +14,7 @@ hashgardcli stake delegations [delegator-address] [flags]
 
 **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询某个委托人发起的所有委托记录
 

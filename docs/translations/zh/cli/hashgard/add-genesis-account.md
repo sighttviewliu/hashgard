@@ -4,7 +4,7 @@
 
 将 genesis 帐户添加到 /path/to/.hashgard/config/genesis.json 文件中
 
-## 使用方式
+## 用法
 
 ```
 hashgard add-genesis-account [address_or_key_name] [coin][,[coin]] [flags]
@@ -12,14 +12,14 @@ hashgard add-genesis-account [address_or_key_name] [coin][,[coin]] [flags]
 
 ## 参数
 
-| 命令，缩写            | 类型   | 默认值 | 描述                       | 是否必须 |
+| 名称，缩写            | 类型   | 默认值 | 描述                       | 必需 |
 | --------------------- | ------ | ------ | -------------------------- | -------- |
 | [address_or_key_name] | string |        | 被添加的账户名或地址       | `是`     |
 | [coin]                | string |        | 为该账户分配的 coin 及数量 | `是`     |
 
 ## Flags
 
-| 命令，缩写           | 类型   | 默认值         | 描述                             | 是否必须 |
+| 名称，缩写           | 类型   | 默认值         | 描述                             | 必需 |
 | -------------------- | ------ | -------------- | -------------------------------- | -------- |
 | -h, --help           |        |                | add-genesis-account 模块帮助文档 | 否       |
 | --home-client        | string | ~/.hashgardcli | 客户端根目录                     | 否       |

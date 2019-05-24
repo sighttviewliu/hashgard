@@ -17,10 +17,10 @@ hashgardcli box interest-injection [box-id] [amount]  --from
 
 ### Subcommands
 
-| Name | type  | Required  | Default| Description              |
+| Name | Type  | Required  | Default| Description              |
 | ------ | ------ | -------- | ------ | ---------------------- |
-| box-id | string | Yes      |        | box id           |
-| amount | int    | Yes     |         | amount of interest |
+| box-id | string | true     |        | box id           |
+| amount | int    | true    |         | amount of interest |
 
 
 
@@ -56,7 +56,7 @@ The result is as follows：
     - action = box_interest
     - category = box
     - box-id = boxab3jlxpt2ps
-    - box-type = deposit
+    - box-Type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = injection
 }

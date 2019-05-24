@@ -19,7 +19,7 @@ hashgardcli slashing unjail [flags]
 
 **全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 检查这个验证人保持 `jailed` 状态的截止时间：
 

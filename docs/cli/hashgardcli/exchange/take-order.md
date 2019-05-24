@@ -12,10 +12,11 @@ hashgardcli exchange take-order [order_id] [flags]
 
 ## Flags
 
-| Name      | type                 | Required                  | Default                     | Description           |
+| Name      | Type                 | Required                  | Default                     | Description           |
 | --------------- | -------------------------- | ------------- | ---------------- | ------------------------------ |
-| --amount     | string | Yes| "" | coin tpye and quantity the buyer uses for the transaction|                |
+| --amount     | string | true| "" | coin tpye and quantity the buyer uses for the transaction|                |
 **Global flags, query command flags** [hashgardcli](../README.md)
+
 ## 计算
 
 A(supply) 为supply的数量，A(target) 为target的数量， A(remains) 是remains的数量（订单创建时，A(supply) = A(target) ）
@@ -44,10 +45,6 @@ Shares(remains) = A(remains) / Price(supply)
 Sum(supply) = Shares(actual) * Price(supply), 这部分的金额会从订单的 A(remains)中扣除， 并加到买家的账户里。
 5. 如果最后 A(remains) 没有剩余，这该挂单被吃光，删除该挂单。
 
-
-## Flags
-
-**Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
 

@@ -2,7 +2,7 @@
 
 ## Description
 
-Submit a proposal along with an initial deposit. Proposal type：Text/ParameterChange/SoftwareUpgrade。
+Submit a proposal along with an initial deposit. Proposal Type：Text/ParameterChange/SoftwareUpgrade。
 
 ## Usage
 
@@ -11,25 +11,24 @@ hashgardcli gov submit-proposal [flags]
 ```
 ## Flags
 
-| name       | type               | Required      | Required                   | Description      |
+| name       | Type               | Required      | Required                   | Description      |
 | ---------------- | -------------------------- | ------------ | -------------- | --------------- |
-| --deposit        | string | No| "" | deposit of proposal                                                                                                     |
-| --description    | string | Yes | "" | description of proposal                                                                                   |
-| --proposal | string | No| "" | proposal file path (if this path is given, other proposal flags are ignored)                 |
-| --title          | string | Yes | "" | title of proposal                                                                                                         |
-| --type           | string | Yes | "" | proposalType of proposal, types: text/parameter_change/software_upgrade    |
+| --deposit        | string | false| "" | deposit of proposal                                                                                                     |
+| --description    | string | true| "" | description of proposal                                                                                   |
+| --proposal | string | false| "" | proposal file path (if this path is given, other proposal flags are ignored)                 |
+| --title          | string | true| "" | title of proposal                                                                                                         |
+| --Type           | string | true| "" | proposalType of proposal, Types: text/parameter_change/software_upgrade    |
 
-## Global Flags
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
 
-### Submit a 'text' type proposal
+### Submit a 'text' Type proposal
 
 ```shell
 hashgardcli gov submit-proposal \
     --title="notice proposal" \
-    --type="Text" \
+    --Type="Text" \
     --description="a new text proposal" \
     --from=foo
 ```
@@ -60,7 +59,7 @@ hashgardcli gov submit-proposal \
  ]
 }
 ```
-### Submit a 'Text' type proposal
+### Submit a 'Text' Type proposal
 ```bash
 hashgardcli gov submit-proposal \
     --proposal="path/to/proposal.json" \
@@ -105,17 +104,17 @@ hashgardcli gov submit-proposal \
  ]
 }
 ```
-### Submit a 'SoftwareUpgrade' type proposal
+### Submit a 'SoftwareUpgrade' Type proposal
 
 ```bash
 hashgardcli gov submit-proposal \
     --title="hashgard" \
-    --type="SoftwareUpgrade" \
+    --Type="SoftwareUpgrade" \
     --description="a new software upgrade proposal" \
-    --from=hashgard 
+    --from=hashgard
 ```
 
-在这种场景下，提案的 --title、--type 和--description参数必不可少，另外你也应该保留好提案ID，这是检索所提交提案的唯一方法。
+在这种场景下，提案的 --title、--Type 和--description参数必不可少，另外你也应该保留好提案ID，这是检索所提交提案的唯一方法。
 
 
 How to query proposal
@@ -123,4 +122,3 @@ How to query proposal
 [proposal](proposal.md)
 
 [proposals](proposals.md)
-

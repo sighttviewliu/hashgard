@@ -12,7 +12,7 @@ hashgardcli tendermint [command]
 
 ## 相关命令
 
-| 命令                                         | 描述                         |
+| 名称                                      | 描述                         |
 | -------------------------------------------- | ---------------------------- |
 | [block](block.md)                            | 获取指定高度的块的验证数据   |
 | [tendermint-validator-set](validator-set.md) | 获取指定高度的所有验证人集合 |

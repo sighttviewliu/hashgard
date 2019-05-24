@@ -1,7 +1,7 @@
 # hashgardcli issue describe
 
 ## Description
-Owner可以对自己代币进行补充描述，描述文件使用不超过1024字节的json格式。可以自定义各种属性，也可以使用官方推荐的模板。
+Owner Describes the issue token，Must be json file no larger than 1024 bytes.
 ## Usage
 ```
  hashgardcli issue describe [issue-id] [description-file] [flags]
@@ -11,20 +11,20 @@ Owner可以对自己代币进行补充描述，描述文件使用不超过1024�
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
-### 给代币设置描述
+### Set a description for the token
 ```shell
 hashgardcli issue describe coin174876e802 /description.json --from
 ```
-#### 模板
+#### Template
 ```
 {
     "organization":"Hashgard",
     "website":"https://www.hashgard.com",
     "logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png",
-    "intro":"这是一个牛逼的项目" 
+    "intro":"This is a good project"
 }
 ```
-输入正确的密码之后，你的该代币的描述就设置成功了。
+The result is as follows：
 ```txt
 {
  Height: 3069
@@ -34,18 +34,18 @@ hashgardcli issue describe coin174876e802 /description.json --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 27465
-  Tags: 
+  Tags:
     - action = issue_description
     - category = issue
     - issue-id = coin174876e802
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
 }
 ```
-### 查询发行信息
+### Query issue information
 ```shell
 hashgardcli issue query-issue coin174876e802
 ```
-最新的描述信息就生效了
+The result is as follows：
 ```
 {
 Issue:
@@ -58,10 +58,10 @@ Issue:
   Decimals:         			18
   IssueTime:					1558179518
   Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
-  BurnOwnerDisabled:  			false 
-  BurnHolderDisabled:  			false 
-  BurnFromDisabled:  			false 
-  FreezeDisabled:  				false 
-  MintingFinished:  			false 
+  BurnOwnerDisabled:  			false
+  BurnHolderDisabled:  			false
+  BurnFromDisabled:  			false
+  FreezeDisabled:  				false
+  MintingFinished:  			false
 }
 ```

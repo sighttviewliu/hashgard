@@ -13,14 +13,14 @@ hashgardcli distribution withdraw-rewards [validator-addr] [flags]
 ## Flags
 
 | 名称                | 类型   | 是否必填 | 默认值  | 功能描述        |
-| --------------------- | -----  | -------- | -------- | ------------------------------------------------------------------- |
+| --------------------- | -----  | -------- | -------- | ------------ |
 | --commission | bool | 否 | false  | 取回验证人佣金收益 |
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
- 
-## 示例
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+
+## 例子
 
 1. 取回委托产生的收益
     ```

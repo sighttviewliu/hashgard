@@ -2,13 +2,13 @@
 
 ## 描述
 根据代币符号来搜索发行的代币信息
-## 使用方式
+## 用法
 ```
 hashgardcli issue search [symbol] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 ### 搜索

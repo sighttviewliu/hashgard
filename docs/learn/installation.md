@@ -1,58 +1,60 @@
-# Hashgard 安装文档
+# Installation
 
-Hashgard 公链采用 Go 语言编写，它可以在任何能够编译并运行 Go 语言程序的平台上工作。
+You will install two executables according to this guide:
 
-根据本文档，您将安装两个可执行程序：
+1. hashgard. This is the main program, it runs as a node of Hashgard blockchain.
+2. hashgardcli. This is the client of Hashgard, it's used to execute most commands like creating wallet and sending transactions.
 
-1. hashgard，这是 Hashgard 节点的主程序，它将作为系统服务运行并接入 Hashgard 网络。
-2. hashgardcli，这是 Hashgard 命令行客户端，用来执行大部分命令，如创建钱包、发送交易等。
+## Prepare Your VPS
 
-## 配置您的服务器
+It is recommended to run the Hashgard Validator Node on VPS.
 
-Hashgard 公链基于 Cosmos-SDK 开发，Cosmos SDK 是使用 Go 语言开发的区块链应用程序的框架。
+If you run the node on your local machine, it will be jailed when your computer is hibernating or shutting down.
 
-建议在 Linux 服务器中运行验证人节点，如果您在本地电脑上运行，那么当您的电脑休眠或关机时，您的验证人节点将会进入离线 jailed 状态。
+**Recommend Configurations**
 
-### 推荐配置：
+- CPU: 2 Cores
+- RAM: 4GB
+- Storage: 60GB SSD
+- OS: Ubuntu 16.04 LTS
+- Security Config: allow any incoming TCP connections of port 26656-26657
 
-- CPU：2Core
-- 内存：4GB
-- 磁盘：60GB SSD
-- 操作系统：Ubuntu 16.04 LTS
-- 安全配置：允许来自 TCP 26656-26657 端口的所有传入连接
+## Method 1: Install from Sourcecode
 
-## 方法 1：源码编译安装
+It is recommended to use `Method 2` to install hashgard if you're not familiar with Linux commands.
 
-如果您对 Linux 命令不熟悉，我们推荐您使用 `方法二` 安装。
+### 1.1 Install Golang
 
-### 1.1 安装 Golang
+Hashgard is based on [consmos-sdk](https://github.com/cosmos/cosmos-sdk) which is built in Golang.
 
-需要保证 Go 的版本在 1.12 以上，下载 [Go 1.12.3+](https://golang.org/dl)
+So it requires [Go 1.11.5+](https://golang.org/dl).
 
-Golang 安装文档：
+Please install Golang according to the links below:
 
 1. [https://golang.org/doc/install](https://golang.org/doc/install)
 2. [https://github.com/golang/go/wiki/Ubuntu](https://github.com/golang/go/wiki/Ubuntu)
 
-此外，你需要指定运行 Go 所需的 `$GOPATH`、`$GOBIN` 和 `$PATH` 变量, 例如:
+In addition, you shold configure the `$GOPATH`, `$GOBIN` and `$PATH` ENV for Golang:
 
 ```bash
 mkdir -p $HOME/go/bin
 echo "export GOPATH=$HOME/go" >> ~/.bash_profile
-echo "export GOBIN=\$GOPATH/bin" >> ~/.bash_profile
-echo "export PATH=\$PATH:\$GOBIN" >> ~/.bash_profile
+source ~/.bash_profile
+echo "export GOBIN=$GOPATH/bin" >> ~/.bash_profile
+source ~/.bash_profile
+echo "export PATH=$PATH:$GOBIN" >> ~/.bash_profile
 source ~/.bash_profile
 ```
 
-### 1.2 克隆 Hashgard 源码
+### 1.2 Clone Hashgard Sourcecode
 
-确保您的服务器上安装了 `git`：
+Make sure you have installed `git`：
 
 ```
 apt-get install git -y
 ```
 
-将 Hashgard 项目放在指定目录：
+clone Hashgard Repo to GOPATH：
 
 ```bash
 mkdir -p $GOPATH/src/github.com/hashgard
@@ -60,40 +62,41 @@ cd $GOPATH/src/github.com/hashgard
 git clone https://github.com/hashgard/hashgard
 ```
 
-### 1.3 编译安装 Hashgard
+### 1.3 Build Hashgard
 
-切换至 master 分支，进行安装：
+Switch to branch master, and build：
 
 ```bash
 cd hashgard && git checkout master
 make get_tools && make install
 ```
 
-### 1.4 确认是否安装成功
+### 1.4 Test the Executable Installation
 
-使用 help 命令检查是否安装成功：
+Test with command `help`:
 
 ```bash
 hashgard help
 hashgardcli help
 ```
 
-## 方法 2: 直接下载可执行文件
+## Method 2: Download Executables
 
-从 github [下载](https://github.com/hashgard/hashgard/releases) 您的操作系统所对应的版本，
-并将可执行程序 hashgard、hashgardcli 解压到对应的目录下：
+Download packages from [Github Releases](https://github.com/hashgard/hashgard/releases) according to your OS,
+
+then extract the excutables (hashgard and hashgardcli) to the specified directory:
 
 - Linux / MacOS: /usr/local/bin
 - Windows: C:\windows\system32\
 
-当完成解压之后，可在 Terminal / CMD 中检查是否安装成功：
+Run the commands below to test the executable installation:
 
 ```bash
 hashgard help
 hashgardcli help
 ```
 
-如果出现
+If they are installed successfully, you'll see the output:
 
 ```
 Hashgard Daemon (server)
@@ -122,5 +125,3 @@ Available Commands:
 
 Use "hashgardcli [command] --help" for more information about a command.
 ```
-
-则表示安装成功

@@ -12,13 +12,10 @@ hashgardcli exchange create-order [flags]
 
 ## Flags
 
-| Name     | type                 | Required                 | Default        | Description   |
+| Name     | Type                 | Required                 | Default        | Description   |
 | -------- | --------- | ------------- | ---------------------- | -------- |
-| --supply     | string | Yes | "" | The coin type and amount of the order   |
-| --target        | string | Yes | "" | The coin type and amount of the target        |
-
-
-## Flags
+| --supply     | string | true| "" | The coin Type and amount of the order   |
+| --target        | string | true| "" | The coin Type and amount of the target        |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

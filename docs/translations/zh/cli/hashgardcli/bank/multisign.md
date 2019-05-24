@@ -4,7 +4,7 @@
 
 签名多个签名生成的离线传输文件。该文件由 --generate-only 标志及其他签名者生成的多个签名文件。
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli bank multisign [file] [name] [[signature]...] [flags]
@@ -12,15 +12,14 @@ hashgardcli bank multisign [file] [name] [[signature]...] [flags]
 
 ## Flags
 
-| 命令       | 类型    | 是否必须 | 默认值                | 描述                                                         |
+| 名称       | 类型    | 必需 | 默认值                | 描述                                                         |
 | ---------------- | ------- | -------- | --------------------- | ------------------------------------------------------------ |
 | --offline | bool | 否 | false | 链下模式，不查询全节点 |
 | --output-document | string |  |  | 该文档将写入给定文件而不是STDOUT |
 | --signature-only | bool | 否 | | 仅打印生成的签名，然后退出 |
 
-## Global Flags
 
-### 参考：[hashgardcli](../README.md)
+ ### 全局flags 参考：[hashgardcli](../README.md)
 
 ## 例子
 
@@ -28,7 +27,7 @@ hashgardcli bank multisign [file] [name] [[signature]...] [flags]
 
 1. 先通过hashgardcli keys add创建三个账号：
 
-``` 
+```
 - hashgardcli keys add a1
 
 - hashgardcli keys add a2
@@ -38,28 +37,28 @@ hashgardcli bank multisign [file] [name] [[signature]...] [flags]
 
 2. 创建一个多签账号：
 
-``` 
+```
  # 用账户a1&a2&a3创建一个名为a123的多签账户，
  # 只需要其中a1&a2&a3其中任意两个账户就能使用a123这个多签账户
   hashgardcli keys add a123 --multisig=a1,a2,a3 --multisig-threshold=2
 ```
-> 注：该命令表示多签账号名为：a123，只需a1，a2，a3中其中两个任意签名即可。 
+> 注：该命令表示多签账号名为：a123，只需a1，a2，a3中其中两个任意签名即可。
 
 3. 查询创建的多签账号：
 
-``` 
+```
 hashgardcli keys show a123 -o=text
 ```
 4. 执行完命令后，获得账户的详细信息如下：
 
 ```
-NAME:   TYPE:   ADDRESS:                                                PUBKEY:
+NAME:   Type:   ADDRESS:                                                PUBKEY:
 a123  offline gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n     gardpub1ytql0csgqgfzd666axrjzq7lfft2evw9r7j0u3t7yj4qjy5rczhncv8ysykrp35cpjpklsj5rcfzd666axrjzquew3ad0vgywr7gmgszly9wnw2mwxc3k7dttlmm780g5y9djw8vcgfzd666axrjzq63kk98gyurzz2rewxxhd4dxvvdfsnsdtegajrcez3exg3yu9q0a5kpkkj3
 ```
 #### 给多签账号转账：
 
 ```
-# 使用hashagrd这个账户转10gard至 
+# 使用hashagrd这个账户转10gard至
 # a123（gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n）这个账户
 hashgardcli bank send gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n 10gard --from=hashgard
 ```
@@ -200,4 +199,3 @@ hashgardcli tendermint tx 6A66C370834F097CA36F60FE9B4E8ABEEEF3549D089071FDB5EE33
  }
 }
 ```
-

@@ -2,9 +2,9 @@
 
 ## 描述
 
-Bank模块允许你管理你本地账户的资产。 
+Bank模块允许你管理你本地账户的资产。
 
-## 使用方式
+## 用法
 
 ```
  hashgardcli bank [command]
@@ -17,7 +17,7 @@ hashgardcli bank --help
 ```
 ## 相关命令
 
-| 命令      | 描述                   |
+| 名称      | 描述                   |
 | --------- | ---------------------- |
 | [account](account.md)   | 查询账户余额           |
 | [send](send.md)      | 创建和签名一个转账请求 |
@@ -25,4 +25,3 @@ hashgardcli bank --help
 | [multisign](multisign.md)      | 多重签名离线传输文件       |
 | [broadcast](broadcast.md) | 离线广播事务           |
 | [encode](encode.md) | 编码          |
-

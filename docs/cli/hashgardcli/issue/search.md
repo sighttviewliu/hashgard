@@ -1,7 +1,8 @@
 # hashgardcli issue search
 
 ## Description
-根据代币符号来搜索发行的代币信息
+Search issues based on symbol
+
 ## Usage
 ```
 hashgardcli issue search [symbol] [flags]
@@ -11,7 +12,8 @@ hashgardcli issue search [symbol] [flags]
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
-### 搜索
+
+### Search
 ```shell
 hashgardcli issue search AAA
 ```

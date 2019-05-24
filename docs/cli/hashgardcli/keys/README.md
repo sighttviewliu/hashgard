@@ -12,8 +12,8 @@ hashgardcli keys [command]
 
 ## Available Commands
 
-| Commands                | Description                                                                                     |
-| ----------------------- | -------------------------------------------------------------------------------------------- |
+| Name               | Description             |
+| --------- | ----------------------------- |
 | [mnemonic](mnemonic.md) | Compute the bip39 mnemonic for some input entropy                   |
 | [add](add.md)           | Add an encrypted private key (either newly generated or recovered), encrypt it, and save to disk    |
 | [list](list.md)         | List all keys                                           |
@@ -27,7 +27,7 @@ hashgardcli keys [command]
 | --------------- | ------- | ------------- | -------- |
 | --help, -h      |         | help for keys |          |
 
-## Global Flags
+## Flags
 
 | Name, shorthand      | Default         | Description                              | Required |
 | --------------- | -------------- | -------------------------------------- | -------- |

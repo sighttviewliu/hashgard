@@ -4,15 +4,15 @@
 
 给VotingPeriod状态的提案投票, 可选项包括: Yes/No/NoWithVeto/Abstain
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli gov vote [proposal-id] [option] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
  
 ## 例子
 

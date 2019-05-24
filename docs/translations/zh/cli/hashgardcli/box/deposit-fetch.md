@@ -5,31 +5,31 @@
 
 
 
-## 使用方式
+## 用法
 ```shell
-hashgardcli box deposit-fetch [box-id] [amount]  --from 
+hashgardcli box deposit-fetch [box-id] [amount]  --from
 ```
 
 
 
-### 命令解释
+### 子命令
 
-| 名称   | 类型   | 是否必须 | 默认值 | 描述           |
+| 名称   | 类型   | 必需 | 默认值 | 描述           |
 | ------ | ------ | -------- | ------ | -------------- |
 | box-id | string | 是       |        | 盒子的ID   |
 | amount | int    | 是       |        | 取回存款的数量 |
 
 
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 ### 进行存款取回
 
 ```
-hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from one 
+hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from one
 ```
 
 
@@ -45,11 +45,11 @@ hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from one
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 48149
-  Tags: 
+  Tags:
     - action = box_interest
     - category = box
     - box-id = boxab3jlxpt2pt
-    - box-type = deposit
+    - box-Type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = fetch
 }
@@ -59,9 +59,6 @@ hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from one
 
 ### 相关命令
 
-| 命令                                | 描述                                   |
+| 名称                                | 描述                                   |
 | ----------------------------------- | -------------------------------------- |
 | [interest-fetch](interest-fetch.md) | 在存款盒子发行期取回盒子中的存入的利息 |
-
-
-

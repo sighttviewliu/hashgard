@@ -4,7 +4,7 @@
 
 创建一个新密钥，或通过助记词导入已有密钥
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli keys add <name> [flags]
@@ -12,8 +12,8 @@ hashgardcli keys add <name> [flags]
 
 ## Flags
 
-| 名称, 速记       | 类型   | 是否必须 | 默认值 | 描述                                                              |
-| --------------- | --------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 名称, 速记       | 类型   | 必需 | 默认值 | 描述                                                              |
+| --------------- | --------- | -------------------------- | ----------------------- | -------------------------- |
 | --account       | int | 否 | 0 | [uint32] HD推导的账号                                              |
 | --index         | int | 否 | 0 | [uint32] HD推导的索引号                                            |
 | --interactive | string | 否 | "" | 以交互方式提示用户输入BIP39密码和助记符 |
@@ -24,6 +24,8 @@ hashgardcli keys add <name> [flags]
 | --pubkey | string | 否 | "" | 解析bech32格式的公钥并将其保存到磁盘 |
 | --recover       | string | 否 | "" | 提供助记词以恢复现有密钥而不是新建                                     |
 
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+ 
 ## 例子
 
 ### 创建密钥
@@ -42,7 +44,7 @@ Repeat the passphrase:
 之后，你已经完成了创建新密钥的工作，但请记住备份你的助记词短语，如果你不慎忘记密码或丢失了密钥，这是唯一能恢复帐户的方法。
 
 ```txt
-NAME:	TYPE:	ADDRESS:						PUBKEY:
+NAME:	Type:	ADDRESS:						PUBKEY:
 MyKey	local	gard1m3m4l6g5774qe5jj8cwlyasue22yh32jf4wwet	gardpub1addwnpepqvu549hgyhnxlveqmtdn2xywygxpgzcsqefxur47zkz4e0e9x67hvjr6r6p
 **Important** write this seed phrase in a safe place.
 It is the only way to recover your account if you ever forget your password.
@@ -50,7 +52,7 @@ It is the only way to recover your account if you ever forget your password.
 oval green shrug term already arena pilot spirit jump gain useful symbol hover grid item concert kiss zero bleak farm capable peanut snack basket
 ```
 
-上面24个单词只是助记词的示例，**不要**在生产环境中使用。
+上面24个单词只是助记词的例子，**不要**在生产环境中使用。
 
 ### 通过助记词恢复密钥
 

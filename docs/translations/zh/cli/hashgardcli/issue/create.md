@@ -4,7 +4,7 @@
 
 发行一个新的代币
 
-## 使用方式
+## 用法
 
 ```
 hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
@@ -12,7 +12,7 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
 
 ## Flags
 
-| 名称          | 类型 | 是否必须 | 默认值 | 描述                                    |
+| 名称          | 类型 | 必需 | 默认值 | 描述                                    |
 | ------------- | ---- | -------- | ------ | --------------------------------------- |
 | --decimals    | int  | 否       | 18     | （可选）代币精度，默认18位，最大18位    |
 | --burn-owner  | Bool | 否       | false  | 关闭代币所有者销毁自己持有的代币功能    |
@@ -21,11 +21,7 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
 | --minting     | bool | 否       | false  | 是否不再增发功能                        |
 | --freeze      | bool | 否       | false  | 关闭冻结用户转入转出功能                |
 
-
-
-## Global Flags
-
-### 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 
@@ -46,7 +42,7 @@ hashgardcli issue create issuename AAA 10000000000000 --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 43428
-  Tags: 
+  Tags:
     - action = issue
     - category = issue
     - issue-id = coin174876e802

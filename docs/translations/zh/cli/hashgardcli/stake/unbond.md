@@ -10,7 +10,7 @@
 hashgardcli stake unbond [validator-addr] [amount] [flags]
 ```
 
-## 参数（子命令）
+## 子命令
 
 | 名称           | 类型   | 是否必填 | 默认值 | 功能描述            |
 | -------------- | ------ | -------- | ------ | ------------------- |
@@ -25,7 +25,7 @@ hashgardcli stake unbond [validator-addr] [amount] [flags]
 
 **全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 ```shell
 hashgardcli stake unbond \
