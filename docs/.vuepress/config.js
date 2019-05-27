@@ -56,22 +56,22 @@ module.exports = {
           '/learn/': [{
               title: 'Overview',
               children: [
-                ['/learn/introduction', 'who is Hashgard'],
-                ['/learn/howToContribute', 'how To Contribute']
+                ['/learn/introduction.md', 'who is Hashgard'],
+                ['/learn/howToContribute.md', 'how To Contribute']
               ]
             },
             {
               title: 'UsersGuide',
               children: [
-                ['/learn/UsersGuide/WebWalletGuide', 'WebWalletGuide'],
-                ['/learn/UsersGuide/hashgardExplorerGuide', 'ExplorerGuide'],
-                ['/learn/UsersGuide/hashgardNav', 'hashgardNav']
+                ['/learn/UsersGuide/WebWalletGuide.md', 'WebWalletGuide'],
+                ['/learn/UsersGuide/hashgardExplorerGuide.md', 'ExplorerGuide'],
+                ['/learn/UsersGuide/hashgardNav.md', 'hashgardNav']
               ]
             },
             {
               title: 'Guide',
               children: [
-                ['/learn/installation', 'installation'],
+                ['/learn/installation.md', 'installation'],
                 ['/feature/AccountGuide.md', 'AccountGuide'],
                 ['/learn/Guide/', 'testnet Guide'],
               ]
@@ -167,15 +167,15 @@ module.exports = {
               title: 'hashgard',
               children: [
                 ['/translations/zh/cli/hashgard/', 'directory'],
-                ['/translations/zh/cli/hashgard/init', 'hashgard init'],
-                ['/translations/zh/cli/hashgard/gentx', 'hashgard gentx'],
-                ['/translations/zh/cli/hashgard/collect-gentxs', 'hashgard collect-gentxs'],
-                ['/translations/zh/cli/hashgard/validate-genesis', 'hashgard validate-genesis'],
-                ['/translations/zh/cli/hashgard/start', 'hashgard start'],
-                ['/translations/zh/cli/hashgard/testnet', 'hashgard testnet'],
-                ['/translations/zh/cli/hashgard/unsafe-reset-all', 'hashgard unsafe-reset-all'],
-                ['/translations/zh/cli/hashgard/export', 'hashgard export'],
-                ['/translations/zh/cli/hashgard/tendermint', 'hashgard tendermint'],
+                ['/translations/zh/cli/hashgard/init.md', 'hashgard init'],
+                ['/translations/zh/cli/hashgard/gentx.md', 'hashgard gentx'],
+                ['/translations/zh/cli/hashgard/collect-gentxs.md', 'hashgard collect-gentxs'],
+                ['/translations/zh/cli/hashgard/validate-genesis.md', 'hashgard validate-genesis'],
+                ['/translations/zh/cli/hashgard/start.md', 'hashgard start'],
+                ['/translations/zh/cli/hashgard/testnet.md', 'hashgard testnet'],
+                ['/translations/zh/cli/hashgard/unsafe-reset-all.md', 'hashgard unsafe-reset-all'],
+                ['/translations/zh/cli/hashgard/export.md', 'hashgard export'],
+                ['/translations/zh/cli/hashgard/tendermint.md', 'hashgard tendermint'],
 
               ],
             },
@@ -184,24 +184,24 @@ module.exports = {
           '/translations/zh/learn/': [{
               title: '总览',
               children: [
-                ['/translations/zh/learn/introduction', 'Hashgard是什么'],
-                ['/translations/zh/learn/howToContribute', '怎样参与建设'],
+                ['/translations/zh/learn/introduction.md', 'Hashgard是什么'],
+                ['/translations/zh/learn/howToContribute.md', '怎样参与建设'],
               ],
             },
             {
               title: '用户使用指南',
               children: [
-                ['/translations/zh/learn/UsersGuide/WebWalletGuide', '网页钱包使用指南'],
-                ['/translations/zh/learn/UsersGuide/hashgardExplorerGuide', '浏览器使用指南'],
-                ['/translations/zh/learn/UsersGuide/hashgardNav', 'hashgard导航'],
+                ['/translations/zh/learn/UsersGuide/WebWalletGuide.md', '网页钱包使用指南'],
+                ['/translations/zh/learn/UsersGuide/hashgardExplorerGuide.md', '浏览器使用指南'],
+                ['/translations/zh/learn/UsersGuide/hashgardNav.md', 'hashgard导航'],
 
               ],
             },
             {
               title: '教程',
               children: [
-                ['/translations/zh/learn/installation', '安装hashgard'],
-                ['/translations/zh/learn/Guide/AccountGuide', '账户类型说明'],
+                ['/translations/zh/learn/installation.md', '安装hashgard'],
+                ['/translations/zh/features/AccountGuide.md', '账户类型说明'],
                 ['/translations/zh/learn/Guide/', '测试网络指南'],
               ],
             },

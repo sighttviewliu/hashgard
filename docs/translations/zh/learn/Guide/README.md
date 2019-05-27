@@ -6,6 +6,6 @@
 
   ## 如何使用测试网络
   ### 第一步: 安装 Hashgard 客户端
-  请根据以下[教程](./installation.md)在服务器上完成 `hashgardcli` 的安装。
+  请根据以下[教程](../installation.md)在服务器上完成 `hashgardcli` 的安装。
 
   ## 第二步: 接入测试网络
