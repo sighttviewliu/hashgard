@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli slashing params [flags]
 ```
 
@@ -18,7 +18,7 @@ hashgardcli slashing params [flags]
 
 查询当前的惩罚参数信息
 
-```
+```shell
 hashgardcli slashing params --trust-node
 ```
 

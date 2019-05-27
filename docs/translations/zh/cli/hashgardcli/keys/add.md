@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli keys add <name> [flags]
 ```
 
@@ -14,18 +14,18 @@ hashgardcli keys add <name> [flags]
 
 | 名称, 速记       | 类型   | 必需 | 默认值 | 描述                                                              |
 | --------------- | --------- | -------------------------- | ----------------------- | -------------------------- |
-| --account       | int | 否 | 0 | [uint32] HD推导的账号                                              |
-| --index         | int | 否 | 0 | [uint32] HD推导的索引号                                            |
-| --interactive | string | 否 | "" | 以交互方式提示用户输入BIP39密码和助记符 |
-| --multisig | strings | 否 | "" | 构造并存储multisig公钥（当使用了 --pubkey） |
-| --multisig-threshold | int | 否 | 1 | N个中的K个需要签名。与--multisig一起使用 |
+| --account       | int | 否 | 0 | [uint32] HD 推导的账号                                              |
+| --index         | int | 否 | 0 | [uint32] HD 推导的索引号                                            |
+| --interactive | string | 否 | "" | 以交互方式提示用户输入 BIP39 密码和助记符 |
+| --multisig | strings | 否 | "" | 构造并存储 multisig 公钥（当使用了 --pubkey） |
+| --multisig-threshold | int | 否 | 1 | N 个中的 K 个需要签名。与 --multisig 一起使用 |
 | --no-backup     | bool | 否 | false | 不输出助记词（如果其他人正在看着操作终端）                              |
-| --nosort | bool | 否 | false | 传递给--multisig的密钥按照它们提供的顺序获取 |
-| --pubkey | string | 否 | "" | 解析bech32格式的公钥并将其保存到磁盘 |
+| --nosort | bool | 否 | false | 传递给 --multisig 的密钥按照它们提供的顺序获取 |
+| --pubkey | string | 否 | "" | 解析 bech32 格式的公钥并将其保存到磁盘 |
 | --recover       | string | 否 | "" | 提供助记词以恢复现有密钥而不是新建                                     |
 
  **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
- 
+
 ## 例子
 
 ### 创建密钥
@@ -34,7 +34,7 @@ hashgardcli keys add <name> [flags]
 hashgardcli keys add MyKey
 ```
 
-执行命令后，系统会要求你输入密钥密码，注意：密码必须至少为8个字符。
+执行命令后，系统会要求你输入密钥密码，注意：密码必须至少为 8 个字符。
 
 ```txt
 Enter a passphrase for your key:
@@ -52,7 +52,7 @@ It is the only way to recover your account if you ever forget your password.
 oval green shrug term already arena pilot spirit jump gain useful symbol hover grid item concert kiss zero bleak farm capable peanut snack basket
 ```
 
-上面24个单词只是助记词的例子，**不要**在生产环境中使用。
+上面 24 个单词只是助记词的例子，**不要**在生产环境中使用。
 
 ### 通过助记词恢复密钥
 

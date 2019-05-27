@@ -6,13 +6,13 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli gov proposal [proposal-id] [flags]
 ```
 ## Flags
 
  **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
- 
+
 ## 例子
 
 ### 查询指定的提案

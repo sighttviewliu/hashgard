@@ -6,7 +6,7 @@ Query all valid orders for the specified address
 
 ## Usage
 
-```
+```shell
 hashgardcli exchange query-orders [address] [flags]
 ```
 

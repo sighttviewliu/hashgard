@@ -22,7 +22,7 @@ hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-f
 
 #### distribute-file
 
-```
+```shell
 {
    "time":[1657912000,1657912001,1657912002],//不同批次的支付时间
    "receivers":[
@@ -36,7 +36,8 @@ hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-f
 
 ## Flags
 
- ### 全局flags 查询flags 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+
 ## 例子
 ### 创建远期支付盒子
 ```shell
@@ -63,13 +64,13 @@ hashgardcli box create-future pay 1800gard  2 ./future.json --from
 
 为盒子存入需要支付的存款
 
-```
+```shell
 hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from
 ```
 
 返回信息
 
-```
+```txt
  {
   Height: 275
   TxHash: E96FBC4F9C2B3EB3B0C04B091DAAEF45E72E19C24E079879432460B077E137DF
@@ -90,13 +91,13 @@ hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from
 
 查询盒子信息
 
-```
+```shell
 hashgardcli box query-box boxac3jlxpt2ps
 ```
 
 返回盒子信息
 
-```
+```txt
 BoxInfo:
   BoxId:			boxac3jlxpt2ps
   BoxStatus:			actived

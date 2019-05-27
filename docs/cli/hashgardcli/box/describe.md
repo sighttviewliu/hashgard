@@ -3,7 +3,7 @@
 ## Description
 Owner describes the box。The description file must be in josn format and no more than 1024 bytes.
 ## Usage
-```
+```shell
  hashgardcli box describe [box-id] [description-file] --from
 ```
 ## Flags
@@ -16,12 +16,12 @@ Owner describes the box。The description file must be in josn format and no mor
 hashgardcli box describe boxac3jlxpt2pt ./description.json  --from
 ```
 #### Template
-```
+```json
 {
     "org":"Hashgard",
     "website":"https://www.hashgard.com",
     "logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png",
-    "intro":"description of box" 
+    "intro":"description of box"
 }
 ```
 The result is as follows：
@@ -34,7 +34,7 @@ The result is as follows：
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 41724
-  Tags: 
+  Tags:
     - action = box_description
     - category = box
     - box-id = boxac3jlxpt2pt
@@ -47,7 +47,7 @@ The result is as follows：
 hashgardcli box query-box boxac3jlxpt2pt
 ```
 The result is as follows：
-```
+```txt
 {
 BoxInfo:
   BoxId:			boxac3jlxpt2pt
@@ -55,7 +55,7 @@ BoxInfo:
   Owner:			gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
   Name:				PayBox
   BoxType:			future
-  TotalAmount:			
+  TotalAmount:
   Token:			1800000000000000000000agard
   Decimals:			1
   CreatedTime:			1558182333
@@ -63,7 +63,7 @@ BoxInfo:
   TradeDisabled:		true
 FutureInfo:
   MiniMultiple:			1
-  Deposit:			[]			
+  Deposit:			[]
   TimeLine:			[]
   Distributed:			[1657912000 1657912001 1657912002]
   Receivers:			[[gard1cyxhqanlxc3u9025ngz5awzzex2jys6xc96ktj 100000000000000000000 200000000000000000000 300000000000000000000] [gard14wgcav3k99yz309vn7j6n3m50j32vkg426ktt0 100000000000000000000 200000000000000000000 300000000000000000000] [gard1hncel873ermm9e9009sthrys7ttdv6mtudfluz 100000000000000000000 200000000000000000000 300000000000000000000]]

@@ -6,7 +6,7 @@ Query all rewards earned by a delegator, optionally restrict to rewards from a s
 
 ## Usage
 
-```
+```shell
 hashgardcli distribution rewards [delegator-addr] [<validator-addr>] [flags]
 ```
 
@@ -17,14 +17,14 @@ hashgardcli distribution rewards [delegator-addr] [<validator-addr>] [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli distribution rewards gard1hr7vm7t7paeyg33ggd6efek2w58mu2hutvjrms -o=json --trust-node
 hashgardcli distribution rewards gard1hr7vm7t7paeyg33ggd6efek2w58mu2hutvjrms gardvaloper1hr7vm7t7paeyg33ggd6efek2w58mu2huewltta -o=json --trust-node
 ```
 
 Example response:
 
-```
+```txt
 [
  {
   "denom": "gard",

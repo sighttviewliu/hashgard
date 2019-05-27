@@ -4,7 +4,7 @@
 Query information about the release of the specified issue-id .
 
 ## Usage
-```
+```shell
 hashgardcli issue query-issue [issue-id] [flags]
 ```
 ## Flags

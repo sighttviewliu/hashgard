@@ -6,7 +6,7 @@ create a new order
 
 ## Usage
 
-```
+```shell
 hashgardcli exchange create-order [flags]
 ```
 

@@ -6,7 +6,7 @@ Tendermint state querying subcommands
 
 ## Usage
 
-```
+```shell
 hashgardcli tendermint [command]
 ```
 

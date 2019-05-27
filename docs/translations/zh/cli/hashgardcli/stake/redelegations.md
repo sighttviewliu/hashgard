@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake redelegations [delegator-address] [flags]
 ```
 
@@ -18,7 +18,7 @@ hashgardcli stake redelegations [delegator-address] [flags]
 
 基于委托者地址的所有重新委托记录查询
 
-```
+```shell
 hashgardcli stake redelegations gard1m3m4l6g5774qe5jj8cwlyasue22yh32jf4wwet --trust-node
 ```
 

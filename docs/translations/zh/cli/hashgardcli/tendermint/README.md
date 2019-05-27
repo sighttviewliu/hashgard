@@ -6,7 +6,7 @@ tendermint 的状态查询的子命令
 
 ## 用法
 
-```
+```shell
 hashgardcli tendermint [command]
 ```
 

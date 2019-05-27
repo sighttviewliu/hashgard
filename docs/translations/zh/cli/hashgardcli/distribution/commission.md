@@ -5,7 +5,7 @@
 查询验证人和委托人的佣金奖励
 ## 用法
 
-```
+```shell
 hashgardcli distribution commission [validator] [flags]
 ```
 
@@ -17,13 +17,13 @@ hashgardcli distribution commission [validator] [flags]
 
 查询参数信息
 
-```
+```shell
 hashgardcli distribution commission gardvaloper1m0g2n0r7l6s44sac2knmx40hlsdyv4esgcwg8w -o=json --trust-node
 ```
 
 运行成功以后，返回的结果如下：
 
-```
+```txt
 [
  {
   "denom": "gard",

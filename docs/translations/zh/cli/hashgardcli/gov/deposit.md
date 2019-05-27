@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+``` shell
 hashgardcli gov deposit [proposal-id] [deposit] [flags]
 ```
 ## Flags
@@ -21,7 +21,7 @@ hashgardcli gov deposit [proposal-id] [deposit] [flags]
  hashgardcli gov deposit  1 50gard --from=hashgard --chain-id=hashgard -o=json --indent
 ```
 
-输入正确的密码后，你就充值了50个gard用以激活提案的投票状态。
+输入正确的密码后，你就充值了 50 个 gard 用以激活提案的投票状态。
 
 ```txt
 {

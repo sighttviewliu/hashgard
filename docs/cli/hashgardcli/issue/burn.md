@@ -3,7 +3,7 @@
 ## Description
 Token holder or the Owner burn the token he holds
 ## Usage
-```
+```shell
  hashgardcli issue burn [issue-id] [amount] [flags]
 ```
 ## Flags

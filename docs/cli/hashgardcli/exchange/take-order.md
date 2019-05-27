@@ -6,7 +6,7 @@ Create Order  指定提供的币种和数量，以及目标币种及数量。创
 
 ## Usage
 
-```
+```shell
 hashgardcli exchange take-order [order_id] [flags]
 ```
 
@@ -19,13 +19,13 @@ hashgardcli exchange take-order [order_id] [flags]
 
 ## 计算
 
-A(supply) 为supply的数量，A(target) 为target的数量， A(remains) 是remains的数量（订单创建时，A(supply) = A(target) ）
+A(supply) 为 supply 的数量，A(target) 为 target 的数量， A(remains) 是 remains 的数量（订单创建时，A(supply) = A(target) ）
 
 divisor 是 A(supply) 与 A(target) 的最大公约数
 
-上述的数量全都是整数，如果把订单的supply拆分成每份相等的整数份额，最多能拆成的份数即为 divisor,
+上述的数量全都是整数，如果把订单的 supply 拆分成每份相等的整数份额，最多能拆成的份数即为 divisor,
 
-每份的价格分别以supply，target计为：
+每份的价格分别以 supply，target 计为：
 
 Price(supply) = A(supply) / divisor
 Price(target) = A(target) / divisor
@@ -35,13 +35,13 @@ Price(target) = A(target) / divisor
 Shares(remains) = A(remains) / Price(supply)
 
 
-当对一个挂单进行交易时，发送的币(币种要和target一致)数量为 Amount
+当对一个挂单进行交易时，发送的币(币种要和 target 一致)数量为 Amount
 
-1. 首先判断Amount是否超过 Price(target)，如果低于，则不够交易门槛。
+1. 首先判断 Amount 是否超过 Price(target)，如果低于，则不够交易门槛。
 2. 计算成交份额，Shares(afford) = Amount / Price(target)
 3. 计算实际成交份额，如果 Shares(afford) < Shares(remains), 则 Shares(actual) = Shares(afford) , 如果 >= , 则 Shares(actual) = Shares(remains)
-4. 然后，计算实际支付的target和从订单remains中扣除的supply，Sum(target) = Shares(actual) * Price(target)，
-这部分金额会从购买者的Amount中扣除，并加到seller的账户里，如果 Amount > Sum(target), 多余的部分会返还给购买者。
+4. 然后，计算实际支付的 target 和从订单 remains 中扣除的 supply，Sum(target) = Shares(actual) * Price(target)，
+这部分金额会从购买者的 Amount 中扣除，并加到 seller 的账户里，如果 Amount > Sum(target), 多余的部分会返还给购买者。
 Sum(supply) = Shares(actual) * Price(supply), 这部分的金额会从订单的 A(remains)中扣除， 并加到买家的账户里。
 5. 如果最后 A(remains) 没有剩余，这该挂单被吃光，删除该挂单。
 
@@ -50,14 +50,14 @@ Sum(supply) = Shares(actual) * Price(supply), 这部分的金额会从订单的 
 
 ### Trading
 
-已知order_id为3的订单的 supply 是 100gard， target 是 800apple，remains 是 100gard。
-使用18apple与之交易， 实际扣除 16 apple， 会获得 2 gard。
+已知 order_id 为 3 的订单的 supply 是 100gard， target 是 800apple，remains 是 100gard。
+使用 18apple 与之交易， 实际扣除 16 apple， 会获得 2 gard。
 
 ```shell
 hashgardcli exchange take-order 3 --amount 18apple --from mykey --chain-id hashgard -o=json --indent
 ```
 
-输入正确的密码后，同order_id为3的订单交易。
+输入正确的密码后，同 order_id 为 3 的订单交易。
 
 ```txt
 {
@@ -95,4 +95,4 @@ hashgardcli exchange take-order 3 --amount 18apple --from mykey --chain-id hashg
 
 查询订单现在的状态：
 
-买家账户扣除了 16apple， 获得 2gard，order_id为3的订单 remains 更新为 98gard
+买家账户扣除了 16apple， 获得 2gard，order_id 为 3 的订单 remains 更新为 98gard

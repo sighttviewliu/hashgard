@@ -1,21 +1,20 @@
 # hashgardcli distribution withdraw-all-rewards
 
-## Description 
+## Description
 
 Withdraw all rewards for a single delegator
 
 ## Usage
 
-```
+```shell
 hashgardcli distribution withdraw-all-rewards [flags]
 ```
 ## Flags
 
 **Global flags, query command flags** [hashgardcli](../README.md)
- 
+
 ## Example
 
-```
+```shell
 hashgardcli distribution withdraw-all-rewards --from mykey --chain-id=hashgard
 ```
-

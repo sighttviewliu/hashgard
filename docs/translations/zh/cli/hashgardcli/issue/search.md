@@ -3,7 +3,7 @@
 ## 描述
 根据代币符号来搜索发行的代币信息
 ## 用法
-```
+```shell
 hashgardcli issue search [symbol] [flags]
 ```
 ## Flags

@@ -8,7 +8,7 @@ Return public details of one local key.
 
 ## Usage
 
-```
+```shell
 hashgardcli keys show [name] [flags]
 ```
 

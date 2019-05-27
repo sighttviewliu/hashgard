@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli bank broadcast [file_path] [flags]
 ```
 ## Flags
@@ -15,6 +15,6 @@ hashgardcli bank broadcast [file_path] [flags]
 
 ## 例子
 
-```
+```shell
 hashgardcli bank broadcast mytxn.json --chain-id=hashgard
 ```

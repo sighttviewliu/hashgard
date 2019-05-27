@@ -1,12 +1,12 @@
 # hashgardcli stake unbond
 
-## Description 
+## Description
 
 Unbond an amount of bonded shares from a validator:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake unbond [validator-addr] [amount] [flags]
 ```
 

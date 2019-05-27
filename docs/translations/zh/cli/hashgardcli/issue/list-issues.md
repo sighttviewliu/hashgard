@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli issue list-issues [flags]
 ```
 
@@ -14,9 +14,9 @@ hashgardcli issue list-issues [flags]
 
 | 名称             | 类型   | 必需 | 默认值 | 描述                  |
 | ---------------- | ------ | -------- | ------ | --------------------- |
-| --address        | string | 否       | ""     | （可选）Owner账号地址 |
+| --address        | string | 否       | ""     | （可选）Owner 账号地址 |
 | --limit          | int    | 否       | 30     | （可选）每次返回条数  |
-| --start-issue-id | string | 否       | ""     | （可选）起始issue-id  |
+| --start-issue-id | string | 否       | ""     | （可选）起始 issue-id  |
 
 **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 

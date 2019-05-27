@@ -2,11 +2,11 @@
 
 ## 描述
 
-查看指定id的订单详情
+查看指定 id 的订单详情
 
 ## 用法
 
-```
+```shell
 hashgardcli exchange query-order [order_id] [flags]
 ```
 
@@ -22,7 +22,7 @@ hashgardcli exchange query-order [order_id] [flags]
 hashgardcli exchange query-order 1 --chain-id hashgard --indent -o=json
 ```
 
-下面是这个id为1的订单，seller是订单的创建者，supply是订单创建时提供的交换币种和数量，target是目标币种及数量，两者数量可计算交易的单价，remains则是目前订单中剩余的supply，create_time则是订单创建时间。
+下面是这个 id 为 1 的订单，seller 是订单的创建者，supply 是订单创建时提供的交换币种和数量，target 是目标币种及数量，两者数量可计算交易的单价，remains 则是目前订单中剩余的 supply，create_time 则是订单创建时间。
 
 ```txt
 {

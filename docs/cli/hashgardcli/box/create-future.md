@@ -97,7 +97,7 @@ hashgardcli box query-box boxac3jlxpt2ps
 
 The result is as follows：
 
-```
+```txt
 BoxInfo:
   BoxId:			boxac3jlxpt2ps
   BoxStatus:			actived

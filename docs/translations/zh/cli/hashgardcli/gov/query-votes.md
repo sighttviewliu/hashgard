@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli gov query-votes [proposal-id] [flags]
 ```
 

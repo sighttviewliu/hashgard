@@ -1,10 +1,10 @@
 # hashgardcli issue mint
 
 ## 描述
-在可以增发的前提下，Owner可以对自己发行的代币进行增发，默认增发到自己的账户，也可以增发到指定的账号。
+在可以增发的前提下，Owner 可以对自己发行的代币进行增发，默认增发到自己的账户，也可以增发到指定的账号。
 
 ## 用法
-```
+```shell
  hashgardcli issue mint [issue-id] [amount] [flags]
 ```
 ## 子命令

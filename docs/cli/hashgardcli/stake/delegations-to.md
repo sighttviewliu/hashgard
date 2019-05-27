@@ -6,7 +6,7 @@ Query delegations on an individual validator:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake delegations-to [validator-addr] [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake delegations-to [validator-addr] [flags]
 
 ## Example
 
-```
+```shell
 hashgardcli stake delegations-to gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx --trust-node
 ```
 

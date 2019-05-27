@@ -7,7 +7,7 @@ Create a new deposit box
 
 ## Usage
 
-```
+```shell
  hashgardcli box create-deposit [name][total-amount][flags] --from
 ```
 

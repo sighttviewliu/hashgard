@@ -16,7 +16,7 @@ hashgardcli box [command]
 
 Print subcommands and parameters
 
-```
+```shell
 hashgardcli box --help
 ```
 
@@ -34,4 +34,3 @@ hashgardcli box --help
 | [describe](describe.md)                     | Describe the box               |
 | [list-box](list-box.md)                     | Query box list     |
 | [query-box](query-box.md)                   | Query specified box information         |
-

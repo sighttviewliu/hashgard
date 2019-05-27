@@ -1,12 +1,12 @@
 # hashgardcli box create-deposit
 
 ## 描述
-创建一个存款盒子，设定必要的参数。用来吸纳存款。盒子分为三个时期，1.发行期。2存款吸纳期。3.存款期。
+创建一个存款盒子，设定必要的参数。用来吸纳存款。盒子分为三个时期，1. 发行期。2. 存款吸纳期。3. 存款期。
 
 
 
 ## 用法
-```
+```shell
  hashgardcli box create-deposit [name][total-amount][flags] --from
 ```
 

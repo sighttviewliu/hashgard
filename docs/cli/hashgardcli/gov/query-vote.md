@@ -6,7 +6,7 @@ Query details for a single vote on a proposal given its identifier
 
 ## Usage
 
-```
+```shell
 hashgardcli gov query-vote [proposal-id] [voter-addr] [flags]
 ```
 

@@ -36,7 +36,7 @@ Please install Golang according to the links below:
 
 In addition, you shold configure the `$GOPATH`, `$GOBIN` and `$PATH` ENV for Golang:
 
-```bash
+```shell
 mkdir -p $HOME/go/bin
 echo "export GOPATH=$HOME/go" >> ~/.bash_profile
 source ~/.bash_profile
@@ -50,13 +50,13 @@ source ~/.bash_profile
 
 Make sure you have installed `git`：
 
-```
+```shell
 apt-get install git -y
 ```
 
 clone Hashgard Repo to GOPATH：
 
-```bash
+```shell
 mkdir -p $GOPATH/src/github.com/hashgard
 cd $GOPATH/src/github.com/hashgard
 git clone https://github.com/hashgard/hashgard
@@ -66,7 +66,7 @@ git clone https://github.com/hashgard/hashgard
 
 Switch to branch master, and build：
 
-```bash
+```shell
 cd hashgard && git checkout master
 make get_tools && make install
 ```
@@ -75,7 +75,7 @@ make get_tools && make install
 
 Test with command `help`:
 
-```bash
+```shell
 hashgard help
 hashgardcli help
 ```
@@ -91,14 +91,14 @@ then extract the excutables (hashgard and hashgardcli) to the specified director
 
 Run the commands below to test the executable installation:
 
-```bash
+```shell
 hashgard help
 hashgardcli help
 ```
 
 If they are installed successfully, you'll see the output:
 
-```
+```shell
 Hashgard Daemon (server)
 
 Usage:

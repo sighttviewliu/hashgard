@@ -6,7 +6,7 @@ Query values for amounts stored in the staking pool:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake pool [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake pool [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake pool --trust-node
 ```
 

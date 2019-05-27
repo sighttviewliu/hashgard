@@ -14,7 +14,7 @@ module.exports = {
     '/translations/zh/': {
       title: "Hashgard Documentation",
       lang: 'zh-CN',
-      description: '欢迎来到hashgard文档中心'
+      description: '欢迎来到hashgard文档中心'
     }
   },
   head: [

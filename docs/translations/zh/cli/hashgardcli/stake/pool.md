@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake pool [flags]
 ```
 
@@ -18,7 +18,7 @@ hashgardcli stake pool [flags]
 
 查询最新的权益池
 
-```
+```shell
 hashgardcli stake pool --trust-node
 ```
 

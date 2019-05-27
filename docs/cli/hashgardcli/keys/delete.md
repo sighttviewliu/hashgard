@@ -6,7 +6,7 @@ Delete a key from the store.
 
 ## Usage
 
-```
+```shell
 hashgardcli keys delete <name> [flags]
 ```
 

@@ -6,7 +6,7 @@ slashing 子命令
 
 ## 用法
 
-```
+```shell
  hashgardcli slashing [subcommand]
 ```
 

@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgard validate-genesis [file] [flags]
 ```
 
@@ -26,7 +26,6 @@ hashgard validate-genesis [file] [flags]
 
 ## 例子
 
-```bash
+```shell
 hashgard validate-genesis
 ```
-

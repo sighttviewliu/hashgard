@@ -16,7 +16,7 @@ hashgardcli box interest-injection [box-id] [amount]  --from
 
 | 名称   | 类型   | 必需 | 默认值 | 描述                   |
 | ------ | ------ | -------- | ------ | ---------------------- |
-| box-id | string | 是       |        | 盒子的id           |
+| box-id | string | 是       |        | 盒子的 id           |
 | amount | int    | 是       |        | 注入存款盒子的利息数量 |
 
 
@@ -28,11 +28,11 @@ hashgardcli box interest-injection [box-id] [amount]  --from
 ## 例子
 ### 进行利息的注入
 
-```
+```shell
 hashgardcli box interest-injection boxab3jlxpt2ps 9898  --from
 ```
 
-PS：interest-injection注入的数量是指按最大值和时间来计算的。譬如发行一个10000gard的存款盒子，周期是10天，达成存款数量为2000，利息总量是500apple。那么日利率为500/10/10000=0.5%。在establish-time的时候，如果只有5000gard存入，那么系统会自动退回500*5000/10000=250gard 至利息注入的账户。
+PS：interest-injection 注入的数量是指按最大值和时间来计算的。譬如发行一个 10000gard 的存款盒子，周期是 10 天，达成存款数量为 2000，利息总量是 500apple。那么日利率为 500/10/10000=0.5%。在 establish-time 的时候，如果只有 5000gard 存入，那么系统会自动退回 500*5000/10000=250gard 至利息注入的账户。
 
 
 
@@ -57,9 +57,9 @@ PS：interest-injection注入的数量是指按最大值和时间来计算的。
 }
 ```
 
-注入利息=设定的利息数量时候开始，存款盒子激活，等待至start-time开始存款吸纳。
+注入利息 = 设定的利息数量时候开始，存款盒子激活，等待至 start-time 开始存款吸纳。
 
-注入利息<设定利息数量，且到达start-time后，盒子失败，返还利息至注入账户
+注入利息 < 设定利息数量，且到达 start-time 后，盒子失败，返还利息至注入账户
 
 ### 相关命令
 

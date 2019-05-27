@@ -6,7 +6,7 @@ Create a bip39 mnemonic, sometimes called a seed phrase, by reading from the sys
 
 ## Usage
 
-```
+```shell
 hashgardcli keys mnemonic [flags]
 ```
 

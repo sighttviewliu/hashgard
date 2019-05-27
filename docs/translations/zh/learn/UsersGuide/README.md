@@ -2,5 +2,4 @@
 
 - [网页钱包使用指南](WebWalletGuide.md)
 - [浏览器使用指南](hashgardExplorerGuide.md)
-- [hashgard导航](hashgardNav.md)
-
+- [hashgard 导航](hashgardNav.md)

@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake params [flags]
 ```
 
@@ -18,7 +18,7 @@ hashgardcli stake params [flags]
 
 查询最新的权益参数信息
 
-```
+```shell
 hashgardcli stake params --trust-node
 ```
 

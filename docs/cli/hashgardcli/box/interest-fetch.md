@@ -30,7 +30,7 @@ hashgardcli box interest-fetch [box-id] [amount]  --from
 
 ### Withdrawal interest
 
-```
+```shell
 hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from
 ```
 

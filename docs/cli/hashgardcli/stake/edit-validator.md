@@ -1,12 +1,12 @@
 # hashgardcli stake edit-validator
 
-## Description 
+## Description
 
 edit an existing validator account
 
 ## Usage
 
-```
+```shell
 hashgardcli stake edit-validator [flags]
 ```
 

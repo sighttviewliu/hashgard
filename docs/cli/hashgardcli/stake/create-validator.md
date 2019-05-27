@@ -6,7 +6,7 @@ create new validator initialized with a self-delegation to it
 
 ## Usage
 
-```
+```shell
 hashgardcli stake create-validator [flags]
 ```
 

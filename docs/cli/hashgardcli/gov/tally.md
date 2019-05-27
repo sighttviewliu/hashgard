@@ -2,11 +2,11 @@
 
 ## Description
 
-Query tally of votes on a proposal. 
+Query tally of votes on a proposal.
 
 ## Usage
 
-```
+```shell
  hashgardcli gov tally [proposal-id] [flags]
 ```
 
@@ -33,4 +33,3 @@ You could query the statistics of each voting option.
   "no_with_veto": "0.0000000000"
 }
 ```
-

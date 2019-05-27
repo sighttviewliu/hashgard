@@ -6,7 +6,7 @@ Get the full tendermint validator set at given height
 
 ## Usage
 
-```
+```shell
   hashgardcli tendermint tendermint-validator-set [height] [flags]
 ```
 
@@ -28,7 +28,7 @@ hashgardcli tendermint tendermint-validator-set 114360 --trust-node
 
 The result is as follows：
 
-```
+```shell
 block height: 123
 
   Address:          gardvalcons13ja77lpt0deamvuwz5eugy9kwkutxukjwjwwf3

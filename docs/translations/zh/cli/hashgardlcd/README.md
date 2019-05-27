@@ -10,7 +10,7 @@
 
 hashgardlcd 有三个子命令:
 
-| 名称 | 功能                      | 例子命令                                  |
+| 名称 | 功能                      | 例子命令                                  |
 | ------- | ------------------------- | ----------------------------------------- |
 | help    | 打印帮助信息              | hashgardlcd help                          |
 | version | 打印版本信息              | hashgardlcd version                       |
@@ -52,13 +52,13 @@ hashgardlcd 有三个子命令:
 
 1. 默认情况下，hashgardLCD 不信任连接全节点。但是如果您确定连接的完整节点是可信的，那么您应该在启动 hashgardLCD 时加上`--trust-node`：
 
-```bash
+```shell
 hashgardlcd start --chain-id=<chain-id> --trust-node
 ```
 
 2. 如果需要在其他机器上访问此 hashgardlcd 节点，还需要配置`--laddr`参数，例如：
 
-```bash
+```shell
 hashgardlcd start --chain-id=<chain-id> --laddr=tcp://0.0.0.0:1317
 ```
 

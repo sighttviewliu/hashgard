@@ -7,7 +7,7 @@ Deposit tokens for active proposal
 
 ## Usage
 
-```
+```shell
 hashgardcli gov deposit [proposal-id] [deposit] [flags]
 ```
 ## Flags

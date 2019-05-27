@@ -6,7 +6,7 @@ Derive a new private key and encrypt to disk.
 
 ## Usage
 
-```
+```shell
 hashgardcli keys add <name> [flags]
 ```
 

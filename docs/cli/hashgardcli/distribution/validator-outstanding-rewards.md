@@ -6,7 +6,7 @@ Query distribution outstanding (un-withdrawn) rewards for a validator and all th
 
 ## Usage
 
-```
+```shell
 hashgardcli distribution outstanding-rewards [flags]
 ```
 
@@ -17,13 +17,13 @@ hashgardcli distribution outstanding-rewards [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli distribution outstanding-rewards -o=json --trust-node
 ```
 
 The result is as follows：
 
-```
+```txt
 [
  {
   "denom": "gard",

@@ -6,7 +6,7 @@ Query all redelegation records for an individual delegator
 
 ## Usage
 
-```
+```shell
 hashgardcli stake redelegations [delegator-address] [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake redelegations [delegator-address] [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake redelegations gard1m3m4l6g5774qe5jj8cwlyasue22yh32jf4wwet --trust-node
 ```
 

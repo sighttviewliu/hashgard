@@ -1,10 +1,10 @@
 # hashgardcli issue query
 
 ## 描述
-查询指定issue-id值的发行的信息。
+查询指定 issue-id 值的发行的信息。
 
 ## 用法
-```
+```shell
 hashgardcli issue query-issue [issue-id] [flags]
 ```
 

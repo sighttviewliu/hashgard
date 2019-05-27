@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli slashing signing-info [validator-conspub] [flags]
 ```
 
@@ -18,7 +18,7 @@ hashgardcli slashing signing-info [validator-conspub] [flags]
 
 查询验证人的签名信息
 
-```
+```shell
 hashgardcli slashing signing-info \
 gardvalconspub1zcjduepqgsmuj0qallsw79hjj9qztcke6hj3ujdcpjv249uny9fvzp4eulms0tqvgs \
 --trust-node

@@ -6,7 +6,7 @@ Issue a new token
 
 ## Usage
 
-```
+```shell
 hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
 ```
 
@@ -61,7 +61,7 @@ hashgardcli bank account gard1f203m5q7hr4tkf0vredrn4wpxkx7zngn4pntye
 
 There is a `coin (issue-id)` token in your token list.
 
-```
+```shell
 {
  Account:
   Address:       gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7

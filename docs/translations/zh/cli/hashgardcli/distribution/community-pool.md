@@ -5,7 +5,7 @@
 查询基金会池子
 ## 用法
 
-```
+```shell
 hashgardcli distribution community-pool [flags]
 ```
 
@@ -17,13 +17,13 @@ hashgardcli distribution community-pool [flags]
 
 查询参数信息
 
-```
+```shell
 hashgardcli distribution community-pool -o=json --trust-node
 ```
 
 运行成功以后，返回的结果如下：
 
-```
+```txt
 [
  {
   "denom": "gard",

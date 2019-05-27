@@ -4,7 +4,7 @@
 Search issues based on symbol
 
 ## Usage
-```
+```shell
 hashgardcli issue search [symbol] [flags]
 ```
 ## Flags

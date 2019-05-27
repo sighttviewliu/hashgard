@@ -3,7 +3,7 @@
 ## 描述
 在代币的销毁属性没有关闭的情况下，可以对自己发行的代币进行销毁。
 ## 用法
-```
+```shell
  hashgardcli issue burn [issue-id] [amount] [flags]
 ```
 ## Flags
@@ -25,7 +25,7 @@ hashgardcli issue burn coin174876e800 88888 --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 27544
-  Tags: 
+  Tags:
     - action = issue_burn_holder
     - category = issue
     - issue-id = coin174876e802

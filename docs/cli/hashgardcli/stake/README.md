@@ -6,7 +6,7 @@ Stake and validation subcommands
 
 ## Usage
 
-```
+```shell
 hashgardcli stake [subcommand]
 ```
 

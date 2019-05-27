@@ -26,6 +26,6 @@ hashgard validate-genesis [file] [flags]
 
 ## Example
 
-```bash
+```shell
 hashgard validate-genesis
 ```

@@ -4,7 +4,7 @@
 With the additional switch turned on，Owner Add tokens for yourself or add tokens to others。
 
 ## Usage
-```
+```shell
  hashgardcli issue mint [issue-id] [amount] [flags]
 ```
 | Name   | Type    | Required   | Default   | Description      |

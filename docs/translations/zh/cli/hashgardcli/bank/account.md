@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli bank account [address] [flags]
 ```
 
@@ -18,13 +18,13 @@ hashgardcli bank account [address] [flags]
 
 ### 查询账户信息
 
-```
+```shell
  hashgardcli bank account gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx -o json --trust-node --indent
 ```
 
 执行完命令后，获得账户的详细信息如下：
 
-```
+```txt
 {
  "type": "auth/Account",
  "value": {
@@ -45,12 +45,12 @@ hashgardcli bank account [address] [flags]
 }
 ```
 如果你查询一个错误的地址，将会返回如下信息:
-```
+```shell
 hashgardcli bank account gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429zz
 ERROR: decoding bech32 failed: checksum failed. Expected d429yx, got d429zz.
 ```
 如果查询一个空地址，将会返回如下信息:
-```
+```shell
 hashgardcli bank account gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7
 ERROR: No account with address gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7 was found in the state.
 Are you sure there has been a transaction involving it?

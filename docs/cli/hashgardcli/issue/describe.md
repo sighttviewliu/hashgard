@@ -3,7 +3,7 @@
 ## Description
 Owner Describes the issue token，Must be json file no larger than 1024 bytes.
 ## Usage
-```
+```shell
  hashgardcli issue describe [issue-id] [description-file] [flags]
 ```
 ## Flags
@@ -16,7 +16,7 @@ Owner Describes the issue token，Must be json file no larger than 1024 bytes.
 hashgardcli issue describe coin174876e802 /description.json --from
 ```
 #### Template
-```
+```shell
 {
     "organization":"Hashgard",
     "website":"https://www.hashgard.com",
@@ -46,7 +46,7 @@ The result is as follows：
 hashgardcli issue query-issue coin174876e802
 ```
 The result is as follows：
-```
+```shell
 {
 Issue:
   IssueId:          			coin174876e802

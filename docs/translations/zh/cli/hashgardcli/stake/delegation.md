@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake delegation [delegator-addr] [validator-addr] [flags]
 ```
 

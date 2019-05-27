@@ -16,7 +16,7 @@ hashgardcli box deposit-to [box-id] [amount]  --from
 
 | 名称   | 类型   | 必需 | 默认值 | 描述         |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | 是       |        | 盒子的id |
+| box-id | string | 是       |        | 盒子的 id |
 | amount | int   | 是       |        | 存款的数量   |
 
 
@@ -28,7 +28,7 @@ hashgardcli box deposit-to [box-id] [amount]  --from
 ## 例子
 ### 进行存款
 
-```
+```shell
 hashgardcli box deposit-to boxab3jlxpt2pw 300 --from
 ```
 

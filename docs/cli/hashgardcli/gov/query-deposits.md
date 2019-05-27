@@ -6,7 +6,7 @@ Query details for all deposits on a proposal. You can find the proposal-id by ru
 
 ## Usage
 
-```
+```shell
 hashgardcli gov query-deposits [proposal-id] [flags]
 ```
 ## Flags

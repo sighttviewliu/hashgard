@@ -2,11 +2,11 @@
 
 ## 描述
 
-某笔有效订单的seller可以撤销该笔订单，冻结的资金将返回其账户
+某笔有效订单的 seller 可以撤销该笔订单，冻结的资金将返回其账户
 
 ## 用法
 
-```
+```shell
 hashgardcli exchange withdrawal-order [order_id] [flags]
 ```
 
@@ -22,7 +22,7 @@ hashgardcli exchange withdrawal-order [order_id] [flags]
 hashgardcli exchange withdrawal-order 2 --from mykey --chain-id hashgard -o=json --indent
 ```
 
-必须是订单的seller账户操作，输入正确的密码后，order_id为2的订单已经撤销。
+必须是订单的 seller 账户操作，输入正确的密码后，order_id 为 2 的订单已经撤销。
 
 ```txt
 {

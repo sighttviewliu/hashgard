@@ -2,11 +2,11 @@
 
 ## Description
 
-Get verified data for a the block at given height 
+Get verified data for a the block at given height
 
 ## Usage
 
-```
+```shell
   hashgardcli tendermint block [height] [flags]
 ```
 

@@ -1,7 +1,7 @@
 # hashgardcli issue freeze
 
 ## 描述
-在没有关闭通证冻结的前提下，owenr冻结用户的转入转出功能。
+在没有关闭通证冻结的前提下，owenr 冻结用户的转入转出功能。
 ## 用法
 ```shell
  hashgardcli issue freeze [freeze-Type] [issue-id][acc-address][end-time] --from

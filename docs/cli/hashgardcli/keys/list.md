@@ -6,7 +6,7 @@ Return a list of all public keys stored by this key manager along with their ass
 
 ## Usage
 
-```
+```shell
 hashgardcli keys list [flags]
 ```
 

@@ -16,7 +16,7 @@ hashgardcli box [command]
 
 打印子命令和参数
 
-```
+```shell
 hashgardcli box --help
 ```
 

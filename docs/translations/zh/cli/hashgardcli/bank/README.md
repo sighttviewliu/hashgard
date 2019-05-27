@@ -2,17 +2,17 @@
 
 ## 描述
 
-Bank模块允许你管理你本地账户的资产。
+Bank 模块允许你管理你本地账户的资产。
 
 ## 用法
 
-```
+```shell
  hashgardcli bank [command]
 ```
 
 打印子命令和参数
 
-```
+```shell
 hashgardcli bank --help
 ```
 ## 相关命令

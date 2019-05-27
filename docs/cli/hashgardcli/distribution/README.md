@@ -7,13 +7,13 @@ This document describes how to use the the command line interfaces of distributi
 
 ## Usage
 
-```
+```shell
 hashgardcli distribution [subcommand]
 ```
 
 Print all supported subcommands and flags:
 
-```
+```shell
 hashgardcli distribution --help
 ```
 

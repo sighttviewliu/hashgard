@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli exchange query-orders [address] [flags]
 ```
 
@@ -22,7 +22,7 @@ hashgardcli exchange query-orders [address] [flags]
 hashgardcli exchange query-orders gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa --chain-id hashgard -o=json --indent
 ```
 
-下面是地址gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa所有有效的订单
+下面是地址 gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa 所有有效的订单
 
 ```txt
 [

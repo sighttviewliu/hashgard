@@ -3,7 +3,7 @@
 ## 描述
 用户将自己的通证进行限定期限的锁定。
 ## 用法
-```
+```shell
  hashgardcli box create-lock [name] [total-amount] [end-time] --from
 ```
 ### 子命令
@@ -45,7 +45,7 @@ hashgardcli box create-lock ff 1000coin174876e800 1558066440 --from
 
 接着我们对锁定的账户进行查询
 
-```
+```shell
 hashgardcli bank account gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
 ```
 

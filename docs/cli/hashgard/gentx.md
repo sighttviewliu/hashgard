@@ -7,7 +7,7 @@ This command is an alias of the 'hashgard tx create-validator' command'.
 It creates a genesis piece carrying a self delegation with the
 following delegation and commission default parameters:
 
-```
+```txt
 delegation amount:           100000000000000000000agard
 	commission rate:             0.1
 	commission max rate:         0.2

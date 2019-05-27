@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli faucet send [address] [flags]
 ```
 
@@ -20,7 +20,7 @@ hashgardcli faucet send [address] [flags]
  hashgardcli faucet send gard18vdg4r46qtfkwyghsg67dpn9p7vassw30z0f46 --chain-id=hashgard -o=json --indent
 ```
 
-执行成功后，你将会从水龙头地址获得50gard,50apple的转账。
+执行成功后，你将会从水龙头地址获得 50gard,50apple 的转账。
 
 ```txt
 {

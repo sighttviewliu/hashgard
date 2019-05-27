@@ -13,7 +13,7 @@ Hashgard 公链基于 Cosmos-SDK 开发，Cosmos SDK 是使用 Go 语言开发�
 
 建议在 Linux 服务器中运行验证人节点，如果您在本地电脑上运行，那么当您的电脑休眠或关机时，您的验证人节点将会进入离线 jailed 状态。
 
-### 推荐配置：
+**推荐配置:**
 
 - CPU：2Core
 - 内存：4GB
@@ -36,7 +36,7 @@ Golang 安装文档：
 
 此外，你需要指定运行 Go 所需的 `$GOPATH`、`$GOBIN` 和 `$PATH` 变量, 例如:
 
-```bash
+```shell
 mkdir -p $HOME/go/bin
 echo "export GOPATH=$HOME/go" >> ~/.bash_profile
 echo "export GOBIN=\$GOPATH/bin" >> ~/.bash_profile
@@ -48,13 +48,13 @@ source ~/.bash_profile
 
 确保您的服务器上安装了 `git`：
 
-```
+```shell
 apt-get install git -y
 ```
 
 将 Hashgard 项目放在指定目录：
 
-```bash
+```shell
 mkdir -p $GOPATH/src/github.com/hashgard
 cd $GOPATH/src/github.com/hashgard
 git clone https://github.com/hashgard/hashgard
@@ -64,7 +64,7 @@ git clone https://github.com/hashgard/hashgard
 
 切换至 master 分支，进行安装：
 
-```bash
+```shell
 cd hashgard && git checkout master
 make get_tools && make install
 ```
@@ -73,7 +73,7 @@ make get_tools && make install
 
 使用 help 命令检查是否安装成功：
 
-```bash
+```shell
 hashgard help
 hashgardcli help
 ```
@@ -88,14 +88,14 @@ hashgardcli help
 
 当完成解压之后，可在 Terminal / CMD 中检查是否安装成功：
 
-```bash
+```shell
 hashgard help
 hashgardcli help
 ```
 
 如果出现
 
-```
+```shell
 Hashgard Daemon (server)
 
 Usage:

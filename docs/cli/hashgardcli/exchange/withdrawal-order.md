@@ -2,11 +2,11 @@
 
 ## Description
 
-Cancel order and withdrawal token
+Cancel order and withdrawal token
 
 ## Usage
 
-```
+```shell
 hashgardcli exchange withdrawal-order [order_id] [flags]
 ```
 

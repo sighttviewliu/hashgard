@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli keys list [flags]
 ```
 ## Flags
@@ -28,4 +28,4 @@ NAME:	Type:	ADDRESS:						            PUBKEY:
 abc  	local	gardva2eu9qhwn5fx58kvl87x05ee4qrgh44yd8teh	gardpub1addwnpepqvu549hgyhnxlveqmtdn2xywygxpgzcsqefxur47zkz4e0e9x67hvjr6r6p
 ```
 
-需要注意的是，如果本地有多个.hashgardcli存储，需要通过--home 参数来定位查询源。
+需要注意的是，如果本地有多个.hashgardcli 存储，需要通过--home 参数来定位查询源。

@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli exchange query-frozen [address] [flags]
 ```
 
@@ -22,7 +22,7 @@ hashgardcli exchange query-frozen [address] [flags]
 hashgardcli exchange query-frozen gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa --chain-id hashgard -o=json --indent
 ```
 
-下面是地址gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa的冻结资金
+下面是地址 gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa 的冻结资金
 
 ```txt
 [

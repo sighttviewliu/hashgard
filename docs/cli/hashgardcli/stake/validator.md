@@ -6,7 +6,7 @@ Query details about an individual validator:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake validator [validator-address] [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake validator [validator-address] [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake validator [validator-address] --trust-node
 ```
 

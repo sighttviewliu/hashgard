@@ -6,7 +6,7 @@ Non-reversible function setting of token
 
 ## Usage
 
-```
+```shell
 hashgardcli issue disable [issue-id][flags]--from
 ```
 
@@ -58,7 +58,7 @@ hashgardcli issue query-issue coin174876e800
 
 The result is as follows：
 
-```
+```shell
 {
  Issue:
   IssueId:          			coin174876e800

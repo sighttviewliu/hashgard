@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake unbond [validator-addr] [amount] [flags]
 ```
 

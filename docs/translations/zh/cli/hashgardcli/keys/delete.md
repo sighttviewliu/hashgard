@@ -5,8 +5,7 @@
 删除指定的密钥
 
 ## 用法
-
-```
+```shell
 hashgardcli keys delete <name> [flags]
 ```
 
@@ -18,7 +17,7 @@ hashgardcli keys delete <name> [flags]
 | -y, --yes | bool | 否 | false | 跳过确认提示 |
 
  **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
- 
+
 ## 例子
 
 ### 删除指定的密钥

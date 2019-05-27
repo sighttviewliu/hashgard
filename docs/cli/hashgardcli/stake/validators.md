@@ -6,7 +6,7 @@ Query details about all validators on a network:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake validators [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake validators [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake validators --trust-node
 ```
 

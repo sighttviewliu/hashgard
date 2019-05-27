@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgard unsafe-reset-all [flags]
 ```
 

@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgard testnet [flags]
 ```
 

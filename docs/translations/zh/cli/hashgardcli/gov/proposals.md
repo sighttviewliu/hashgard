@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli gov proposals [flags]
 ```
 ## Flags
@@ -44,7 +44,7 @@ ID - (Status) [Type] Title
 gov proposals --chain-id=hashgard --depositor=gard4q5rf9sl2dqd2uxrxykafxq3nu3lj2fp9l7pgd
 ```
 
-可以得到存款人是gard4q5rf9sl2dqd2uxrxykafxq3nu3lj2fp9l7pgd地址的提案。
+可以得到存款人是 gard4q5rf9sl2dqd2uxrxykafxq3nu3lj2fp9l7pgd 地址的提案。
 ```txt
   2 - new proposal
 ```

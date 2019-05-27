@@ -29,7 +29,7 @@ hashgardcli box deposit-to [box-id] [amount]  --from
 
 ### deposit
 
-```
+```shell
 hashgardcli box deposit-to boxab3jlxpt2pw 300 --from
 ```
 

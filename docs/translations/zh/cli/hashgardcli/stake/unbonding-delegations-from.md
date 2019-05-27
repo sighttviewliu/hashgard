@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake unbonding-delegations-from [validator-address] [flags]
 ```
 
@@ -18,6 +18,6 @@ hashgardcli stake unbonding-delegations-from [validator-address] [flags]
 
 基于验证人地址的所有 unbonding-delegation 记录查询
 
-```
+```shell
 hashgardcli stake unbonding-delegations-from gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx --chain-id=hashgard
 ```

@@ -1,10 +1,10 @@
 # hashgardcli issue transfer-ownership
 
 ## 描述
-Owner可以将代币的所有者转移到新的账户下，如要将代币也转移请使用 send 命令进行发送。
+Owner 可以将代币的所有者转移到新的账户下，如要将代币也转移请使用 send 命令进行发送。
 
 ## 用法
-```
+```shell
  hashgardcli issue transfer-ownership [issue-id] [to_address] [flags]
 ```
 ## Flags
@@ -13,11 +13,11 @@ Owner可以将代币的所有者转移到新的账户下，如要将代币也转
 
 ## 例子
 
-### 转移Owner
+### 转移 Owner
 ```shell
  hashgardcli issue transfer-ownership coin174876e802 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 --from
 ```
-输入正确的密码之后，你的该代币的Onwer就完成了转移。
+输入正确的密码之后，你的该代币的 onwer 就完成了转移。
 ```txt
 {
    Height: 3199

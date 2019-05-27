@@ -6,7 +6,7 @@ Query order details for the specified id
 
 ## Usage
 
-```
+```shell
 hashgardcli exchange query-order [order_id] [flags]
 ```
 

@@ -6,7 +6,7 @@ Initialize validators's and node's configuration files.
 
 ## Usage
 
-```bash
+```shell
 hashgard init [flags]
 ```
 

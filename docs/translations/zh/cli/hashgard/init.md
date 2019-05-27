@@ -6,7 +6,7 @@
 
 ## 用法
 
-```bash
+```shell
 hashgard init [flags]
 ```
 

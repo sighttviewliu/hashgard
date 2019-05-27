@@ -3,7 +3,7 @@
 ## Description
 Token owner transfer the ownership to new account
 ## Usage
-```
+```shell
  hashgardcli issue transfer-ownership [issue-id] [to_address] [flags]
 ```
 ## Flags

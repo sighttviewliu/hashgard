@@ -6,7 +6,7 @@ Resets the blockchain database, removes address book files, and resets priv_vali
 
 ## Usage
 
-```
+```shell
 hashgard unsafe-reset-all [flags]
 ```
 
@@ -22,4 +22,3 @@ hashgard unsafe-reset-all [flags]
 ``` shell
 hashgard unsafe-reset-all
 ```
-

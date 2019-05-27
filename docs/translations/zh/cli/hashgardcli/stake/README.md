@@ -6,7 +6,7 @@ Stake 模块提供了一系列查询 staking 状态和发送 staking 交易的�
 
 ## 用法
 
-```
+```shell
 hashgardcli stake [subcommand]
 ```
 

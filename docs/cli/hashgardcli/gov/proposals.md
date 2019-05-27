@@ -6,7 +6,7 @@ Query for a all proposals. You can filter the returns with the following flags
 
 ## Usage
 
-```
+```shell
 hashgardcli gov proposals [flags]
 ```
 ## Flags

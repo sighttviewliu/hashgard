@@ -6,7 +6,7 @@ Slashing subcommands
 
 ## Usage
 
-```
+```shell
  hashgardcli slashing [subcommand]
 ```
 

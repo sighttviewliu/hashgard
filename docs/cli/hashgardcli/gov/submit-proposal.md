@@ -6,7 +6,7 @@ Submit a proposal along with an initial deposit. Proposal Type：Text/ParameterC
 
 ## Usage
 
-```
+```shell
 hashgardcli gov submit-proposal [flags]
 ```
 ## Flags
@@ -33,7 +33,7 @@ hashgardcli gov submit-proposal \
     --from=foo
 ```
 
-输入正确的密码之后，你就完成提交了一个提案，需要注意的是要记下你的提案ID，这是可以检索你的提案的唯一要素。
+输入正确的密码之后，你就完成提交了一个提案，需要注意的是要记下你的提案 ID，这是可以检索你的提案的唯一要素。
 
 ```json
 {
@@ -60,7 +60,7 @@ hashgardcli gov submit-proposal \
 }
 ```
 ### Submit a 'Text' Type proposal
-```bash
+```shell
 hashgardcli gov submit-proposal \
     --proposal="path/to/proposal.json" \
     --from=foo
@@ -75,7 +75,7 @@ hashgardcli gov submit-proposal \
 }
 ```
 
-输入正确的密码之后，你就完成提交了一个提案，需要注意的是要记下你的提案ID，这是可以检索你的提案的唯一要素。
+输入正确的密码之后，你就完成提交了一个提案，需要注意的是要记下你的提案 ID，这是可以检索你的提案的唯一要素。
 ```json
 {
  "height": "85903",
@@ -106,7 +106,7 @@ hashgardcli gov submit-proposal \
 ```
 ### Submit a 'SoftwareUpgrade' Type proposal
 
-```bash
+```shell
 hashgardcli gov submit-proposal \
     --title="hashgard" \
     --Type="SoftwareUpgrade" \
@@ -114,7 +114,7 @@ hashgardcli gov submit-proposal \
     --from=hashgard
 ```
 
-在这种场景下，提案的 --title、--Type 和--description参数必不可少，另外你也应该保留好提案ID，这是检索所提交提案的唯一方法。
+在这种场景下，提案的 --title、--Type 和 --description 参数必不可少，另外你也应该保留好提案 ID，这是检索所提交提案的唯一方法。
 
 
 How to query proposal

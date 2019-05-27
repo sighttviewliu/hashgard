@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake validators [flags]
 ```
 
@@ -18,7 +18,7 @@ hashgardcli stake validators [flags]
 
 查询验证人
 
-```
+```shell
 hashgardcli stake validators --trust-node
 ```
 

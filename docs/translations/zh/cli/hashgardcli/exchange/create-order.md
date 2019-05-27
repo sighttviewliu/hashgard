@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli exchange create-order [flags]
 ```
 
@@ -27,7 +27,7 @@ hashgardcli exchange create-order [flags]
 hashgardcli exchange create-order --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
 ```
 
-输入正确的密码后，创建了一笔100gard交换800apple的订单。
+输入正确的密码后，创建了一笔 100gard 交换 800apple 的订单。
 
 ```txt
 {

@@ -10,7 +10,7 @@ Create a new lock box
 
 ## Usage
 
-```
+```shell
 hashgardcli box create-lock [name] [total-amount] [end-time] --from
 ```
 ### Subcommands
@@ -55,7 +55,7 @@ Enter password to return
 
 Check our account
 
-```
+```shell
 hashgardcli bank account gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
 ```
 

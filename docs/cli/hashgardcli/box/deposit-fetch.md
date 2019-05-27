@@ -31,7 +31,7 @@ hashgardcli box deposit-fetch [box-id] [amount]  --from
 
 ### Retrieve deposit
 
-```
+```shell
 hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from one
 ```
 

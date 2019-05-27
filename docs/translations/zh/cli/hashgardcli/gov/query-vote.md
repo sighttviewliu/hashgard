@@ -6,14 +6,14 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli gov query-vote [proposal-id] [voter-addr] [flags]
 ```
 
 ## Flags
 
  **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
- 
+
 ### 查询投票
 
 ```shell

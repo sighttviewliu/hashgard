@@ -1,9 +1,9 @@
 # hashgardcli issue burn-from
 
 ## 描述
-某个代币的Owner在没有关闭持币者自己可以销毁自己持有该代币前提下，持币者对自己持有的该代币进行销毁。
+某个代币的 Owner 在没有关闭持币者自己可以销毁自己持有该代币前提下，持币者对自己持有的该代币进行销毁。
 ## 用法
-```
+```shell
  hashgardcli issue burn-from [issue-id] [acc-address][amount] --from
 ```
 ## Flags
@@ -25,7 +25,7 @@ hashgardcli issue burn-from coin174876e801 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7m
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 29892
-  Tags: 
+  Tags:
     - action = issue_burn_from
     - category = issue
     - issue-id = coin174876e802

@@ -2,17 +2,17 @@
 
 ## 介绍
 
-这里主要介绍distribution模块提供的命令行接口
+这里主要介绍 distribution 模块提供的命令行接口
 
 ## 用法
 
-```
+```shell
 hashgardcli distribution [subcommand]
 ```
 
 打印子命令和参数
 
-```
+```shell
 hashgardcli distribution --help
 ```
 

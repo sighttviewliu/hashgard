@@ -6,7 +6,7 @@ Query the list of issuing tokens
 
 ## Usage
 
-```
+```shell
 hashgardcli issue list-issues [flags]
 ```
 

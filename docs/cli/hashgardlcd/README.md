@@ -52,13 +52,13 @@ hashgardlcd has three subcommands:
 
 1. By default, hashgardLCD doesn't trust the connected full node. But if you are sure about that the connected full node is trustable, then you should run hashgardLCD with --trust-node option:
 
-```bash
+```shell
 hashgardlcd start --chain-id=<chain-id> --trust-node
 ```
 
 2. If you want to access your hashgardlcd in another machine, you have to specify --laddr, for instance:
 
-```bash
+```shell
 hashgardlcd start --chain-id=<chain-id> --laddr=tcp://0.0.0.0:1317
 ```
 

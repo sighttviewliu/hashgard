@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
   hashgardcli tendermint block [height] [flags]
 ```
 
