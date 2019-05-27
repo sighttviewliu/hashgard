@@ -10,8 +10,6 @@ Multisig transactions require signatures of multiple private keys. Thus, generat
 hashgardcli bank multisign [file] [name] [[signature]...] [flags]
 ```
 
-
-
 ## Flags
 
 | Name   | Type   | Required | Default | Description        |

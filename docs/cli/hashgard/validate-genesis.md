@@ -6,7 +6,7 @@ validates the genesis file at the default location or at the location passed as 
 
 ## Usage
 
-```
+```shell
 hashgard validate-genesis [file] [flags]
 ```
 

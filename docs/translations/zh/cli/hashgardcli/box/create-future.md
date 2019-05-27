@@ -36,7 +36,7 @@ hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-f
 
 ## Flags
 
- ### 全局flags 参考：[hashgardcli](../README.md)
+ ### 全局flags 查询flags 参考：[hashgardcli](../README.md)
 ## 例子
 ### 创建远期支付盒子
 ```shell
@@ -103,17 +103,17 @@ BoxInfo:
   Owner:			gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
   Name:				pay
   BoxType:			future
-  TotalAmount:			
+  TotalAmount:
   Token:			1800000000000000000000agard
   Decimals:			1
   CreatedTime:			1558090817
-  Description:			
+  Description:
   TradeDisabled:		true
 FutureInfo:
   MiniMultiple:			1
   Deposit:			[
   Address:			gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-  Amount:			1800000000000000000000]			
+  Amount:			1800000000000000000000]
   TimeLine:			[]
   Distributed:			[1657912000 1657912001 1657912002]
   Receivers:			[[gard1cyxhqanlxc3u9025ngz5awzzex2jys6xc96ktj 100000000000000000000 200000000000000000000 300000000000000000000] [gard14wgcav3k99yz309vn7j6n3m50j32vkg426ktt0 100000000000000000000 200000000000000000000 300000000000000000000] [gard1hncel873ermm9e9009sthrys7ttdv6mtudfluz 100000000000000000000 200000000000000000000 300000000000000000000]]

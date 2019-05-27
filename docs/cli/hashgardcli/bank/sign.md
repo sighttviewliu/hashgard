@@ -6,14 +6,14 @@ Sign transactions created with the --generate-only flag
 
 ## Usage
 
-```
+```shell
 hashgardcli bank sign [file] [flags]
 ```
 
 ## Flags
 
 | Name   | Type   | Required  | Default        | Description                  |
-| ---------------- | ------- | -------- | --------------------- | ------------------------------------------------------------ |
+| ---------------- | ------- | -------- | --------------------- | ---------------------------------------- |
 | --append | bool | false| true | Append the signature to the existing ones. If disabled, old signatures would be overwritten. Ignored if --multisig is on |
 | --multisig | string | false| |  Address of the multisig account on behalf of which the transaction shall be signed |
 | --from | string | false| |  Name or address of private key with which to sign|
@@ -31,7 +31,7 @@ hashgardcli bank sign [file] [flags]
 
 First you must **hashgardcli bank send** command with flag **--generate-only** to generate a send recorder. Just like this.
 
-```  
+```shell
 hashgardcli bank send gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx 10gard --from=test --chain-id=hashgard --generate-only
 
 {"type":"auth/StdTx","value":{"msg":[{"type":"cosmos-sdk/Send","value":{"inputs":[{"address":"gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx","coins":[{"denom":"gard","amount":"10000000000000000000"}]}],"outputs":[{"address":"gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx","coins":[{"denom":"gard","amount":"10000000000000000000"}]}]}}],"fee":{"amount":[{"denom":"gard","amount":"4000000000000000"}],"gas":"200000"},"signatures":null,"memo":""}}
@@ -41,7 +41,7 @@ And then save the output in /root/node0/test_send_10hashgard.txt
 
 Then you can sign the offline file.
 
-```
+```shell
 hashgardcli bank sign /root/node0/test_send_10hashgard.txt --from=test  --offline=false --print-response --append=true
 ```
 

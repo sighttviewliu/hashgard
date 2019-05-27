@@ -7,13 +7,13 @@ Bank allows you to manage assets in your local account
 
 ## Usage
 
-```
+```shell
  hashgardcli bank [command]
 ```
 
 Print subcommands and parameters
 
-```
+```shell
 hashgardcli bank --help
 ```
 ## Subcommands

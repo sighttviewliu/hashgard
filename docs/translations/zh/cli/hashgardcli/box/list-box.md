@@ -14,8 +14,8 @@ hashgardcli box list-box [flag]
 | ------- | -------- |
 | lock    | 锁仓盒子 |
 | deposit | 存款盒子 |
-| future  | 远期支付盒子  |"type"
- ### 全局flags 参考：[hashgardcli](../README.md)
+| future  | 远期支付盒子  |
+ **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 
 ## 例子

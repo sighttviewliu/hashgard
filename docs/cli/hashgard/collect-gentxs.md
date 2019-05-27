@@ -5,7 +5,7 @@
 Collect genesis txs and output a genesis.json file
 
 ## Usage
-```
+```shell
 hashgard collect-gentxs [flags]
 ```
 

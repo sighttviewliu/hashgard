@@ -16,7 +16,7 @@
 
 ## 用法
 
-```
+```shell
  hashgard gentx [flags]
 ```
 

@@ -5,7 +5,7 @@ add genesis account to /path/to/.hashgard/config/genesis.json
 
 
 ## Usage
-```
+```shell
 hashgard add-genesis-account [address_or_key_name] [coin][,[coin]] [flags]
 ```
 

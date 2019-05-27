@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
 hashgard add-genesis-account [address_or_key_name] [coin][,[coin]] [flags]
 ```
 
