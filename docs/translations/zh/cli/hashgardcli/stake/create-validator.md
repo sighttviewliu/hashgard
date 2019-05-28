@@ -29,7 +29,7 @@ hashgardcli stake create-validator [flags]
 | --pubkey                     | string | true     | ""     | Amino 编码的验证人公钥                                  |
 | --website                    | string | false    | ""     | 验证人节点的网址                                        |
 
-**全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 

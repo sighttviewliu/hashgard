@@ -23,7 +23,7 @@ hashgardcli stake unbond [validator-addr] [amount] [flags]
 | ------ | ------ | -------- | ------ | -------------------- |
 | --from | string | `是`     | ""     | 委托人的账户名或地址 |
 
-**全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 

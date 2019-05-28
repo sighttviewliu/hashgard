@@ -20,7 +20,7 @@ hashgardcli stake edit-validator [flags]
 | --moniker         | string | false    | "[do-not-modify]" | 验证人名称           |
 | --website         | string | false    | "[do-not-modify]" | 网址                 |
 
-**全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 
 ## 例子
 
