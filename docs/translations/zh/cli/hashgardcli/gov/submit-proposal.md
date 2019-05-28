@@ -17,7 +17,7 @@ hashgardcli gov submit-proposal [flags]
 | --description    | string | 是 | "" | 提案的描述                             |
 | --proposal | string | 否 | "" | 提案文件路径（如果设置了此路径则忽略其他提案参数）         |
 | --title          | string | 是 | "" | 提案标题                                                           |
-| --Type           | string | 是 | "" | 提案类型,例如: Text/ParameterChange/SoftwareUpgrade               |
+| --type           | string | 是 | "" | 提案类型,例如: Text/ParameterChange/SoftwareUpgrade               |
 
 
  **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
@@ -27,7 +27,7 @@ hashgardcli gov submit-proposal [flags]
 ### 提交一个'Text'类型的提案
 
 ```shell
-hashgardcli gov submit-proposal --title="notice proposal" --Type="Text" --description="a new text proposal" --from=hashgard --chain-id=hashgard -o json --indent
+hashgardcli gov submit-proposal --title="notice proposal" --type="Text" --description="a new text proposal" --from=hashgard --chain-id=hashgard -o json --indent
 ```
 
 输入正确的密码之后，你就完成提交了一个提案，需要注意的是要记下你的提案 ID，这是可以检索你的提案的唯一要素。
@@ -102,10 +102,10 @@ hashgardcli gov submit-proposal --proposal="path/to/proposal.json" --from=hashga
 ### 提交一个 'SoftwareUpgrade' 类型的提案
 
 ```shell
-hashgardcli gov submit-proposal --title="hashgard" --Type="SoftwareUpgrade" --description="a new software upgrade proposal" --from=hashgard --chain-id=hashgard
+hashgardcli gov submit-proposal --title="hashgard" --type="SoftwareUpgrade" --description="a new software upgrade proposal" --from=hashgard --chain-id=hashgard
 ```
 
-在这种场景下，提案的 --title、--Type 和 --description 参数必不可少，另外你也应该保留好提案 ID，这是检索所提交提案的唯一方法。
+在这种场景下，提案的 --title、--type 和 --description 参数必不可少，另外你也应该保留好提案 ID，这是检索所提交提案的唯一方法。
 
 
 如何查询提案详情？

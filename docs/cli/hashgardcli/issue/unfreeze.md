@@ -4,7 +4,7 @@
 Token owner unFreeze the transfer from a address
 ## Usage
 ```shell
- hashgardcli issue unfreeze [unfreeze-Type] [issue-id][address] --from
+ hashgardcli issue unfreeze [unfreeze-type] [issue-id][address] --from
 ```
 ### unfreeze-Type
 
@@ -36,6 +36,6 @@ The result is as follows：
     - category = issue
     - issue-id = coin174876e800
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-    - freeze-Type = in
+    - freeze-type = in
 }
 ```

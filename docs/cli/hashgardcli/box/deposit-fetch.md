@@ -52,7 +52,7 @@ The result is as follows：
     - action = box_interest
     - category = box
     - box-id = boxab3jlxpt2pt
-    - box-Type = deposit
+    - box-type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = fetch
 }

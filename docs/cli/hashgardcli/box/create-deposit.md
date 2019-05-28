@@ -17,7 +17,7 @@ Create a new deposit box
 | Name         | Type  | Required  | Default| Description            |
 | ------------ | ------ | -------- | ------ | -------------------- |
 | name         | string | true      |        | depositbox name     |
-| total-amount | string | true      |        | Total amount and coin Type of deposit accepted |
+| total-amount | string | true      |        | Total amount and coin type of deposit accepted |
 
 ### Flags
 
@@ -51,7 +51,7 @@ After the password is confirmed，The result is as follows：
     - action = box_create
     - category = box
     - box-id = boxab3jlxpt2ps
-    - box-Type = deposit
+    - box-type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     }
 ```

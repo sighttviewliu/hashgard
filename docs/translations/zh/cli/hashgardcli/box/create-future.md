@@ -83,7 +83,7 @@ hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from
     - action = box_deposit
     - category = box
     - box-id = boxac3jlxpt2ps
-    - box-Type = future
+    - box-type = future
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = deposit-to
 }

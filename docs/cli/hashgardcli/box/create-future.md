@@ -13,7 +13,7 @@ hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-f
 | Name | Type  | Required  | Default| Description              |
 | ------------- | ------ | -------- | ------ | ---------------------- |
 | name          | string | true   |        | The name of the payment box |
-| total-amount  | string | true   |        | Coin Type and quantity of payment |
+| total-amount  | string | true   |        | Coin type and quantity of payment |
 | Mini-multiple | int    | true    | 1      | Minimum trading unit |
 
 ## Flags
@@ -84,7 +84,7 @@ The result is as follows：
     - action = box_deposit
     - category = box
     - box-id = boxac3jlxpt2ps
-    - box-Type = future
+    - box-type = future
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = deposit-to
 }
@@ -103,7 +103,7 @@ BoxInfo:
   BoxStatus:			actived
   Owner:			gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
   Name:				pay
-  BoxType:			future
+  Boxtype:			future
   TotalAmount:
   Token:			1800000000000000000000agard
   Decimals:			1

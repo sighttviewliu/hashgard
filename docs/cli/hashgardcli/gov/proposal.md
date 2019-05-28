@@ -30,7 +30,7 @@ The result is as follows：
     "proposal_id": "1",
     "title": "notice proposal",
     "description": "a new text proposal",
-    "proposal_Type": "Text",
+    "proposal_type": "Text",
     "proposal_status": "DepositPeriod",
     "tally_result": {
       "yes": "0.0000000000",

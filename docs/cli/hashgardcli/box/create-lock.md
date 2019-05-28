@@ -18,7 +18,7 @@ hashgardcli box create-lock [name] [total-amount] [end-time] --from
 | Name         | Type   | Required | Default | Description          |
 | ------------ | ------ | -------- | ------- | -------------------- |
 | name         | string | true     |         | Name of the lock box     |
-| total-amount | string | true     |         | Lock the coin Type and quantity of the box|
+| total-amount | string | true     |         | Lock the coin type and quantity of the box|
 | end-time     | int    | true     |         | Lock expiration time |
 
 
@@ -48,7 +48,7 @@ Enter password to return
     - action = box_create
     - category = box
     - box-id = boxaa3jlxpt2pt
-    - box-Type = lock
+    - box-type = lock
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     }
 ```

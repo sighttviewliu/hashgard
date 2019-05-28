@@ -6,7 +6,7 @@ When the freeze function is turned on，Owenr freezes the transfer of the specif
 ```shell
  hashgardcli issue freeze [freeze-Type] [issue-id][acc-address][end-time] --from
 ```
-### freeze-Type
+### freeze-type
 
 | Name   | Description            |
 | ------ | -------------------- |
@@ -22,7 +22,7 @@ When the freeze function is turned on，Owenr freezes the transfer of the specif
 
 ## Example
 
-### Freeze specified account transfer 
+### Freeze specified account transfer
 ```shell
 hashgardcli issue freeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n\ 253382641454 --from
 ```
@@ -41,7 +41,7 @@ Height: 2570
     - category = issue
     - issue-id = coin174876e800
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-    - freeze-Type = in
+    - freeze-type = in
 
 }
 ```

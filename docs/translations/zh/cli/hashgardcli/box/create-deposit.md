@@ -53,7 +53,7 @@ hashgardcli box create-deposit mingone 10000coin174876e800  --bottom-line=0 --pr
     - action = box_create
     - category = box
     - box-id = boxab3jlxpt2ps
-    - box-Type = deposit
+    - box-type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     }
 ```

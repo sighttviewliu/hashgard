@@ -51,7 +51,7 @@ PS：interest-injection 注入的数量是指按最大值和时间来计算的�
     - action = box_interest
     - category = box
     - box-id = boxab3jlxpt2ps
-    - box-Type = deposit
+    - box-type = deposit
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     - operation = injection
 }

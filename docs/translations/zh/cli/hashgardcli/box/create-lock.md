@@ -38,7 +38,7 @@ hashgardcli box create-lock ff 1000coin174876e800 1558066440 --from
     - action = box_create
     - category = box
     - box-id = boxaa3jlxpt2pt
-    - box-Type = lock
+    - box-type = lock
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
     }
 ```

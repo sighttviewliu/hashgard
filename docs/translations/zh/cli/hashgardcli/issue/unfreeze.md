@@ -5,9 +5,9 @@
 
 ## 用法
 ```shell
- hashgardcli issue unfreeze [unfreeze-Type] [issue-id][address] --from
+ hashgardcli issue unfreeze [unfreeze-type] [issue-id][address] --from
 ```
-### unfreeze-Type
+### unfreeze-type
 
 | 名称   | 描述                 |
 | ------ | -------------------- |
@@ -41,6 +41,6 @@ hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvx
     - category = issue
     - issue-id = coin174876e800
     - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-    - freeze-Type = in
+    - freeze-type = in
 }
 ```

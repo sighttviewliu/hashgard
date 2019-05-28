@@ -14,7 +14,7 @@ hashgard add-genesis-account [address_or_key_name] [coin][,[coin]] [flags]
 | Name         | Type  | Default| description                | Required |
 | --------------------- | ------ | ------ | ------------------- | -------- |
 | [address_or_key_name] | string |        | Added account name or address    | true    |
-| [coin]                | string |        | coin Type and amount | true    |
+| [coin]                | string |        | coin type and amount | true    |
 
 
 ## Flags
