@@ -15,10 +15,11 @@ hashgardcli stake edit-validator [flags]
 | 名称              | 类型   | 是否必填 | 默认值            | 功能描述             |
 | ----------------- | ------ | -------- | ----------------- | -------------------- |
 | --commission-rate | float  | false    | 0.0               | 佣金比率             |
-| --details         | string | false    | "[do-not-modify]" | 验证人节点的详细信息 |
-| --identity        | string | false    | "[do-not-modify]" | 身份签名             |
-| --moniker         | string | false    | "[do-not-modify]" | 验证人名称           |
-| --website         | string | false    | "[do-not-modify]" | 网址                 |
+| --details         | string | false    | | 验证人节点的详细信息 |
+| --identity        | string | false    | | 身份签名             |
+| --moniker         | string | false    | | 验证人名称           |
+| --website         | string | false    | | 网址                 |
+**验证人信息设置后,请尽量不要修改。**
 
 **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
 

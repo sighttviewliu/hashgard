@@ -1,7 +1,7 @@
 # hashgardcli box list-box
 
 ## Description
-Query box list   
+Query box list
 
 ## Usage
 ```shell
@@ -20,7 +20,7 @@ hashgardcli box list-box [flag]
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
-### Query box list  
+### Query box list
 
 ```shell
 hashgardcli box list-box future

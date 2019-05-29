@@ -6,9 +6,10 @@
 
 
 # Core 模块
-
-
-
+### [issue HRC10](issue.md) 同质化通证发行模块
+### [exchange HRC11](exchange.md) 原子交换模块
+### [stake](stake.md) 节点 委托
+### [distribution](distribution.md) 收益分配
 
 
 # 帮助模块

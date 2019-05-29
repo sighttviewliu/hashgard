@@ -1,10 +1,10 @@
 # hashgardcli distribution community-pool
 
-## 描述
+## Description
 
-查询 community-pool
+Query community-pool information
 
-## 用法
+## Usage
 
 ```shell
 hashgardcli distribution community-pool [flags]
@@ -12,17 +12,17 @@ hashgardcli distribution community-pool [flags]
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
+## Example
 
-查询参数信息
+Query community-pool information
 
 ```shell
 hashgardcli distribution community-pool -o=json --trust-node
 ```
 
-运行成功以后，返回的结果如下：
+The result is as follows：
 
 ```txt
 [

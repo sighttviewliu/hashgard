@@ -27,3 +27,5 @@ hashgardcli distribution --help
 | [rewards](rewards.md)  | 查询委托人获得的所有奖励 |
 | [set-withdraw-addr](set-withdraw-address.md)  | 设置收益取回地址 |
 | [withdraw-rewards](withdraw-rewards.md) | 发起取回收益的交易 |
+| [withdraw-all-rewards](withdraw-all-rewards.md) | 取回所有的收益 |
+| [community-pool](community-pool.md)  | 查询 community-pool 奖励
