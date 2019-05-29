@@ -2,11 +2,11 @@
 
 ## 介绍
 
-Hashgard 为用户提供原生的原子交换系统。可以在点对点的基础上实现加密货币的交换，借助整个 Hashgard 网络来进行交换，无需受信任的第三方，也不存在交易一方在交易中违约的风险。
+Hashgard 为用户提供原生的原子交换系统。可以在点对点的基础上实现加密货币的交换，借助整个 Hashgard 网络来进行交换，无需受信任的第三方，也不存在交易一方在交易中违约的风险。
 
-## 现实场景与问题
+## 现实场景与问题
 
-现实生活中，譬如最早期的游戏道具交易中，Alice 和 Bobo 两位同学在游戏中进行交易。最早的游戏的交易规则是双方都点击确认交易按钮后交易成功。 Alice 手上有 500 个金币，Bobo 手上有一把法杖A。Alice 和 Bobo 商议 500 金币可以购买 Bobo手中的法杖A。在交易窗弹出的时候 Alice 输入 500 金币，Bobo 把法杖 Alice 放入到了交易栏中。Bobo 看到 Alice 输入的是 500 金币 于是点击确认。这时候 Alice 将金币输入为 1 并点击确认。最后 Alice 以 1 枚金币的价格购买到了 法杖 A。后来游戏公司为了避免这种骗局的发生，增加交易的流程来避免这种欺诈问题。
+现实生活中，譬如最早期的游戏道具交易中，Alice 和 Bobo 两位同学在游戏中进行交易。最早的游戏的交易规则是双方都点击确认交易按钮后交易成功。 Alice 手上有 500 个金币，Bobo 手上有一把法杖 A。Alice 和 Bobo 商议 500 金币可以购买 Bobo 手中的法杖 A。在交易窗弹出的时候 Alice 输入 500 金币，Bobo 把法杖 Alice 放入到了交易栏中。Bobo 看到 Alice 输入的是 500 金币 于是点击确认。这时候 Alice 将金币输入为 1 并点击确认。最后 Alice 以 1 枚金币的价格购买到了 法杖 A。后来游戏公司为了避免这种骗局的发生，增加交易的流程来避免这种欺诈问题。
 
 
 原子交换协议将不存在这种问题。简单举个例子
@@ -20,7 +20,7 @@ Alice 现在知道了密码锁的密码，他就可以去 1 号保险箱取走�
 
 ## 使用
 
-### 用户创建卖单
+### 用户创建卖单
 ```shell
 hashgardcli exchange create-order [flags]
 ```
@@ -37,11 +37,11 @@ hashgardcli exchange withdrawal-order [order_id] [flags]
 ```shell
 hashgardcli exchange query-order [order_id] [flags]
 ```
-### 查询订单列表
+### 查询订单列表
 ```shell
 hashgardcli exchange query-orders [address] [flags]
 ```
-### 查询指定地址冻结资金
+### 查询指定地址冻结资金
 ```shell
 hashgardcli exchange query-frozen [address] [flags]
 ```

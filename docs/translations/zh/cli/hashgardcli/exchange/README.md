@@ -20,9 +20,9 @@ hashgardcli exchange --help
 
 | 名称                            | 功能    |
 | --------------------------------| ------------------------|
-| [create-order](create-order.md)  | 创建卖单 |
+| [create-order](create-order.md)  | 创建卖单 |
 | [take-order](take-order.md)  | 创建买单 |
 | [withdrawal-order](withdrawal-order.md)  | 取消挂单 |
-| [query-frozen](query-frozen.md)  | 查询指定地址冻结的资金|
+| [query-frozen](query-frozen.md)  | 查询指定地址冻结的资金|
 | [query-order](query-order.md)  | 查询指定订单 |
-| [query-orders](query-orders.md)  | 查询所有交易订单 |
+| [query-orders](query-orders.md)  | 查询所有交易订单 |

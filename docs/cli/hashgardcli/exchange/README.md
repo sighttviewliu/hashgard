@@ -20,7 +20,7 @@ hashgardcli exchange --help
 
 | Name                            | Description    |
 | --------------------------------| ------------------------|
-| [create-order](create-order.md)  | Create a sell order |
+| [create-order](create-order.md)  | Create a sell order |
 | [take-order](take-order.md)  | Create a buy order |
 | [withdrawal-order](withdrawal-order.md)  | withdrawal the order|
 | [query-frozen](query-frozen.md)  | Query information about the specified address freeze|
