@@ -9,8 +9,8 @@
 ### [Issue HRC10](issue.md) 同质化通证发行模块
 ### [Exchange HRC11](exchange.md) 原子交换模块
 ### [Desposit HRC12](desposit.md) 存款协议模块
-### [Future HRC13](Future.md) 存款协议模块
-### [Lock](lock.md) 锁仓
+### [Future HRC13](Future.md) 存款协议模块
+### [Lock](lock.md) 锁仓
 ### [Stake](stake.md) 节点 委托
 ### [Distribution](distribution.md) 收益分配
 
