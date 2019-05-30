@@ -93,8 +93,8 @@ module.exports = {
                 ['/cli/hashgardcli/slashing/', 'slashing'],
                 ['/cli/hashgardcli/issue/', 'issue'],
                 ['/cli/hashgardcli/box/', 'box'],
-                ['/cli/hashgardcli/faucet/send.md', 'faucet']
-                ['/cli/hashgardcli/exchange/', 'exchange']
+                ['/cli/hashgardcli/faucet/send.md', 'faucet'],
+                ['/cli/hashgardcli/exchange/', 'exchange'],
               ]
             },
             {
@@ -160,7 +160,7 @@ module.exports = {
                 ['/translations/zh/cli/hashgardcli/slashing/', 'slashing'],
                 ['/translations/zh/cli/hashgardcli/issue/', 'issue'],
                 ['/translations/zh/cli/hashgardcli/box/', 'box'],
-                ['/translations/zh/cli/hashgardcli/faucet/send.md', 'faucet']
+                ['/translations/zh/cli/hashgardcli/faucet/send.md', 'faucet'],
                 ['/translations/zh/cli/hashgardcli/exchange/', 'exchange']
 
               ],
