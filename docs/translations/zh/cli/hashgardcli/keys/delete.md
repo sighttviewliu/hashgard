@@ -16,7 +16,7 @@ hashgardcli keys delete <name> [flags]
 | -f, --force | bool | 否 | false | 无条件删除密钥而不要求密码      |
 | -y, --yes | bool | 否 | false | 跳过确认提示 |
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

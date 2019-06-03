@@ -16,13 +16,13 @@ hashgardcli keys add <name> [flags]
 | --------------- | --------- | ----------------------------- | ----- |
 | --account       | int | false| 0 | Account number for HD derivation                      |
 | --index         | int | false| 0 | Add indent to JSON response          |
-| --interactive | string | false| "" | Interactively prompt user for BIP39 passphrase and mnemonic|
-| --multisig | strings | false| "" |  Construct and store a multisig public key (implies --pubkey)|
+| --interactive | string | false|| Interactively prompt user for BIP39 passphrase and mnemonic|
+| --multisig | strings | false||  Construct and store a multisig public key (implies --pubkey)|
 | --multisig-threshold | int | false| 1 |K out of N required signatures. For use in conjunction with --multisig|
 | --no-backup     | bool | false| false |Don't print out seed phrase (if others are watching the terminal) |
 | --nosort | bool | false| false |Keys passed to --multisig are taken in the order they're supplied |
-| --pubkey | string | false| "" | Parse a public key in bech32 format and save it to disk|
-| --recover       | string | false| "" |  Provide seed phrase to recover existing key instead of creating            |
+| --pubkey | string | false|| Parse a public key in bech32 format and save it to disk|
+| --recover       | string | false||  Provide seed phrase to recover existing key instead of creating            |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

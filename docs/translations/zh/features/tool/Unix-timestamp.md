@@ -8,4 +8,4 @@ Unix
 
 ## Online tool
 
-<a href="https://www.epochconverter.com/" target="_blank"> Unix timestamp</a>
+<a href="http://tool.chinaz.com/Tools/unixtime.aspx" target="_blank"> Unix timestamp</a>

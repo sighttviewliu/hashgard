@@ -14,10 +14,10 @@ hashgardcli exchange create-order [flags]
 
 | 名称       | 类型                  | 必需        | 默认值            | 描述      |
 | --------------- | ---------------- | -------------- | --------- | ------------- |
-| --supply     | string | 是 | "" | 订单用于交易的币种及数量             |
-| --target        | string | 是 | "" | 订单的目标币种及数量           |
+| --supply     | string | 是 || 订单用于交易的币种及数量             |
+| --target        | string | 是 || 订单的目标币种及数量           |
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

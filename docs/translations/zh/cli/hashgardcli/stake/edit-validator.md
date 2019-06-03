@@ -12,7 +12,7 @@ hashgardcli stake edit-validator [flags]
 
 ## Flags
 
-| 名称              | 类型   | 是否必填 | 默认值            | 功能描述             |
+| 名称              | 类型   | 必需 | 默认值            | 描述             |
 | ----------------- | ------ | -------- | ----------------- | -------------------- |
 | --commission-rate | float  | false    | 0.0               | 佣金比率             |
 | --details         | string | false    | | 验证人节点的详细信息 |
@@ -21,7 +21,7 @@ hashgardcli stake edit-validator [flags]
 | --website         | string | false    | | 网址                 |
 **验证人信息设置后,请尽量不要修改。**
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

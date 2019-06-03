@@ -14,7 +14,7 @@ hashgardcli exchange take-order [order_id] [flags]
 
 | Name      | Type                 | Required                  | Default                     | Description           |
 | --------------- | -------------------------- | ------------- | ---------------- | ------------------------------ |
-| --amount     | string | true| "" | coin tpye and quantity the buyer uses for the transaction|                |
+| --amount     | string | true|| coin tpye and quantity the buyer uses for the transaction|                |
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## 计算

@@ -4,7 +4,7 @@
 
 | Name, shorthand| Type  | Required| Default               | Description    |
 | ------------ | ------ | ----- | -------------------- | ------------ |
-| --chain-id   | string | false | ""                    | Chain ID of tendermint node                                |
+| --chain-id   | string | false |                   | Chain ID of tendermint node                                |
 | --encoding   | string | false | "hex"                 | Encoding format(hex, b64, btc)                             |
 | --home       | string | false | "\$HOME/.hashgardcli" | directory for config and data                              |
 | --help, -h   | string | false |                       | Print help information                                     |
@@ -30,13 +30,13 @@ All query commands has these global flags. Their unique flags will be introduced
 | --account-number | int    | false | 0      | AccountNumber to sign the tx                |
 | --async          | bool   | false | false  | broadcast transactions asynchronously(only works with commit = false)|
 | --dry-run        | bool   | false | false  | Ignore the --gas flag and perform a simulation of a transaction, but don't broadcast it    |
-| --fees           | string | false | ""     | Fee to pay along with transaction E.g. 10gard, 1atom        |
-| --from           | string | false | ""     | Name of private key with which to sign   |
+| --fees           | string | false |    | Fee to pay along with transaction E.g. 10gard, 1atom        |
+| --from           | string | false |    | Name of private key with which to sign   |
 | --gas            | string | false | 200000 | Gas limit to set per-transaction; set to "simulate" to calculate required gas automatically|
 | --gas-adjustment | float  | false | 1      | Adjustment factor to be multiplied against the estimate returned by the tx simulation; if the gas limit is set|
-| --gas-prices     | string | false | ""     | Decide on the transaction (`fees`)  gas prices，e.g.`0.001gard`;                |
+| --gas-prices     | string | false |    | Decide on the transaction (`fees`)  gas prices，e.g.`0.001gard`;                |
 | --generate-only  | bool   | false | false  | Build an unsigned transaction and write it to STDOUT|
-| --memo           | string | false | ""     | Memo to send along with transaction|
+| --memo           | string | false |    | Memo to send along with transaction|
 | --print-response | bool   | false | true   | return tx response (only works with async = false)|
 | --sequence int   | int    | false | 0      | Sequence number to sign the tx|
 

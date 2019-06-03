@@ -9,7 +9,7 @@ With the additional switch turned on，Owner Add tokens for yourself or add toke
 ```
 | Name   | Type    | Required   | Default   | Description      |
 | --------  | ------------------- | ----- | ------ | -------- |
-| --to                  | string | false| "" | Add tokens to the specified address |
+| --to                  | string | false|| Add tokens to the specified address |
 
 ## Flags
 

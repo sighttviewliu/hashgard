@@ -1,4 +1,4 @@
-# hashgardcli box deposit-to
+# hashgardcli  deposit inject
 
 ## 描述
 对盒子进行通证注入。
@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
-hashgardcli box deposit-to [box-id] [amount]  --from
+hashgardcli deposit inject [box-id] [amount]  --from
 ```
 
 
@@ -23,17 +23,17 @@ hashgardcli box deposit-to [box-id] [amount]  --from
 
 ## Flags
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 ### 进行存款
 
 ```shell
-hashgardcli box deposit-to boxab3jlxpt2pw 300 --from
+hashgardcli deposit inject  boxab3jlxpt2pw 300 --from
 ```
 
 
-得到的结果是
+成功后，返回结果:
 
 ```txt
 {
@@ -53,12 +53,3 @@ hashgardcli box deposit-to boxab3jlxpt2pw 300 --from
     - operation = deposit-to
 }
 ```
-
-
-
-### 相关命令
-
-| 名称                              | 描述                     |
-| --------------------------------- | ------------------------ |
-| [deposit-to](deposit-to.md)       | 用户对盒子进行存款       |
-| [deposit-fetch](deposit-fetch.md) | 用户对盒子的存款进行取回 |

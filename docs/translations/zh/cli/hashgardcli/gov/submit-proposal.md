@@ -13,14 +13,14 @@ hashgardcli gov submit-proposal [flags]
 
 | 名称        | 类型                | 必需                 | 默认值                      | 描述               |
 | ---------------- | -------------------------- | ----------------- | -------------- | ------------- |
-| --deposit        | string | 否 | "" | 提案的保证金                                                                 |
-| --description    | string | 是 | "" | 提案的描述                             |
-| --proposal | string | 否 | "" | 提案文件路径（如果设置了此路径则忽略其他提案参数）         |
-| --title          | string | 是 | "" | 提案标题                                                           |
-| --type           | string | 是 | "" | 提案类型,例如: Text/ParameterChange/SoftwareUpgrade               |
+| --deposit        | string | 否 || 提案的保证金                                                                 |
+| --description    | string | 是 || 提案的描述                             |
+| --proposal | string | 否 || 提案文件路径（如果设置了此路径则忽略其他提案参数）         |
+| --title          | string | 是 || 提案标题                                                           |
+| --type           | string | 是 || 提案类型,例如: Text/ParameterChange/SoftwareUpgrade               |
 
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

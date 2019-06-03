@@ -1,11 +1,11 @@
-# hashgardcli box create-future
+# hashgardcli future create
 
 ## 描述
 创建一个远期支付盒子，可以设定多个时间点对不同账户的账户进行远期支付。
 
 ## 用法
 ```shell
-hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-file]  --from
+hashgardcli future create [name] [total-amount][distribute-file]  --from
 ```
 
 
@@ -36,97 +36,79 @@ hashgardcli box create-future [name] [total-amount][mini-multiple] [distribute-f
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 ### 创建远期支付盒子
 ```shell
-hashgardcli box create-future pay 1800gard  2 ./future.json --from
+hashgardcli future create  pay-one 1800gard  .path/future.json --from
 ```
 输入正确的密码后，远期支付盒子创建完成。
 ```txt
-  {
- Height: 263
-  TxHash: A34024F7C36A345A7C42519890F59D93B05D2FFE4EE33C0994E7D1981A3A1EA5
+Response:
+  Height: 1169
+  TxHash: 886D10C0E1B5ACD755D3333E08AB36F91E6D5DDCFD3ED073E34DCCFAE5637D3B
   Data: 0F0E626F786163336A6C787074327073
   Raw Log: [{"msg_index":"0","success":true,"log":""}]
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
-  GasUsed: 43797
+  GasUsed: 65595
   Tags:
-    - action = box_create_future
-    - category = box
-    - box-id = boxac3jlxpt2ps
-    - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-
-    }
+    - action = create
+    - category = future
+    - id = boxac3jlxpt2ps
+    - sender = gard1prflhd5h66l498vdyy95hyh898r0tjxvv6vc60
+    - fee = 1000000000000000000000agard
 ```
 
 为盒子存入需要支付的存款
 
 ```shell
-hashgardcli box deposit-to boxac3jlxpt2ps 1800  --from
+hashgardcli future inject boxac3jlxpt2ps 1800  --from
 ```
 
-返回信息
+成功后，返回结果:
 
 ```txt
- {
-  Height: 275
-  TxHash: E96FBC4F9C2B3EB3B0C04B091DAAEF45E72E19C24E079879432460B077E137DF
-  Data: 0F0E626F786163336A6C787074327073
-  Raw Log: [{"msg_index":"0","success":true,"log":""}]
-  Logs: [{"msg_index":0,"success":true,"log":""}]
-  GasWanted: 200000
-  GasUsed: 140217
-  Tags:
-    - action = box_deposit
-    - category = box
-    - box-id = boxac3jlxpt2ps
-    - box-type = future
-    - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-    - operation = deposit-to
-}
+Height: 1212
+TxHash: 3AE63B74450CEF0BB712B0788784310D5711A825BF60BC29821BD41EADC00FBF
+Data: 0F0E626F786163336A6C787074327073
+Raw Log: [{"msg_index":"0","success":true,"log":""}]
+Logs: [{"msg_index":0,"success":true,"log":""}]
+GasWanted: 200000
+GasUsed: 134927
+Tags:
+ - action = inject
+ - category = future
+ - id = boxac3jlxpt2ps
+ - sender = gard1prflhd5h66l498vdyy95hyh898r0tjxvv6vc60
 ```
 
 查询盒子信息
 
 ```shell
-hashgardcli box query-box boxac3jlxpt2ps
+hashgardcli future query boxac3jlxpt2ps
 ```
 
 返回盒子信息
 
 ```txt
 BoxInfo:
-  BoxId:			boxac3jlxpt2ps
-  BoxStatus:			actived
-  Owner:			gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
-  Name:				pay
-  BoxType:			future
+  Id:			boxac3jlxpt2ps
+  Status:			actived
+  Owner:			gard1prflhd5h66l498vdyy95hyh898r0tjxvv6vc60
+  Name:				pay-one
   TotalAmount:
   Token:			1800000000000000000000agard
   Decimals:			1
-  CreatedTime:			1558090817
+  CreatedTime:			1559550097
   Description:
-  TradeDisabled:		true
+  TransferDisabled:		true
 FutureInfo:
-  MiniMultiple:			1
-  Deposit:			[
-  Address:			gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
+  Injects:			[
+  Address:			gard1prflhd5h66l498vdyy95hyh898r0tjxvv6vc60
   Amount:			1800000000000000000000]
-  TimeLine:			[]
-  Distributed:			[1657912000 1657912001 1657912002]
+  TimeLine:			[1593762909 1599119709 1606982109]
   Receivers:			[[gard1cyxhqanlxc3u9025ngz5awzzex2jys6xc96ktj 100000000000000000000 200000000000000000000 300000000000000000000] [gard14wgcav3k99yz309vn7j6n3m50j32vkg426ktt0 100000000000000000000 200000000000000000000 300000000000000000000] [gard1hncel873ermm9e9009sthrys7ttdv6mtudfluz 100000000000000000000 200000000000000000000 300000000000000000000]]
-
+  TotalWithdrawal:			0
 ```
-
-
-
-### 相关命令
-
-| 名称                        | 描述                   |
-| --------------------------- | ---------------------- |
-| [deposit-to](deposit-to.md) | 对存款盒子进行分红存入 |
-| [query-box](query-box.md)   | 对指定盒子进行信息查询 |
-| [list-box](list-box.md)    | 罗列指定类型盒子列表   |

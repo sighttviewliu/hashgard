@@ -20,7 +20,7 @@ hashgardcli issue disable [issue-id][flags] --from
 | --minting     | bool | 否       | false  | 关闭增发功能                        |
 | --freeze      | bool | 否       | false  | 关闭冻结用户转入转出功能                |
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 
@@ -69,7 +69,7 @@ hashgardcli issue query-issue coin174876e800
   TotalSupply:      			1000000
   Decimals:         			18
   IssueTime:					1558163118
-  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
+  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"This is a description of the project"}
   BurnOwnerDisabled:  			false
   BurnHolderDisabled:  			false
   BurnFromDisabled:  			false

@@ -13,11 +13,11 @@ hashgardcli gov submit-proposal [flags]
 
 | name       | Type               | Required      | Required                   | Description      |
 | ---------------- | -------------------------- | ------------ | -------------- | --------------- |
-| --deposit        | string | false| "" | deposit of proposal                                                                                                     |
-| --description    | string | true| "" | description of proposal                                                                                   |
-| --proposal | string | false| "" | proposal file path (if this path is given, other proposal flags are ignored)                 |
-| --title          | string | true| "" | title of proposal                                                                                                         |
-| --type           | string | true| "" | proposaltype of proposal, types: text/parameter_change/software_upgrade    |
+| --deposit        | string | false|| deposit of proposal                                                                                                     |
+| --description    | string | true|| description of proposal                                                                                   |
+| --proposal | string | false|| proposal file path (if this path is given, other proposal flags are ignored)                 |
+| --title          | string | true|| title of proposal                                                                                                         |
+| --type           | string | true|| proposaltype of proposal, types: text/parameter_change/software_upgrade    |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

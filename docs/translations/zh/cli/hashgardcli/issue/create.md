@@ -21,7 +21,7 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
 | --minting     | bool | 否       | false  | 是否不再增发功能                        |
 | --freeze      | bool | 否       | false  | 关闭冻结用户转入转出功能                |
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

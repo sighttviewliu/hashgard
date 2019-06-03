@@ -23,12 +23,12 @@ Create a new deposit box
 
 | Name            | Type  | Required  | Default| Description                      |
 | ---------------- | ------ | -------- | ------ | ------------------------------ |
-| --bottom-line    | Int    | true     | ""     | depositBox bottom line        |
-| --price          | int    | true     | ""     |  depositBox unit price |
-| --start-time     | int    | true      | ""     | depositBox start time               |
-| --establish-time | int    | true     | ""     | Box establish time              |
-| --maturity-time  | int    | true     | ""     | Box maturity time                   |
-| --interest       | string | true     | ""     | Add indent to JSON response           |
+| --bottom-line    | Int    | true     |    | depositBox bottom line        |
+| --price          | int    | true     |    |  depositBox unit price |
+| --start-time     | int    | true      |    | depositBox start time               |
+| --establish-time | int    | true     |    | Box establish time              |
+| --maturity-time  | int    | true     |    | Box maturity time                   |
+| --interest       | string | true     |    | Add indent to JSON response           |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

@@ -1,31 +1,26 @@
-# hashgardcli box list-box
+# hashgardcli deposit list
 
 ## 描述
 查询指定类型盒子列表
 
 ## 用法
 ```shell
-hashgardcli box list-box [flag]
+hashgardcli deposit list
 ```
 
 ### flag
 
-| 名称    | 描述  |
-| ------- | -------- |
-| lock    | 锁仓盒子 |
-| deposit | 存款盒子 |
-| future  | 远期支付盒子  |
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 
 ## 例子
 ### 查询盒子信息
 
 ```shell
-hashgardcli box list-box future
+hashgardcli deposit list
 ```
 
-返回盒子信息
+成功后，返回结果:
 
 ```txt
 [
@@ -43,7 +38,7 @@ hashgardcli box list-box future
             },
             "decimals":"1"
         },
-        "description":"{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}",
+        "description":"{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"This is a description of the project"}",
         "trade_disabled":true,
         "future":{
             "mini_multiple":"1",

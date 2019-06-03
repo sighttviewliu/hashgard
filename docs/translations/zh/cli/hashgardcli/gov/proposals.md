@@ -13,12 +13,12 @@ hashgardcli gov proposals [flags]
 
 | 名称       | 类型                  | 必需                 | 默认值                      | 描述          |
 | --------------- | -------------- | --------------------- | --------------------------- | ------------------- |
-| --depositor     | string | 否 | "" | （可选）按存款人过滤                         |
-| --limit         | string | 否 | "" | （可选）限制最新[数量]提案。 默认为所有提案                  |
-| --status        | string | 否 | "" | （可选）按提案状态过滤提案                  |
-| --voter         | string | 否 | "" | （可选）按投票人过滤                        |
+| --depositor     | string | 否 || （可选）按存款人过滤                         |
+| --limit         | string | 否 || （可选）限制最新[数量]提案。 默认为所有提案                  |
+| --status        | string | 否 || （可选）按提案状态过滤提案                  |
+| --voter         | string | 否 || （可选）按投票人过滤                        |
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

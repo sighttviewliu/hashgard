@@ -14,12 +14,12 @@ hashgardcli keys show [name] [flags]
 
 | 速记,名称      | 类型      | 必需    | 默认值             | 描述                                                           |
 | -------------------- | ----------------- | -------------------------------------------------------------- | -------- | -------- |
-| -a, --address | string | 否 | "" | 仅输出地址                                                      |
+| -a, --address | string | 否 || 仅输出地址                                                      |
 | --bech               | string         | 否              | acc               | [string] 密钥的 Bech32 前缀编码 (acc|
 | --multisig-threshold | int              | 否                | 1                 | [uint] K out of N required signatures                          |
 | --pubkey             | bool | 否 | false  | 仅输出公钥                                                      |
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 
