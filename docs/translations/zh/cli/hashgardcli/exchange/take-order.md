@@ -14,8 +14,8 @@ hashgardcli exchange take-order [order_id] [flags]
 
 | 名称       | 类型                  | 必需          | 默认值            | 描述         |
 | --------------- | -------------- | ------------------ | --------------------- | --------------- |
-| --amount     | string | 是 | "" | 买方用于交易的币种及数量                                                                                    |                                                       |
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+| --amount     | string | 是 || 买方用于交易的币种及数量                                                                                    |                                                       |
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 ## 计算
 
 A(supply) 为 supply 的数量，A(target) 为 target 的数量， A(remains) 是 remains 的数量（订单创建时，A(supply) = A(target) ）

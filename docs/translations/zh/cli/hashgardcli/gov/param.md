@@ -11,7 +11,7 @@
 ```
 ## Flags
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 
 ## 例子
@@ -56,7 +56,7 @@ hashgardcli gov param deposit --trust-node -o=json --indent
 hashgardcli gov param tallying --trust-node -o=json --indent
 ```
 
-会得到如以下类似信息：
+成功后，返回结果:
 ```shell
 {
   "quorum": "0.3340000000",

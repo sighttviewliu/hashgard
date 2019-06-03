@@ -1,4 +1,4 @@
-# hashgardcli box deposit-fetch
+# hashgardcli deposit cancel
 
 ## 描述
 用户对盒子注入的通证进行取回。
@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
-hashgardcli box deposit-fetch [box-id] [amount]  --from
+hashgardcli deposit cancel [box-id] [amount]  --from
 ```
 
 
@@ -23,7 +23,7 @@ hashgardcli box deposit-fetch [box-id] [amount]  --from
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 ### 进行存款取回
@@ -34,11 +34,11 @@ hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from one
 
 
 
-得到的结果是
+成功后，返回结果:
 
 ```txt
 {
-    Height: 5037
+  Height: 5037
   TxHash: E3743F7EF405600B23C2987C4689FC49F64BEF6DC3CA8A5A75A975B084FCCEE5
   Data: 0F0E626F786162336A6C787074327074
   Raw Log: [{"msg_index":"0","success":true,"log":""}]
@@ -54,11 +54,3 @@ hashgardcli box interest-fetch boxab3jlxpt2pt 200 --from one
     - operation = fetch
 }
 ```
-
-
-
-### 相关命令
-
-| 名称                                | 描述                                   |
-| ----------------------------------- | -------------------------------------- |
-| [interest-fetch](interest-fetch.md) | 在存款盒子发行期取回盒子中的存入的利息 |

@@ -1,4 +1,4 @@
-# hashgardcli box describe
+# hashgardcli describe
 
 ## 描述
 Owner 可以对自己发行的盒子进行补充描述，描述文件使用不超过 1024 字节的 json 格式。可以自定义各种属性，也可以使用官方推荐的模板。
@@ -8,7 +8,7 @@ Owner 可以对自己发行的盒子进行补充描述，描述文件使用不�
 ```
 ## Flags
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 ### 给盒子设置描述
@@ -21,7 +21,7 @@ hashgardcli box describe boxac3jlxpt2pt ./description.json  --from
     "org":"Hashgard",
     "website":"https://www.hashgard.com",
     "logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png",
-    "intro":"盒子的简单描述"
+    "intro":" description of the project "
 }
 ```
 输入正确的密码之后，你的该代币的描述就设置成功了。
@@ -46,7 +46,7 @@ hashgardcli box describe boxac3jlxpt2pt ./description.json  --from
 ```shell
 hashgardcli box query-box boxac3jlxpt2pt
 ```
-最新的描述信息就生效了
+成功后，返回结果:
 ```shell
 {
 BoxInfo:
@@ -59,7 +59,7 @@ BoxInfo:
   Token:			1800000000000000000000agard
   Decimals:			1
   CreatedTime:			1558182333
-  Description:			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
+  Description:			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"This is a description of the project"}
   TradeDisabled:		true
 FutureInfo:
   MiniMultiple:			1

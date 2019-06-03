@@ -14,8 +14,8 @@ hashgardcli exchange create-order [flags]
 
 | Name     | Type                 | Required                 | Default        | Description   |
 | -------- | --------- | ------------- | ---------------------- | -------- |
-| --supply     | string | true| "" | The coin type and amount of the order   |
-| --target        | string | true| "" | The coin type and amount of the target        |
+| --supply     | string | true|| The coin type and amount of the order   |
+| --target        | string | true|| The coin type and amount of the target        |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

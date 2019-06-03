@@ -10,7 +10,7 @@ hashgardcli issue query-issue [issue-id] [flags]
 
 ## Flags
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 
@@ -30,7 +30,7 @@ Issue:
   TotalSupply:      			10000000001023
   Decimals:         			18
   IssueTime:					1558179518
-  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
+  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"This is a description of the project"}
   BurnOwnerDisabled:  			false
   BurnHolderDisabled:  			false
   BurnFromDisabled:  			false

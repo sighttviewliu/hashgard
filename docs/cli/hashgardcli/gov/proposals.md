@@ -13,10 +13,10 @@ hashgardcli gov proposals [flags]
 
 | Name     | Type         | Required      | Default   | Description  |
 | --------------- | -------------------------- | -- | -------- | ------ |
-| --depositor     | string | false| "" | filter by proposals deposited on by depositor                                       |
-| --limit         | string | false| "" | limit to latest[number] proposals. Defaults to all proposals       |
-| --status        | string | false| "" | filter proposals by proposal status               |
-| --voter         | string | false| "" | filter by proposals voted on by voted      |
+| --depositor     | string | false|| filter by proposals deposited on by depositor                                       |
+| --limit         | string | false|| limit to latest[number] proposals. Defaults to all proposals       |
+| --status        | string | false|| filter proposals by proposal status               |
+| --voter         | string | false|| filter by proposals voted on by voted      |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

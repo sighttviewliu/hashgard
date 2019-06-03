@@ -14,14 +14,14 @@ hashgardcli stake unbond [validator-addr] [amount] [flags]
 
 |     Name      | Type  | Required| Default| description         |
 | -------------- | ------ | -------- | ------ | ------------------- |
-| validator-addr | string | `true`     |        | Bech address of the validator |
-| amount         | int    | `true`     |        | Amount of source-shares to either unbond or redelegate as a positive integer or decimal|
+| validator-addr | string | true     |        | Bech address of the validator |
+| amount         | string   | true     |        | Amount of source-shares to either unbond or redelegate as a positive integer or decimal（Unit gard）|
 
 ## Flags
 
 | Name   | Type  | Required| Default| description          |
 | ------ | ------ | -------- | ------ | -------------------- |
-| --from | string | `true`     | ""     | Delegators account name or address|
+| --from | string | true     |    | Delegators account name or address|
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

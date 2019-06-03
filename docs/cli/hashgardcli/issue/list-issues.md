@@ -14,9 +14,9 @@ hashgardcli issue list-issues [flags]
 
 |Name          | Type  | Required  | Default| Description             |
 | ---------------- | ------ | -------- | ------ | --------------------- |
-| --address        | string | false    | ""     | Owner address|
+| --address        | string | false    |    | Owner address|
 | --limit          | int    | false    | 30     | Number of returns per time|
-| --start-issue-id | string | false    | ""     | Starting issue-id|
+| --start-issue-id | string | false    |    | Starting issue-id|
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

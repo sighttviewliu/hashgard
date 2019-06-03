@@ -16,15 +16,15 @@ hashgardcli keys add <name> [flags]
 | --------------- | --------- | -------------------------- | ----------------------- | -------------------------- |
 | --account       | int | 否 | 0 | [uint32] HD 推导的账号                                              |
 | --index         | int | 否 | 0 | [uint32] HD 推导的索引号                                            |
-| --interactive | string | 否 | "" | 以交互方式提示用户输入 BIP39 密码和助记符 |
-| --multisig | strings | 否 | "" | 构造并存储 multisig 公钥（当使用了 --pubkey） |
+| --interactive | string | 否 || 以交互方式提示用户输入 BIP39 密码和助记符 |
+| --multisig | strings | 否 || 构造并存储 multisig 公钥（当使用了 --pubkey） |
 | --multisig-threshold | int | 否 | 1 | N 个中的 K 个需要签名。与 --multisig 一起使用 |
 | --no-backup     | bool | 否 | false | 不输出助记词（如果其他人正在看着操作终端）                              |
 | --nosort | bool | 否 | false | 传递给 --multisig 的密钥按照它们提供的顺序获取 |
-| --pubkey | string | 否 | "" | 解析 bech32 格式的公钥并将其保存到磁盘 |
-| --recover       | string | 否 | "" | 提供助记词以恢复现有密钥而不是新建                                     |
+| --pubkey | string | 否 || 解析 bech32 格式的公钥并将其保存到磁盘 |
+| --recover       | string | 否 || 提供助记词以恢复现有密钥而不是新建                                     |
 
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

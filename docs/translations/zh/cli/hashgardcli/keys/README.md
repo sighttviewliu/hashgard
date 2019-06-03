@@ -22,7 +22,7 @@ hashgardcli keys [command]
 | [update](update.md)     | 更改用于保护私钥的密码                                    |
 
 ## Flags
- **全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 
 ## 补充说明

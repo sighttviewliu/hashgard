@@ -24,7 +24,7 @@ hashgardlcd has three subcommands:
 
 | Parameter   | Type  | Default                 | Required| description                         |
 | ------------ | ------ | ----------------------- | -------- | ----- |
-| cors         | string | ""    | false    | Set the domains that can make CORS requests（\*all）   |
+| cors         | string |   | false    | Set the domains that can make CORS requests（\*all）   |
 | laddr     | string | "tcp://localhost:1317"  | false  | Address for server to listen on|
 | max-open     | int    | 1000                    | false    | The number of maximum open connections   |
 | ssl-certfile | int    | 1000                    | false    | SSl certificate directory，Not set will automatically generate a new certificate  |

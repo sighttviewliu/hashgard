@@ -16,7 +16,7 @@ hashgardcli keys show [name] [flags]
 
 | Name, shorthand | Type      | Required    |Default  | Description   |
 | --------------- | ---------- | ---------- | -------- | -------- |
-| -a, --address | string | false| "" | output the address only             |
+| -a, --address | string | false|| output the address only             |
 | --bech               | string         | false           | acc    | The Bech32 prefix encoding for a key (acc/val/cons)|
 | --multisig-threshold | int   | false      | 1   | [uint] K out of N required signatures                          |
 | --pubkey     | bool | false | false  | Output only public key|

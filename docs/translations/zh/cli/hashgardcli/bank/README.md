@@ -20,6 +20,9 @@ hashgardcli bank --help
 | 名称      | 描述                   |
 | --------- | ---------------------- |
 | [account](account.md)   | 查询账户余额           |
+| [issue](issue.md)   | 查询指定 issue 代币的信息          |
+| [box](box.md)   | 查询指定 id 信息           |
+| [withdraw](withdraw.md)   |取回到期盒子业务   |
 | [send](send.md)      | 创建和签名一个转账请求 |
 | [sign](sign.md)      | 签名离线传输文件       |
 | [multisign](multisign.md)      | 多重签名离线传输文件       |

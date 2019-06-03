@@ -16,7 +16,7 @@ hashgardcli status [flags]
 | ---------- | --------------------- | ------------------- | ---- |
 | --node, -n | tcp://localhost:26657 | [string] 连接的节点 | 否   |
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

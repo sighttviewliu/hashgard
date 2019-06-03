@@ -69,7 +69,7 @@ The result is as follows：
   TotalSupply:      			1000000
   Decimals:         			18
   IssueTime:					1558163118
-  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
+  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"This is a description of the project"}
   BurnOwnerDisabled:  			false
   BurnHolderDisabled:  			false
   BurnFromDisabled:  			false
