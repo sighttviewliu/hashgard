@@ -7,7 +7,7 @@ Non-reversible function setting of token
 ## Usage
 
 ```shell
-hashgardcli issue disable [issue-id][flags]--from
+hashgardcli issue disable [issue-id][flags]
 ```
 
 ## Flags
@@ -27,7 +27,7 @@ hashgardcli issue disable [issue-id][flags]--from
 ### disable mint of coin
 
 ```shell
-hashgardcli issue disable coin174876e800 minting --from=
+hashgardcli issue disable coin174876e800 minting --from
 ```
 
 After entering the correct password，Disable token minting

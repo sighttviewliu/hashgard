@@ -4,7 +4,7 @@
 某个代币的 Owner 在没有关闭持币者自己可以销毁自己持有该代币前提下，持币者对自己持有的该代币进行销毁。
 ## 用法
 ```shell
- hashgardcli issue burn-from [issue-id] [acc-address][amount] --from
+ hashgardcli issue burn-from [issue-id] [acc-address][amount][flags]
 ```
 ## Flags
 

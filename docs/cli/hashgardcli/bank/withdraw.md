@@ -5,7 +5,7 @@ Retrieve tokens in the closed box
 
 ## Usage
 ```shell
-hashgardcli bank withdraw [box-id]   --from
+hashgardcli bank withdraw [box-id] [flags]
 ```
 
 

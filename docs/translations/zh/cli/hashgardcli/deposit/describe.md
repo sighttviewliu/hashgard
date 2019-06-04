@@ -24,7 +24,7 @@ hashgardcli deposit describe boxab3jlxpt2pt .path/description.json --from one -y
     "intro":"This is a description of the project"
 }
 ```
-输入正确的密码之后，你的该代币的描述就设置成功了。
+成功后，返回结果:
 ```txt
 {
   Response:

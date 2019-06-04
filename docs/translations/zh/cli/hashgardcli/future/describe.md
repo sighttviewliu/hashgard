@@ -4,7 +4,7 @@
 Owner 可以对自己发行的盒子进行补充描述，描述文件使用不超过 1024 字节的 json 格式。可以自定义各种属性，也可以使用官方推荐的模板。
 ## 用法
 ```shell
-hashgardcli future describe [box-id] [description-file] --from
+hashgardcli future describe [box-id] [description-file] [flags]
 ```
 ## Flags
 

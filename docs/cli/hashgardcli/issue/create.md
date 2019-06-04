@@ -7,7 +7,7 @@ Issue a new token
 ## Usage
 
 ```shell
-hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
+hashgardcli issue create [name] [symbol] [total-supply] [flags]
 ```
 
 ## Flags
@@ -21,9 +21,6 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
 | --minting     | bool | false   | false  | Disable the mint              |
 | --freeze      | bool | false | false  | Disable freeze          |
 
-
-
-## Flags
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example

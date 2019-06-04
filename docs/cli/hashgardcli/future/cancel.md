@@ -7,7 +7,7 @@ Retrieve the coin in the future box
 
 ## Usage
 ```shell
-hashgardcli future cancel [box-id] [amount]  --from
+hashgardcli future cancel [box-id] [amount] [flags]
 ```
 
 

@@ -9,7 +9,7 @@
 ## 用法
 
 ```shell
-hashgardcli deposit interest-cancel [box-id] [amount]  --from
+hashgardcli deposit interest-cancel [box-id] [amount] [flags]
 ```
 
 
@@ -39,7 +39,6 @@ hashgardcli deposit interest-cancel boxab3jlxpt2pt 200 --from
 
 
 成功后，返回结果:
-
 ```txt
 {
   Height: 3377

@@ -4,7 +4,7 @@
 在没有关闭通证冻结的前提下，owenr 冻结用户的转入转出功能。
 ## 用法
 ```shell
- hashgardcli issue freeze [freeze-type] [issue-id][acc-address][end-time] --from
+ hashgardcli issue freeze [freeze-type] [issue-id][acc-address][end-time][flags]
 ```
 ### freeze-type
 

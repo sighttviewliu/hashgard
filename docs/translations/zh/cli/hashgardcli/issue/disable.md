@@ -7,7 +7,7 @@
 ## 用法
 
 ```shell
-hashgardcli issue disable [issue-id][flags] --from
+hashgardcli issue disable [issue-id][flags][flags]
 ```
 
 ## Flags

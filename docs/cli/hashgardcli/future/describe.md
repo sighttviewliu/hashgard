@@ -4,7 +4,7 @@
 Owner describes the box。The description file must be in josn format and no more than 1024 bytes.
 ## Usage
 ```shell
-hashgardcli future describe [box-id] [description-file] --from
+hashgardcli future describe [box-id] [description-file] [flags]
 ```
 ## Flags
 

@@ -21,7 +21,7 @@ hashgardcli bank send [to_address] [amount] [flags]
 hashgardcli bank send gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl 10gard --from=hashgard --chain-id=hashgard --indent -o json
 ```
 
-命令执行完成后，返回执行的细节信息
+成功后，返回结果:
 
 ```txt
 {

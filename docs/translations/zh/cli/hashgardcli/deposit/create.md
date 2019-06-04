@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
- hashgardcli  deposit create [name] [total-amount] [flags]
+hashgardcli  deposit create [name] [total-amount] [flags]
 ```
 
 
@@ -39,7 +39,7 @@
 ```shell
 hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price=2  --start-time=1558079700  --establish-time=1558080300 --maturity-time=1558080900 --interest=9898 coin174876e800  --from
 ```
-输入正确的密码后，存款盒子创建完成。
+成功后，返回结果:
 ```txt
   {
     Response:

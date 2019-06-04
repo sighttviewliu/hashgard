@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
-hashgardcli future cancel [box-id] [amount]  --from
+hashgardcli future cancel [box-id] [amount] [flags]
 ```
 
 

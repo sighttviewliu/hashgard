@@ -4,7 +4,7 @@
 When the freeze function is turned on，Owenr freezes the transfer of the specified address.
 ## Usage
 ```shell
- hashgardcli issue freeze [freeze-Type] [issue-id][acc-address][end-time] --from
+ hashgardcli issue freeze [freeze-Type] [issue-id][acc-address][end-time] [flags]
 ```
 ### freeze-type
 

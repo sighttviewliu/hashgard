@@ -7,9 +7,8 @@
 
 ## 用法
 ```shell
-hashgardcli deposit inject [box-id] [amount]  [flags]
+hashgardcli deposit inject [box-id] [amount] [flags]
 ```
-
 
 
 ### 子命令
@@ -18,7 +17,6 @@ hashgardcli deposit inject [box-id] [amount]  [flags]
 | ------ | ------ | -------- | ------ | ------------ |
 | box-id | string | 是       |        | 盒子的 id |
 | amount | int   | 是       |        | 存款的数量   |
-
 
 
 ## Flags

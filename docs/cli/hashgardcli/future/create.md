@@ -5,7 +5,7 @@ Create future box.
 
 ## Usage
 ```shell
-hashgardcli future create [name] [total-amount][distribute-file]  --from
+hashgardcli future create [name] [total-amount][distribute-file] [flags]
 ```
 
 

@@ -7,7 +7,7 @@ Inject interest into the box.
 
 ## Usage
 ```shell
-hashgardcli deposit interest-inject [box-id] [amount]  --from
+hashgardcli deposit interest-inject [box-id] [amount] [flags]
 ```
 
 
