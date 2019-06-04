@@ -4,7 +4,7 @@
 Token owner unFreeze the transfer from a address
 ## Usage
 ```shell
- hashgardcli issue unfreeze [unfreeze-type] [issue-id][address] --from
+ hashgardcli issue unfreeze [unfreeze-type] [issue-id][address][flags]
 ```
 ### unfreeze-Type
 

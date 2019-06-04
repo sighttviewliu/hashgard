@@ -5,7 +5,7 @@
 
 ## 用法
 ```shell
-hashgardcli future create [name] [total-amount][distribute-file]  --from
+hashgardcli future create [name] [total-amount][distribute-file] [flags]
 ```
 
 

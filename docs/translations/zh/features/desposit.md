@@ -34,16 +34,38 @@ Hashgard 提供原生的存款服务协议。帮助金融机构进行流通资�
 ## 使用
 
 ### 发行
+```shell
+hashgardcli  deposit create [name] [total-amount] [flags]
+```
 
-### 对存款进行描述
-
+### 对存款盒子进行描述
+```shell
+hashgardcli deposit describe [box-id] [description-file] [flags]
+```
 ### 注入利息
+```shell
+hashgardcli deposit interest-inject [box-id] [amount] [flags]
+```
 
 ### 取回利息
 
+```shell
+hashgardcli deposit interest-cancel [box-id] [amount] [flags]
+```
+
 ### 存款
+```shell
+hashgardcli deposit inject [box-id] [amount] [flags]
+```
 
 ### 取回存款
-
+```shell
+hashgardcli deposit cancel [box-id] [amount] [flags]
+```
 ### 取回本金及利息
+```shell
+hashgardcli bank withdraw [box-id] [flags]
+```
+
+
 对于其他查询 deposit 状态的命令，请参考[deposit](../cli/hashgardcli/deposit/README.md)

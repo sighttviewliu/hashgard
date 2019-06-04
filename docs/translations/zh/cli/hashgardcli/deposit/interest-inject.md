@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
-hashgardcli deposit interest-inject [box-id] [amount]  --from
+hashgardcli deposit interest-inject [box-id] [amount] [flags]
 ```
 
 

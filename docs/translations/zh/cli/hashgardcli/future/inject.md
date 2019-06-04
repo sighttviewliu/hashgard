@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
-hashgardcli future inject [box-id] [amount]  --from
+hashgardcli future inject [box-id] [amount][flags]
 ```
 
 

@@ -5,7 +5,7 @@
 
 ## 用法
 ```shell
- hashgardcli issue unfreeze [unfreeze-type] [issue-id][address] --from
+ hashgardcli issue unfreeze [unfreeze-type] [issue-id][address][flags]
 ```
 ### unfreeze-type
 

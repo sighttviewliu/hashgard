@@ -9,7 +9,7 @@ Retrieve the interest in the box.
 ## Usage
 
 ```shell
-hashgardcli deposit interest-cancel [box-id] [amount]  --from
+hashgardcli deposit interest-cancel [box-id] [amount] [flags]
 ```
 
 

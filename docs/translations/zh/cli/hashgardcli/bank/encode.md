@@ -22,7 +22,7 @@ hashgardcli bank encode [file] [flags]
 hashgardcli bank encode sign.json
 ```
 
-命令执行完成后，返回执行的细节信息
+成功后，返回结果:
 
 ```txt
 "2QLwYl3uCjwqLIf6ChSn6EEMEUpOn8aHmisX4xFXxWYbERIUKu/P18RXUuHr363+wt+UoWPHPGAaCgoEZ2FyZBICMTASBBDAmgwajgIKfiLB9+IIAhIm61rphyED30pWrLHFH6T+RX4kqgkSg8CvPDDkgSwwxpgMg2/CVB4SJuta6YchA5l0etexBHD8jaIC+QrpuVtxsRt5q1/3vx3ooQrZOOzCEibrWumHIQNRtYp0E4MQlDy4xrtq0zGNTCcGryjsh4yKOTIiThQP7RKLAQoFCAMSAWASQBJWW1uqYiw5nfvJhtVSz1WLkCva/+X4rbF7wzjbYmq1TxUs6n/A5G7MjwTgkDpn7jJIRbfktU6shclGbmhNuNoSQNo9kE5rVvHhLajjwJMnndI//e6vaYYN+ClfeYL36dMHe1dLpiqMo/xV/1k7w+4mDVktrLG8I6c7SLYIDnAk3gs="

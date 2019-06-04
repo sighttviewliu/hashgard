@@ -79,7 +79,7 @@ hashgardcli issue mint [issue-id] [amount][flags]
 - 冻结转入和转出。
 
 ```shell
- hashgardcli issue freeze [freeze-type] [issue-id][acc-address][end-time] --from
+ hashgardcli issue freeze [freeze-type] [issue-id][acc-address][end-time] [flags]
 ```
 
 以冻结 gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7 Apple（coin74876e800）代币 账号转入和转出功能 至公元 2100-1-1 01:01:01 为例

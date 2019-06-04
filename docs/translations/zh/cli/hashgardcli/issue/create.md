@@ -7,7 +7,7 @@
 ## 用法
 
 ```shell
-hashgardcli issue create [name] [symbol] [total-supply] [flags] --from
+hashgardcli issue create [name] [symbol] [total-supply] [flags]
 ```
 
 ## Flags

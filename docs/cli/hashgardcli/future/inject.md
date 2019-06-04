@@ -7,7 +7,7 @@ Inject coin into the future box
 
 ## Usage
 ```shell
-hashgardcli future inject [box-id] [amount]  --from
+hashgardcli future inject [box-id] [amount] [flags]
 ```
 
 

@@ -7,7 +7,7 @@ Inject coin into the box
 
 ## Usage
 ```shell
-hashgardcli deposit inject [box-id] [amount]  [flags]
+hashgardcli deposit inject [box-id] [amount] [flags]
 ```
 
 

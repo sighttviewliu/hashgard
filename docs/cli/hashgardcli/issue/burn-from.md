@@ -6,7 +6,7 @@
 
 ## Usage
 ```shell
- hashgardcli issue burn-from [issue-id] [acc-address][amount] --from
+ hashgardcli issue burn-from [issue-id] [acc-address][amount] [flags]
 ```
 ## Flags
 **Global flags, query command flags** [hashgardcli](../README.md)

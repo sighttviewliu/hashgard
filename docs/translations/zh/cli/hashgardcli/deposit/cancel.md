@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
-hashgardcli deposit cancel [box-id] [amount]  [flags]
+hashgardcli deposit cancel [box-id] [amount] [flags]
 ```
 
 

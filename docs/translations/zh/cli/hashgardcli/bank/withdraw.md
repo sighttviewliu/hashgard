@@ -7,7 +7,7 @@
 
 ## 用法
 ```shell
-hashgardcli bank withdraw [box-id]   --from
+hashgardcli bank withdraw [box-id] [flags]
 ```
 
 
@@ -25,7 +25,7 @@ hashgardcli bank withdraw [box-id]   --from
 **全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
-### 对到期的通证进行取回
+### 对到期盒子中的通证进行取回
 
 ```shell
 hashgardcli bank withdraw boxac3jlxpt2pw01 --from
