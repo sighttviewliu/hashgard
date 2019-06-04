@@ -15,7 +15,7 @@ Owner describes the box。The description file must be in josn format and no mor
 ```shell
 hashgardcli lock describe boxaa3jlxpt2ps .path/Desktop/description.json --from
 ```
-#### 模板
+### Template
 ```shell
 {
     "org":"Hashgard",
@@ -24,7 +24,7 @@ hashgardcli lock describe boxaa3jlxpt2ps .path/Desktop/description.json --from
     "intro":"Foundation lock"
 }
 ```
-输入正确的密码之后，你的该代币的描述就设置成功了。
+The result is as follows：
 ```txt
 {
   Height: 4271

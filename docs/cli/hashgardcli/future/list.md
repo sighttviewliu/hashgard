@@ -1,7 +1,7 @@
 # hashgardcli  future list
 
 ## Description
-Query all future boxes 
+Query all future boxes
 
 
 

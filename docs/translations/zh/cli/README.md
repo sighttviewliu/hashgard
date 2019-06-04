@@ -12,7 +12,7 @@
 10. [lock command](./hashgardcli/lock/README.md)
 11. [deposit command](./hashgardcli/deposit/README.md)
 12. [future command](./hashgardcli/future/README.md)
-12. [faucet command](./hashgardcli/faucet/send.md)
+13. [faucet command](./hashgardcli/faucet/send.md)
 
 
 
