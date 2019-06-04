@@ -3,7 +3,7 @@
 ## 介绍
 
 ## 现实场景与问题
-Alice 和Bobo进行金融交易，Bobo给Alice给出一部分现实中的资产，Alice承诺在未来的一年内给予Bobo证券资产1000god，每个季度末尾付出250god。那么Alice创建了一个futurebox，并起名为Alice与Bobo资产互换一期，对futurebox存入1000个god 并设定当年每3月28、6月31日、9月30日、12月30各付出250god给Bobo。远期支付协议的优势，事先存入，一旦约定，将按预定的条件进行执行。不担心任何中途的其他人为意愿或者经济形势的变化而发生改变。充分的使用了区块链技术中不可逆的价值属性。
+Alice 和 Bobo 进行金融交易，Bobo 给 Alice 给出一部分现实中的资产，Alice 承诺在未来的一年内给予 Bobo 证券资产 1000god，每个季度末尾付出 250god。那么 Alice 创建了一个 futurebox，并起名为 Alice 与 Bobo 资产互换一期，对 futurebox 存入 1000 个 god 并设定当年每 3 月 28、6 月 31 日、9 月 30 日、12 月 30 各付出 250god 给 Bobo。远期支付协议的优势，事先存入，一旦约定，将按预定的条件进行执行。不担心任何中途的其他人为意愿或者经济形势的变化而发生改变。充分的使用了区块链技术中不可逆的价值属性。
 #### 支付盒子发行期
 
 - 发行方创建盒子，注入利息，可以设置多个时间段支付信息。设定必要参数后，支付账单的总额度=支付盒子注入额度，支付盒子激活并为用户发放带时间的收款凭证。
@@ -31,7 +31,7 @@ hashgardcli future inject [box-id] [amount][flags]
 hashgardcli future cancel [box-id] [amount] [flags]
 ```
 
-### 查询
+### 查询
 ```shell
 hashgardcli future query [box-id]
 ```
@@ -41,7 +41,7 @@ hashgardcli future query [box-id]
 hashgardcli future list
 ```
 
-### 搜索
+### 搜索
 ```shell
 hashgardcli deposit search [name]
 ```
