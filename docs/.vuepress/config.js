@@ -92,7 +92,9 @@ module.exports = {
                 ['/cli/hashgardcli/tendermint/', 'tendermint'],
                 ['/cli/hashgardcli/slashing/', 'slashing'],
                 ['/cli/hashgardcli/issue/', 'issue'],
-                ['/cli/hashgardcli/box/', 'box'],
+                ['/cli/hashgardcli/deposit/', 'deposit'],
+                ['/cli/hashgardcli/future/', 'future'],
+                ['/cli/hashgardcli/lock/', 'lock'],
                 ['/cli/hashgardcli/faucet/send.md', 'faucet'],
                 ['/cli/hashgardcli/exchange/', 'exchange'],
               ]
@@ -159,7 +161,9 @@ module.exports = {
                 ['/translations/zh/cli/hashgardcli/tendermint/', 'tendermint'],
                 ['/translations/zh/cli/hashgardcli/slashing/', 'slashing'],
                 ['/translations/zh/cli/hashgardcli/issue/', 'issue'],
-                ['/translations/zh/cli/hashgardcli/box/', 'box'],
+                ['/translations/zh/cli/hashgardcli/deposit/', 'deposit'],
+                ['/translations/zh/cli/hashgardcli/future/', 'future'],
+                ['/translations/zh/cli/hashgardcli/lock/', 'lock'],
                 ['/translations/zh/cli/hashgardcli/faucet/send.md', 'faucet'],
                 ['/translations/zh/cli/hashgardcli/exchange/', 'exchange']
 

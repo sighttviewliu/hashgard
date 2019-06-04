@@ -9,8 +9,10 @@
 7. [tendermint command](./hashgardcli/tendermint/README.md)
 8. [slashing command](./hashgardcli/slashing/README.md)
 9. [issue command](./hashgardcli/issue/README.md)
-10. [box command](./hashgardcli/box/README.md)
-11. [faucet command](./hashgardcli/faucet/send.md)
+10. [lock command](./hashgardcli/lock/README.md)
+11. [deposit command](./hashgardcli/deposit/README.md)
+12. [future command](./hashgardcli/future/README.md)
+12. [faucet command](./hashgardcli/faucet/send.md)
 
 
 
