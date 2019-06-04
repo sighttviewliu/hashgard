@@ -1,31 +1,29 @@
 # hashgardcli bank withdraw
 
-## 描述
-使用凭证对到期的盒子进行 Token 兑换
+## Description
+Retrieve tokens in the closed box
 
-
-
-## 用法
+## Usage
 ```shell
 hashgardcli bank withdraw [box-id]   --from
 ```
 
 
 
-### 子命令
+## Subcommands
 
-| 名称   | 类型   | 必需 | 默认值 | 描述           |
+| Name，shorthand | Type  | Required|Default| Description   |
 | ------ | ------ | -------- | ------ | -------------- |
-| box-id | string | 是       |        | 盒子的 id   |
+| box-id | string | true       |        | box id   |
 
 
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
-### 对到期的通证进行取回
+## Example
+### retrieve tokens in the expired box
 
 ```shell
 hashgardcli bank withdraw boxac3jlxpt2pw01 --from
@@ -33,7 +31,7 @@ hashgardcli bank withdraw boxac3jlxpt2pw01 --from
 
 
 
-得到的结果是
+The result is as follows：
 
 ```txt
 {

@@ -1,32 +1,32 @@
 # hashgardcli deposit interest-inject
 
-## 描述
-对发行期的存款盒子进行利息注入，注入利息的账户地址不限。 盒子状态关闭后注入的利息自动返还至注入地址。
+## Description
+Inject interest into the box.
 
 
 
-## 用法
+## Usage
 ```shell
 hashgardcli deposit interest-inject [box-id] [amount]  --from
 ```
 
 
 
-### 子命令
+## Subcommands
 
-| 名称   | 类型   | 必需 | 默认值 | 描述                   |
+| Name| Type  | Required | Default   | Description                  |
 | ------ | ------ | -------- | ------ | ---------------------- |
-| box-id | string | 是       |        | 盒子的 id           |
-| amount | int    | 是       |        | 注入盒子的利息数量 |
+| box-id | string | true       |        | box id           |
+| amount | int    | true       |        | The amount of interest injected into the box |
 
 
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
-### 进行利息的注入
+## Example
+### Inject interest
 
 ```shell
 hashgardcli deposit interest-inject boxab3jlxpt2ps 9898  --from
@@ -36,7 +36,7 @@ PS：`interest-inject` 注入的数量是指按最大值和时间来计算的。
 
 
 
-成功后，返回结果:
+The result is as follows：
 
 ```txt
 {

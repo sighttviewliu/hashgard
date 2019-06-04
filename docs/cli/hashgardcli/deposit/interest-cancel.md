@@ -1,12 +1,12 @@
 # hashgardcli deposit interest-cancel
 
-## 描述
+## Description
 
-存款盒子发行期对于发行的盒子注入的利息取回。
+Retrieve the interest in the box.
 
 
 
-## 用法
+## Usage
 
 ```shell
 hashgardcli deposit interest-cancel [box-id] [amount]  --from
@@ -14,20 +14,20 @@ hashgardcli deposit interest-cancel [box-id] [amount]  --from
 
 
 
-### 子命令
+## Subcommands
 
-| 名称   | 类型   | 必需 | 默认值 | 描述         |
+| Name| Type  | Required | Default   | Description        |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | 是       |        | 盒子的 id |
-| amount | int    | 是       |        | 存款的数量   |
+| box-id | string | true       |        | 盒子的 id |
+| amount | int    | true       |        | 存款的数量   |
 
 
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
+## Example
 ### 取回注入的利息
 
 ```shell
@@ -38,7 +38,7 @@ hashgardcli deposit interest-cancel boxab3jlxpt2pt 200 --from
 
 
 
-成功后，返回结果:
+The result is as follows：
 
 ```txt
 {

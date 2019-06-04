@@ -1,32 +1,33 @@
 # hashgardcli deposit cancel
 
-## 描述
-用户对盒子注入的通证进行取回。
+## Description
+
+Retrieve the deposit in the box
 
 
 
-## 用法
+## Usage
 ```shell
 hashgardcli deposit cancel [box-id] [amount]  [flags]
 ```
 
 
 
-### 子命令
+## Subcommands
 
-| 名称   | 类型   | 必需 | 默认值 | 描述           |
+| Name，shorthand | Type  | Required|Default| Description   |
 | ------ | ------ | -------- | ------ | -------------- |
-| box-id | string | 是       |        | 盒子的 id   |
-| amount | int    | 是       |        | 取回存款的数量 |
+| box-id | string | true       |        | box id   |
+| amount | int    | true       |        | Retrieve quantity |
 
 
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
-### 进行存款取回
+## Example
+### Retrieve the deposit in the box
 
 ```shell
 hashgardcli deposit cancel boxab3jlxpt2pt 10000 --from
@@ -34,7 +35,7 @@ hashgardcli deposit cancel boxab3jlxpt2pt 10000 --from
 
 
 
-成功后，返回结果:
+The result is as follows：
 
 ```txt
 {

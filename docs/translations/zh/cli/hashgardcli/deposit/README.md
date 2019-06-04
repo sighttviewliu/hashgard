@@ -20,6 +20,7 @@ hashgardcli lock --help
 | [params](params.md)        | 参数及费用    |
 | [create](create.md)        | 创建存款盒子    |
 | [describe](describe.md)   |  对存款进行描述 |
+| [inject](inject.md)   |  进行存款 |
 | [interest-inject](interest-inject.md)   |  对盒子注入利息 |
 | [interest-cancel](interest-cancel.md)   |  对盒子取回注入利息|
 | [query](query.md)  |  查询指定 id 存款盒子 |
