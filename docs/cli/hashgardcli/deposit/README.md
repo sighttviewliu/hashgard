@@ -20,7 +20,7 @@ hashgardcli lock --help
 | [params](params.md)        | Parameters and service charges|
 | [create](create.md)        | create deposit box    |
 | [describe](describe.md)   |  describes the box|
-| [inject](inject.md)   | Inject  into the box|
+| [inject](inject.md)   | Inject coin into the box|
 | [interest-inject](interest-inject.md)   |  Inject interest into the box |
 | [interest-cancel](interest-cancel.md)   |  Retrieve the interest in the box |
 | [query](query.md)  |  Query by deposit box ID |

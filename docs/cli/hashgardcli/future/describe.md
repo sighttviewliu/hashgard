@@ -24,7 +24,7 @@ hashgardcli future describe boxaa3jlxpt2ps .path/Desktop/description.json --from
     "intro":"This is a description of the project"
 }
 ```
- The result is as follows：
+ The result is as follows：
 ```txt
 Response:
   Height: 1375
