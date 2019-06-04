@@ -1,33 +1,33 @@
 # hashgardcli deposit query
 
-## 描述
-查询指定盒子进行信息查询
+## Description
+Query by deposit box ID
 
-## 用法
+## Usage
 ```shell
 hashgardcli deposit query [box-id]
 ```
 
-### 子命令
+## Subcommands
 
-| 名称   | 类型   | 必需 | 默认值 | 描述         |
+| Name| Type  | Required | Default   | Description        |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | 是       |        | 盒子的 id |
+| box-id | string | true       |        | box id |
 
 
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
-### 查询盒子信息
+## Example
+## Query
 
 ```shell
 hashgardcli deposit query boxab3jlxpt2pt
 ```
 
-成功后，返回结果:
+The result is as follows：
 
 ```txt
 BoxInfo:

@@ -29,7 +29,7 @@
 | --price          | int    | 是       |    | 存款最小倍数且能被存款总量整除 |
 | --start-time     | int    | 是       |    | 吸纳存款开始时间               |
 | --establish-time | int    | 是       |    | 吸纳存款结束时间               |
-| --maturity-time  | int    | 是       |    | 存款交割时间                   |
+| --maturity-time  | int    | 是       |    | 存款及利息交割时间                   |
 | --interest       | string | 是       |    | 注入利息的数量和种类           |
 
 **全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
@@ -37,24 +37,25 @@
 ## 例子
 ### 创建存款盒子
 ```shell
-hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price=2  --start-time=1558079700  --establish-time=1558080300 --maturity-time=1558080900 --interest=9898coin174876e800  --from
+hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price=2  --start-time=1558079700  --establish-time=1558080300 --maturity-time=1558080900 --interest=9898 coin174876e800  --from
 ```
 输入正确的密码后，存款盒子创建完成。
 ```txt
   {
-  Height: 4141
-  TxHash: 9CDC3111A4FF78DB5F53CB5C6518025DB2B8DDB038BC2CB1C2E52FE9F2B1BD91
-  Data: 0F0E626F786162336A6C787074327073
-  Raw Log: [{"msg_index":"0","success":true,"log":""}]
-  Logs: [{"msg_index":0,"success":true,"log":""}]
-  GasWanted: 200000
-  GasUsed: 41233
-  Tags:
-    - action = box_create
-    - category = box
-    - box-id = boxab3jlxpt2ps
-    - box-type = deposit
-    - sender = gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7
+    Response:
+      Height: 3353
+      TxHash: D14BFA58729BEEB1FFE113108404B465757F1C8F7B4041DD91EAEA021870873A
+      Data: 0F0E626F786162336A6C787074327074
+      Raw Log: [{"msg_index":"0","success":true,"log":""}]
+      Logs: [{"msg_index":0,"success":true,"log":""}]
+      GasWanted: 200000
+      GasUsed: 60857
+      Tags:
+        - action = create
+        - category = deposit
+        - id = boxab3jlxpt2pt
+        - sender = gard1prflhd5h66l498vdyy95hyh898r0tjxvv6vc60
+        - fee = 1000000000000000000000agard
     }
 ```
 
@@ -69,6 +70,6 @@ hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price
 | [inject](inject.md)                 | 用户对存款盒子进行存款       |
 | [cancel](cancel.md)           | 用户在存款吸纳期进行取回存款 |
 | [params](params.md)                   |  参数及费用  |
-| [query](query.md)                     |   查询指定id盒子   |
+| [query](query.md)                     |   查询指定 id 盒子   |
 | [list](list.md)                     |   查询全部盒子列表  |
-| [search](search.md)                     |   按盒子名称进行搜索    |
+| [search](search.md)                     |   按盒子名称进行搜索    |

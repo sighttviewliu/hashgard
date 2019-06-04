@@ -1,21 +1,21 @@
 # hashgardcli describe
 
-## 描述
-Owner 可以对自己发行的盒子进行补充描述，描述文件使用不超过 1024 字节的 json 格式。可以自定义各种属性，也可以使用官方推荐的模板。
-## 用法
+## Description
+Owner describes the box。The description file must be in josn format and no more than 1024 bytes.
+## Usage
 ```shell
  hashgardcli deposit describe [box-id] [description-file] [flags]
 ```
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
-### 给盒子设置描述
+## Example
+### Set a description for the box
 ```shell
 hashgardcli deposit describe boxab3jlxpt2pt .path/description.json --from one -y
 ```
-#### 模板
+### Template
 ```shell
 {
     "org":"Hashgard",
@@ -24,7 +24,7 @@ hashgardcli deposit describe boxab3jlxpt2pt .path/description.json --from one -y
     "intro":"This is a description of the project"
 }
 ```
-输入正确的密码之后，你的该代币的描述就设置成功了。
+The result is as follows：
 ```txt
 {
   Response:
@@ -42,11 +42,11 @@ hashgardcli deposit describe boxab3jlxpt2pt .path/description.json --from one -y
       - sender = gard1prflhd5h66l498vdyy95hyh898r0tjxvv6vc60
 }
 ```
-### 查询盒子信息
+## Query
 ```shell
 hashgardcli deposit query boxab3jlxpt2pt
 ```
-成功后，返回结果:
+The result is as follows：
 ```shell
 BoxInfo:
   Id:			boxab3jlxpt2pt

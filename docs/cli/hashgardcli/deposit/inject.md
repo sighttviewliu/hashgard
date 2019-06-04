@@ -1,31 +1,31 @@
 # hashgardcli  deposit inject
 
-## 描述
-对盒子进行通证注入。
+## Description
+Inject coin into the box
 
 
 
-## 用法
+## Usage
 ```shell
 hashgardcli deposit inject [box-id] [amount]  [flags]
 ```
 
 
 
-### 子命令
+## Subcommands
 
-| 名称   | 类型   | 必需 | 默认值 | 描述         |
+| Name| Type  | Required | Default   | Description        |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | 是       |        | 盒子的 id |
-| amount | int   | 是       |        | 存款的数量   |
+| box-id | string | true       |        | 盒子的 id |
+| amount | int   | true       |        | 存款的数量   |
 
 
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
+## Example
 ### 进行存款
 
 ```shell
@@ -33,7 +33,7 @@ hashgardcli deposit inject [box-id] [amount]  [flags]
 ```
 
 
-成功后，返回结果:
+The result is as follows：
 
 ```txt
 {

@@ -1,26 +1,25 @@
 # hashgardcli deposit list
 
-## 描述
-查询指定类型盒子列表
+## Description
+Query all deposit boxes 
 
-## 用法
+## Usage
 ```shell
 hashgardcli deposit list
 ```
 
 ### flag
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-
-## 例子
-### 查询盒子信息
+## Example
+## Query
 
 ```shell
 hashgardcli deposit list
 ```
 
-成功后，返回结果:
+The result is as follows：
 
 ```txt
 BoxID            |Owner                                       |Name            |TotalAmount                             |CreatedTime
