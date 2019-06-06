@@ -1,4 +1,4 @@
-# Exchange HRC11 原子交易模块
+# Atomic Swap Protocol HRC11 原子交易模块 (Exchange)
 
 ## 介绍
 

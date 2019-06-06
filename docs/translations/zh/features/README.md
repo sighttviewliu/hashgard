@@ -6,11 +6,12 @@
 
 
 # Core 模块
-### [Issue HRC10](issue.md) 同质化通证发行模块
-### [Exchange HRC11](exchange.md) 原子交换模块
-### [Desposit HRC12](desposit.md) 存款协议模块
-### [Future HRC13](future.md) 远期协议模块
-### [Lock](../cli/hashgardcli/lock/README.md) 锁仓
+### [Fungible Token Issuance Protocol HRC10](issue.md) 同质化通证发行模块
+### [Atomic Swap Protocol HRC11](exchange.md) 原子交换模块
+### [Deposit Protocol HRC12](desposit.md) 存款协议模块
+### [Future Payment Protocol HRC13](future.md) 远期协议模块
+### [Recording](recording.md)存证
+### [Token Lock-up](../cli/hashgardcli/lock/README.md) 锁仓
 ### [Stake](stake.md) 节点 委托
 ### [Distribution](distribution.md) 收益分配
 

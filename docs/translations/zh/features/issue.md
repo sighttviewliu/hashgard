@@ -1,4 +1,4 @@
-# HRC10 同质化通证发行协议（ issue 模块）
+# Fungible Token Issuance Protocol HRC10 同质化通证发行协议
 
 ## 简介
 

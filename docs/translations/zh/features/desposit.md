@@ -1,4 +1,4 @@
-# Desposit HRC12 存款协议模块
+#  Deposit Protocol HRC12 存款协议模块
 
 ## 简介
 金融机构进行存款或期货交易。
