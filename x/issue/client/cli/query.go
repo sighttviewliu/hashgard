@@ -54,7 +54,7 @@ func QueryCmd(cdc *codec.Codec) *cobra.Command {
 // GetCmdQueryIssue implements the query issue command.
 func GetCmdQueryIssue(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:     "query-issue [issue-id]",
+		Use:     "query [issue-id]",
 		Args:    cobra.ExactArgs(1),
 		Short:   "Query a single issue",
 		Long:    "Query details for a issue. You can find the issue-id by running hashgardcli issue list-issues",
@@ -163,7 +163,7 @@ func GetCmdQueryFreeze(cdc *codec.Codec) *cobra.Command {
 // GetCmdQueryIssues implements the query issue command.
 func GetCmdQueryIssues(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "list-issues",
+		Use:     "list",
 		Short:   "Query issue list",
 		Long:    "Query all or one of the account issue list, the limit default is 30",
 		Example: "$ hashgardcli issue list-issues",

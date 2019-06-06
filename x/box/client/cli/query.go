@@ -18,6 +18,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+//Box query
 // QueryCmd implements the query box command.
 func QueryCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
