@@ -1,4 +1,4 @@
-# Future HRC13 远期支付模块
+# Future Payment Protocol HRC13 远期支付模块
 
 ## 介绍
 
