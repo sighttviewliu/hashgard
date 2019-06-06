@@ -15,3 +15,7 @@ type StakingKeeper interface {
 type FeeCollectionKeeper interface {
 	AddCollectedFees(sdk.Context, sdk.Coins) sdk.Coins
 }
+
+type BankKeeper interface {
+	SubtractCoins(ctx sdk.Context, addr sdk.AccAddress, amt sdk.Coins) (sdk.Coins, sdk.Error)
+}

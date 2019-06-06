@@ -641,7 +641,9 @@ func (keeper Keeper) SetProposalParam(ctx sdk.Context, proposalParam ProposalPar
 		if err != nil {
 			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, err.Error())
 		}
-		keeper.distributionKeeper.SetFoundationAddress(ctx, val)
+		tParams := keeper.mintKeeper.GetParams(ctx)
+		tParams.FoundationAddress = val
+		keeper.mintKeeper.SetParams(ctx, tParams)
 		return nil
 
 	default:

@@ -23,7 +23,7 @@ func TestBlockProvision(t *testing.T) {
 	}
 
 	for i, tc := range tests {
-		params := NewParams(tc.inflation, tc.inflationBase)
+		params := NewParams(tc.inflation, tc.inflationBase, nil)
 		annualProvisions := minter.NextAnnualProvisions(params)
 		provisions := minter.BlockProvision(annualProvisions)
 

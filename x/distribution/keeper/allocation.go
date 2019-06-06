@@ -5,8 +5,6 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
-	"github.com/hashgard/hashgard/x/distribution/types"
 )
 
 // allocate fees handles distribution of the collected fees
@@ -119,27 +117,10 @@ func (k Keeper) AllocateCommunityPool(ctx sdk.Context, destAddr sdk.AccAddress, 
 
 	if burn {
 		logger.Info("Burn community tax", "burn_amount", allocateCoins.String())
-		if !allocateCoins.IsZero() {
-			foundationAddress := k.GetFoundationAddress(ctx)
-			_, err := k.bankKeeper.SubtractCoins(ctx, foundationAddress, allocateCoins)
-			if err != nil {
-				logger := ctx.Logger().With("module", "x/distr")
-				logger.Info(fmt.Sprintf("the fund of foundation address(%s) is insufficient", foundationAddress))
-				return types.ErrFoundationDryUp(types.DefaultCodespace)
-			}
-		}
 	} else {
 		logger.Info("Grant community tax to account", "grant_amount", allocateCoins.String(), "grant_address", destAddr.String())
 		if !allocateCoins.IsZero() {
-			foundationAddress := k.GetFoundationAddress(ctx)
-			_, err := k.bankKeeper.SubtractCoins(ctx, foundationAddress, allocateCoins)
-			if err != nil {
-				logger := ctx.Logger().With("module", "x/distr")
-				logger.Info(fmt.Sprintf("the fund of foundation address(%s) is insufficient", foundationAddress))
-				return types.ErrFoundationDryUp(types.DefaultCodespace)
-			}
-
-			_, err = k.bankKeeper.AddCoins(ctx, destAddr, allocateCoins)
+			_, err := k.bankKeeper.AddCoins(ctx, destAddr, allocateCoins)
 			if err != nil {
 				return err
 			}

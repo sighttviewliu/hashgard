@@ -296,9 +296,9 @@ func InitializeTestLCD(t *testing.T, nValidators int, initAddrs []sdk.AccAddress
 	}
 
 	// add foundation account
-	foundationAddr := appGenState.DistributionData.FoundationAddress
+	foundationAddr := appGenState.MintData.Params.FoundationAddress
 	foundationAuth := auth.NewBaseAccountWithAddress(foundationAddr)
-	foundationTokens := sdk.TokensFromTendermintPower(100000000)
+	foundationTokens := sdk.TokensFromTendermintPower(10000000000)
 	foundationAuth.Coins = sdk.NewCoins(sdk.NewCoin(happ.StakeDenom, foundationTokens))
 	foundation := happ.NewGenesisAccount(&foundationAuth)
 	genesisState.Accounts = append(genesisState.Accounts, foundation)

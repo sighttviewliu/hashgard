@@ -3,8 +3,6 @@ package types
 import (
 	"fmt"
 
-	"github.com/tendermint/tendermint/crypto"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -56,7 +54,6 @@ type ValidatorSlashEventRecord struct {
 
 // GenesisState - all distribution state that must be provided at genesis
 type GenesisState struct {
-	FoundationAddress				sdk.AccAddress						   `json:"foundation_address"`
 	FeePool                         FeePool                                `json:"fee_pool"`
 	CommunityTax                    sdk.Dec                                `json:"community_tax"`
 	BaseProposerReward              sdk.Dec                                `json:"base_proposer_reward"`
@@ -72,14 +69,13 @@ type GenesisState struct {
 	ValidatorSlashEvents            []ValidatorSlashEventRecord            `json:"validator_slash_events"`
 }
 
-func NewGenesisState(foundationAddr sdk.AccAddress, feePool FeePool, communityTax, baseProposerReward, bonusProposerReward sdk.Dec,
+func NewGenesisState(feePool FeePool, communityTax, baseProposerReward, bonusProposerReward sdk.Dec,
 	withdrawAddrEnabled bool, dwis []DelegatorWithdrawInfo, pp sdk.ConsAddress, r []ValidatorOutstandingRewardsRecord,
 	acc []ValidatorAccumulatedCommissionRecord, historical []ValidatorHistoricalRewardsRecord,
 	cur []ValidatorCurrentRewardsRecord, dels []DelegatorStartingInfoRecord,
 	slashes []ValidatorSlashEventRecord) GenesisState {
 
 	return GenesisState{
-		FoundationAddress:				 foundationAddr,
 		FeePool:                         feePool,
 		CommunityTax:                    communityTax,
 		BaseProposerReward:              baseProposerReward,
@@ -99,7 +95,6 @@ func NewGenesisState(foundationAddr sdk.AccAddress, feePool FeePool, communityTa
 // get raw genesis raw message for testing
 func DefaultGenesisState() GenesisState {
 	return GenesisState{
-		FoundationAddress:				 sdk.AccAddress(crypto.AddressHash([]byte("foundationaddress"))),
 		FeePool:                         InitialFeePool(),
 		CommunityTax:                    sdk.NewDecWithPrec(2, 2), // 2%
 		BaseProposerReward:              sdk.NewDecWithPrec(1, 2), // 1%
