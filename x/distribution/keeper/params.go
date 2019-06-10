@@ -12,7 +12,6 @@ func ParamKeyTable() params.KeyTable {
 		ParamStoreKeyBaseProposerReward, sdk.Dec{},
 		ParamStoreKeyBonusProposerReward, sdk.Dec{},
 		ParamStoreKeyWithdrawAddrEnabled, false,
-		ParamStoreKeyFoundationAddress, sdk.AccAddress{},
 	)
 }
 
@@ -66,18 +65,4 @@ func (k Keeper) GetWithdrawAddrEnabled(ctx sdk.Context) bool {
 // nolint: errcheck
 func (k Keeper) SetWithdrawAddrEnabled(ctx sdk.Context, enabled bool) {
 	k.paramSpace.Set(ctx, ParamStoreKeyWithdrawAddrEnabled, &enabled)
-}
-
-// get the foundation address
-// nolint: errcheck
-func (k Keeper) GetFoundationAddress(ctx sdk.Context) sdk.AccAddress {
-	var foundationAddress sdk.AccAddress
-	k.paramSpace.Get(ctx, ParamStoreKeyFoundationAddress, &foundationAddress)
-	return foundationAddress
-}
-
-// set the foundation address
-// nolint: errcheck
-func (k Keeper) SetFoundationAddress(ctx sdk.Context, foundationAddress sdk.AccAddress) {
-	k.paramSpace.Set(ctx, ParamStoreKeyFoundationAddress, &foundationAddress)
 }

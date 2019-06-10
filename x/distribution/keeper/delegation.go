@@ -151,14 +151,6 @@ func (k Keeper) withdrawDelegationRewards(ctx sdk.Context, val sdk.Validator, de
 
 	// add coins to user account
 	if !coins.IsZero() {
-		foundationAddress := k.GetFoundationAddress(ctx)
-		_, err := k.bankKeeper.SubtractCoins(ctx, foundationAddress, coins)
-		if err != nil {
-			logger := ctx.Logger().With("module", "x/distr")
-			logger.Info(fmt.Sprintf("the fund of foundation address(%s) is insufficient", foundationAddress))
-			return nil, types.ErrFoundationDryUp(types.DefaultCodespace)
-		}
-
 		withdrawAddr := k.GetDelegatorWithdrawAddr(ctx, del.GetDelegatorAddr())
 		if _, err := k.bankKeeper.AddCoins(ctx, withdrawAddr, coins); err != nil {
 			return nil, err

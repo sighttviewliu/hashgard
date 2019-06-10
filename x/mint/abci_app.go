@@ -1,6 +1,7 @@
 package mint
 
 import (
+	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -16,6 +17,14 @@ func BeginBlocker(ctx sdk.Context, k Keeper) {
 
 	// mint coins, add to collected fees, update supply
 	mintedCoin := minter.BlockProvision(annualProvisions)
+
+	foundationAddress := k.GetParams(ctx).FoundationAddress
+	_, err := k.bankKeeper.SubtractCoins(ctx, foundationAddress, sdk.NewCoins(mintedCoin))
+	if err != nil {
+		logger := ctx.Logger().With("module", "x/mint")
+		logger.Info(fmt.Sprintf("the fund of foundation address(%s) is insufficient", foundationAddress))
+		panic(fmt.Errorf("the fund of foundation address(%s) is insufficient", foundationAddress))
+	}
 	k.fck.AddCollectedFees(ctx, sdk.Coins{mintedCoin})
 
 	// first year do not inflate total supply

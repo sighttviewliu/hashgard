@@ -154,6 +154,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		app.paramsKeeper.Subspace(mint.DefaultParamspace),
 		&stakingKeeper,
 		app.feeCollectionKeeper,
+		&bankKeeper,
 	)
 
 	app.distributionKeeper = distribution.NewKeeper(

@@ -14,6 +14,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	cmn "github.com/tendermint/tendermint/libs/common"
+	"github.com/tendermint/tendermint/crypto"
 
 	clientkeys "github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -155,6 +156,8 @@ func InitFixtures(t *testing.T) (f *Fixtures) {
 		fmt.Sprintf("--vesting-start-time=%d", time.Now().UTC().UnixNano()),
 		fmt.Sprintf("--vesting-end-time=%d", time.Now().Add(60*time.Second).UTC().UnixNano()),
 	)
+
+	f.AddGenesisAccount(sdk.AccAddress(crypto.AddressHash([]byte("foundationaddress"))), sdk.NewCoins(sdk.NewCoin(denom, sdk.TokensFromTendermintPower(300000000))))
 
 	f.GenTx(keyFoo)
 	f.CollectGenTxs()

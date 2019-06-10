@@ -11,7 +11,7 @@ import (
 
 const (
 	communityTax          = "distribution/community_tax"
-	foundationAddress     = "distribution/foundation_address"
+	foundationAddress     = "mint/foundation_address"
 	inflation             = "mint/inflation"
 	inflationBase         = "mint/inflation_base"
 	minDeposit            = "gov/min_deposit"

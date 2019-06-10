@@ -26,11 +26,9 @@ var (
 	delPk1   = ed25519.GenPrivKey().PubKey()
 	delPk2   = ed25519.GenPrivKey().PubKey()
 	delPk3   = ed25519.GenPrivKey().PubKey()
-	foundationPK   = ed25519.GenPrivKey().PubKey()
 	delAddr1 = sdk.AccAddress(delPk1.Address())
 	delAddr2 = sdk.AccAddress(delPk2.Address())
 	delAddr3 = sdk.AccAddress(delPk3.Address())
-	foundationAddr = sdk.AccAddress(foundationPK.Address())
 
 	valOpPk1    = ed25519.GenPrivKey().PubKey()
 	valOpPk2    = ed25519.GenPrivKey().PubKey()
@@ -52,7 +50,7 @@ var (
 	// test addresses
 	TestAddrs = []sdk.AccAddress{
 		delAddr1, delAddr2, delAddr3,
-		valAccAddr1, valAccAddr2, valAccAddr3, foundationAddr,
+		valAccAddr1, valAccAddr2, valAccAddr3,
 	}
 
 	emptyDelAddr sdk.AccAddress
@@ -144,7 +142,6 @@ func CreateTestInputAdvanced(t *testing.T, isCheckTx bool, initPower int64,
 	keeper.SetCommunityTax(ctx, communityTax)
 	keeper.SetBaseProposerReward(ctx, sdk.NewDecWithPrec(1, 2))
 	keeper.SetBonusProposerReward(ctx, sdk.NewDecWithPrec(4, 2))
-	keeper.SetFoundationAddress(ctx, foundationAddr)
 
 	return ctx, accountKeeper, bankKeeper, keeper, sk, fck, pk
 }

@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"fmt"
-
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/params"
@@ -89,14 +87,6 @@ func (k Keeper) WithdrawValidatorCommission(ctx sdk.Context, valAddr sdk.ValAddr
 	k.SetValidatorOutstandingRewards(ctx, valAddr, outstanding.Sub(sdk.NewDecCoins(coins)))
 
 	if !coins.IsZero() {
-		foundationAddress := k.GetFoundationAddress(ctx)
-		_, err := k.bankKeeper.SubtractCoins(ctx, foundationAddress, coins)
-		if err != nil {
-			logger := ctx.Logger().With("module", "x/distr")
-			logger.Info(fmt.Sprintf("the fund of foundation address(%s) is insufficient", foundationAddress))
-			return nil, types.ErrFoundationDryUp(types.DefaultCodespace)
-		}
-
 		accAddr := sdk.AccAddress(valAddr)
 		withdrawAddr := k.GetDelegatorWithdrawAddr(ctx, accAddr)
 

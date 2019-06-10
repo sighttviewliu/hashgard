@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"fmt"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -44,15 +42,6 @@ func (h Hooks) AfterValidatorRemoved(ctx sdk.Context, _ sdk.ConsAddress, valAddr
 
 		// add to validator account
 		if !coins.IsZero() {
-
-			foundationAddress := h.k.GetFoundationAddress(ctx)
-			_, err := h.k.bankKeeper.SubtractCoins(ctx, foundationAddress, coins)
-			if err != nil {
-				logger := ctx.Logger().With("module", "x/distr")
-				logger.Info(fmt.Sprintf("the fund of foundation address(%s) is insufficient", foundationAddress))
-				return
-			}
-
 			accAddr := sdk.AccAddress(valAddr)
 			withdrawAddr := h.k.GetDelegatorWithdrawAddr(ctx, accAddr)
 
