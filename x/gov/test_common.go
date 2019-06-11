@@ -75,6 +75,7 @@ func getMockAppParams(t *testing.T, numGenAccs int, genState GenesisState, genAc
 		mapp.ParamsKeeper.Subspace(mint.DefaultParamspace),
 		&sk,
 		fck,
+		ck,
 	)
 	slashingKeeper := slashing.NewKeeper(
 		mapp.Cdc,
