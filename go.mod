@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/btcsuite/btcutil v0.0.0-20190207003914-4c204d697803 // indirect
-	github.com/cosmos/cosmos-sdk v0.34.7
+	github.com/cosmos/cosmos-sdk v0.35.0
 	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/gorilla/mux v1.7.0
 	github.com/mattn/go-isatty v0.0.7 // indirect
@@ -23,6 +23,6 @@ require (
 )
 
 replace (
-	github.com/cosmos/cosmos-sdk => github.com/hashgard/cosmos-sdk v0.34.4-hashgard.0.20190606102350-4249afd167f2
+	github.com/cosmos/cosmos-sdk => github.com/hashgard/cosmos-sdk v0.35.0-hashgard
 	golang.org/x/crypto => github.com/tendermint/crypto v0.0.0-20180820045704-3764759f34a5
 )
