@@ -76,6 +76,26 @@ func (keeper Keeper) setAddressIssues(ctx sdk.Context, accAddress string, issueI
 	store.Set(KeyAddressIssues(accAddress), bz)
 }
 
+//Remove address
+func (keeper Keeper) removeAddressIssues(ctx sdk.Context, accAddress string, issueID string) {
+	issueIDs := keeper.GetAddressIssues(ctx, accAddress)
+	ret := make([]string, 0, len(issueIDs))
+	for _, val := range issueIDs {
+		if val != issueID {
+			ret = append(ret, val)
+		}
+	}
+	keeper.setAddressIssues(ctx, accAddress, ret)
+}
+
+//Add address
+func (keeper Keeper) addAddressIssues(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo) {
+	issueIDs := keeper.GetAddressIssues(ctx, coinIssueInfo.GetOwner().String())
+	issueIDs = append(issueIDs, coinIssueInfo.IssueId)
+	keeper.setAddressIssues(ctx, coinIssueInfo.GetOwner().String(), issueIDs)
+
+}
+
 //Set symbol
 func (keeper Keeper) setSymbolIssues(ctx sdk.Context, symbol string, issueIDs []string) {
 	store := ctx.KVStore(keeper.storeKey)
@@ -100,12 +120,9 @@ func (keeper Keeper) setApprove(ctx sdk.Context, sender sdk.AccAddress, spender 
 //Keys add
 //Add a issue
 func (keeper Keeper) AddIssue(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo) {
+	keeper.addAddressIssues(ctx, coinIssueInfo)
 
-	issueIDs := keeper.GetAddressIssues(ctx, coinIssueInfo.GetIssuer().String())
-	issueIDs = append(issueIDs, coinIssueInfo.IssueId)
-	keeper.setAddressIssues(ctx, coinIssueInfo.GetIssuer().String(), issueIDs)
-
-	issueIDs = keeper.GetSymbolIssues(ctx, coinIssueInfo.Symbol)
+	issueIDs := keeper.GetSymbolIssues(ctx, coinIssueInfo.Symbol)
 	issueIDs = append(issueIDs, coinIssueInfo.IssueId)
 	keeper.setSymbolIssues(ctx, coinIssueInfo.Symbol, issueIDs)
 
@@ -496,6 +513,8 @@ func (keeper Keeper) TransferOwnership(ctx sdk.Context, issueID string, sender s
 		return err
 	}
 	coinIssueInfo.Owner = to
+	keeper.removeAddressIssues(ctx, sender.String(), issueID)
+	keeper.addAddressIssues(ctx, coinIssueInfo)
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
