@@ -8,16 +8,15 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 
 	"github.com/hashgard/hashgard/x/exchange/keeper"
-	"github.com/hashgard/hashgard/x/exchange/types"
 )
 
 type QueryOrderParams struct {
 	OrderId uint64
 }
 
-func NewQueryOrderParams(orderId uint64) QueryOrderParams {
+func NewQueryOrderParams(id uint64) QueryOrderParams {
 	return QueryOrderParams{
-		OrderId: orderId,
+		OrderId: id,
 	}
 }
 
@@ -28,9 +27,9 @@ func QueryOrder(ctx sdk.Context, cdc *codec.Codec, req abci.RequestQuery, keeper
 		return []byte{}, sdk.ErrInternal(fmt.Sprintf("failed to parse params: %s", err))
 	}
 
-	order, ok := keeper.GetOrder(ctx, params.OrderId)
-	if !ok {
-		return nil, sdk.NewError(types.DefaultCodespace, types.CodeOrderNotExist, fmt.Sprintf("this orderId is not exist : %d", params.OrderId))
+	order, orderErr := keeper.GetOrder(ctx, params.OrderId)
+	if orderErr != nil {
+		return nil, orderErr
 	}
 
 	bz, err := codec.MarshalJSONIndent(cdc, order)

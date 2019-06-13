@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"strconv"
-	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/client/utils"
@@ -16,17 +15,13 @@ import (
 	"github.com/hashgard/hashgard/x/exchange/msgs"
 )
 
-func GetCmdCreateOrder(cdc *codec.Codec) *cobra.Command {
+func GetMakeCmd(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-order",
+		Use:   "make",
 		Short: "create a new order",
-		Example: `
-$ hashgardcli exchange create-order --supply=100gard --target=800apple --from mykey
-
-The supply must have specific amount and coin name, that's what you want to sell.
-So make sure your address have sufficient balance.
-The target is what you want to get by this order.
-`,
+		Long: "The supply must have specific amount and coin name, that's what you want to sell." +
+			"So make sure your address have sufficient balance.The target is what you want to get by this order.",
+		Example: "$ hashgardcli exchange make --supply=100gard --target=800apple --from mykey",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 			cliCtx := context.NewCLIContext().
@@ -61,7 +56,7 @@ The target is what you want to get by this order.
 				return err
 			}
 
-			msg := msgs.NewMsgCreateOrder(from, supply, target)
+			msg := msgs.NewMsgMake(from, supply, target)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -76,62 +71,17 @@ The target is what you want to get by this order.
 
 	return cmd
 }
-
-func GetCmdWithdrawalOrder(cdc *codec.Codec) *cobra.Command {
+func GetTakeCmd(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "withdrawal-order [order-id]",
+		Use:   "take [id]",
 		Args:  cobra.ExactArgs(1),
-		Short: "withdrawal a exist order",
-		Long: strings.TrimSpace(`
-$ hashgardcli exchange withdrawal-order 3 --from mykey
-
-If the order's owner is not you, will output error.
-When withdrawal an order successfully, the remains coin of the order will return to the owner address.'
-`),
-		RunE: func(cnd *cobra.Command, args []string) error {
-			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
-			cliCtx := context.NewCLIContext().
-				WithCodec(cdc).
-				WithAccountDecoder(cdc)
-
-			// Get from address
-			from := cliCtx.GetFromAddress()
-
-			// Get orderId
-			orderId, err := strconv.ParseUint(args[0], 10, 64)
-			if err != nil {
-				return fmt.Errorf("order-id %s not a valid int, please input a valid order-id", args[0])
-			}
-
-			// Todo: check to see if the order is in the store
-
-			msg := msgs.NewMsgWithdrawalOrder(orderId, from)
-			err = msg.ValidateBasic()
-			if err != nil {
-				return err
-			}
-
-			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
-		},
-	}
-
-	return cmd
-}
-
-func GetCmdTakeOrder(cdc *codec.Codec) *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "take-order [order-id]",
-		Args:  cobra.ExactArgs(1),
-		Short: "exchange with a active order",
-		Long: strings.TrimSpace(`
-$ hashgardcli exchange take-order 3 --amount=800apple --from mykey
-
-Make sure the --amount is match the order's target coin.
-if send more than the remains of the order target, the order will be filled,
-The extra part will be returned to you. If your amount is more than the exchange threshold,
-but less than the remains target, the order will be executed partially, you can get supply coins
-of corresponding amount.
-`),
+		Short: "take with a active order",
+		Long: "Make sure the --amount is match the order's target coin." +
+			"if send more than the remains of the order target, the order will be filled," +
+			"The extra part will be returned to you. If your amount is more than the exchange threshold," +
+			"but less than the remains target, the order will be executed partially, " +
+			"you can get supply coins of corresponding amount.",
+		Example: "$ hashgardcli exchange take 3 --amount=800apple --from mykey",
 		RunE: func(cnd *cobra.Command, args []string) error {
 			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
 			cliCtx := context.NewCLIContext().
@@ -147,10 +97,10 @@ of corresponding amount.
 				return err
 			}
 
-			// Get orderId
-			orderId, err := strconv.ParseUint(args[0], 10, 64)
+			// Get id
+			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
-				return fmt.Errorf("order-id %s not a valid int, please input a valid order-id", args[0])
+				return fmt.Errorf("id %s not a valid int, please input a valid id", args[0])
 			}
 
 			// Todo: check to see if the order is in the store
@@ -167,7 +117,7 @@ of corresponding amount.
 				return fmt.Errorf("address %s doesn't have enough coins to take order with specific amount", from)
 			}
 
-			msg := msgs.NewMsgTakeOrder(orderId, from, amount)
+			msg := msgs.NewMsgTake(id, from, amount)
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err
@@ -178,6 +128,44 @@ of corresponding amount.
 	}
 
 	cmd.Flags().String(FlagAmount, "", "coin to take order")
+
+	return cmd
+}
+
+func GetCancelCmd(cdc *codec.Codec) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "cancel [id]",
+		Args:  cobra.ExactArgs(1),
+		Short: "cancel a exist order",
+		Long: "If the order's owner is not you, will output error." +
+			"When withdrawal an order successfully, the remains coin of the order will return to the owner address.'",
+		Example: "$ hashgardcli exchange cancel 3 --from mykey",
+		RunE: func(cnd *cobra.Command, args []string) error {
+			txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
+			cliCtx := context.NewCLIContext().
+				WithCodec(cdc).
+				WithAccountDecoder(cdc)
+
+			// Get from address
+			from := cliCtx.GetFromAddress()
+
+			// Get id
+			id, err := strconv.ParseUint(args[0], 10, 64)
+			if err != nil {
+				return fmt.Errorf("id %s not a valid int, please input a valid id", args[0])
+			}
+
+			// Todo: check to see if the order is in the store
+
+			msg := msgs.NewMsgCancel(id, from)
+			err = msg.ValidateBasic()
+			if err != nil {
+				return err
+			}
+
+			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
+		},
+	}
 
 	return cmd
 }

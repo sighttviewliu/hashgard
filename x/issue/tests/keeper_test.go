@@ -342,3 +342,34 @@ func TestFreeze(t *testing.T) {
 	require.Zero(t, freeze.OutEndTime)
 
 }
+
+func TestTransferOwnership(t *testing.T) {
+
+	mapp, keeper, _, _, _, _ := getMockApp(t, issue.GenesisState{}, nil)
+
+	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
+	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
+
+	ctx := mapp.BaseApp.NewContext(false, abci.Header{})
+
+	CoinIssueInfo.TotalSupply = sdk.NewInt(10000)
+
+	_, err := keeper.CreateIssue(ctx, &CoinIssueInfo)
+	require.Nil(t, err)
+
+	owner := CoinIssueInfo.Owner
+
+	err = keeper.TransferOwnership(ctx, CoinIssueInfo.IssueId, owner, TransferAccAddr)
+	require.Nil(t, err)
+
+	err = keeper.TransferOwnership(ctx, CoinIssueInfo.IssueId, owner, TransferAccAddr)
+	require.Error(t, err)
+
+	issueIDs := keeper.GetAddressIssues(ctx, owner.String())
+	require.Len(t, issueIDs, 0)
+	issueIDs = keeper.GetAddressIssues(ctx, TransferAccAddr.String())
+	require.Len(t, issueIDs, 1)
+	issueInfo := keeper.GetIssue(ctx, CoinIssueInfo.IssueId)
+	require.Equal(t, owner, issueInfo.Issuer)
+	require.Equal(t, TransferAccAddr, issueInfo.Owner)
+}
