@@ -51,7 +51,7 @@ func GetListCmd(cdc *codec.Codec) *cobra.Command {
 		Use:     "list [address]",
 		Args:    cobra.ExactArgs(1),
 		Short:   "Query all orders of a specific address",
-		Example: "$ hashgardcli exchange query-orders gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd",
+		Example: "$ hashgardcli exchange list gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
