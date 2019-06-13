@@ -5,16 +5,16 @@ import (
 	"github.com/hashgard/hashgard/x/exchange/types"
 )
 
-var _ sdk.Msg = MsgCreateOrder{}
+var _ sdk.Msg = MsgMake{}
 
-type MsgCreateOrder struct {
+type MsgMake struct {
 	Seller sdk.AccAddress `json:"seller"`
 	Supply sdk.Coin       `json:"supply"`
 	Target sdk.Coin       `json:"target"`
 }
 
-func NewMsgCreateOrder(seller sdk.AccAddress, supply sdk.Coin, target sdk.Coin) MsgCreateOrder {
-	return MsgCreateOrder{
+func NewMsgMake(seller sdk.AccAddress, supply sdk.Coin, target sdk.Coin) MsgMake {
+	return MsgMake{
 		Seller: seller,
 		Supply: supply,
 		Target: target,
@@ -22,15 +22,15 @@ func NewMsgCreateOrder(seller sdk.AccAddress, supply sdk.Coin, target sdk.Coin) 
 }
 
 // implement Msg interface
-func (msg MsgCreateOrder) Route() string {
+func (msg MsgMake) Route() string {
 	return types.RouterKey
 }
 
-func (msg MsgCreateOrder) Type() string {
-	return "create_order"
+func (msg MsgMake) Type() string {
+	return types.TypeMsgMake
 }
 
-func (msg MsgCreateOrder) ValidateBasic() sdk.Error {
+func (msg MsgMake) ValidateBasic() sdk.Error {
 	if msg.Seller.Empty() {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalidInput, "seller address is nil")
 	}
@@ -44,11 +44,11 @@ func (msg MsgCreateOrder) ValidateBasic() sdk.Error {
 	return nil
 }
 
-func (msg MsgCreateOrder) GetSignBytes() []byte {
+func (msg MsgMake) GetSignBytes() []byte {
 	bz := MsgCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg MsgCreateOrder) GetSigners() []sdk.AccAddress {
+func (msg MsgMake) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Seller}
 }

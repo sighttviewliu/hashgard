@@ -75,17 +75,26 @@ func (keeper Keeper) setAddressIssues(ctx sdk.Context, accAddress string, issueI
 	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(issueIDs)
 	store.Set(KeyAddressIssues(accAddress), bz)
 }
+func (keeper Keeper) deleteAddressIssues(ctx sdk.Context, accAddress string) {
+	store := ctx.KVStore(keeper.storeKey)
+	store.Delete(KeyAddressIssues(accAddress))
+}
 
 //Remove address
 func (keeper Keeper) removeAddressIssues(ctx sdk.Context, accAddress string, issueID string) {
 	issueIDs := keeper.GetAddressIssues(ctx, accAddress)
-	ret := make([]string, 0, len(issueIDs))
-	for _, val := range issueIDs {
-		if val != issueID {
-			ret = append(ret, val)
+	for index := 0; index < len(issueIDs); {
+		if issueIDs[index] == issueID {
+			issueIDs = append(issueIDs[:index], issueIDs[index+1:]...)
+			break
 		}
+		index++
 	}
-	keeper.setAddressIssues(ctx, accAddress, ret)
+	if len(issueIDs) == 0 {
+		keeper.deleteAddressIssues(ctx, accAddress)
+	} else {
+		keeper.setAddressIssues(ctx, accAddress, issueIDs)
+	}
 }
 
 //Add address

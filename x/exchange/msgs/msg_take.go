@@ -5,34 +5,34 @@ import (
 	"github.com/hashgard/hashgard/x/exchange/types"
 )
 
-var _ sdk.Msg = MsgTakeOrder{}
+var _ sdk.Msg = MsgTake{}
 
-type MsgTakeOrder struct {
-	OrderId uint64         `json:"order_id"`
+type MsgTake struct {
+	OrderId uint64         `json:"id"`
 	Buyer   sdk.AccAddress `json:"buyer"`
 	Value   sdk.Coin       `json:"value"`
 }
 
-func NewMsgTakeOrder(orderId uint64, buyer sdk.AccAddress, val sdk.Coin) MsgTakeOrder {
-	return MsgTakeOrder{
-		OrderId: orderId,
+func NewMsgTake(id uint64, buyer sdk.AccAddress, val sdk.Coin) MsgTake {
+	return MsgTake{
+		OrderId: id,
 		Buyer:   buyer,
 		Value:   val,
 	}
 }
 
 // implement Msg interface
-func (msg MsgTakeOrder) Route() string {
+func (msg MsgTake) Route() string {
 	return types.RouterKey
 }
 
-func (msg MsgTakeOrder) Type() string {
-	return "take_order"
+func (msg MsgTake) Type() string {
+	return types.TypeMsgTake
 }
 
-func (msg MsgTakeOrder) ValidateBasic() sdk.Error {
+func (msg MsgTake) ValidateBasic() sdk.Error {
 	if msg.OrderId == 0 {
-		return sdk.NewError(types.DefaultCodespace, types.CodeInvalidInput, "order_id is invalid")
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalidInput, "id is invalid")
 	}
 	if msg.Value.Amount.LTE(sdk.ZeroInt()) {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalidInput, "value is invalid: "+msg.Value.String())
@@ -41,11 +41,11 @@ func (msg MsgTakeOrder) ValidateBasic() sdk.Error {
 	return nil
 }
 
-func (msg MsgTakeOrder) GetSignBytes() []byte {
+func (msg MsgTake) GetSignBytes() []byte {
 	bz := MsgCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg MsgTakeOrder) GetSigners() []sdk.AccAddress {
+func (msg MsgTake) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Buyer}
 }

@@ -1,6 +1,7 @@
 package exchange
 
 import (
+	"github.com/hashgard/hashgard/x/exchange/client"
 	"github.com/hashgard/hashgard/x/exchange/keeper"
 	"github.com/hashgard/hashgard/x/exchange/msgs"
 	"github.com/hashgard/hashgard/x/exchange/queriers"
@@ -16,14 +17,15 @@ type (
 var (
 	NewKeeper = keeper.NewKeeper
 
-	RegisterCodec         = msgs.RegisterCodec
-	NewMsgCreateOrder     = msgs.NewMsgCreateOrder
-	NewMsgWithdrawalOrder = msgs.NewMsgWithdrawalOrder
-	NewMsgTakeOrder       = msgs.NewMsgTakeOrder
+	RegisterCodec = msgs.RegisterCodec
+	NewMsgMake    = msgs.NewMsgMake
+	NewMsgCancel  = msgs.NewMsgCancel
+	NewMsgTake    = msgs.NewMsgTake
 
 	NewQueryOrderParams      = queriers.NewQueryOrderParams
 	NewQueryOrdersParams     = queriers.NewQueryOrdersParams
 	NewQueryFrozenFundParams = queriers.NewQueryFrozenFundParams
+	NewModuleClient          = client.NewModuleClient
 )
 
 const (

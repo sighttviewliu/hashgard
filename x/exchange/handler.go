@@ -13,12 +13,12 @@ import (
 func NewHandler(keeper keeper.Keeper) sdk.Handler {
 	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
 		switch msg := msg.(type) {
-		case msgs.MsgCreateOrder:
-			return handlers.HandleMsgCreateOrder(ctx, keeper, msg)
-		case msgs.MsgTakeOrder:
-			return handlers.HandleMsgTakeOrder(ctx, keeper, msg)
-		case msgs.MsgWithdrawalOrder:
-			return handlers.HandleMsgWithdrawalOrder(ctx, keeper, msg)
+		case msgs.MsgMake:
+			return handlers.HandleMsgMake(ctx, keeper, msg)
+		case msgs.MsgTake:
+			return handlers.HandleMsgTake(ctx, keeper, msg)
+		case msgs.MsgCancel:
+			return handlers.HandleMsgCancel(ctx, keeper, msg)
 		default:
 			errMsg := fmt.Sprintf("Unrecognized exchange msg type: %T", msg)
 			return sdk.ErrUnknownRequest(errMsg).Result()
