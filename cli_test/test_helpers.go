@@ -13,8 +13,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	cmn "github.com/tendermint/tendermint/libs/common"
 	"github.com/tendermint/tendermint/crypto"
+	cmn "github.com/tendermint/tendermint/libs/common"
 
 	clientkeys "github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -712,25 +712,25 @@ func unmarshalStdTx(t *testing.T, s string) (stdTx auth.StdTx) {
 
 // TxExchangeCreateOrder is hashgardcli exchange create-order
 func (f *Fixtures) TxExchangeCreateOrder(from string, supply, target sdk.Coin, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange create-order %v --from=%s --supply=%s --target=%s", f.Flags(), from, supply, target)
+	cmd := fmt.Sprintf("../build/hashgardcli exchange make %v --from=%s --supply=%s --target=%s", f.Flags(), from, supply, target)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 // TxExchangeWithdrawalOrder is hashgardcli exchange withdrawal-order
 func (f *Fixtures) TxExchangeWithdrawalOrder(orderId int, from string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange withdrawal-order %d --from=%s %v", orderId, from, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange cancel %d --from=%s %v", orderId, from, f.Flags())
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 // TxExchangeTakeOrder is hashgardcli exchange take-order
 func (f *Fixtures) TxExchangeTakeOrder(orderId int, amount sdk.Coin, from string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange take-order %d --amount=%s --from=%s %v", orderId, amount, from, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange take %d --amount=%s --from=%s %v", orderId, amount, from, f.Flags())
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 // QueryExchangeOrder is hashgardcli exchange query-order
 func (f *Fixtures) QueryExchangeOrder(orderId int, flags ...string) exchange.Order {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange query-order %d %v", orderId, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange query %d %v", orderId, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var order exchange.Order
 	cdc := app.MakeCodec()
@@ -741,7 +741,7 @@ func (f *Fixtures) QueryExchangeOrder(orderId int, flags ...string) exchange.Ord
 
 // QueryExchangeOrders is hashgardcli exchange query-orders
 func (f *Fixtures) QueryExchangeOrders(addr sdk.AccAddress, flags ...string) []exchange.Order {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange query-order %s %v", addr, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange list %s %v", addr, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var orders []exchange.Order
 	cdc := app.MakeCodec()
@@ -844,7 +844,7 @@ func (f *Fixtures) TxIssueDecreaseApprove(from string, issueId string, addr stri
 
 // QueryIssueIssue is hashgardcli issue query-issue
 func (f *Fixtures) QueryIssueIssue(issueId string, flags ...string) issue.CoinIssueInfo {
-	cmd := fmt.Sprintf("../build/hashgardcli issue query-issue %s %v", issueId, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli issue query %s %v", issueId, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var coinsIssueInfo issue.CoinIssueInfo
 	cdc := app.MakeCodec()
@@ -877,7 +877,7 @@ func (f *Fixtures) QueryIssueFreeze(issueId string, addr string, flags ...string
 
 // QueryIssueIssues is hashgardcli issue list-issues
 func (f *Fixtures) QueryIssueIssues(owner string, flags ...string) []issue.CoinIssueInfo {
-	cmd := fmt.Sprintf("../build/hashgardcli issue list-issues --address=%s %v", owner, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli issue list --address=%s %v", owner, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var issueList []issue.CoinIssueInfo
 	cdc := app.MakeCodec()

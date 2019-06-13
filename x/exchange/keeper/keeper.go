@@ -45,18 +45,23 @@ func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramsKeeper params.Keeper,
 		codespace:    codespace,
 	}
 }
-
-func (keeper Keeper) CreateOrder(ctx sdk.Context, seller sdk.AccAddress,
-	supply sdk.Coin, target sdk.Coin) (order types.Order, err sdk.Error) {
-	orderId, err := keeper.getNewOrderId(ctx)
+func (keeper Keeper) AddOrder(ctx sdk.Context, order types.Order) {
+	keeper.setOrder(ctx, order)
+	idArr := keeper.GetAddressOrders(ctx, order.Seller)
+	idArr = append(idArr, order.OrderId)
+	keeper.setAddressOrders(ctx, order.Seller, idArr)
+}
+func (keeper Keeper) Make(ctx sdk.Context, seller sdk.AccAddress,
+	supply sdk.Coin, target sdk.Coin) (order *types.Order, err sdk.Error) {
+	id, err := keeper.getNewOrderId(ctx)
 	if err != nil {
-		return
+		return nil, err
 	}
 
 	createTime := ctx.BlockHeader().Time
 
-	order = types.Order{
-		OrderId:    orderId,
+	order = &types.Order{
+		OrderId:    id,
 		Seller:     seller,
 		Supply:     supply,
 		Target:     target,
@@ -66,58 +71,53 @@ func (keeper Keeper) CreateOrder(ctx sdk.Context, seller sdk.AccAddress,
 
 	err = keeper.bankKeeper.SendCoins(ctx, seller, FrozenCoinsAccAddr, []sdk.Coin{supply})
 	if err != nil {
-		return
+		return nil, err
 	}
 
-	keeper.setOrder(ctx, order)
-	orderIdArr := keeper.GetAddressOrders(ctx, seller)
-	orderIdArr = append(orderIdArr, orderId)
-	keeper.setAddressOrders(ctx, seller, orderIdArr)
-
+	keeper.AddOrder(ctx, *order)
 	return order, nil
 }
 
-func (keeper Keeper) WithdrawalOrder(ctx sdk.Context, orderId uint64, addr sdk.AccAddress) (amt sdk.Coin, err sdk.Error) {
-	order, ok := keeper.GetOrder(ctx, orderId)
-	if !ok {
-		return amt, sdk.NewError(keeper.codespace, types.CodeOrderNotExist, fmt.Sprintf("this orderId is invalid : %d", orderId))
+func (keeper Keeper) Cancel(ctx sdk.Context, id uint64, addr sdk.AccAddress) (amt sdk.Coin, err sdk.Error) {
+	order, err := keeper.GetOrder(ctx, id)
+	if err != nil {
+		return amt, err
 	}
 
 	if !order.Seller.Equals(addr) {
-		return amt, sdk.NewError(keeper.codespace, types.CodeNoPermission, fmt.Sprintf("order %d isn't belong to %s", orderId, addr))
+		return amt, sdk.NewError(keeper.codespace, types.CodeNoPermission, fmt.Sprintf("order %d isn't belong to %s", id, addr))
 	}
 
 	amt = order.Remains
 	err = keeper.bankKeeper.SendCoins(ctx, FrozenCoinsAccAddr, addr, []sdk.Coin{amt})
 	if err != nil {
-		return
+		return amt, err
 	}
 
-	keeper.deleteOrder(ctx, orderId)
-
-	orderIdArr := keeper.GetAddressOrders(ctx, addr)
-	for index := 0; index < len(orderIdArr); {
-		if orderIdArr[index] == orderId {
-			orderIdArr = append(orderIdArr[:index], orderIdArr[index+1:]...)
+	keeper.deleteOrder(ctx, id)
+	idArr := keeper.GetAddressOrders(ctx, addr)
+	for index := 0; index < len(idArr); {
+		if idArr[index] == id {
+			idArr = append(idArr[:index], idArr[index+1:]...)
 			break
 		}
 		index++
 	}
 
-	if len(orderIdArr) == 0 {
+	if len(idArr) == 0 {
 		keeper.deleteAddressOrders(ctx, addr)
 	} else {
-		keeper.setAddressOrders(ctx, addr, orderIdArr)
+		keeper.setAddressOrders(ctx, addr, idArr)
 	}
 
 	return amt, nil
 }
 
-func (keeper Keeper) TakeOrder(ctx sdk.Context, orderId uint64, buyer sdk.AccAddress, val sdk.Coin) (supplyTurnover sdk.Coin,
+func (keeper Keeper) Take(ctx sdk.Context, id uint64, buyer sdk.AccAddress, val sdk.Coin) (supplyTurnover sdk.Coin,
 	targetTurnover sdk.Coin, soldOut bool, err sdk.Error) {
-	order, ok := keeper.GetOrder(ctx, orderId)
-	if !ok {
-		return supplyTurnover, targetTurnover, soldOut, sdk.NewError(keeper.codespace, types.CodeOrderNotExist, fmt.Sprintf("this orderId is invalid : %d", orderId))
+	order, err := keeper.GetOrder(ctx, id)
+	if err != nil {
+		return supplyTurnover, targetTurnover, soldOut, err
 	}
 
 	if val.Denom != order.Target.Denom {
@@ -145,32 +145,32 @@ func (keeper Keeper) TakeOrder(ctx sdk.Context, orderId uint64, buyer sdk.AccAdd
 
 	err = keeper.bankKeeper.SendCoins(ctx, buyer, order.Seller, []sdk.Coin{targetTurnover})
 	if err != nil {
-		return
+		return supplyTurnover, targetTurnover, soldOut, err
 	}
 	err = keeper.bankKeeper.SendCoins(ctx, FrozenCoinsAccAddr, buyer, []sdk.Coin{supplyTurnover})
 	if err != nil {
-		return
+		return supplyTurnover, targetTurnover, soldOut, err
 	}
 
 	if soldOut {
-		keeper.deleteOrder(ctx, orderId)
-		orderIdArr := keeper.GetAddressOrders(ctx, order.Seller)
-		for index := 0; index < len(orderIdArr); {
-			if orderIdArr[index] == orderId {
-				orderIdArr = append(orderIdArr[:index], orderIdArr[index+1:]...)
+		keeper.deleteOrder(ctx, id)
+		idArr := keeper.GetAddressOrders(ctx, order.Seller)
+		for index := 0; index < len(idArr); {
+			if idArr[index] == id {
+				idArr = append(idArr[:index], idArr[index+1:]...)
 				break
 			}
 			index++
 		}
-		if len(orderIdArr) == 0 {
+		if len(idArr) == 0 {
 			keeper.deleteAddressOrders(ctx, order.Seller)
 		} else {
-			keeper.setAddressOrders(ctx, order.Seller, orderIdArr)
+			keeper.setAddressOrders(ctx, order.Seller, idArr)
 		}
 	} else {
 		remains := order.Remains.Sub(supplyTurnover)
 		newOrder := types.Order{
-			OrderId:    orderId,
+			OrderId:    id,
 			Seller:     order.Seller,
 			Supply:     order.Supply,
 			Target:     order.Target,
@@ -184,11 +184,11 @@ func (keeper Keeper) TakeOrder(ctx sdk.Context, orderId uint64, buyer sdk.AccAdd
 }
 
 func (keeper Keeper) GetOrdersByAddr(ctx sdk.Context, addr sdk.AccAddress) (orders types.Orders, err sdk.Error) {
-	orderIdArr := keeper.GetAddressOrders(ctx, addr)
-	for _, orderId := range orderIdArr {
-		order, ok := keeper.GetOrder(ctx, orderId)
-		if !ok {
-			return types.Orders{}, sdk.NewError(keeper.codespace, types.CodeOrderNotExist, fmt.Sprintf("this orderId is invalid : %d", orderId))
+	idArr := keeper.GetAddressOrders(ctx, addr)
+	for _, id := range idArr {
+		order, err := keeper.GetOrder(ctx, id)
+		if err != nil {
+			return nil, err
 		}
 		orders = append(orders, order)
 	}
@@ -197,11 +197,11 @@ func (keeper Keeper) GetOrdersByAddr(ctx sdk.Context, addr sdk.AccAddress) (orde
 }
 
 func (keeper Keeper) GetFrozenFundByAddr(ctx sdk.Context, addr sdk.AccAddress) (fund sdk.Coins, err sdk.Error) {
-	orderIdArr := keeper.GetAddressOrders(ctx, addr)
-	for _, orderId := range orderIdArr {
-		order, ok := keeper.GetOrder(ctx, orderId)
-		if !ok {
-			return sdk.NewCoins(), sdk.NewError(keeper.codespace, types.CodeOrderNotExist, fmt.Sprintf("this orderId is invalid : %d", orderId))
+	idArr := keeper.GetAddressOrders(ctx, addr)
+	for _, id := range idArr {
+		order, err := keeper.GetOrder(ctx, id)
+		if err != nil {
+			return sdk.NewCoins(), err
 		}
 		fund = fund.Add([]sdk.Coin{order.Remains})
 	}
@@ -210,15 +210,15 @@ func (keeper Keeper) GetFrozenFundByAddr(ctx sdk.Context, addr sdk.AccAddress) (
 }
 
 // Store level
-func (keeper Keeper) GetOrder(ctx sdk.Context, orderId uint64) (types.Order, bool) {
+func (keeper Keeper) GetOrder(ctx sdk.Context, id uint64) (*types.Order, sdk.Error) {
 	store := ctx.KVStore(keeper.storeKey)
-	bz := store.Get(KeyOrder(orderId))
+	bz := store.Get(KeyOrder(id))
 	if bz == nil {
-		return types.Order{}, false
+		return nil, sdk.NewError(keeper.codespace, types.CodeOrderNotExist, fmt.Sprintf("this id is invalid : %d", id))
 	}
 	var order types.Order
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &order)
-	return order, true
+	return &order, nil
 }
 
 func (keeper Keeper) setOrder(ctx sdk.Context, order types.Order) {
@@ -231,71 +231,70 @@ func (keeper Keeper) SetOrder(ctx sdk.Context, order types.Order) {
 	keeper.setOrder(ctx, order)
 }
 
-func (keeper Keeper) deleteOrder(ctx sdk.Context, orderId uint64) {
+func (keeper Keeper) deleteOrder(ctx sdk.Context, id uint64) {
 	store := ctx.KVStore(keeper.storeKey)
-	store.Delete(KeyOrder(orderId))
+	store.Delete(KeyOrder(id))
 }
 
-func (keeper Keeper) HasOrder(ctx sdk.Context, orderId uint64) bool {
+func (keeper Keeper) HasOrder(ctx sdk.Context, id uint64) bool {
 	store := ctx.KVStore(keeper.storeKey)
-	return store.Has(KeyOrder(orderId))
+	return store.Has(KeyOrder(id))
 }
 
 // Get the next available OrderId and increments it
-func (keeper Keeper) getNewOrderId(ctx sdk.Context) (orderId uint64, err sdk.Error) {
+func (keeper Keeper) getNewOrderId(ctx sdk.Context) (id uint64, err sdk.Error) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyNextOrderId)
 	if bz == nil {
 		return 0, sdk.NewError(keeper.codespace, types.CodeInvalidGenesis, "InitialOrderId never set")
 	}
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &orderId)
-	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(orderId + 1)
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &id)
+	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(id + 1)
 	store.Set(KeyNextOrderId, bz)
-	return orderId, nil
+	return id, nil
 }
 
-// Peeks the next available orderId without incrementing it
-func (keeper Keeper) PeekCurrentOrderId(ctx sdk.Context) (orderId uint64, err sdk.Error) {
+// Peeks the next available id without incrementing it
+func (keeper Keeper) PeekCurrentOrderId(ctx sdk.Context) (id uint64, err sdk.Error) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyNextOrderId)
 	if bz == nil {
 		return 0, sdk.NewError(keeper.codespace, types.CodeInvalidGenesis, "InitialOrderId never set")
 	}
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &orderId)
-	return orderId, nil
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &id)
+	return id, nil
 }
 
 // Set the initial order ID
-func (keeper Keeper) SetInitialOrderId(ctx sdk.Context, orderId uint64) sdk.Error {
+func (keeper Keeper) SetInitialOrderId(ctx sdk.Context, id uint64) sdk.Error {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyNextOrderId)
 	if bz != nil {
 		return sdk.NewError(keeper.codespace, types.CodeInvalidGenesis, "Initial ProposalID already set")
 	}
-	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(orderId)
+	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(id)
 	store.Set(KeyNextOrderId, bz)
 	return nil
 }
 
-func (keeper Keeper) GetAddressOrders(ctx sdk.Context, addr sdk.AccAddress) (orderIdArr []uint64) {
+func (keeper Keeper) GetAddressOrders(ctx sdk.Context, addr sdk.AccAddress) (idArr []uint64) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyAddressOrders(addr))
 	if bz == nil {
 		return []uint64{}
 	}
-
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &orderIdArr)
-	return orderIdArr
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &idArr)
+	return idArr
 }
 
-func (keeper Keeper) setAddressOrders(ctx sdk.Context, addr sdk.AccAddress, orderIdArr []uint64) {
+func (keeper Keeper) setAddressOrders(ctx sdk.Context, addr sdk.AccAddress, idArr []uint64) {
 	store := ctx.KVStore(keeper.storeKey)
-	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(orderIdArr)
+	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(idArr)
 	store.Set(KeyAddressOrders(addr), bz)
 }
 
-func (keeper Keeper) SetAddressOrders(ctx sdk.Context, addr sdk.AccAddress, orderIdArr []uint64) {
-	keeper.setAddressOrders(ctx, addr, orderIdArr)
+func (keeper Keeper) SetAddressOrders(ctx sdk.Context, addr sdk.AccAddress, idArr []uint64) {
+	keeper.setAddressOrders(ctx, addr, idArr)
 }
 
 func (keeper Keeper) deleteAddressOrders(ctx sdk.Context, addr sdk.AccAddress) {
@@ -309,46 +308,37 @@ func (keeper Keeper) deleteAddressOrders(ctx sdk.Context, addr sdk.AccAddress) {
 // targetDenom will filter orders by target token denom
 // numLatest will fetch a specified number of the most recent orders, or 0 for all orders
 func (keeper Keeper) GetOrdersFiltered(ctx sdk.Context,
-	seller sdk.AccAddress, supplyDenom string, targetDenom string, numLatest uint64) []types.Order {
+	seller sdk.AccAddress, supplyDenom string, targetDenom string, numLatest uint64) []*types.Order {
 
 	maxOrderId, err := keeper.PeekCurrentOrderId(ctx)
 	if err != nil {
 		return nil
 	}
-
-	matchOrders := []types.Order{}
-
+	matchOrders := make([]*types.Order, 0)
 	if numLatest == 0 {
 		numLatest = maxOrderId
 	}
-
-	for orderId := maxOrderId - numLatest; orderId < maxOrderId; orderId++ {
-
-		order, ok := keeper.GetOrder(ctx, orderId)
-		if !ok {
+	for id := maxOrderId - numLatest; id < maxOrderId; id++ {
+		order, err := keeper.GetOrder(ctx, id+types.DefaultStartingOrderId)
+		if err != nil {
 			continue
 		}
-
 		if seller != nil && len(seller) != 0 {
 			if !bytes.Equal(order.Seller, seller) {
 				continue
 			}
 		}
-
 		if supplyDenom != "" {
 			if order.Supply.Denom != supplyDenom {
 				continue
 			}
 		}
-
 		if targetDenom != "" {
 			if order.Target.Denom != targetDenom {
 				continue
 			}
 		}
-
 		matchOrders = append(matchOrders, order)
 	}
-
 	return matchOrders
 }
