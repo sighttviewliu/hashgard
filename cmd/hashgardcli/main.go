@@ -5,6 +5,8 @@ import (
 	"os"
 	"path"
 
+	"github.com/hashgard/hashgard/x/exchange"
+
 	"github.com/hashgard/hashgard/x/box"
 
 	"github.com/cosmos/cosmos-sdk/x/auth"
@@ -35,8 +37,6 @@ import (
 	"github.com/hashgard/hashgard/version"
 	"github.com/hashgard/hashgard/x/distribution"
 	distributioncmd "github.com/hashgard/hashgard/x/distribution/client/cli"
-	"github.com/hashgard/hashgard/x/exchange"
-	exchangecmd "github.com/hashgard/hashgard/x/exchange/client/cli"
 	faucetcmd "github.com/hashgard/hashgard/x/faucet/client/cli"
 	"github.com/hashgard/hashgard/x/gov"
 	govcmd "github.com/hashgard/hashgard/x/gov/client/cli"
@@ -194,6 +194,12 @@ func addDepositCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	rootCmd.AddCommand(moduleClient.GetCmd())
 }
 
+// Add exchange subcommands
+func addExchangeCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	moduleClient := exchange.NewModuleClient(cdc)
+	rootCmd.AddCommand(moduleClient.GetCmd())
+}
+
 // Add gov subcommands
 func addGovCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	govCmd := &cobra.Command{
@@ -300,28 +306,6 @@ func addDistributionCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 			distributioncmd.GetCmdWithdrawAllRewards(cdc, distribution.StoreKey),
 		)...)
 	rootCmd.AddCommand(distributionCmd)
-}
-
-// Add exchange subcommands
-func addExchangeCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
-	exchangeCmd := &cobra.Command{
-		Use:   "exchange",
-		Short: "Exchange subcommands",
-	}
-	exchangeCmd.AddCommand(
-		client.GetCommands(
-			exchangecmd.GetCmdQueryOrder(exchange.StoreKey, cdc),
-			exchangecmd.GetCmdQueryOrdersByAddr(exchange.StoreKey, cdc),
-			exchangecmd.GetCmdFrozenFund(exchange.StoreKey, cdc),
-		)...)
-	exchangeCmd.AddCommand(client.LineBreak)
-	exchangeCmd.AddCommand(
-		client.PostCommands(
-			exchangecmd.GetCmdCreateOrder(cdc),
-			exchangecmd.GetCmdWithdrawalOrder(cdc),
-			exchangecmd.GetCmdTakeOrder(cdc),
-		)...)
-	rootCmd.AddCommand(exchangeCmd)
 }
 
 // Add faucet subcommands

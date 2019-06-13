@@ -16,3 +16,15 @@ const (
 	// Parameter store default namestore
 	DefaultParamspace = ModuleName
 )
+const (
+	TypeMsgMake   = "make"
+	TypeMsgTake   = "take"
+	TypeMsgCancel = "cancel"
+)
+const (
+	FinishedStatus = "finished"
+)
+
+const (
+	DefaultStartingOrderId uint64 = 1
+)

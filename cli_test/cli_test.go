@@ -56,7 +56,7 @@ func TestHashgardCLIExchange(t *testing.T) {
 	tests.WaitForNextNBlocksTM(1, f.Port)
 
 	// Ensure transaction tags can be queried
-	txs := f.QueryTxs(1, 50, "action:create_order", fmt.Sprintf("sender:%s", fooAddr))
+	txs := f.QueryTxs(1, 50, "action:make", fmt.Sprintf("sender:%s", fooAddr))
 	require.Len(t, txs, 1)
 
 	// Ensure supply was deducted
@@ -78,7 +78,7 @@ func TestHashgardCLIExchange(t *testing.T) {
 	tests.WaitForNextNBlocksTM(1, f.Port)
 
 	// Ensure transaction tags can be queried
-	txs = f.QueryTxs(1, 50, "action:take_order", fmt.Sprintf("sender:%s", barAddr))
+	txs = f.QueryTxs(1, 50, "action:take", fmt.Sprintf("sender:%s", barAddr))
 	require.Len(t, txs, 1)
 
 	// Ensure the turnout and remains
@@ -92,7 +92,7 @@ func TestHashgardCLIExchange(t *testing.T) {
 	tests.WaitForNextNBlocksTM(1, f.Port)
 
 	// Ensure transaction tags can be queried
-	txs = f.QueryTxs(1, 50, "action:withdrawal_order", fmt.Sprintf("sender:%s", fooAddr))
+	txs = f.QueryTxs(1, 50, "action:cancel", fmt.Sprintf("sender:%s", fooAddr))
 	require.Len(t, txs, 1)
 }
 

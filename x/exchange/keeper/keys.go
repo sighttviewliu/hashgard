@@ -13,8 +13,8 @@ var (
 )
 
 // Key for getting a specific order from the store
-func KeyOrder(orderId uint64) []byte {
-	return []byte(fmt.Sprintf("orders:%d", orderId))
+func KeyOrder(id uint64) []byte {
+	return []byte(fmt.Sprintf("orders:%d", id))
 }
 
 // Key for getting all orders of a seller from the store

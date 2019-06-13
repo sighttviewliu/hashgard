@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/hashgard/hashgard/x/exchange/keeper"
@@ -9,13 +10,11 @@ import (
 	"github.com/hashgard/hashgard/x/exchange/tags"
 )
 
-func HandleMsgCreateOrder(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgCreateOrder) sdk.Result {
-	order, err := keeper.CreateOrder(ctx, msg.Seller, msg.Supply, msg.Target)
-
+func HandleMsgMake(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgMake) sdk.Result {
+	order, err := keeper.Make(ctx, msg.Seller, msg.Supply, msg.Target)
 	if err != nil {
 		return err.Result()
 	}
-
 	resTags := sdk.NewTags(
 		tags.Category, tags.TxCategory,
 		tags.OrderId, fmt.Sprintf("%d", order.OrderId),
@@ -25,7 +24,6 @@ func HandleMsgCreateOrder(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgCre
 		tags.TargetDenom, order.Target.Denom,
 		tags.TargetAmount, order.Target.Amount.String(),
 	)
-
 	return sdk.Result{
 		Tags: resTags,
 	}

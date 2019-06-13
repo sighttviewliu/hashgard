@@ -12,7 +12,7 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 )
 
-func TestLockBoxImportExportQueues(t *testing.T) {
+func TestImportExportQueues(t *testing.T) {
 	mapp, keeper, _, _, _, _ := getMockApp(t, issue.DefaultGenesisState(), nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
