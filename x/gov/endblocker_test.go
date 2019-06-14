@@ -1,14 +1,9 @@
 package gov
 
 import (
-	"encoding/json"
 	"fmt"
-	"strings"
 	"testing"
 	"time"
-
-	"github.com/hashgard/hashgard/x/box"
-	"github.com/hashgard/hashgard/x/issue"
 
 	"github.com/stretchr/testify/require"
 
@@ -247,30 +242,7 @@ func TestParameterChangePassedVotingPeriod(t *testing.T) {
 	require.False(t, activeQueue.Valid())
 	activeQueue.Close()
 
-	niceVal := "9"
-	niceCoin, _ := sdk.ParseCoin(niceVal + sdk.DefaultBondDenom)
-
-	proposalParam := []ProposalParam{
-		{Key: communityTax, Value: niceVal},
-		{Key: minDeposit, Value: niceVal + sdk.DefaultBondDenom},
-		{Key: inflation, Value: niceVal},
-		{Key: inflationBase, Value: niceVal},
-		{Key: signedBlocksWindow, Value: niceVal},
-		{Key: minSignedPerWindow, Value: niceVal},
-		{Key: downtimeJailDuration, Value: niceVal + "s"},
-		{Key: slashFractionDowntime, Value: niceVal},
-		{Key: unbondingTime, Value: niceVal + "s"},
-		{Key: maxValidators, Value: niceVal},
-		{Key: foundationAddress, Value: addrs[0].String()},
-	}
-
-	boxDefaultParams := box.DefaultParams(sdk.DefaultBondDenom)
-	jsonStr, _ := json.Marshal(boxDefaultParams)
-	proposalParam = appendFeeParams(jsonStr, BoxModule, proposalParam, niceCoin)
-
-	issueDefaultParams := issue.DefaultParams(sdk.DefaultBondDenom)
-	jsonStr, _ = json.Marshal(issueDefaultParams)
-	proposalParam = appendFeeParams(jsonStr, IssueModule, proposalParam, niceCoin)
+	niceCoin, proposalParam := GetProposalParam(addrs[0].String())
 
 	proposalCoins := sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, sdk.TokensFromTendermintPower(5))}
 	newProposalMsg := NewMsgSubmitProposal("Test", "test", ProposalTypeParameterChange, addrs[0], proposalCoins, proposalParam, TaxUsage{})
@@ -292,19 +264,4 @@ func TestParameterChangePassedVotingPeriod(t *testing.T) {
 
 	require.Equal(t, boxParams.LockCreateFee.Amount, niceCoin.Amount)
 	require.Equal(t, issueParams.IssueFee.Amount, niceCoin.Amount)
-}
-
-func appendFeeParams(json []byte, module string, proposalParam []ProposalParam, niceCoin sdk.Coin) []ProposalParam {
-	content := string(json)
-	content = strings.ReplaceAll(content, "{", "")
-	content = strings.ReplaceAll(content, "}", "")
-	content = strings.ReplaceAll(content, "\"", "")
-	keys := strings.Split(content, ",")
-	for _, key := range keys {
-		strs := strings.Split(key, ":")
-		if strings.HasSuffix(strs[0], strings.ToLower(Fee)) {
-			proposalParam = append(proposalParam, ProposalParam{Key: module + strs[0], Value: niceCoin.String()})
-		}
-	}
-	return proposalParam
 }

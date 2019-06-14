@@ -11,4 +11,5 @@ const (
 	flagBurnHolderDisabled = "burn-holder"
 	flagBurnFromDisabled   = "burn-from"
 	flagLimit              = "limit"
+	flagFreezeDisabled     = "freeze"
 )

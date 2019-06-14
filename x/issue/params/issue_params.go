@@ -15,4 +15,5 @@ type IssueParams struct {
 	BurnHolderDisabled bool    `json:"burn_holder_disabled"`
 	BurnFromDisabled   bool    `json:"burn_from_disabled"`
 	MintingFinished    bool    `json:"minting_finished"`
+	FreezeDisabled     bool    `json:"freeze_disabled"`
 }

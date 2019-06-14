@@ -3645,7 +3645,7 @@ paths:
           description: Invalid orderId
         500:
           description: Internal Server Error
-  /exchange/orders/{address}:
+  /exchange/list/{address}:
     get:
       summary: Query the active orders with an address
       produces:
@@ -3693,7 +3693,7 @@ paths:
           description: Invalid address
         500:
           description: Internal Server Error
-  /exchange/order:
+  /exchange/make:
     post:
       summary: Create an order
       description: Send transaction to create an order
@@ -3726,10 +3726,10 @@ paths:
           description: Invalid order body
         500:
           description: Internal Server Error
-  /exchange/withdrawal/{orderId}:
+  /exchange/cancel/{orderId}:
     post:
-      summary: Withdrawal an order
-      description: Send transaction to withdrawal an order
+      summary: Cancel an order
+      description: Send transaction to cancel an order
       consumes:
       - application/json
       produces:
@@ -4334,7 +4334,7 @@ definitions:
   Order:
     type: object
     properties:
-      order_id:
+      id:
         type: integer
       seller:
         type: string

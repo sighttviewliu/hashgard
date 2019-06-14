@@ -46,16 +46,16 @@ func NewGenesisState(startingProposalID uint64, dp DepositParams, vp VotingParam
 }
 
 // get raw genesis raw message for testing
-func DefaultGenesisState() GenesisState {
+func CustomGenesisState(period time.Duration) GenesisState {
 	minDepositTokens := sdk.TokensFromTendermintPower(10)
 	return GenesisState{
 		StartingProposalID: 1,
 		DepositParams: DepositParams{
 			MinDeposit:       sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, minDepositTokens)},
-			MaxDepositPeriod: DefaultPeriod,
+			MaxDepositPeriod: period,
 		},
 		VotingParams: VotingParams{
-			VotingPeriod: DefaultPeriod,
+			VotingPeriod: period,
 		},
 		TallyParams: TallyParams{
 			Quorum:    sdk.NewDecWithPrec(334, 3),
@@ -63,6 +63,11 @@ func DefaultGenesisState() GenesisState {
 			Veto:      sdk.NewDecWithPrec(334, 3),
 		},
 	}
+}
+
+// get raw genesis raw message for testing
+func DefaultGenesisState() GenesisState {
+	return CustomGenesisState(DefaultPeriod)
 }
 
 // Checks whether 2 GenesisState structs are equivalent.
