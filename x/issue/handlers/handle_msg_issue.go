@@ -3,6 +3,8 @@ package handlers
 import (
 	"strings"
 
+	"github.com/hashgard/hashgard/x/issue/tags"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/hashgard/hashgard/x/issue/keeper"
 	"github.com/hashgard/hashgard/x/issue/msgs"
@@ -39,6 +41,6 @@ func HandleMsgIssue(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgIssue) sd
 
 	return sdk.Result{
 		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(coinIssueInfo.IssueId),
-		Tags: utils.GetIssueTags(coinIssueInfo.IssueId, coinIssueInfo.Issuer),
+		Tags: utils.GetIssueTags(coinIssueInfo.IssueId, coinIssueInfo.Issuer).AppendTag(tags.Fee, fee.String()),
 	}
 }

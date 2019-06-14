@@ -20,6 +20,6 @@ func HandleMsgIssueFreeze(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgIss
 
 	return sdk.Result{
 		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.IssueId),
-		Tags: utils.GetIssueTags(msg.IssueId, msg.Sender).AppendTag(tags.FreezeType, msg.GetFreezeType()),
+		Tags: utils.GetIssueTags(msg.IssueId, msg.Sender).AppendTag(tags.FreezeType, msg.GetFreezeType()).AppendTag(tags.Fee, fee.String()),
 	}
 }
