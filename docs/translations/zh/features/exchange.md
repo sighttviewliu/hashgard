@@ -22,24 +22,24 @@ Alice 现在知道了密码锁的密码，他就可以去 1 号保险箱取走�
 
 ### 用户创建卖单
 ```shell
-hashgardcli exchange create-order [flags]
+hashgardcli exchange create [flags]
 ```
 
 ### 用户创建买单
 ```shell
-hashgardcli exchange take-order [order_id] [flags]
+hashgardcli exchange take [order_id] [flags]
 ```
 ### 用户取消订单
 ```shell
-hashgardcli exchange withdrawal-order [order_id] [flags]
+hashgardcli exchange cancel [order_id] [flags]
 ```
 ### 查询指定订单
 ```shell
-hashgardcli exchange query-order [order_id] [flags]
+hashgardcli exchange query [order_id] [flags]
 ```
 ### 查询订单列表
 ```shell
-hashgardcli exchange query-orders [address] [flags]
+hashgardcli exchange list [address] [flags]
 ```
 ### 查询指定地址冻结资金
 ```shell

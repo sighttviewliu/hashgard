@@ -1,28 +1,28 @@
-# hashgardcli exchange withdrawal-order
+# hashgardcli exchange cancel
 
-## 描述
+## Description
 
-某笔有效订单的 seller 可以撤销该笔订单，冻结的资金将返回其账户
+Cancel order and withdrawal token
 
-## 用法
+## Usage
 
 ```shell
-hashgardcli exchange withdrawal-order [order_id] [flags]
+hashgardcli exchange cancel [order_id] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+**Global flags, query command flags** [hashgardcli](../README.md)
 
-## 例子
+## Example
 
-### 撤销订单
+### Cancel order
 
 ```shell
-hashgardcli exchange withdrawal-order 2 --from mykey --chain-id hashgard -o=json --indent
+hashgardcli exchange cancel 2 --from mykey --chain-id hashgard -o=json --indent
 ```
 
-必须是订单的 seller 账户操作，输入正确的密码后，order_id 为 2 的订单已经撤销。
+The result is as follows：
 
 ```txt
 {

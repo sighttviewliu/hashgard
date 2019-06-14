@@ -1,4 +1,4 @@
-# hashgardcli exchange query-order
+# hashgardcli exchange query
 
 ## Description
 
@@ -7,7 +7,7 @@ Query order details for the specified id
 ## Usage
 
 ```shell
-hashgardcli exchange query-order [order_id] [flags]
+hashgardcli exchange query [order_id] [flags]
 ```
 
 ## Flags
@@ -19,7 +19,7 @@ hashgardcli exchange query-order [order_id] [flags]
 ### checking order
 
 ```shell
-hashgardcli exchange query-order 1 --chain-id hashgard --indent -o=json
+hashgardcli exchange query 1 --chain-id hashgard --indent -o=json
 ```
 
 The result is as follows：
@@ -50,4 +50,4 @@ How to trade with orders?
 
 Please click on the link below:
 
-[take-order](take-order.md)
+[take](take.md)
