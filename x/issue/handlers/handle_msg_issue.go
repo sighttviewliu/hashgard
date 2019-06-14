@@ -29,6 +29,7 @@ func HandleMsgIssue(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgIssue) sd
 		BurnHolderDisabled: msg.BurnHolderDisabled,
 		BurnFromDisabled:   msg.BurnFromDisabled,
 		MintingFinished:    msg.MintingFinished,
+		FreezeDisabled:     msg.FreezeDisabled,
 	}
 
 	_, err := keeper.CreateIssue(ctx, &coinIssueInfo)

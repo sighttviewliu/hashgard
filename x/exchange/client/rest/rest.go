@@ -24,7 +24,7 @@ const (
 
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec) {
 	r.HandleFunc(fmt.Sprintf("/exchange/order/{%s}", RestOrderId), queryOrderHandlerFn(cdc, cliCtx)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/exchange/orders/{%s}", RestAddress), queryOrdersByAddrHandlerFn(cdc, cliCtx)).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("/exchange/list/{%s}", RestAddress), queryOrdersByAddrHandlerFn(cdc, cliCtx)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/exchange/frozen/{%s}", RestAddress), queryFrozenFundByAddrHandlerFn(cdc, cliCtx)).Methods("GET")
 
 	r.HandleFunc("/exchange/make", postOrderMakeHandlerFn(cdc, cliCtx)).Methods("POST")

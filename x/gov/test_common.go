@@ -2,8 +2,10 @@ package gov
 
 import (
 	"bytes"
+	"encoding/json"
 	"log"
 	"sort"
+	"strings"
 	"testing"
 
 	"github.com/cosmos/cosmos-sdk/x/slashing"
@@ -32,6 +34,48 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 )
 
+func appendFeeParams(json []byte, module string, proposalParam []ProposalParam, niceCoin sdk.Coin) []ProposalParam {
+	content := string(json)
+	content = strings.ReplaceAll(content, "{", "")
+	content = strings.ReplaceAll(content, "}", "")
+	content = strings.ReplaceAll(content, "\"", "")
+	keys := strings.Split(content, ",")
+	for _, key := range keys {
+		strs := strings.Split(key, ":")
+		if strings.HasSuffix(strs[0], strings.ToLower(Fee)) {
+			proposalParam = append(proposalParam, ProposalParam{Key: module + strs[0], Value: niceCoin.String()})
+		}
+	}
+	return proposalParam
+}
+func GetProposalParam(foundationAddr string) (sdk.Coin, []ProposalParam) {
+
+	niceVal := "9"
+	niceCoin, _ := sdk.ParseCoin(niceVal + sdk.DefaultBondDenom)
+	proposalParam := []ProposalParam{
+		{Key: communityTax, Value: niceVal},
+		{Key: minDeposit, Value: niceVal + sdk.DefaultBondDenom},
+		{Key: inflation, Value: niceVal},
+		{Key: inflationBase, Value: niceVal},
+		{Key: signedBlocksWindow, Value: niceVal},
+		{Key: minSignedPerWindow, Value: niceVal},
+		{Key: downtimeJailDuration, Value: niceVal + "s"},
+		{Key: slashFractionDowntime, Value: niceVal},
+		{Key: unbondingTime, Value: niceVal + "s"},
+		{Key: maxValidators, Value: niceVal},
+		{Key: foundationAddress, Value: foundationAddr},
+	}
+
+	boxDefaultParams := box.DefaultParams(sdk.DefaultBondDenom)
+	jsonStr, _ := json.Marshal(boxDefaultParams)
+	proposalParam = appendFeeParams(jsonStr, BoxModule, proposalParam, niceCoin)
+
+	issueDefaultParams := issue.DefaultParams(sdk.DefaultBondDenom)
+	jsonStr, _ = json.Marshal(issueDefaultParams)
+	proposalParam = appendFeeParams(jsonStr, IssueModule, proposalParam, niceCoin)
+
+	return niceCoin, proposalParam
+}
 func getMockApp(t *testing.T, numGenAccs int, genState GenesisState, genAccs []auth.Account) (
 	mapp *mock.App, keeper Keeper, sk staking.Keeper, addrs []sdk.AccAddress,
 	pubKeys []crypto.PubKey, privKeys []crypto.PrivKey) {

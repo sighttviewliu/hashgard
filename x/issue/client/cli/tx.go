@@ -48,6 +48,7 @@ func GetCmdIssueCreate(cdc *codec.Codec) *cobra.Command {
 				BurnHolderDisabled: viper.GetBool(flagBurnHolderDisabled),
 				BurnFromDisabled:   viper.GetBool(flagBurnFromDisabled),
 				MintingFinished:    viper.GetBool(flagMintingFinished),
+				FreezeDisabled:     viper.GetBool(flagFreezeDisabled),
 				TotalSupply:        totalSupply,
 				Decimals:           uint(viper.GetInt(flagDecimals)),
 			}
@@ -68,6 +69,7 @@ func GetCmdIssueCreate(cdc *codec.Codec) *cobra.Command {
 	cmd.Flags().Bool(flagBurnHolderDisabled, false, "Disable token holder burn the token")
 	cmd.Flags().Bool(flagBurnFromDisabled, false, "Disable token owner burn the token from any holder")
 	cmd.Flags().Bool(flagMintingFinished, false, "Token owner can not minting the token")
+	cmd.Flags().Bool(flagFreezeDisabled, false, "Token holder can transfer the token in and out")
 
 	return cmd
 }
