@@ -1,28 +1,28 @@
-# hashgardcli exchange query-orders
+# hashgardcli exchange query
 
-## Description
+## 描述
 
-Query all valid orders for the specified address
+查看指定地址的所有有效订单
 
-## Usage
+## 用法
 
 ```shell
-hashgardcli exchange query-orders [address] [flags]
+hashgardcli exchange list [address] [flags]
 ```
 
 ## Flags
 
-**Global flags, query command flags** [hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
- ## Example
+## 例子
 
-### Query all valid orders for the specified address
+### 查询地址所有的有效订单
 
 ```shell
-hashgardcli exchange query-orders gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa --chain-id hashgard -o=json --indent
+hashgardcli exchange list gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa --chain-id hashgard -o=json --indent
 ```
 
-The result is as follows：
+下面是地址 gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa 所有有效的订单
 
 ```txt
 [

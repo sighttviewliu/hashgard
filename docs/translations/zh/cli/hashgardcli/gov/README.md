@@ -31,7 +31,7 @@ hashgardcli gov --help
 | [deposits](deposits.md)   | 查询提案的保证金                                                  |
 | [tally](tally.md)         | 查询提案投票的统计                                                 |
 | [param](param.md)       | 查询参数提案的配置                                                 |                                            |
-| [submit-proposal](submit-proposal.md) | 创建新密钥，或者通过助记词导入恢复                                   |
+| [submit-proposal](submit-proposal.md) | 提交提议并抵押初始保证金                                 |
 | [deposit](deposit.md)                 | 充值保证金代币以激活提案                                            |
 | [vote](vote.md)                       | 为有效的提案投票，选项：Yes/No/NoWithVeto/Abstain                   |
 

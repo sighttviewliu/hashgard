@@ -1,4 +1,4 @@
-# hashgardcli exchange create-order
+# hashgardcli exchange create
 
 ## Description
 
@@ -7,7 +7,7 @@ create a new order
 ## Usage
 
 ```shell
-hashgardcli exchange create-order [flags]
+hashgardcli exchange create [flags]
 ```
 
 ## Flags
@@ -24,7 +24,7 @@ hashgardcli exchange create-order [flags]
 ### Create order
 
 ```shell
-hashgardcli exchange create-order --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
+hashgardcli exchange create --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
 ```
 
 Created a 100gard exchange 800apple order
@@ -71,6 +71,6 @@ How to check orders, view all orders at an address, view funds frozen at an addr
 
 Please click on the link below:
 
-[query-order](query-order.md)
-[query-orders](query-orders.md)
+[query](query.md)
+[list](list.md)
 [query-frozen](query-frozen.md)

@@ -21,6 +21,7 @@ hashgardcli lock --help
 | [create](create.md)        | create deposit box    |
 | [describe](describe.md)   |  describes the box|
 | [inject](inject.md)   | Inject coin into the box|
+| [cancel](cancel.md)   |  Return the token of the box|
 | [interest-inject](interest-inject.md)   |  Inject interest into the box |
 | [interest-cancel](interest-cancel.md)   |  Retrieve the interest in the box |
 | [query](query.md)  |  Query by deposit box ID |

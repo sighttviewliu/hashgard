@@ -1,4 +1,4 @@
-# hashgardcli exchange create-order
+# hashgardcli exchange create
 
 ## 描述
 
@@ -7,7 +7,7 @@
 ## 用法
 
 ```shell
-hashgardcli exchange create-order [flags]
+hashgardcli exchange create [flags]
 ```
 
 ## Flags
@@ -24,7 +24,7 @@ hashgardcli exchange create-order [flags]
 ### 创建订单
 
 ```shell
-hashgardcli exchange create-order --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
+hashgardcli exchange create --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
 ```
 
 输入正确的密码后，创建了一笔 100gard 交换 800apple 的订单。
@@ -45,7 +45,7 @@ hashgardcli exchange create-order --supply 100gard --target 800apple --from myke
  "tags": [
   {
    "key": "action",
-   "value": "create_order"
+   "value": "create"
   },
   {
    "key": "order_id",
@@ -71,6 +71,6 @@ hashgardcli exchange create-order --supply 100gard --target 800apple --from myke
 
 请点击下述链接：
 
-[query-order](query-order.md)
-[query-orders](query-orders.md)
+[query](query.md)
+[list](list.md)
 [query-frozen](query-frozen.md)
