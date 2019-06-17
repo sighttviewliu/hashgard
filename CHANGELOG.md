@@ -17,12 +17,15 @@
     + [issue]  Add REST API for deposit(HRC10) module
     + [deposit]  Add REST API for deposit(HRC12) module
     + [future]  Add REST API for future(HRC13) module
+    * [issue] Refactor REST API for issue module
+    * [exchange] Refactor REST API for exchange(HRC11) module
 + Hashgard CLI (hashgardcli)
     + [lock] Add commands for lock module
     + [deposit] Add commands for lock module
     + [future] Add commands for lock module
     - [box] Remove commands for box module
     + [issue] Refactor commands for issue module
+    * [exchange] Refactor commands for exchange(HRC11)  module
 
 + Hashgard APP
     + [gov] Implementation  parameter change governance
