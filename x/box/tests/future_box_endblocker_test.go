@@ -18,7 +18,7 @@ import (
 )
 
 func TestFutureBoxEndBlocker(t *testing.T) {
-	mapp, keeper, _, _, _, _ := getMockApp(t, 10, box.DefaultGenesisState(), nil)
+	mapp, keeper, _, _, _, _ := getMockApp(t, box.DefaultGenesisState(), nil)
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
@@ -31,16 +31,16 @@ func TestFutureBoxEndBlocker(t *testing.T) {
 
 	keeper.GetBankKeeper().AddCoins(ctx, boxInfo.Owner, sdk.NewCoins(boxInfo.TotalAmount.Token))
 
-	msgDeposit := msgs.NewMsgBoxDeposit(boxInfo.BoxId, boxInfo.Owner, boxInfo.TotalAmount.Token, types.DepositTo)
+	msgDeposit := msgs.NewMsgBoxInject(boxInfo.Id, boxInfo.Owner, boxInfo.TotalAmount.Token)
 	res := handler(ctx, msgDeposit)
 	require.True(t, res.IsOK())
 
-	newBoxInfo := keeper.GetBox(ctx, boxInfo.BoxId)
-	require.Equal(t, newBoxInfo.BoxStatus, types.BoxActived)
+	newBoxInfo := keeper.GetBox(ctx, boxInfo.Id)
+	require.Equal(t, newBoxInfo.Status, types.BoxActived)
 
 	var address sdk.AccAddress
 
-	coins := keeper.GetDepositedCoins(ctx, boxInfo.BoxId)
+	coins := keeper.GetDepositedCoins(ctx, boxInfo.Id)
 	require.True(t, coins.IsEqual(sdk.NewCoins(boxInfo.TotalAmount.Token)))
 
 	for _, v := range boxInfo.Future.Receivers {
@@ -48,47 +48,42 @@ func TestFutureBoxEndBlocker(t *testing.T) {
 			if j == 0 {
 				address, _ = sdk.AccAddressFromBech32(rec)
 				coins = keeper.GetBankKeeper().GetCoins(ctx, address)
-				//fmt.Println(address.String() + ":" + coins.String())
 				continue
 			}
 			amount, _ := sdk.NewIntFromString(rec)
-			boxDenom := utils.GetCoinDenomByFutureBoxSeq(boxInfo.BoxId, j)
+			boxDenom := utils.GetCoinDenomByFutureBoxSeq(boxInfo.Id, j)
 			require.Equal(t, coins.AmountOf(boxDenom), amount)
 		}
 	}
-	for _, v := range boxInfo.Future.TimeLine {
-		newHeader := ctx.BlockHeader()
-		newHeader.Time = time.Unix(v, 0)
-		ctx = ctx.WithBlockHeader(newHeader)
 
-		inactiveQueue := keeper.ActiveBoxQueueIterator(ctx, ctx.BlockHeader().Time.Unix())
-		require.True(t, inactiveQueue.Valid())
-		inactiveQueue.Close()
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = time.Unix(boxInfo.Future.TimeLine[len(boxInfo.Future.TimeLine)-1], 0)
+	ctx = ctx.WithBlockHeader(newHeader)
 
-		box.EndBlocker(ctx, keeper)
-	}
-
+	box.EndBlocker(ctx, keeper)
 	inactiveQueue := keeper.ActiveBoxQueueIterator(ctx, ctx.BlockHeader().Time.Unix())
 	require.False(t, inactiveQueue.Valid())
 	inactiveQueue.Close()
-	newBoxInfo = keeper.GetBox(ctx, boxInfo.BoxId)
-	require.Equal(t, newBoxInfo.BoxStatus, types.BoxFinished)
-	require.Equal(t, newBoxInfo.Future.Distributed, newBoxInfo.Future.TimeLine)
-	for _, v := range boxInfo.Future.Receivers {
-		totalAmount := sdk.ZeroInt()
-		for j, rec := range v {
-			if j == 0 {
-				address, _ = sdk.AccAddressFromBech32(rec)
-				coins = keeper.GetBankKeeper().GetCoins(ctx, address)
-				//fmt.Println(coins)
-				continue
-			}
-			amount, _ := sdk.NewIntFromString(rec)
-			totalAmount = totalAmount.Add(amount)
-		}
-		require.Equal(t, coins.AmountOf(boxInfo.TotalAmount.Token.Denom), totalAmount)
-	}
-	coins = keeper.GetDepositedCoins(ctx, boxInfo.BoxId)
-	require.True(t, coins.IsZero())
 
+	newBoxInfo = keeper.GetBox(ctx, boxInfo.Id)
+	require.Equal(t, newBoxInfo.Status, types.BoxFinished)
+
+	for _, v := range boxInfo.Future.Receivers {
+		address, _ = sdk.AccAddressFromBech32(v[0])
+		coins = keeper.GetBankKeeper().GetCoins(ctx, address)
+		totalAmount := sdk.ZeroInt()
+		for i, coin := range coins {
+			sleep := boxInfo.Future.TimeLine[i] - time.Now().Unix()
+			if sleep > 0 {
+				time.Sleep(time.Duration(sleep) * time.Second)
+			}
+			_, _, err := keeper.ProcessBoxWithdraw(ctx, coin.Denom, address)
+			require.Nil(t, err)
+			totalAmount = totalAmount.Add(coin.Amount)
+		}
+		coins1 := keeper.GetBankKeeper().GetCoins(ctx, address)
+		require.Equal(t, coins1.AmountOf(boxInfo.TotalAmount.Token.Denom), totalAmount)
+	}
+	coins = keeper.GetDepositedCoins(ctx, boxInfo.Id)
+	require.True(t, coins.IsZero())
 }

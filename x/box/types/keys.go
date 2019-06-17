@@ -21,10 +21,11 @@ const (
 )
 
 var (
-	BoxMaxId                uint64 = 99999999999999
-	BoxMinId                uint64 = 10000000000000
-	BoxMaxInstalment               = 99
-	BoxMaxInjectionInterest        = 100
+	IdLength                    = 14
+	BoxMaxId             uint64 = 99999999999999
+	BoxMinId             uint64 = 10000000000000
+	BoxMaxInstalment            = 99
+	BoxMaxInjectInterest        = 100
 )
 
 const (
@@ -34,21 +35,30 @@ const (
 	Agard    = "agard"
 )
 const (
-	QueryParams        = "params"
-	QueryList          = "list"
-	QueryBox           = "query"
-	QueryDepositList   = "deposit"
-	QueryDepositAmount = "deposit-amount"
-	QuerySearch        = "search"
+	QueryParams = "params"
+	QueryList   = "list"
+	QueryBox    = "query"
+	QuerySearch = "search"
+)
+
+//action
+const (
+	Create   = "create"
+	Inject   = "inject"
+	Cancel   = "cancel"
+	Withdraw = "withdraw"
+	Describe = "describe"
+	Disable  = "disable"
 )
 
 //box status
 const (
-	BoxCreated    = "created"
-	BoxDepositing = "depositing"
-	BoxActived    = "actived"
-	BoxClosed     = "closed"
-	BoxFinished   = "finished"
+	BoxCreated   = "created"
+	BoxInjecting = Inject + "ing"
+	BoxActived   = "actived"
+	BoxUndue     = "undue"
+	BoxClosed    = "closed"
+	BoxFinished  = "finished"
 )
 
 //lock box status
@@ -61,26 +71,21 @@ const (
 const (
 	DepositBoxInterest = "interest"
 )
-const (
-	Injection = "injection"
-	DepositTo = "deposit-to"
-	Fetch     = "fetch"
-)
 
 const (
-	TypeMsgBoxCreateLock     = "box_create_lock"
-	TypeMsgBoxCreateDeposit  = "box_create_deposit"
-	TypeMsgBoxCreateFuture   = "box_create_future"
-	TypeMsgBoxInterest       = "box_interest"
-	TypeMsgBoxDeposit        = "box_deposit"
-	TypeMsgBoxFuture         = "box_future"
-	TypeMsgBoxDescription    = "box_description"
-	TypeMsgBoxDisableFeature = "box_disable_feature"
+	TypeMsgBoxCreate         = Create
+	TypeMsgBoxWithdraw       = Withdraw
+	TypeMsgBoxInterestInject = DepositBoxInterest + "_" + Inject
+	TypeMsgBoxInterestCancel = DepositBoxInterest + "_" + Cancel
+	TypeMsgBoxInject         = Inject
+	TypeMsgBoxCancel         = Cancel
+	TypeMsgBoxDescription    = Describe
+	TypeMsgBoxDisableFeature = Disable + "_" + Future
 )
 const (
 	KeyDelimiterString                   = ":"
-	AgardDecimal                         = uint(1)
-	GardDecimal                          = uint(18)
+	AgardDecimals                        = uint(1)
+	GardDecimals                         = uint(18)
 	MaxPrecision                         = uint(6)
 	CodeInvalidGenesis      sdk.CodeType = 102
 	BoxNameMaxLength                     = 32

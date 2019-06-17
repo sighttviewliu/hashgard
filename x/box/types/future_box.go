@@ -2,23 +2,23 @@ package types
 
 import (
 	"fmt"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 type FutureBox struct {
-	MiniMultiple uint             `json:"mini_multiple"`
-	Deposits     []AddressDeposit `json:"deposits"`
-	TimeLine     []int64          `json:"time"`
-	Receivers    [][]string       `json:"receivers"`
-	Distributed  []int64          `json:"distributed"`
+	Injects         []AddressInject `json:"injects"`
+	TimeLine        []int64         `json:"time"`
+	Receivers       [][]string      `json:"receivers"`
+	TotalWithdrawal sdk.Int         `json:"total_withdrawal"`
 }
 
 //nolint
 func (bi FutureBox) String() string {
 	return fmt.Sprintf(`FutureInfo:
-  MiniMultiple:			%d
-  Deposit:			%s			
+  Injects:			%s			
   TimeLine:			%d
-  Distributed:			%d
-  Receivers:			%s`,
-		bi.MiniMultiple, bi.Deposits, bi.Distributed, bi.TimeLine, bi.Receivers)
+  Receivers:			%s
+  TotalWithdrawal:			%s`,
+		bi.Injects, bi.TimeLine, bi.Receivers, bi.TotalWithdrawal.String())
 }

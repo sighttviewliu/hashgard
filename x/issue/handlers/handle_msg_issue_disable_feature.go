@@ -10,7 +10,6 @@ import (
 
 //Handle MsgIssueDisableFeature
 func HandleMsgIssueDisableFeature(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgIssueDisableFeature) sdk.Result {
-
 	if err := keeper.DisableFeature(ctx, msg.Sender, msg.IssueId, msg.Feature); err != nil {
 		return err.Result()
 	}

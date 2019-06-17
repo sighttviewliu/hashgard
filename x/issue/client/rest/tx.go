@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/hashgard/hashgard/x/issue/errors"
 
@@ -16,6 +15,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/rest"
 	"github.com/gorilla/mux"
 
+	clientutils "github.com/hashgard/hashgard/x/issue/client/utils"
 	"github.com/hashgard/hashgard/x/issue/msgs"
 	"github.com/hashgard/hashgard/x/issue/params"
 	"github.com/hashgard/hashgard/x/issue/types"
@@ -36,19 +36,19 @@ type PostIssueBaseReq struct {
 
 // RegisterRoutes - Central function to define routes that get registered by the main application
 func registerTxRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec) {
+	r.HandleFunc("/issue", postIssueHandlerFn(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/approve/{%s}/{%s}/{%s}", IssueID, AccAddress, Amount), postIssueApproveHandlerFn(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/approve/increase/{%s}/{%s}/{%s}", IssueID, AccAddress, Amount), postIssueIncreaseApproval(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/approve/decrease/{%s}/{%s}/{%s}", IssueID, AccAddress, Amount), postIssueDecreaseApproval(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/burn/{%s}/{%s}", IssueID, Amount), postBurnHandlerFn(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/burn-from/{%s}/{%s}/{%s}", IssueID, AccAddress, Amount), postBurnFromHandlerFn(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc("/issue/create", postIssueHandlerFn(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/issue/describe/{%s}", IssueID), postDescribeHandlerFn(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/issue/disable-feature/{%s}/{%s}", IssueID, Feature), postDisableFeatureHandlerFn(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/freeze/{%s}/{%s}/{%s}/{%s}", FreezeType, IssueID, AccAddress, EndTime), postIssueFreezeHandlerFn(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/unfreeze/{%s}/{%s}/{%s}", FreezeType, IssueID, AccAddress), postIssueUnFreezeHandlerFn(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/send-from/{%s}/{%s}/{%s}/{%s}", IssueID, From, To, Amount), postIssueSendFrom(cdc, cliCtx)).Methods("POST")
 	r.HandleFunc(fmt.Sprintf("/issue/mint/{%s}/{%s}/{%s}", IssueID, Amount, To), postMintHandlerFn(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/issue/transfer-ownership/{%s}/{%s}", IssueID, To), postTransferOwnershipHandlerFn(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/issue/ownership/transfer/{%s}/{%s}", IssueID, To), postTransferOwnershipHandlerFn(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/issue/description/{%s}", IssueID), postDescribeHandlerFn(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/issue/feature/disable/{%s}/{%s}", IssueID, Feature), postDisableFeatureHandlerFn(cdc, cliCtx)).Methods("POST")
 
 }
 func postIssueHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
@@ -72,20 +72,8 @@ func postIssueHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Handle
 			rest.WriteErrorResponse(w, http.StatusBadRequest, errors.ErrCoinDescriptionNotValid().Error())
 			return
 		}
-		coinIssueInfo := types.CoinIssueInfo{
-			Owner:              fromAddress,
-			Name:               req.Name,
-			Symbol:             strings.ToUpper(req.Symbol),
-			TotalSupply:        req.TotalSupply,
-			Decimals:           req.Decimals,
-			Description:        req.Description,
-			BurnOwnerDisabled:  req.BurnOwnerDisabled,
-			BurnHolderDisabled: req.BurnHolderDisabled,
-			BurnFromDisabled:   req.BurnFromDisabled,
-			MintingFinished:    req.MintingFinished,
-		}
 		// create the message
-		msg := msgs.NewMsgIssue(&coinIssueInfo)
+		msg := msgs.NewMsgIssue(fromAddress, &req.IssueParams)
 		if err := msg.ValidateBasic(); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
@@ -131,7 +119,7 @@ func postMintHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Handler
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-		issueInfo, err := issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+		issueInfo, err := clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
@@ -149,17 +137,6 @@ func postMintHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Handler
 
 func postDisableFeatureHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-
-		var req PostIssueBaseReq
-		if !rest.ReadRESTReq(w, r, cdc, &req) {
-			return
-		}
-
-		req.BaseReq = req.BaseReq.Sanitize()
-		if !req.BaseReq.ValidateBasic(w) {
-			return
-		}
-
 		vars := mux.Vars(r)
 		issueID := vars[IssueID]
 		if err := issueutils.CheckIssueId(issueID); err != nil {
@@ -167,37 +144,39 @@ func postDisableFeatureHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) ht
 			return
 		}
 		feature := vars[Feature]
-
 		_, ok := types.Features[feature]
 		if !ok {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, errors.ErrUnknownFeatures().Error())
 			return
 		}
-
+		var req PostIssueBaseReq
+		if !rest.ReadRESTReq(w, r, cdc, &req) {
+			return
+		}
+		req.BaseReq = req.BaseReq.Sanitize()
+		if !req.BaseReq.ValidateBasic(w) {
+			return
+		}
 		fromAddress, err := sdk.AccAddressFromBech32(req.BaseReq.From)
 		if err != nil {
 			return
 		}
-
 		account, err := cliCtx.GetAccount(fromAddress)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-
-		_, err = issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+		_, err = clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-
 		msg := msgs.NewMsgIssueDisableFeature(issueID, fromAddress, feature)
 
 		if err := msg.ValidateBasic(); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-
 		clientrest.WriteGenerateStdTxResponse(w, cdc, cliCtx, req.BaseReq, []sdk.Msg{msg})
 	}
 
@@ -214,7 +193,6 @@ func postDescribeHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Han
 		if !rest.ReadRESTReq(w, r, cdc, &req) {
 			return
 		}
-
 		req.BaseReq = req.BaseReq.Sanitize()
 		if !req.BaseReq.ValidateBasic(w) {
 			return
@@ -227,7 +205,6 @@ func postDescribeHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Han
 			rest.WriteErrorResponse(w, http.StatusBadRequest, errors.ErrCoinDescriptionNotValid().Error())
 			return
 		}
-
 		msg := msgs.NewMsgIssueDescription(issueID, fromAddress, []byte(req.Description))
 		if err := msg.ValidateBasic(); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -238,12 +215,11 @@ func postDescribeHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Han
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-		_, err = issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+		_, err = clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-
 		clientrest.WriteGenerateStdTxResponse(w, cdc, cliCtx, req.BaseReq, []sdk.Msg{msg})
 	}
 }
@@ -284,7 +260,7 @@ func postTransferOwnershipHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext)
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-		_, err = issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+		_, err = clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return

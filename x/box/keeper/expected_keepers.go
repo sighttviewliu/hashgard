@@ -18,3 +18,8 @@ type BankKeeper interface {
 type IssueKeeper interface {
 	GetIssue(ctx sdk.Context, issueID string) *types.CoinIssueInfo
 }
+
+// expected fee collection keeper
+type FeeCollectionKeeper interface {
+	AddCollectedFees(ctx sdk.Context, coins sdk.Coins) sdk.Coins
+}

@@ -8,32 +8,30 @@ import (
 )
 
 type DepositBox struct {
-	StartTime          int64            `json:"start_time"`
-	EstablishTime      int64            `json:"establish_time"`
-	MaturityTime       int64            `json:"maturity_time"`
-	BottomLine         sdk.Int          `json:"bottom_line"`
-	Interest           BoxToken         `json:"interest"`
-	Price              sdk.Int          `json:"price"`
-	PerCoupon          sdk.Dec          `json:"per_coupon"`
-	Share              sdk.Int          `json:"share"`
-	TotalDeposit       sdk.Int          `json:"total_deposit"`
-	InterestInjections []AddressDeposit `json:"interest_injections"`
+	StartTime          int64           `json:"start_time"`
+	EstablishTime      int64           `json:"establish_time"`
+	MaturityTime       int64           `json:"maturity_time"`
+	BottomLine         sdk.Int         `json:"bottom_line"`
+	Interest           BoxToken        `json:"interest"`
+	Price              sdk.Int         `json:"price"`
+	PerCoupon          sdk.Dec         `json:"per_coupon"`
+	Share              sdk.Int         `json:"share"`
+	TotalInject        sdk.Int         `json:"total_inject"`
+	WithdrawalShare    sdk.Int         `json:"withdrawal_share"`
+	WithdrawalInterest sdk.Int         `json:"withdrawal_interest"`
+	InterestInjects    []AddressInject `json:"interest_injects"`
 }
 
-type DepositBoxDepositInterest struct {
+type DepositBoxInjectInterest struct {
 	Address  sdk.AccAddress `json:"address"`
 	Amount   sdk.Int        `json:"amount"`
 	Interest sdk.Int        `json:"interest"`
 }
 
-func NewDepositBoxDepositInterest(address sdk.AccAddress, amount sdk.Int, interest sdk.Int) DepositBoxDepositInterest {
-	return DepositBoxDepositInterest{address, amount, interest}
-}
-
-type DepositBoxDepositInterestList []DepositBoxDepositInterest
+type DepositBoxInjectInterestList []DepositBoxInjectInterest
 
 //nolint
-func (bi DepositBoxDepositInterest) String() string {
+func (bi DepositBoxInjectInterest) String() string {
 	return fmt.Sprintf(`
   Address:			%s
   Amount:			%s
@@ -52,8 +50,10 @@ func (bi DepositBox) String() string {
   Price:			%s
   PerCoupon:			%s
   Share:			%s
-  TotalDeposit:			%s
-  InterestInjection:			%s`,
+  TotalInject:			%s
+  WithdrawalShare:			%s,
+  WithdrawalInterest:			%s,
+  InterestInject:			%s`,
 		bi.StartTime,
 		bi.EstablishTime,
 		bi.MaturityTime,
@@ -62,12 +62,14 @@ func (bi DepositBox) String() string {
 		bi.Price.String(),
 		bi.PerCoupon.String(),
 		bi.Share.String(),
-		bi.TotalDeposit.String(),
-		bi.InterestInjections)
+		bi.TotalInject.String(),
+		bi.WithdrawalShare.String(),
+		bi.WithdrawalInterest.String(),
+		bi.InterestInjects)
 }
 
 //nolint
-func (bi DepositBoxDepositInterestList) String() string {
+func (bi DepositBoxInjectInterestList) String() string {
 	out := fmt.Sprintf("%-44s|%-40s|%s\n",
 		"Address", "Amount", "Interest")
 	for _, box := range bi {

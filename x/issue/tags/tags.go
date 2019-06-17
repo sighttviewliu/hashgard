@@ -12,6 +12,7 @@ var (
 	Category        = sdk.TagCategory
 	Sender          = sdk.TagSender
 	Owner           = "owner"
+	Fee             = "fee"
 	IssueID         = "issue-id"
 	Feature         = "feature"
 	Name            = "name"

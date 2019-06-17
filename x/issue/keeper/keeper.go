@@ -1,7 +1,9 @@
 package keeper
 
 import (
-	"time"
+	"strings"
+
+	"github.com/hashgard/hashgard/x/issue/config"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -11,18 +13,6 @@ import (
 	"github.com/hashgard/hashgard/x/issue/types"
 	"github.com/hashgard/hashgard/x/issue/utils"
 )
-
-// Parameter store key
-var (
-	ParamStoreKeyIssueParams = []byte("issueparams")
-)
-
-// Key declaration for parameters
-func ParamKeyTable() params.KeyTable {
-	return params.NewKeyTable(
-		ParamStoreKeyIssueParams, issueparams.IssueConfigParams{},
-	)
-}
 
 // Issue Keeper
 type Keeper struct {
@@ -34,6 +24,8 @@ type Keeper struct {
 	storeKey sdk.StoreKey
 	// The reference to the CoinKeeper to modify balances
 	ck BankKeeper
+	// The reference to the FeeCollectionKeeper to add fee
+	feeCollectionKeeper FeeCollectionKeeper
 	// The codec codec for binary encoding/decoding.
 	cdc *codec.Codec
 	// Reserved codespace
@@ -45,16 +37,27 @@ func (keeper Keeper) Getcdc() *codec.Codec {
 	return keeper.cdc
 }
 
+//Get box bankKeeper
+func (keeper Keeper) GetBankKeeper() BankKeeper {
+	return keeper.ck
+}
+
+//Get box feeCollectionKeeper
+func (keeper Keeper) GetFeeCollectionKeeper() FeeCollectionKeeper {
+	return keeper.feeCollectionKeeper
+}
+
 //New issue keeper Instance
 func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramsKeeper params.Keeper,
-	paramSpace params.Subspace, ck BankKeeper, codespace sdk.CodespaceType) Keeper {
+	paramSpace params.Subspace, ck BankKeeper, feeCollectionKeeper FeeCollectionKeeper, codespace sdk.CodespaceType) Keeper {
 	return Keeper{
-		storeKey:     key,
-		paramsKeeper: paramsKeeper,
-		paramSpace:   paramSpace.WithKeyTable(ParamKeyTable()),
-		ck:           ck,
-		cdc:          cdc,
-		codespace:    codespace,
+		storeKey:            key,
+		paramsKeeper:        paramsKeeper,
+		paramSpace:          paramSpace.WithKeyTable(config.ParamKeyTable()),
+		ck:                  ck,
+		feeCollectionKeeper: feeCollectionKeeper,
+		cdc:                 cdc,
+		codespace:           codespace,
 	}
 }
 
@@ -71,6 +74,35 @@ func (keeper Keeper) setAddressIssues(ctx sdk.Context, accAddress string, issueI
 	store := ctx.KVStore(keeper.storeKey)
 	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(issueIDs)
 	store.Set(KeyAddressIssues(accAddress), bz)
+}
+func (keeper Keeper) deleteAddressIssues(ctx sdk.Context, accAddress string) {
+	store := ctx.KVStore(keeper.storeKey)
+	store.Delete(KeyAddressIssues(accAddress))
+}
+
+//Remove address
+func (keeper Keeper) removeAddressIssues(ctx sdk.Context, accAddress string, issueID string) {
+	issueIDs := keeper.GetAddressIssues(ctx, accAddress)
+	for index := 0; index < len(issueIDs); {
+		if issueIDs[index] == issueID {
+			issueIDs = append(issueIDs[:index], issueIDs[index+1:]...)
+			break
+		}
+		index++
+	}
+	if len(issueIDs) == 0 {
+		keeper.deleteAddressIssues(ctx, accAddress)
+	} else {
+		keeper.setAddressIssues(ctx, accAddress, issueIDs)
+	}
+}
+
+//Add address
+func (keeper Keeper) addAddressIssues(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo) {
+	issueIDs := keeper.GetAddressIssues(ctx, coinIssueInfo.GetOwner().String())
+	issueIDs = append(issueIDs, coinIssueInfo.IssueId)
+	keeper.setAddressIssues(ctx, coinIssueInfo.GetOwner().String(), issueIDs)
+
 }
 
 //Set symbol
@@ -91,6 +123,51 @@ func (keeper Keeper) setFreeze(ctx sdk.Context, issueID string, accAddress sdk.A
 func (keeper Keeper) setApprove(ctx sdk.Context, sender sdk.AccAddress, spender sdk.AccAddress, issueID string, amount sdk.Int) sdk.Error {
 	store := ctx.KVStore(keeper.storeKey)
 	store.Set(KeyAllowed(issueID, sender, spender), keeper.cdc.MustMarshalBinaryLengthPrefixed(amount))
+	return nil
+}
+
+//Keys add
+//Add a issue
+func (keeper Keeper) AddIssue(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo) {
+	keeper.addAddressIssues(ctx, coinIssueInfo)
+
+	issueIDs := keeper.GetSymbolIssues(ctx, coinIssueInfo.Symbol)
+	issueIDs = append(issueIDs, coinIssueInfo.IssueId)
+	keeper.setSymbolIssues(ctx, coinIssueInfo.Symbol, issueIDs)
+
+	store := ctx.KVStore(keeper.storeKey)
+	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(coinIssueInfo)
+	store.Set(KeyIssuer(coinIssueInfo.IssueId), bz)
+}
+
+//Create a issue
+func (keeper Keeper) CreateIssue(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo) (sdk.Coins, sdk.Error) {
+	store := ctx.KVStore(keeper.storeKey)
+	id, err := keeper.getNewIssueID(store)
+	if err != nil {
+		return nil, err
+	}
+	issueID := KeyIssueIdStr(id)
+	coinIssueInfo.IssueTime = ctx.BlockHeader().Time.Unix()
+	coinIssueInfo.IssueId = issueID
+
+	keeper.AddIssue(ctx, coinIssueInfo)
+
+	coin := sdk.Coin{Denom: coinIssueInfo.IssueId, Amount: coinIssueInfo.TotalSupply}
+	coins, err := keeper.ck.AddCoins(ctx, coinIssueInfo.Owner, sdk.NewCoins(coin))
+
+	return coins, err
+}
+
+func (keeper Keeper) Fee(ctx sdk.Context, sender sdk.AccAddress, fee sdk.Coin) sdk.Error {
+	if fee.IsZero() || fee.IsNegative() {
+		return nil
+	}
+	_, err := keeper.GetBankKeeper().SubtractCoins(ctx, sender, sdk.NewCoins(fee))
+	if err != nil {
+		return errors.ErrNotEnoughFee()
+	}
+	_ = keeper.GetFeeCollectionKeeper().AddCollectedFees(ctx, sdk.NewCoins(fee))
 	return nil
 }
 
@@ -115,7 +192,6 @@ func (keeper Keeper) GetIssues(ctx sdk.Context, accAddress string) []*types.Coin
 		return []*types.CoinIssueInfo{}
 	}
 	issues := make([]*types.CoinIssueInfo, 0, length)
-
 	for _, v := range issueIDs {
 		issues = append(issues, keeper.GetIssue(ctx, v))
 	}
@@ -143,23 +219,10 @@ func (keeper Keeper) SearchIssues(ctx sdk.Context, symbol string) []*types.CoinI
 	return list
 }
 func (keeper Keeper) List(ctx sdk.Context, params issueparams.IssueQueryParams) []*types.CoinIssueInfo {
-
 	if params.Owner != nil && !params.Owner.Empty() {
 		return keeper.GetIssues(ctx, params.Owner.String())
 	}
-
-	store := ctx.KVStore(keeper.storeKey)
-	startIssueId := params.StartIssueId
-	endIssueId := startIssueId
-
-	if len(startIssueId) == 0 {
-		endIssueId = KeyIssueIdStr(types.CoinIssueMaxId)
-		startIssueId = KeyIssueIdStr(types.CoinIssueMinId - 1)
-	} else {
-		startIssueId = KeyIssueIdStr(types.CoinIssueMinId - 1)
-	}
-
-	iterator := store.ReverseIterator(KeyIssuer(startIssueId), KeyIssuer(endIssueId))
+	iterator := keeper.Iterator(ctx, params.StartIssueId)
 	defer iterator.Close()
 	list := make([]*types.CoinIssueInfo, 0, params.Limit)
 	for ; iterator.Valid(); iterator.Next() {
@@ -176,35 +239,35 @@ func (keeper Keeper) List(ctx sdk.Context, params issueparams.IssueQueryParams) 
 	}
 	return list
 }
-
-//Add a issue
-func (keeper Keeper) AddIssue(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo) (sdk.Coins, sdk.Error) {
+func (keeper Keeper) Iterator(ctx sdk.Context, startIssueId string) sdk.Iterator {
 	store := ctx.KVStore(keeper.storeKey)
-	id, err := keeper.getNewIssueID(store)
-	if err != nil {
-		return nil, err
+	endIssueId := startIssueId
+
+	if len(startIssueId) == 0 {
+		endIssueId = KeyIssueIdStr(types.CoinIssueMaxId)
+		startIssueId = KeyIssueIdStr(types.CoinIssueMinId - 1)
+	} else {
+		startIssueId = KeyIssueIdStr(types.CoinIssueMinId - 1)
 	}
-	issueID := KeyIssueIdStr(id)
-	coinIssueInfo.IssueTime = ctx.BlockHeader().Time.Unix()
-	//issueID := keeper.getIssueId(store)
-	coinIssueInfo.IssueId = issueID
-	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(coinIssueInfo)
-
-	store.Set(KeyIssuer(coinIssueInfo.IssueId), bz)
-
-	issueIDs := keeper.GetAddressIssues(ctx, coinIssueInfo.GetIssuer().String())
-	issueIDs = append(issueIDs, coinIssueInfo.IssueId)
-	keeper.setAddressIssues(ctx, coinIssueInfo.GetIssuer().String(), issueIDs)
-
-	issueIDs = keeper.GetSymbolIssues(ctx, coinIssueInfo.Symbol)
-	issueIDs = append(issueIDs, coinIssueInfo.IssueId)
-	keeper.setSymbolIssues(ctx, coinIssueInfo.Symbol, issueIDs)
-
-	coin := sdk.Coin{Denom: coinIssueInfo.IssueId, Amount: coinIssueInfo.TotalSupply}
-	coins, err := keeper.ck.AddCoins(ctx, coinIssueInfo.Owner, sdk.NewCoins(coin))
-
-	return coins, err
+	iterator := store.ReverseIterator(KeyIssuer(startIssueId), KeyIssuer(endIssueId))
+	return iterator
 }
+func (keeper Keeper) ListAll(ctx sdk.Context) []types.CoinIssueInfo {
+	iterator := keeper.Iterator(ctx, "")
+	defer iterator.Close()
+	list := make([]types.CoinIssueInfo, 0)
+	for ; iterator.Valid(); iterator.Next() {
+		bz := iterator.Value()
+		if len(bz) == 0 {
+			continue
+		}
+		var info types.CoinIssueInfo
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &info)
+		list = append(list, info)
+	}
+	return list
+}
+
 func (keeper Keeper) getIssueByOwner(ctx sdk.Context, sender sdk.AccAddress, issueID string) (*types.CoinIssueInfo, sdk.Error) {
 	coinIssueInfo := keeper.GetIssue(ctx, issueID)
 	if coinIssueInfo == nil {
@@ -221,17 +284,14 @@ func (keeper Keeper) finishMinting(ctx sdk.Context, sender sdk.AccAddress, issue
 	if err != nil {
 		return err
 	}
-
 	if coinIssueInfo.IsMintingFinished() {
 		return nil
 	}
 	coinIssueInfo.MintingFinished = true
-
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
 func (keeper Keeper) DisableFeature(ctx sdk.Context, sender sdk.AccAddress, issueID string, feature string) sdk.Error {
-
 	switch feature {
 	case types.BurnOwner:
 		return keeper.disableBurnOwner(ctx, sender, issueID)
@@ -246,7 +306,6 @@ func (keeper Keeper) DisableFeature(ctx sdk.Context, sender sdk.AccAddress, issu
 	default:
 		return errors.ErrUnknownFeatures()
 	}
-
 }
 
 func (keeper Keeper) disableBurnOwner(ctx sdk.Context, sender sdk.AccAddress, issueID string) sdk.Error {
@@ -254,12 +313,10 @@ func (keeper Keeper) disableBurnOwner(ctx sdk.Context, sender sdk.AccAddress, is
 	if err != nil {
 		return err
 	}
-
 	if coinIssueInfo.IsBurnOwnerDisabled() {
 		return nil
 	}
 	coinIssueInfo.BurnOwnerDisabled = true
-
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
@@ -268,12 +325,10 @@ func (keeper Keeper) disableBurnHolder(ctx sdk.Context, sender sdk.AccAddress, i
 	if err != nil {
 		return err
 	}
-
 	if coinIssueInfo.IsBurnHolderDisabled() {
 		return nil
 	}
 	coinIssueInfo.BurnHolderDisabled = true
-
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
@@ -282,12 +337,10 @@ func (keeper Keeper) disableFreeze(ctx sdk.Context, sender sdk.AccAddress, issue
 	if err != nil {
 		return err
 	}
-
 	if coinIssueInfo.IsBurnFromDisabled() {
 		return nil
 	}
 	coinIssueInfo.FreezeDisabled = true
-
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
@@ -296,12 +349,10 @@ func (keeper Keeper) disableBurnFrom(ctx sdk.Context, sender sdk.AccAddress, iss
 	if err != nil {
 		return err
 	}
-
 	if coinIssueInfo.IsBurnFromDisabled() {
 		return nil
 	}
 	coinIssueInfo.BurnFromDisabled = true
-
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
@@ -313,27 +364,22 @@ func (keeper Keeper) CanMint(ctx sdk.Context, issueID string) bool {
 
 //Mint a coin
 func (keeper Keeper) Mint(ctx sdk.Context, issueID string, amount sdk.Int, sender sdk.AccAddress, to sdk.AccAddress) (sdk.Coins, sdk.Error) {
-
 	coinIssueInfo, err := keeper.getIssueByOwner(ctx, sender, issueID)
-
 	if err != nil {
 		return nil, err
 	}
-
 	if coinIssueInfo.IsMintingFinished() {
 		return nil, errors.ErrCanNotMint(issueID)
 	}
 	if utils.QuoDecimals(coinIssueInfo.TotalSupply.Add(amount), coinIssueInfo.Decimals).GT(types.CoinMaxTotalSupply) {
 		return nil, errors.ErrCoinTotalSupplyMaxValueNotValid()
 	}
-
 	coin := sdk.Coin{Denom: coinIssueInfo.IssueId, Amount: amount}
 	coins, err := keeper.ck.AddCoins(ctx, to, sdk.NewCoins(coin))
 	if err != nil {
 		return coins, err
 	}
 	coinIssueInfo.TotalSupply = coinIssueInfo.TotalSupply.Add(amount)
-
 	return coins, keeper.setIssue(ctx, coinIssueInfo)
 }
 func (keeper Keeper) BurnOwner(ctx sdk.Context, issueID string, amount sdk.Int, sender sdk.AccAddress) (sdk.Coins, sdk.Error) {
@@ -341,25 +387,21 @@ func (keeper Keeper) BurnOwner(ctx sdk.Context, issueID string, amount sdk.Int, 
 	if err != nil {
 		return nil, err
 	}
-
 	if coinIssueInfo.IsBurnOwnerDisabled() {
 		return nil, errors.ErrCanNotBurn(issueID, types.BurnOwner)
 	}
-
 	return keeper.burn(ctx, coinIssueInfo, amount, sender)
 }
 
 //Burn a coin
 func (keeper Keeper) BurnHolder(ctx sdk.Context, issueID string, amount sdk.Int, sender sdk.AccAddress) (sdk.Coins, sdk.Error) {
 	coinIssueInfo := keeper.GetIssue(ctx, issueID)
-
 	if coinIssueInfo == nil {
 		return nil, errors.ErrUnknownIssue(issueID)
 	}
 	if coinIssueInfo.IsBurnHolderDisabled() {
 		return nil, errors.ErrCanNotBurn(issueID, types.BurnHolder)
 	}
-
 	return keeper.burn(ctx, coinIssueInfo, amount, sender)
 }
 func (keeper Keeper) burn(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo, amount sdk.Int, who sdk.AccAddress) (sdk.Coins, sdk.Error) {
@@ -368,19 +410,15 @@ func (keeper Keeper) burn(ctx sdk.Context, coinIssueInfo *types.CoinIssueInfo, a
 	if err != nil {
 		return nil, err
 	}
-
 	coinIssueInfo.TotalSupply = coinIssueInfo.TotalSupply.Sub(amount)
-
 	return coins, keeper.setIssue(ctx, coinIssueInfo)
 }
 
 func (keeper Keeper) BurnFrom(ctx sdk.Context, issueID string, amount sdk.Int, sender sdk.AccAddress, who sdk.AccAddress) (sdk.Coins, sdk.Error) {
-
 	coinIssueInfo, err := keeper.getIssueByOwner(ctx, sender, issueID)
 	if err != nil {
 		return nil, err
 	}
-
 	if who.Equals(coinIssueInfo.GetOwner()) {
 		if coinIssueInfo.IsBurnOwnerDisabled() {
 			return nil, errors.ErrCanNotBurn(issueID, types.BurnOwner)
@@ -390,7 +428,6 @@ func (keeper Keeper) BurnFrom(ctx sdk.Context, issueID string, amount sdk.Int, s
 			return nil, errors.ErrCanNotBurn(issueID, types.BurnFrom)
 		}
 	}
-
 	return keeper.burn(ctx, coinIssueInfo, amount, who)
 }
 func (keeper Keeper) GetFreeze(ctx sdk.Context, accAddress sdk.AccAddress, issueID string) types.IssueFreeze {
@@ -403,8 +440,25 @@ func (keeper Keeper) GetFreeze(ctx sdk.Context, accAddress sdk.AccAddress, issue
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &freeze)
 	return freeze
 }
-func (keeper Keeper) freeze(ctx sdk.Context, issueID string, sender sdk.AccAddress, accAddress sdk.AccAddress, freezeType string, endTime int64) sdk.Error {
 
+func (keeper Keeper) GetFreezes(ctx sdk.Context, issueID string) []types.IssueAddressFreeze {
+	store := ctx.KVStore(keeper.storeKey)
+	iterator := sdk.KVStorePrefixIterator(store, PrefixFreeze(issueID))
+	defer iterator.Close()
+	list := make([]types.IssueAddressFreeze, 0)
+	for ; iterator.Valid(); iterator.Next() {
+		var freeze types.IssueFreeze
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(iterator.Value(), &freeze)
+		keys := strings.Split(string(iterator.Key()), KeyDelimiter)
+		address := keys[len(keys)-1]
+		list = append(list, types.IssueAddressFreeze{
+			Address:    address,
+			OutEndTime: freeze.OutEndTime,
+			InEndTime:  freeze.InEndTime})
+	}
+	return list
+}
+func (keeper Keeper) freeze(ctx sdk.Context, issueID string, sender sdk.AccAddress, accAddress sdk.AccAddress, freezeType string, endTime int64) sdk.Error {
 	switch freezeType {
 	case types.FreezeIn:
 		return keeper.freezeIn(ctx, issueID, accAddress, endTime)
@@ -413,9 +467,7 @@ func (keeper Keeper) freeze(ctx sdk.Context, issueID string, sender sdk.AccAddre
 	case types.FreezeInAndOut:
 		return keeper.freezeInAndOut(ctx, issueID, accAddress, endTime)
 	}
-
 	return errors.ErrUnknownFreezeType()
-
 }
 func (keeper Keeper) Freeze(ctx sdk.Context, issueID string, sender sdk.AccAddress, accAddress sdk.AccAddress, freezeType string, endTime int64) sdk.Error {
 	issueInfo, err := keeper.getIssueByOwner(ctx, sender, issueID)
@@ -424,7 +476,6 @@ func (keeper Keeper) Freeze(ctx sdk.Context, issueID string, sender sdk.AccAddre
 	}
 	if issueInfo.IsFreezeDisabled() {
 		return errors.ErrCanNotFreeze(issueID)
-
 	}
 	return keeper.freeze(ctx, issueID, sender, accAddress, freezeType, endTime)
 }
@@ -439,14 +490,12 @@ func (keeper Keeper) UnFreeze(ctx sdk.Context, issueID string, sender sdk.AccAdd
 func (keeper Keeper) freezeIn(ctx sdk.Context, issueID string, accAddress sdk.AccAddress, endTime int64) sdk.Error {
 	freeze := keeper.GetFreeze(ctx, accAddress, issueID)
 	freeze.InEndTime = endTime
-
 	return keeper.setFreeze(ctx, issueID, accAddress, freeze)
 }
 
 func (keeper Keeper) freezeOut(ctx sdk.Context, issueID string, accAddress sdk.AccAddress, endTime int64) sdk.Error {
 	freeze := keeper.GetFreeze(ctx, accAddress, issueID)
 	freeze.OutEndTime = endTime
-
 	return keeper.setFreeze(ctx, issueID, accAddress, freeze)
 }
 
@@ -459,26 +508,22 @@ func (keeper Keeper) freezeInAndOut(ctx sdk.Context, issueID string, accAddress 
 
 func (keeper Keeper) SetIssueDescription(ctx sdk.Context, issueID string, sender sdk.AccAddress, description []byte) sdk.Error {
 	coinIssueInfo, err := keeper.getIssueByOwner(ctx, sender, issueID)
-
 	if err != nil {
 		return err
 	}
-
 	coinIssueInfo.Description = string(description)
-
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
 //TransferOwnership
 func (keeper Keeper) TransferOwnership(ctx sdk.Context, issueID string, sender sdk.AccAddress, to sdk.AccAddress) sdk.Error {
 	coinIssueInfo, err := keeper.getIssueByOwner(ctx, sender, issueID)
-
 	if err != nil {
 		return err
 	}
-
 	coinIssueInfo.Owner = to
-
+	keeper.removeAddressIssues(ctx, sender.String(), issueID)
+	keeper.addAddressIssues(ctx, coinIssueInfo)
 	return keeper.setIssue(ctx, coinIssueInfo)
 }
 
@@ -502,30 +547,31 @@ func (keeper Keeper) DecreaseApproval(ctx sdk.Context, sender sdk.AccAddress, sp
 	}
 	return keeper.setApprove(ctx, sender, spender, issueID, allowance)
 }
-
-//Transfer tokens from one address to another
-func (keeper Keeper) SendFrom(ctx sdk.Context, sender sdk.AccAddress, from sdk.AccAddress, to sdk.AccAddress, issueID string, amount sdk.Int) sdk.Error {
-
-	allowance := keeper.Allowance(ctx, from, sender, issueID)
-	if allowance.LT(amount) {
-		return errors.ErrNotEnoughAmountToTransfer()
-	}
-
+func (keeper Keeper) CheckFreeze(ctx sdk.Context, from sdk.AccAddress, to sdk.AccAddress, issueID string) sdk.Error {
 	freeze := keeper.GetFreeze(ctx, from, issueID)
 	if freeze.OutEndTime > 0 && freeze.OutEndTime > ctx.BlockHeader().Time.Unix() {
 		return errors.ErrCanNotTransferOut(issueID, from.String())
 	}
-
 	freeze = keeper.GetFreeze(ctx, to, issueID)
-	if freeze.InEndTime > 0 && freeze.InEndTime > time.Now().Unix() {
+	if freeze.InEndTime > 0 && freeze.InEndTime > ctx.BlockHeader().Time.Unix() {
 		return errors.ErrCanNotTransferIn(issueID, to.String())
 	}
+	return nil
+}
 
+//Transfer tokens from one address to another
+func (keeper Keeper) SendFrom(ctx sdk.Context, sender sdk.AccAddress, from sdk.AccAddress, to sdk.AccAddress, issueID string, amount sdk.Int) sdk.Error {
+	allowance := keeper.Allowance(ctx, from, sender, issueID)
+	if allowance.LT(amount) {
+		return errors.ErrNotEnoughAmountToTransfer()
+	}
+	if err := keeper.CheckFreeze(ctx, from, to, issueID); err != nil {
+		return err
+	}
 	err := keeper.SendCoins(ctx, from, to, sdk.Coins{sdk.NewCoin(issueID, amount)})
 	if err != nil {
 		return err
 	}
-
 	return keeper.Approve(ctx, from, sender, issueID, allowance.Sub(amount))
 }
 
@@ -569,17 +615,18 @@ func (keeper Keeper) GetSymbolIssues(ctx sdk.Context, symbol string) (issueIDs [
 	return issueIDs
 }
 
+// -----------------------------------------------------------------------------
 // Params
-// Returns the current issueConfigParams from the global param store
-func (keeper Keeper) GetIssueConfigParams(ctx sdk.Context) issueparams.IssueConfigParams {
-	var issueConfigParams issueparams.IssueConfigParams
-	keeper.paramSpace.Get(ctx, ParamStoreKeyIssueParams, &issueConfigParams)
-	return issueConfigParams
+
+// SetParams sets the auth module's parameters.
+func (ak Keeper) SetParams(ctx sdk.Context, params config.Params) {
+	ak.paramSpace.SetParamSet(ctx, &params)
 }
 
-//Set issueConfigParams
-func (keeper Keeper) SetIssueConfigParams(ctx sdk.Context, issueConfigParams issueparams.IssueConfigParams) {
-	keeper.paramSpace.Set(ctx, ParamStoreKeyIssueParams, &issueConfigParams)
+// GetParams gets the auth module's parameters.
+func (ak Keeper) GetParams(ctx sdk.Context) (params config.Params) {
+	ak.paramSpace.GetParamSet(ctx, &params)
+	return
 }
 
 //Set the initial issueCount

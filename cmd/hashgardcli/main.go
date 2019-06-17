@@ -5,9 +5,16 @@ import (
 	"os"
 	"path"
 
+	"github.com/hashgard/hashgard/x/exchange"
+
 	"github.com/hashgard/hashgard/x/box"
 
+	"github.com/cosmos/cosmos-sdk/x/auth"
+
 	"github.com/cosmos/cosmos-sdk/client/keys"
+	"github.com/hashgard/hashgard/x/deposit"
+	"github.com/hashgard/hashgard/x/future"
+	"github.com/hashgard/hashgard/x/lock"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	_ "github.com/cosmos/cosmos-sdk/client/lcd/statik"
@@ -17,11 +24,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	crisiscmd "github.com/cosmos/cosmos-sdk/x/crisis/client/cli"
-	"github.com/cosmos/cosmos-sdk/x/distribution"
-	distributioncmd "github.com/cosmos/cosmos-sdk/x/distribution/client/cli"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	govcmd "github.com/cosmos/cosmos-sdk/x/gov/client/cli"
-	mintcmd "github.com/cosmos/cosmos-sdk/x/mint/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	slashingcmd "github.com/cosmos/cosmos-sdk/x/slashing/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
@@ -33,10 +35,13 @@ import (
 	"github.com/hashgard/hashgard/app"
 	hashgardInit "github.com/hashgard/hashgard/init"
 	"github.com/hashgard/hashgard/version"
-	"github.com/hashgard/hashgard/x/exchange"
-	exchangecmd "github.com/hashgard/hashgard/x/exchange/client/cli"
+	"github.com/hashgard/hashgard/x/distribution"
+	distributioncmd "github.com/hashgard/hashgard/x/distribution/client/cli"
 	faucetcmd "github.com/hashgard/hashgard/x/faucet/client/cli"
+	"github.com/hashgard/hashgard/x/gov"
+	govcmd "github.com/hashgard/hashgard/x/gov/client/cli"
 	"github.com/hashgard/hashgard/x/issue"
+	mintcmd "github.com/hashgard/hashgard/x/mint/client/cli"
 )
 
 // rootCmd is the entry point for this binary
@@ -89,8 +94,12 @@ func main() {
 	addGovCmd(cdc, rootCmd)
 	// Add issue subcommands
 	addIssueCmd(cdc, rootCmd)
-	// Add box subcommands
-	addBoxCmd(cdc, rootCmd)
+	// Add lock subcommands
+	addLockCmd(cdc, rootCmd)
+	// Add deposit subcommands
+	addDepositCmd(cdc, rootCmd)
+	// Add future subcommands
+	addFutureCmd(cdc, rootCmd)
 	// Add slashing subcommands
 	addSlashingCmd(cdc, rootCmd)
 	// Add stake subcommands
@@ -143,12 +152,16 @@ func addBankCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 		Short: "Bank subcommands",
 	}
 	bankCmd.AddCommand(
-		//authcmd.GetAccountCmd(auth.StoreKey, cdc),
-		issue.GetAccountCmd(cdc),
+		authcmd.GetAccountCmd(auth.StoreKey, cdc),
+		//issue.GetAccountCmd(cdc),
 		client.LineBreak,
 	)
 	bankCmd.AddCommand(
-		issue.SendTxCmd(cdc),
+		issue.QueryCmd(cdc),
+		box.QueryCmd(cdc),
+		box.WithdrawCmd(cdc),
+		client.LineBreak,
+		box.SendTxCmd(cdc),
 		authcmd.GetSignCommand(cdc),
 		authcmd.GetMultiSignCommand(cdc),
 		tx.GetBroadcastCommand(cdc),
@@ -160,13 +173,31 @@ func addBankCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 // Add issue subcommands
 func addIssueCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	moduleClient := issue.NewModuleClient(cdc)
-	rootCmd.AddCommand(moduleClient.GetIssueCmd())
+	rootCmd.AddCommand(moduleClient.GetCmd())
 }
 
-// Add box subcommands
-func addBoxCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
-	moduleClient := box.NewModuleClient(cdc)
-	rootCmd.AddCommand(moduleClient.GetBoxCmd())
+// Add future subcommands
+func addFutureCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	moduleClient := future.NewModuleClient(cdc)
+	rootCmd.AddCommand(moduleClient.GetCmd())
+}
+
+// Add lock subcommands
+func addLockCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	moduleClient := lock.NewModuleClient(cdc)
+	rootCmd.AddCommand(moduleClient.GetCmd())
+}
+
+// Add deposit subcommands
+func addDepositCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	moduleClient := deposit.NewModuleClient(cdc)
+	rootCmd.AddCommand(moduleClient.GetCmd())
+}
+
+// Add exchange subcommands
+func addExchangeCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	moduleClient := exchange.NewModuleClient(cdc)
+	rootCmd.AddCommand(moduleClient.GetCmd())
 }
 
 // Add gov subcommands
@@ -277,28 +308,6 @@ func addDistributionCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	rootCmd.AddCommand(distributionCmd)
 }
 
-// Add exchange subcommands
-func addExchangeCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
-	exchangeCmd := &cobra.Command{
-		Use:   "exchange",
-		Short: "Exchange subcommands",
-	}
-	exchangeCmd.AddCommand(
-		client.GetCommands(
-			exchangecmd.GetCmdQueryOrder(exchange.StoreKey, cdc),
-			exchangecmd.GetCmdQueryOrdersByAddr(exchange.StoreKey, cdc),
-			exchangecmd.GetCmdFrozenFund(exchange.StoreKey, cdc),
-		)...)
-	exchangeCmd.AddCommand(client.LineBreak)
-	exchangeCmd.AddCommand(
-		client.PostCommands(
-			exchangecmd.GetCmdCreateOrder(cdc),
-			exchangecmd.GetCmdWithdrawalOrder(cdc),
-			exchangecmd.GetCmdTakeOrder(cdc),
-		)...)
-	rootCmd.AddCommand(exchangeCmd)
-}
-
 // Add faucet subcommands
 func addFaucetCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	faucetCmd := &cobra.Command{
@@ -334,8 +343,7 @@ func addMintCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	mintCmd.AddCommand(
 		client.GetCommands(
 			mintcmd.GetCmdQueryParams(cdc),
-			mintcmd.GetCmdQueryInflation(cdc),
-			mintcmd.GetCmdQueryAnnualProvisions(cdc),
+			mintcmd.GetCmdQueryMinter(cdc),
 		)...)
 	rootCmd.AddCommand(mintCmd)
 }

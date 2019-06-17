@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -12,21 +13,22 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/tendermint/tendermint/crypto"
 	cmn "github.com/tendermint/tendermint/libs/common"
 
 	clientkeys "github.com/cosmos/cosmos-sdk/client/keys"
-	"github.com/hashgard/hashgard/app"
-	hashgardInit "github.com/hashgard/hashgard/init"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/crypto/keys"
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/tests"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/gov"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
+	"github.com/hashgard/hashgard/app"
+	hashgardInit "github.com/hashgard/hashgard/init"
 	"github.com/hashgard/hashgard/x/exchange"
+	"github.com/hashgard/hashgard/x/gov"
 	"github.com/hashgard/hashgard/x/issue"
 )
 
@@ -38,6 +40,7 @@ const (
 	denom        = "agard"
 	keyFoo       = "foo"
 	keyBar       = "bar"
+	keyIssue     = "issue"
 	fooDenom     = "footoken"
 	feeDenom     = "feetoken"
 	fee2Denom    = "fee2token"
@@ -111,6 +114,7 @@ func (f Fixtures) GenesisState() app.GenesisState {
 }
 
 // InitFixtures is called at the beginning of a test  and initializes a chain
+
 // with 1 validator.
 func InitFixtures(t *testing.T) (f *Fixtures) {
 	f = NewFixtures(t)
@@ -123,9 +127,11 @@ func InitFixtures(t *testing.T) (f *Fixtures) {
 	f.KeysDelete(keyBar)
 	f.KeysDelete(keyBar)
 	f.KeysDelete(keyFooBarBaz)
+	f.KeysDelete(keyIssue)
 	f.KeysAdd(keyFoo)
 	f.KeysAdd(keyBar)
 	f.KeysAdd(keyBaz)
+	f.KeysAdd(keyIssue)
 	f.KeysAdd(keyVesting)
 	f.KeysAdd(keyFooBarBaz, "--multisig-threshold=2", fmt.Sprintf(
 		"--multisig=%s,%s,%s", keyFoo, keyBar, keyBaz))
@@ -141,12 +147,17 @@ func InitFixtures(t *testing.T) (f *Fixtures) {
 
 	// start an account with tokens
 	f.AddGenesisAccount(f.KeyAddress(keyFoo), startCoins)
+	f.AddGenesisAccount(f.KeyAddress(keyIssue), sdk.Coins{
+		sdk.NewCoin(denom, sdk.TokensFromTendermintPower(1000000000)),
+	})
 	f.AddGenesisAccount(
 		f.KeyAddress(keyVesting), startCoins,
 		fmt.Sprintf("--vesting-amount=%s", vestingCoins),
 		fmt.Sprintf("--vesting-start-time=%d", time.Now().UTC().UnixNano()),
 		fmt.Sprintf("--vesting-end-time=%d", time.Now().Add(60*time.Second).UTC().UnixNano()),
 	)
+
+	f.AddGenesisAccount(sdk.AccAddress(crypto.AddressHash([]byte("foundationaddress"))), sdk.NewCoins(sdk.NewCoin(denom, sdk.TokensFromTendermintPower(300000000))))
 
 	f.GenTx(keyFoo)
 	f.CollectGenTxs()
@@ -195,6 +206,12 @@ func (f *Fixtures) HGInit(moniker string, flags ...string) {
 	require.NoError(f.T, err)
 
 	f.ChainID = chainID
+	file := path.Join(f.GDHome, "config", "config.toml")
+	content, err := ioutil.ReadFile(file)
+	require.NoError(f.T, err)
+	str := strings.ReplaceAll(string(content), "timeout_commit = \"5s\"", "timeout_commit = \"1s\"")
+	err = ioutil.WriteFile(file, []byte(str), os.ModeDir)
+	require.NoError(f.T, err)
 }
 
 // AddGenesisAccount is hashgard add-genesis-account
@@ -638,10 +655,10 @@ func executeWriteRetStdStreams(t *testing.T, cmdStr string, writes ...string) (b
 
 	// Log output.
 	if len(stdout) > 0 {
-		t.Log("Stdout:", cmn.Green(string(stdout)))
+		t.Log(time.Now().Format("2006-01-02 15:04:05"), "Stdout:", cmn.Green(string(stdout)))
 	}
 	if len(stderr) > 0 {
-		t.Log("Stderr:", cmn.Red(string(stderr)))
+		t.Log(time.Now().Format("2006-01-02 15:04:05"), "Stderr:", cmn.Red(string(stderr)))
 	}
 
 	// Wait for process to exit
@@ -695,25 +712,25 @@ func unmarshalStdTx(t *testing.T, s string) (stdTx auth.StdTx) {
 
 // TxExchangeCreateOrder is hashgardcli exchange create-order
 func (f *Fixtures) TxExchangeCreateOrder(from string, supply, target sdk.Coin, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange create-order %v --from=%s --supply=%s --target=%s", f.Flags(), from, supply, target)
+	cmd := fmt.Sprintf("../build/hashgardcli exchange make %v --from=%s --supply=%s --target=%s", f.Flags(), from, supply, target)
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 // TxExchangeWithdrawalOrder is hashgardcli exchange withdrawal-order
 func (f *Fixtures) TxExchangeWithdrawalOrder(orderId int, from string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange withdrawal-order %d --from=%s %v", orderId, from, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange cancel %d --from=%s %v", orderId, from, f.Flags())
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 // TxExchangeTakeOrder is hashgardcli exchange take-order
 func (f *Fixtures) TxExchangeTakeOrder(orderId int, amount sdk.Coin, from string, flags ...string) (bool, string, string) {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange take-order %d --amount=%s --from=%s %v", orderId, amount, from, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange take %d --amount=%s --from=%s %v", orderId, amount, from, f.Flags())
 	return executeWriteRetStdStreams(f.T, addFlags(cmd, flags), app.DefaultKeyPass)
 }
 
 // QueryExchangeOrder is hashgardcli exchange query-order
 func (f *Fixtures) QueryExchangeOrder(orderId int, flags ...string) exchange.Order {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange query-order %d %v", orderId, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange query %d %v", orderId, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var order exchange.Order
 	cdc := app.MakeCodec()
@@ -724,7 +741,7 @@ func (f *Fixtures) QueryExchangeOrder(orderId int, flags ...string) exchange.Ord
 
 // QueryExchangeOrders is hashgardcli exchange query-orders
 func (f *Fixtures) QueryExchangeOrders(addr sdk.AccAddress, flags ...string) []exchange.Order {
-	cmd := fmt.Sprintf("../build/hashgardcli exchange query-order %s %v", addr, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli exchange list %s %v", addr, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var orders []exchange.Order
 	cdc := app.MakeCodec()
@@ -827,7 +844,7 @@ func (f *Fixtures) TxIssueDecreaseApprove(from string, issueId string, addr stri
 
 // QueryIssueIssue is hashgardcli issue query-issue
 func (f *Fixtures) QueryIssueIssue(issueId string, flags ...string) issue.CoinIssueInfo {
-	cmd := fmt.Sprintf("../build/hashgardcli issue query-issue %s %v", issueId, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli issue query %s %v", issueId, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var coinsIssueInfo issue.CoinIssueInfo
 	cdc := app.MakeCodec()
@@ -860,7 +877,7 @@ func (f *Fixtures) QueryIssueFreeze(issueId string, addr string, flags ...string
 
 // QueryIssueIssues is hashgardcli issue list-issues
 func (f *Fixtures) QueryIssueIssues(owner string, flags ...string) []issue.CoinIssueInfo {
-	cmd := fmt.Sprintf("../build/hashgardcli issue list-issues --address=%s %v", owner, f.Flags())
+	cmd := fmt.Sprintf("../build/hashgardcli issue list --address=%s %v", owner, f.Flags())
 	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
 	var issueList []issue.CoinIssueInfo
 	cdc := app.MakeCodec()

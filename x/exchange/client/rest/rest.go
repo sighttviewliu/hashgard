@@ -18,18 +18,18 @@ import (
 
 // nolint
 const (
-	RestOrderId = "order-id"
+	RestOrderId = "id"
 	RestAddress = "address"
 )
 
 func RegisterRoutes(cliCtx context.CLIContext, r *mux.Router, cdc *codec.Codec) {
 	r.HandleFunc(fmt.Sprintf("/exchange/order/{%s}", RestOrderId), queryOrderHandlerFn(cdc, cliCtx)).Methods("GET")
-	r.HandleFunc(fmt.Sprintf("/exchange/orders/{%s}", RestAddress), queryOrdersByAddrHandlerFn(cdc, cliCtx)).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("/exchange/list/{%s}", RestAddress), queryOrdersByAddrHandlerFn(cdc, cliCtx)).Methods("GET")
 	r.HandleFunc(fmt.Sprintf("/exchange/frozen/{%s}", RestAddress), queryFrozenFundByAddrHandlerFn(cdc, cliCtx)).Methods("GET")
 
-	r.HandleFunc("/exchange/order", postOrderHandlerFn(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/exchange/take/{%s}", RestOrderId), postTakeOrderHandlerFn(cdc, cliCtx)).Methods("POST")
-	r.HandleFunc(fmt.Sprintf("/exchange/withdrawal/{%s}", RestOrderId), postWithdrawalOrderHandlerFn(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc("/exchange/make", postOrderMakeHandlerFn(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/exchange/take/{%s}", RestOrderId), postTakeHandlerFn(cdc, cliCtx)).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("/exchange/cancel/{%s}", RestOrderId), postCancelHandlerFn(cdc, cliCtx)).Methods("POST")
 }
 
 func queryOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
@@ -38,17 +38,17 @@ func queryOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Handl
 		strOrderId := vars[RestOrderId]
 
 		if len(strOrderId) == 0 {
-			err := errors.New("orderId required but not specified")
+			err := errors.New("id required but not specified")
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		orderId, ok := rest.ParseUint64OrReturnBadRequest(w, strOrderId)
+		id, ok := rest.ParseUint64OrReturnBadRequest(w, strOrderId)
 		if !ok {
 			return
 		}
 
-		params := exchange.NewQueryOrderParams(orderId)
+		params := exchange.NewQueryOrderParams(id)
 
 		bz, err := cdc.MarshalJSON(params)
 		if err != nil {
@@ -130,16 +130,16 @@ type PostOrderReq struct {
 	Target  sdk.Coin     `json:"target"`
 }
 
-type TakeOrderReq struct {
+type TakeReq struct {
 	BaseReq rest.BaseReq `json:"base_req"`
 	Amount  sdk.Coin     `json:"amount"`
 }
 
-type WithdrawalOrderReq struct {
+type CancelReq struct {
 	BaseReq rest.BaseReq `json:"base_req"`
 }
 
-func postOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+func postOrderMakeHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		var req PostOrderReq
 		if !rest.ReadRESTReq(w, r, cdc, &req) {
@@ -157,7 +157,7 @@ func postOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Handle
 		}
 
 		// create the message
-		msg := exchange.NewMsgCreateOrder(fromAddress, req.Supply, req.Target)
+		msg := exchange.NewMsgMake(fromAddress, req.Supply, req.Target)
 		if err := msg.ValidateBasic(); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 		}
@@ -166,23 +166,23 @@ func postOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Handle
 	}
 }
 
-func postTakeOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+func postTakeHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		strOrderId := vars[RestOrderId]
 
 		if len(strOrderId) == 0 {
-			err := errors.New("orderId required but not specified")
+			err := errors.New("id required but not specified")
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		orderId, ok := rest.ParseUint64OrReturnBadRequest(w, strOrderId)
+		id, ok := rest.ParseUint64OrReturnBadRequest(w, strOrderId)
 		if !ok {
 			return
 		}
 
-		var req TakeOrderReq
+		var req TakeReq
 		if !rest.ReadRESTReq(w, r, cdc, &req) {
 			return
 		}
@@ -198,7 +198,7 @@ func postTakeOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Ha
 		}
 
 		// create the message
-		msg := exchange.NewMsgTakeOrder(orderId, fromAddress, req.Amount)
+		msg := exchange.NewMsgTake(id, fromAddress, req.Amount)
 		if err := msg.ValidateBasic(); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 		}
@@ -207,23 +207,23 @@ func postTakeOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Ha
 	}
 }
 
-func postWithdrawalOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
+func postCancelHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		strOrderId := vars[RestOrderId]
 
 		if len(strOrderId) == 0 {
-			err := errors.New("orderId required but not specified")
+			err := errors.New("id required but not specified")
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		orderId, ok := rest.ParseUint64OrReturnBadRequest(w, strOrderId)
+		id, ok := rest.ParseUint64OrReturnBadRequest(w, strOrderId)
 		if !ok {
 			return
 		}
 
-		var req WithdrawalOrderReq
+		var req CancelReq
 		if !rest.ReadRESTReq(w, r, cdc, &req) {
 			return
 		}
@@ -239,7 +239,7 @@ func postWithdrawalOrderHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) h
 		}
 
 		// create the message
-		msg := exchange.NewMsgWithdrawalOrder(orderId, fromAddress)
+		msg := exchange.NewMsgCancel(id, fromAddress)
 		if err := msg.ValidateBasic(); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 		}

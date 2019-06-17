@@ -11,8 +11,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/x/mint"
-
 	"github.com/stretchr/testify/require"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -25,14 +23,15 @@ import (
 	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
-	dclcommon "github.com/cosmos/cosmos-sdk/x/distribution/client/common"
-	distrrest "github.com/cosmos/cosmos-sdk/x/distribution/client/rest"
-	"github.com/cosmos/cosmos-sdk/x/gov"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 
 	"github.com/hashgard/hashgard/app"
 	hashgardInit "github.com/hashgard/hashgard/init"
+	"github.com/hashgard/hashgard/x/gov"
+	"github.com/hashgard/hashgard/x/mint"
+	dclcommon "github.com/hashgard/hashgard/x/distribution/client/common"
+	distrrest "github.com/hashgard/hashgard/x/distribution/client/rest"
 )
 
 const (
@@ -1039,18 +1038,6 @@ func TestMintingQueries(t *testing.T) {
 
 	var params mint.Params
 	require.NoError(t, cdc.UnmarshalJSON([]byte(body), &params))
-
-	res, body = Request(t, port, "GET", "/minting/inflation", nil)
-	require.Equal(t, http.StatusOK, res.StatusCode, body)
-
-	var inflation sdk.Dec
-	require.NoError(t, cdc.UnmarshalJSON([]byte(body), &inflation))
-
-	res, body = Request(t, port, "GET", "/minting/annual-provisions", nil)
-	require.Equal(t, http.StatusOK, res.StatusCode, body)
-
-	var annualProvisions sdk.Dec
-	require.NoError(t, cdc.UnmarshalJSON([]byte(body), &annualProvisions))
 }
 
 func TestAccountBalanceQuery(t *testing.T) {

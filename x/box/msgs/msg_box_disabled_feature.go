@@ -12,7 +12,7 @@ import (
 
 // MsgBoxDisableFeature to allow a registered owner
 type MsgBoxDisableFeature struct {
-	BoxId   string         `json:"box_id"`
+	Id      string         `json:"id"`
 	Sender  sdk.AccAddress `json:"sender"`
 	Feature string         `json:"feature"`
 }
@@ -23,11 +23,11 @@ func NewMsgBoxDisableFeature(boxId string, sender sdk.AccAddress, feature string
 }
 
 //nolint
-func (ci MsgBoxDisableFeature) GetBoxId() string {
-	return ci.BoxId
+func (ci MsgBoxDisableFeature) GetId() string {
+	return ci.Id
 }
-func (ci MsgBoxDisableFeature) SetBoxId(boxId string) {
-	ci.BoxId = boxId
+func (ci MsgBoxDisableFeature) SetId(boxId string) {
+	ci.Id = boxId
 }
 func (ci MsgBoxDisableFeature) GetSender() sdk.AccAddress {
 	return ci.Sender
@@ -50,8 +50,8 @@ func (msg MsgBoxDisableFeature) Type() string { return types.TypeMsgBoxDisableFe
 
 // Implements Msg. Ensures addresses are valid and Coin is positive
 func (msg MsgBoxDisableFeature) ValidateBasic() sdk.Error {
-	if len(msg.BoxId) == 0 {
-		return sdk.ErrInvalidAddress("BoxId cannot be empty")
+	if len(msg.Id) == 0 {
+		return sdk.ErrInvalidAddress("Id cannot be empty")
 	}
 	_, ok := types.Features[msg.Feature]
 	if !ok {
@@ -72,5 +72,5 @@ func (msg MsgBoxDisableFeature) GetSigners() []sdk.AccAddress {
 }
 
 func (msg MsgBoxDisableFeature) String() string {
-	return fmt.Sprintf("MsgBoxDisableFeature{%s}", msg.BoxId)
+	return fmt.Sprintf("MsgBoxDisableFeature{%s}", msg.Id)
 }

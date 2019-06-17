@@ -9,23 +9,25 @@ import (
 )
 
 const (
-	CodeBoxOwnerMismatch          sdk.CodeType = 1
-	CodeBoxIDNotValid             sdk.CodeType = 2
-	CodeBoxNameNotValid           sdk.CodeType = 3
-	CodeAmountNotValid            sdk.CodeType = 4
-	CodeDecimalsNotValid          sdk.CodeType = 5
-	CodeTimelineNotValid          sdk.CodeType = 6
-	CodeBoxDescriptionNotValid    sdk.CodeType = 7
-	CodeUnknownBox                sdk.CodeType = 8
-	CodeUnknownBoxType            sdk.CodeType = 9
-	CodeUnknownOperation          sdk.CodeType = 10
-	CodeInterestInjectionNotValid sdk.CodeType = 11
-	CodeInterestFetchNotValid     sdk.CodeType = 12
-	CodeNotEnoughAmount           sdk.CodeType = 13
-	CodeTimeNotValid              sdk.CodeType = 14
-	CodeNotAllowedOperation       sdk.CodeType = 15
-	CodeNotSupportOperation       sdk.CodeType = 16
-	CodeUnknownFeature            sdk.CodeType = 17
+	CodeNotEnoughFee           sdk.CodeType = 1
+	CodeBoxOwnerMismatch       sdk.CodeType = 2
+	CodeBoxIDNotValid          sdk.CodeType = 3
+	CodeBoxNameNotValid        sdk.CodeType = 4
+	CodeAmountNotValid         sdk.CodeType = 5
+	CodeDecimalsNotValid       sdk.CodeType = 6
+	CodeTimelineNotValid       sdk.CodeType = 7
+	CodeBoxDescriptionNotValid sdk.CodeType = 8
+	CodeUnknownBox             sdk.CodeType = 9
+	CodeUnknownBoxType         sdk.CodeType = 10
+	CodeUnknownOperation       sdk.CodeType = 11
+	CodeInterestInjectNotValid sdk.CodeType = 12
+	CodeInterestCancelNotValid sdk.CodeType = 13
+	CodeNotEnoughAmount        sdk.CodeType = 14
+	CodeTimeNotValid           sdk.CodeType = 15
+	CodeNotAllowedOperation    sdk.CodeType = 16
+	CodeNotSupportOperation    sdk.CodeType = 17
+	CodeUnknownFeature         sdk.CodeType = 18
+	CodeNotTransfer            sdk.CodeType = 19
 )
 
 //convert sdk.Error to error
@@ -34,8 +36,11 @@ func Errorf(err sdk.Error) error {
 }
 
 // Error constructors
-func ErrOwnerMismatch(boxID string) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeBoxOwnerMismatch, fmt.Sprintf("Owner mismatch with box %s", boxID))
+func ErrOwnerMismatch(id string) sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeBoxOwnerMismatch, fmt.Sprintf("Owner mismatch with box %s", id))
+}
+func ErrNotEnoughFee() sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeNotEnoughFee, fmt.Sprintf("Not enough fee"))
 }
 func ErrDecimalsNotValid(decimals uint) sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeDecimalsNotValid, "%d is not a valid decimals", decimals)
@@ -49,14 +54,14 @@ func ErrTimeNotValid(timeKey string) sdk.Error {
 func ErrAmountNotValid(key string) sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeAmountNotValid, "%s is not a valid amount", key)
 }
-func ErrInterestInjectionNotValid(coin sdk.Coin) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeInterestInjectionNotValid, "%s is not a valid interest injection", coin.String())
+func ErrInterestInjectNotValid(coin sdk.Coin) sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeInterestInjectNotValid, "%s is not a valid interest injection", coin.String())
 }
-func ErrInterestFetchNotValid(coin sdk.Coin) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeInterestFetchNotValid, "%s is not a valid interest fetch", coin.String())
+func ErrInterestCancelNotValid(coin sdk.Coin) sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeInterestCancelNotValid, "%s is not a valid interest fetch", coin.String())
 }
 func ErrBoxPriceNotValid(name string) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeBoxNameNotValid, fmt.Sprintf("Price mismatch with box %s", name))
+	return sdk.NewError(types.DefaultCodespace, CodeBoxNameNotValid, fmt.Sprintf("Price mismatch with %s", name))
 }
 func ErrBoxNameNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeBoxNameNotValid, fmt.Sprintf("Name max length is %d", types.BoxNameMaxLength))
@@ -67,11 +72,11 @@ func ErrBoxDescriptionNotValid() sdk.Error {
 func ErrBoxDescriptionMaxLengthNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeBoxDescriptionNotValid, "Description max length is %d", types.BoxDescriptionMaxLength)
 }
-func ErrBoxID(boxID string) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeBoxIDNotValid, fmt.Sprintf("Box-id %s is not a valid boxId", boxID))
+func ErrBoxID(id string) sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeBoxIDNotValid, fmt.Sprintf("id %s is not a valid id", id))
 }
-func ErrUnknownBox(boxID string) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeUnknownBox, fmt.Sprintf("Unknown box with id %s", boxID))
+func ErrUnknownBox(id string) sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeUnknownBox, fmt.Sprintf("Unknown box with id %s", id))
 }
 func ErrUnknownBoxType() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeUnknownBoxType, fmt.Sprintf("Unknown type"))
@@ -82,12 +87,16 @@ func ErrUnknownOperation() sdk.Error {
 func ErrNotEnoughAmount() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeNotEnoughAmount, fmt.Sprintf("Not enough amount"))
 }
+
 func ErrNotSupportOperation() sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeNotSupportOperation, fmt.Sprintf("Not support operation the box"))
+	return sdk.NewError(types.DefaultCodespace, CodeNotSupportOperation, fmt.Sprintf("Not support operation"))
 }
 func ErrNotAllowedOperation(status string) sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeNotAllowedOperation, fmt.Sprintf("Not allowed operation in current status: %s", status))
 }
 func ErrUnknownFeatures() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeUnknownFeature, fmt.Sprintf("Unknown feature"))
+}
+func ErrCanNotTransfer(id string) sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeNotTransfer, fmt.Sprintf("The box %s Can not be transfer", id))
 }

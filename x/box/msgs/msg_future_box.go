@@ -2,6 +2,7 @@ package msgs
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/hashgard/hashgard/x/box/params"
 
@@ -14,24 +15,22 @@ import (
 // MsgFutureBox to allow a registered boxr
 // to box new coins.
 type MsgFutureBox struct {
-	*params.BoxFutureParams
+	Sender                  sdk.AccAddress `json:"sender"`
+	*params.BoxFutureParams `json:"params"`
 }
 
-func NewMsgFutureBox(params *params.BoxFutureParams) MsgFutureBox {
-	return MsgFutureBox{params}
+func NewMsgFutureBox(sender sdk.AccAddress, params *params.BoxFutureParams) MsgFutureBox {
+	return MsgFutureBox{sender, params}
 }
 
 // Route Implements Msg.
 func (msg MsgFutureBox) Route() string { return types.RouterKey }
 
 // Type Implements Msg.789
-func (msg MsgFutureBox) Type() string { return types.TypeMsgBoxCreateFuture }
+func (msg MsgFutureBox) Type() string { return types.TypeMsgBoxCreate }
 
 // Implements Msg. Ensures addresses are valid and Coin is positive
 func (msg MsgFutureBox) ValidateBasic() sdk.Error {
-	if types.Future != msg.BoxType {
-		return errors.ErrUnknownBoxType()
-	}
 	if len(msg.Sender) == 0 {
 		return sdk.ErrInvalidAddress("Sender address cannot be empty")
 	}
@@ -44,13 +43,13 @@ func (msg MsgFutureBox) ValidateBasic() sdk.Error {
 	if len(msg.Description) > types.BoxDescriptionMaxLength {
 		return errors.ErrBoxDescriptionMaxLengthNotValid()
 	}
-	if err := msg.validateBox(); err != nil {
-		return err
-	}
 	return nil
 }
 
-func (msg MsgFutureBox) validateBox() sdk.Error {
+func (msg MsgFutureBox) ValidateService() sdk.Error {
+	if err := msg.ValidateBasic(); err != nil {
+		return err
+	}
 	if msg.Future.TimeLine == nil || msg.Future.Receivers == nil ||
 		len(msg.Future.TimeLine) == 0 || len(msg.Future.Receivers) == 0 {
 		return errors.ErrNotSupportOperation()
@@ -58,7 +57,17 @@ func (msg MsgFutureBox) validateBox() sdk.Error {
 	if len(msg.Future.TimeLine) > types.BoxMaxInstalment {
 		return errors.ErrNotEnoughAmount()
 	}
-
+	for i, v := range msg.Future.TimeLine {
+		if i == 0 {
+			if v <= time.Now().Unix() {
+				return errors.ErrTimelineNotValid(msg.Future.TimeLine)
+			}
+			continue
+		}
+		if v <= msg.Future.TimeLine[i-1] {
+			return errors.ErrTimelineNotValid(msg.Future.TimeLine)
+		}
+	}
 	return nil
 }
 

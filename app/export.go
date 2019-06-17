@@ -16,13 +16,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
-	"github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/mint"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 
 	"github.com/hashgard/hashgard/x/exchange"
+	"github.com/hashgard/hashgard/x/gov"
+	"github.com/hashgard/hashgard/x/mint"
+	"github.com/hashgard/hashgard/x/distribution"
 )
 
 // export the state of hashgard for a genesis file

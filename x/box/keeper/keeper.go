@@ -3,6 +3,10 @@ package keeper
 import (
 	"fmt"
 
+	"github.com/hashgard/hashgard/x/box/config"
+
+	"github.com/hashgard/hashgard/x/box/utils"
+
 	"github.com/tendermint/tendermint/crypto"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -13,18 +17,6 @@ import (
 	"github.com/hashgard/hashgard/x/box/types"
 	issueerr "github.com/hashgard/hashgard/x/issue/errors"
 )
-
-// Parameter store key
-var (
-	ParamStoreKeyBoxParams = []byte("boxparams")
-)
-
-// Key declaration for parameters
-func ParamKeyTable() params.KeyTable {
-	return params.NewKeyTable(
-		ParamStoreKeyBoxParams, boxparams.BoxConfigParams{},
-	)
-}
 
 // Box Keeper
 type Keeper struct {
@@ -38,6 +30,8 @@ type Keeper struct {
 	ck BankKeeper
 	// The reference to the IssueKeeper to get issue info
 	ik IssueKeeper
+	// The reference to the FeeCollectionKeeper to add fee
+	feeCollectionKeeper FeeCollectionKeeper
 	// The codec codec for binary encoding/decoding.
 	cdc *codec.Codec
 	// Reserved codespace
@@ -59,101 +53,93 @@ func (keeper Keeper) GetIssueKeeper() IssueKeeper {
 	return keeper.ik
 }
 
+//Get box feeCollectionKeeper
+func (keeper Keeper) GetFeeCollectionKeeper() FeeCollectionKeeper {
+	return keeper.feeCollectionKeeper
+}
+
 //New box keeper Instance
 func NewKeeper(cdc *codec.Codec, key sdk.StoreKey, paramsKeeper params.Keeper,
-	paramSpace params.Subspace, ck BankKeeper, ik IssueKeeper, codespace sdk.CodespaceType) Keeper {
+	paramSpace params.Subspace, ck BankKeeper, ik IssueKeeper,
+	feeCollectionKeeper FeeCollectionKeeper, codespace sdk.CodespaceType) Keeper {
 	return Keeper{
-		storeKey:     key,
-		paramsKeeper: paramsKeeper,
-		paramSpace:   paramSpace.WithKeyTable(ParamKeyTable()),
-		ck:           ck,
-		ik:           ik,
-		cdc:          cdc,
-		codespace:    codespace,
+		storeKey:            key,
+		paramsKeeper:        paramsKeeper,
+		paramSpace:          paramSpace.WithKeyTable(config.ParamKeyTable()),
+		ck:                  ck,
+		ik:                  ik,
+		feeCollectionKeeper: feeCollectionKeeper,
+		cdc:                 cdc,
+		codespace:           codespace,
 	}
 }
 
-func (keeper Keeper) getDepositedCoinsAddress(boxID string) sdk.AccAddress {
-	return sdk.AccAddress(crypto.AddressHash([]byte(fmt.Sprintf("boxDepositedCoins:%s", boxID))))
+func (keeper Keeper) getDepositedCoinsAddress(id string) sdk.AccAddress {
+	return sdk.AccAddress(crypto.AddressHash([]byte(fmt.Sprintf("boxDepositedCoins:%s", id))))
 
 }
-func (keeper Keeper) SendDepositedCoin(ctx sdk.Context, fromAddr sdk.AccAddress, amt sdk.Coins, boxID string) sdk.Error {
-	toAddr := keeper.getDepositedCoinsAddress(boxID)
+func (keeper Keeper) SendDepositedCoin(ctx sdk.Context, fromAddr sdk.AccAddress, amt sdk.Coins, id string) sdk.Error {
+	toAddr := keeper.getDepositedCoinsAddress(id)
 	return keeper.GetBankKeeper().SendCoins(ctx, fromAddr, toAddr, amt)
 }
-func (keeper Keeper) FetchDepositedCoin(ctx sdk.Context, toAddr sdk.AccAddress, amt sdk.Coins, boxID string) sdk.Error {
-	fromAddr := keeper.getDepositedCoinsAddress(boxID)
+func (keeper Keeper) CancelDepositedCoin(ctx sdk.Context, toAddr sdk.AccAddress, amt sdk.Coins, id string) sdk.Error {
+	fromAddr := keeper.getDepositedCoinsAddress(id)
 	return keeper.GetBankKeeper().SendCoins(ctx, fromAddr, toAddr, amt)
 }
-func (keeper Keeper) SubDepositedCoin(ctx sdk.Context, amt sdk.Coins, boxID string) sdk.Error {
-	_, err := keeper.GetBankKeeper().SubtractCoins(ctx, keeper.getDepositedCoinsAddress(boxID), amt)
+func (keeper Keeper) SubDepositedCoin(ctx sdk.Context, amt sdk.Coins, id string) sdk.Error {
+	_, err := keeper.GetBankKeeper().SubtractCoins(ctx, keeper.getDepositedCoinsAddress(id), amt)
 	return err
 }
-func (keeper Keeper) GetDepositedCoins(ctx sdk.Context, boxID string) sdk.Coins {
-	return keeper.GetBankKeeper().GetCoins(ctx, keeper.getDepositedCoinsAddress(boxID))
+func (keeper Keeper) GetDepositedCoins(ctx sdk.Context, id string) sdk.Coins {
+	return keeper.GetBankKeeper().GetCoins(ctx, keeper.getDepositedCoinsAddress(id))
 }
 
 //Keys set
 //Set box
 func (keeper Keeper) setBox(ctx sdk.Context, box *types.BoxInfo) {
 	store := ctx.KVStore(keeper.storeKey)
-	store.Set(KeyBox(box.BoxId), keeper.cdc.MustMarshalBinaryLengthPrefixed(box))
+	store.Set(KeyBox(box.Id), keeper.cdc.MustMarshalBinaryLengthPrefixed(box))
 }
 
 //Set address
-func (keeper Keeper) setAddress(ctx sdk.Context, boxType string, accAddress sdk.AccAddress, boxIDs []string) {
+func (keeper Keeper) setAddress(ctx sdk.Context, boxType string, accAddress sdk.AccAddress, ids []string) {
 	store := ctx.KVStore(keeper.storeKey)
-	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(boxIDs)
+	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(ids)
 	store.Set(KeyAddress(boxType, accAddress), bz)
 }
 
 //Set name
-func (keeper Keeper) setName(ctx sdk.Context, boxType string, name string, boxIDs []string) {
+func (keeper Keeper) setName(ctx sdk.Context, boxType string, name string, ids []string) {
 	store := ctx.KVStore(keeper.storeKey)
-	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(boxIDs)
+	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(ids)
 	store.Set(KeyName(boxType, name), bz)
 }
 
-func (keeper Keeper) setAddressDeposit(ctx sdk.Context, boxID string, accAddress sdk.AccAddress, boxDeposit *types.BoxDeposit) {
-	store := ctx.KVStore(keeper.storeKey)
-	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(boxDeposit)
-	store.Set(KeyAddressDeposit(boxID, accAddress), bz)
-}
+//Keys Add
+//Add box
+func (keeper Keeper) AddBox(ctx sdk.Context, box *types.BoxInfo) {
+	ids := keeper.GetIdsByAddress(ctx, box.BoxType, box.Owner)
+	ids = append(ids, box.Id)
+	keeper.setAddress(ctx, box.BoxType, box.Owner, ids)
 
-//Add address deposit
-func (keeper Keeper) addAddressDeposit(ctx sdk.Context, boxID string, accAddress sdk.AccAddress, boxDeposit *types.BoxDeposit) {
-	boxDeposit.Amount = boxDeposit.Amount.Add(keeper.GetDepositByAddress(ctx, boxID, accAddress).Amount)
-	keeper.setAddressDeposit(ctx, boxID, accAddress, boxDeposit)
+	ids = keeper.GetIdsByName(ctx, box.BoxType, box.Name)
+	ids = append(ids, box.Id)
+	keeper.setName(ctx, box.BoxType, box.Name, ids)
+
+	keeper.setBox(ctx, box)
 }
 
 //Keys remove
 //Remove box
-func (keeper Keeper) RemoveBox(ctx sdk.Context, box *types.BoxInfo) {
-	store := ctx.KVStore(keeper.storeKey)
-	store.Delete(KeyBox(box.BoxId))
-}
-
-//Remove address deposit
-func (keeper Keeper) removeAddressDeposit(ctx sdk.Context, boxID string, accAddress sdk.AccAddress) {
-	store := ctx.KVStore(keeper.storeKey)
-	store.Delete(KeyAddressDeposit(boxID, accAddress))
-}
-
-//Return deposit amount by accAddress
-func (keeper Keeper) GetDepositByAddress(ctx sdk.Context, boxID string, accAddress sdk.AccAddress) *types.BoxDeposit {
-	store := ctx.KVStore(keeper.storeKey)
-	bz := store.Get(KeyAddressDeposit(boxID, accAddress))
-	if bz == nil {
-		return types.NewZeroBoxDeposit()
-	}
-	var boxDeposit types.BoxDeposit
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &boxDeposit)
-	return &boxDeposit
-}
-
-func (keeper Keeper) GetCoinDecimal(ctx sdk.Context, coin sdk.Coin) (uint, sdk.Error) {
+//func (keeper Keeper) RemoveBox(ctx sdk.Context, box *types.BoxInfo) {
+//	store := ctx.KVStore(keeper.storeKey)
+//	store.Delete(KeyName(box.BoxType, box.Name))
+//	store.Delete(KeyAddress(box.BoxType, box.Owner))
+//	store.Delete(KeyBox(box.Id))
+//}
+func (keeper Keeper) GetCoinDecimals(ctx sdk.Context, coin sdk.Coin) (uint, sdk.Error) {
 	if coin.Denom == types.Agard {
-		return types.AgardDecimal, nil
+		return types.AgardDecimals, nil
 	}
 	coinIssueInfo := keeper.GetIssueKeeper().GetIssue(ctx, coin.Denom)
 	if coinIssueInfo == nil {
@@ -162,11 +148,24 @@ func (keeper Keeper) GetCoinDecimal(ctx sdk.Context, coin sdk.Coin) (uint, sdk.E
 	return coinIssueInfo.Decimals, nil
 }
 
+func (keeper Keeper) Fee(ctx sdk.Context, sender sdk.AccAddress, fee sdk.Coin) sdk.Error {
+	if fee.IsZero() || fee.IsNegative() {
+		return nil
+	}
+	_, err := keeper.GetBankKeeper().SubtractCoins(ctx, sender, sdk.NewCoins(fee))
+	if err != nil {
+		return errors.ErrNotEnoughFee()
+	}
+	_ = keeper.GetFeeCollectionKeeper().AddCollectedFees(ctx, sdk.NewCoins(fee))
+	return nil
+}
+
 //Keys return
-//Return box by boxID
-func (keeper Keeper) GetBox(ctx sdk.Context, boxID string) *types.BoxInfo {
+//Return box by id
+func (keeper Keeper) GetBox(ctx sdk.Context, id string) *types.BoxInfo {
+	id = utils.GetIdFromBoxSeqID(id)
 	store := ctx.KVStore(keeper.storeKey)
-	bz := store.Get(KeyBox(boxID))
+	bz := store.Get(KeyBox(id))
 	if len(bz) == 0 {
 		return nil
 	}
@@ -175,40 +174,44 @@ func (keeper Keeper) GetBox(ctx sdk.Context, boxID string) *types.BoxInfo {
 	return &box
 }
 
-//Return box by boxID and and check owner
-func (keeper Keeper) GetBoxByOwner(ctx sdk.Context, sender sdk.AccAddress, boxID string) (*types.BoxInfo, sdk.Error) {
-	box := keeper.GetBox(ctx, boxID)
+//Return box by id and and check owner
+func (keeper Keeper) GetBoxByOwner(ctx sdk.Context, sender sdk.AccAddress, id string) (*types.BoxInfo, sdk.Error) {
+	box := keeper.GetBox(ctx, id)
 	if box == nil {
-		return nil, errors.ErrUnknownBox(boxID)
+		return nil, errors.ErrUnknownBox(id)
 	}
 	if !box.Owner.Equals(sender) {
-		return nil, errors.ErrOwnerMismatch(boxID)
+		return nil, errors.ErrOwnerMismatch(id)
 	}
 	return box, nil
 }
 
 //Returns box list by type and accAddress
 func (keeper Keeper) GetBoxByAddress(ctx sdk.Context, boxType string, accAddress sdk.AccAddress) []*types.BoxInfo {
-	boxIDs := keeper.GetBoxIdsByAddress(ctx, boxType, accAddress)
-	length := len(boxIDs)
+	ids := keeper.GetIdsByAddress(ctx, boxType, accAddress)
+	length := len(ids)
 	if length == 0 {
 		return []*types.BoxInfo{}
 	}
 	boxs := make([]*types.BoxInfo, 0, length)
 
-	for _, v := range boxIDs {
+	for _, v := range ids {
 		boxs = append(boxs, keeper.GetBox(ctx, v))
 	}
 	return boxs
 }
-
-func (keeper Keeper) CheckDepositByAddress(ctx sdk.Context, boxID string, accAddress sdk.AccAddress) bool {
-	store := ctx.KVStore(keeper.storeKey)
-	bz := store.Get(KeyAddressDeposit(boxID, accAddress))
-	if bz == nil {
-		return false
+func (keeper Keeper) CanTransfer(ctx sdk.Context, id string) sdk.Error {
+	if !utils.IsId(id) {
+		return nil
 	}
-	return true
+	box := keeper.GetBox(ctx, id)
+	if box == nil {
+		return nil
+	}
+	if box.IsTransferDisabled() {
+		return errors.ErrCanNotTransfer(id)
+	}
+	return nil
 }
 
 //Queries
@@ -224,10 +227,10 @@ func (keeper Keeper) SearchBox(ctx sdk.Context, boxType string, name string) []*
 		if len(bz) == 0 {
 			continue
 		}
-		boxIDs := make([]string, 0, 1)
-		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &boxIDs)
+		ids := make([]string, 0, 1)
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &ids)
 
-		for _, v := range boxIDs {
+		for _, v := range ids {
 			list = append(list, keeper.GetBox(ctx, v))
 		}
 	}
@@ -239,16 +242,7 @@ func (keeper Keeper) List(ctx sdk.Context, params boxparams.BoxQueryParams) []*t
 	if params.Owner != nil && !params.Owner.Empty() {
 		return keeper.GetBoxByAddress(ctx, params.BoxType, params.Owner)
 	}
-	store := ctx.KVStore(keeper.storeKey)
-	startBoxId := params.StartBoxId
-	endBoxId := startBoxId
-	if len(startBoxId) == 0 {
-		endBoxId = KeyBoxIdStr(params.BoxType, types.BoxMaxId)
-		startBoxId = KeyBoxIdStr(params.BoxType, types.BoxMinId-1)
-	} else {
-		startBoxId = KeyBoxIdStr(params.BoxType, types.BoxMinId-1)
-	}
-	iterator := store.ReverseIterator(KeyBox(startBoxId), KeyBox(endBoxId))
+	iterator := keeper.Iterator(ctx, params.BoxType, params.StartId)
 	defer iterator.Close()
 	list := make([]*types.BoxInfo, 0, params.Limit)
 	for ; iterator.Valid(); iterator.Next() {
@@ -265,10 +259,37 @@ func (keeper Keeper) List(ctx sdk.Context, params boxparams.BoxQueryParams) []*t
 	}
 	return list
 }
+func (keeper Keeper) ListAll(ctx sdk.Context, boxType string) []types.BoxInfo {
+	iterator := keeper.Iterator(ctx, boxType, "")
+	defer iterator.Close()
+	list := make([]types.BoxInfo, 0)
+	for ; iterator.Valid(); iterator.Next() {
+		bz := iterator.Value()
+		if len(bz) == 0 {
+			continue
+		}
+		var info types.BoxInfo
+		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &info)
+		list = append(list, info)
+	}
+	return list
+}
+func (keeper Keeper) Iterator(ctx sdk.Context, boxType string, startId string) sdk.Iterator {
+	store := ctx.KVStore(keeper.storeKey)
+	endId := startId
+	if len(startId) == 0 {
+		endId = KeyIdStr(boxType, types.BoxMaxId)
+		startId = KeyIdStr(boxType, types.BoxMinId-1)
+	} else {
+		startId = KeyIdStr(boxType, types.BoxMinId-1)
+	}
+	iterator := store.ReverseIterator(KeyBox(startId), KeyBox(endId))
+	return iterator
+}
 
 //Create a box
 func (keeper Keeper) CreateBox(ctx sdk.Context, box *types.BoxInfo) sdk.Error {
-	decimal, err := keeper.GetCoinDecimal(ctx, box.TotalAmount.Token)
+	decimal, err := keeper.GetCoinDecimals(ctx, box.TotalAmount.Token)
 	if err != nil {
 		return err
 	}
@@ -280,7 +301,7 @@ func (keeper Keeper) CreateBox(ctx sdk.Context, box *types.BoxInfo) sdk.Error {
 	if err != nil {
 		return err
 	}
-	box.BoxId = KeyBoxIdStr(box.BoxType, id)
+	box.Id = KeyIdStr(box.BoxType, id)
 	box.CreatedTime = ctx.BlockHeader().Time.Unix()
 
 	switch box.BoxType {
@@ -296,37 +317,43 @@ func (keeper Keeper) CreateBox(ctx sdk.Context, box *types.BoxInfo) sdk.Error {
 	if err != nil {
 		return err
 	}
-	boxIDs := keeper.GetBoxIdsByAddress(ctx, box.BoxType, box.Owner)
-	boxIDs = append(boxIDs, box.BoxId)
-	keeper.setAddress(ctx, box.BoxType, box.Owner, boxIDs)
-
-	boxIDs = keeper.GetBoxIdsByName(ctx, box.BoxType, box.Name)
-	boxIDs = append(boxIDs, box.BoxId)
-	keeper.setName(ctx, box.BoxType, box.Name, boxIDs)
-	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(box)
-	store.Set(KeyBox(box.BoxId), bz)
+	keeper.AddBox(ctx, box)
 	return nil
 }
 
-func (keeper Keeper) ProcessDepositToBox(ctx sdk.Context, boxID string, sender sdk.AccAddress, deposit sdk.Coin, operation string) (*types.BoxInfo, sdk.Error) {
-	box := keeper.GetBox(ctx, boxID)
+func (keeper Keeper) ProcessInjectBox(ctx sdk.Context, id string, sender sdk.AccAddress, amount sdk.Coin, operation string) (*types.BoxInfo, sdk.Error) {
+	box := keeper.GetBox(ctx, id)
 	if box == nil {
-		return nil, errors.ErrUnknownBox(boxID)
+		return nil, errors.ErrUnknownBox(id)
 	}
-	if types.BoxDepositing != box.BoxStatus {
-		return nil, errors.ErrNotAllowedOperation(box.BoxStatus)
+	if types.BoxInjecting != box.Status && types.BoxClosed != box.Status {
+		return nil, errors.ErrNotAllowedOperation(box.Status)
 	}
 	switch box.BoxType {
 	case types.Deposit:
-		return box, keeper.processDepositBoxDeposit(ctx, box, sender, deposit, operation)
+		return box, keeper.processDepositBoxInject(ctx, box, sender, amount, operation)
 	case types.Future:
-		return box, keeper.processFutureBoxDeposit(ctx, box, sender, deposit, operation)
+		return box, keeper.processFutureBoxInject(ctx, box, sender, amount, operation)
 	}
 	return nil, errors.ErrUnknownBoxType()
 }
+func (keeper Keeper) ProcessBoxWithdraw(ctx sdk.Context, id string, sender sdk.AccAddress) (sdk.Int, *types.BoxInfo, sdk.Error) {
+	if keeper.GetBankKeeper().GetCoins(ctx, sender).AmountOf(id).IsZero() {
+		return sdk.ZeroInt(), nil, errors.ErrNotEnoughAmount()
+	}
+	boxType := utils.GetBoxTypeByValue(id)
+	switch boxType {
+	case types.Deposit:
+		return keeper.processDepositBoxWithdraw(ctx, id, sender)
+	case types.Future:
+		boxInfo, err := keeper.processFutureBoxWithdraw(ctx, id, sender)
+		return sdk.ZeroInt(), boxInfo, err
+	}
+	return sdk.ZeroInt(), nil, errors.ErrUnknownBoxType()
+}
 
-func (keeper Keeper) SetBoxDescription(ctx sdk.Context, boxID string, sender sdk.AccAddress, description []byte) (*types.BoxInfo, sdk.Error) {
-	box, err := keeper.GetBoxByOwner(ctx, sender, boxID)
+func (keeper Keeper) SetBoxDescription(ctx sdk.Context, id string, sender sdk.AccAddress, description []byte) (*types.BoxInfo, sdk.Error) {
+	box, err := keeper.GetBoxByOwner(ctx, sender, id)
 	if err != nil {
 		return box, err
 	}
@@ -334,26 +361,26 @@ func (keeper Keeper) SetBoxDescription(ctx sdk.Context, boxID string, sender sdk
 	keeper.setBox(ctx, box)
 	return box, nil
 }
-func (keeper Keeper) DisableFeature(ctx sdk.Context, sender sdk.AccAddress, boxID string, feature string) (*types.BoxInfo, sdk.Error) {
-	boxInfo, err := keeper.GetBoxByOwner(ctx, sender, boxID)
+func (keeper Keeper) DisableFeature(ctx sdk.Context, sender sdk.AccAddress, id string, feature string) (*types.BoxInfo, sdk.Error) {
+	boxInfo, err := keeper.GetBoxByOwner(ctx, sender, id)
 	if err != nil {
 		return nil, err
 	}
 	switch feature {
-	case types.Trade:
-		return boxInfo, keeper.disableTrade(ctx, sender, boxInfo)
+	case types.Transfer:
+		return boxInfo, keeper.disableTransfer(ctx, sender, boxInfo)
 	default:
 		return nil, errors.ErrUnknownFeatures()
 	}
 }
-func (keeper Keeper) disableTrade(ctx sdk.Context, sender sdk.AccAddress, boxInfo *types.BoxInfo) sdk.Error {
+func (keeper Keeper) disableTransfer(ctx sdk.Context, sender sdk.AccAddress, boxInfo *types.BoxInfo) sdk.Error {
 	if boxInfo.GetBoxType() == types.Lock {
 		return errors.ErrNotSupportOperation()
 	}
-	if !boxInfo.IsTradeDisabled() {
+	if !boxInfo.IsTransferDisabled() {
 		return nil
 	}
-	boxInfo.TradeDisabled = false
+	boxInfo.TransferDisabled = false
 	keeper.setBox(ctx, boxInfo)
 	return nil
 }
@@ -366,25 +393,25 @@ func (keeper Keeper) SendCoins(ctx sdk.Context,
 }
 
 //Get name from a box
-func (keeper Keeper) GetBoxIdsByName(ctx sdk.Context, boxType string, name string) (boxIDs []string) {
+func (keeper Keeper) GetIdsByName(ctx sdk.Context, boxType string, name string) (ids []string) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyName(boxType, name))
 	if bz == nil {
 		return []string{}
 	}
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &boxIDs)
-	return boxIDs
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &ids)
+	return ids
 }
 
 //Get address from a box
-func (keeper Keeper) GetBoxIdsByAddress(ctx sdk.Context, boxType string, accAddress sdk.AccAddress) (boxIDs []string) {
+func (keeper Keeper) GetIdsByAddress(ctx sdk.Context, boxType string, accAddress sdk.AccAddress) (ids []string) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyAddress(boxType, accAddress))
 	if bz == nil {
 		return []string{}
 	}
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &boxIDs)
-	return boxIDs
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &ids)
+	return ids
 }
 
 // BoxQueues
@@ -395,14 +422,14 @@ func (keeper Keeper) ActiveBoxQueueIterator(ctx sdk.Context, endTime int64) sdk.
 	return store.Iterator(PrefixActiveQueue, sdk.PrefixEndBytes(PrefixActiveBoxQueueTime(endTime)))
 }
 
-// Inserts a boxID into the active box queue at time
+// Inserts a id into the active box queue at time
 func (keeper Keeper) InsertActiveBoxQueue(ctx sdk.Context, endTime int64, boxIdStr string) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := keeper.cdc.MustMarshalBinaryLengthPrefixed(boxIdStr)
 	store.Set(KeyActiveBoxQueue(endTime, boxIdStr), bz)
 }
 
-// removes a boxID from the Active box Queue
+// removes a id from the Active box Queue
 func (keeper Keeper) RemoveFromActiveBoxQueue(ctx sdk.Context, endTime int64, boxIdStr string) {
 	store := ctx.KVStore(keeper.storeKey)
 	store.Delete(KeyActiveBoxQueue(endTime, boxIdStr))
@@ -412,60 +439,61 @@ func (keeper Keeper) RemoveFromActiveBoxQueueByKey(ctx sdk.Context, key []byte) 
 	store.Delete(key)
 }
 
+// -----------------------------------------------------------------------------
 // Params
-// Returns the current boxConfigParams from the global param store
-func (keeper Keeper) GetBoxConfigParams(ctx sdk.Context) boxparams.BoxConfigParams {
-	var boxConfigParams boxparams.BoxConfigParams
-	keeper.paramSpace.Get(ctx, ParamStoreKeyBoxParams, &boxConfigParams)
-	return boxConfigParams
+
+// SetParams sets the auth module's parameters.
+func (ak Keeper) SetParams(ctx sdk.Context, params config.Params) {
+	ak.paramSpace.SetParamSet(ctx, &params)
 }
 
-//Set boxConfigParams
-func (keeper Keeper) SetBoxConfigParams(ctx sdk.Context, boxConfigParams boxparams.BoxConfigParams) {
-	keeper.paramSpace.Set(ctx, ParamStoreKeyBoxParams, &boxConfigParams)
+// GetParams gets the auth module's parameters.
+func (ak Keeper) GetParams(ctx sdk.Context) (params config.Params) {
+	ak.paramSpace.GetParamSet(ctx, &params)
+	return
 }
 
 //Set the initial boxCount
-func (keeper Keeper) SetInitialBoxStartingBoxId(ctx sdk.Context, boxType string, boxID uint64) sdk.Error {
+func (keeper Keeper) SetInitialBoxStartingId(ctx sdk.Context, boxType string, id uint64) sdk.Error {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyNextBoxID(boxType))
 	if bz != nil {
-		return sdk.NewError(keeper.codespace, types.CodeInvalidGenesis, "Initial BoxId already set")
+		return sdk.NewError(keeper.codespace, types.CodeInvalidGenesis, "Initial Id already set")
 	}
-	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(boxID)
+	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(id)
 	store.Set(KeyNextBoxID(boxType), bz)
 	return nil
 }
 
-// Get the last used boxID
-func (keeper Keeper) GetLastBoxID(ctx sdk.Context, boxType string) (boxID uint64) {
-	boxID, err := keeper.PeekCurrentBoxID(ctx, boxType)
+// Get the last used id
+func (keeper Keeper) GetLastBoxID(ctx sdk.Context, boxType string) (id uint64) {
+	id, err := keeper.PeekCurrentBoxID(ctx, boxType)
 	if err != nil {
 		return 0
 	}
-	boxID--
+	id--
 	return
 }
 
-// Gets the next available boxID and increments it
-func (keeper Keeper) getNewBoxID(store sdk.KVStore, boxType string) (boxID uint64, err sdk.Error) {
+// Gets the next available id and increments it
+func (keeper Keeper) getNewBoxID(store sdk.KVStore, boxType string) (id uint64, err sdk.Error) {
 	bz := store.Get(KeyNextBoxID(boxType))
 	if bz == nil {
 		return 0, sdk.NewError(keeper.codespace, types.CodeInvalidGenesis, "InitialBoxID never set")
 	}
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &boxID)
-	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(boxID + 1)
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &id)
+	bz = keeper.cdc.MustMarshalBinaryLengthPrefixed(id + 1)
 	store.Set(KeyNextBoxID(boxType), bz)
-	return boxID, nil
+	return id, nil
 }
 
 // Peeks the next available BoxID without incrementing it
-func (keeper Keeper) PeekCurrentBoxID(ctx sdk.Context, boxType string) (boxID uint64, err sdk.Error) {
+func (keeper Keeper) PeekCurrentBoxID(ctx sdk.Context, boxType string) (id uint64, err sdk.Error) {
 	store := ctx.KVStore(keeper.storeKey)
 	bz := store.Get(KeyNextBoxID(boxType))
 	if bz == nil {
 		return 0, sdk.NewError(keeper.codespace, types.CodeInvalidGenesis, "InitialBoxID never set")
 	}
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &boxID)
-	return boxID, nil
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &id)
+	return id, nil
 }

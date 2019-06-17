@@ -10,13 +10,18 @@ import (
 
 //Handle MsgBoxDescription
 func HandleMsgBoxDescription(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgBoxDescription) sdk.Result {
-	boxInfo, err := keeper.SetBoxDescription(ctx, msg.BoxId, msg.Sender, msg.Description)
+	fee := keeper.GetParams(ctx).DescribeFee
+	if err := keeper.Fee(ctx, msg.Sender, fee); err != nil {
+		return err.Result()
+	}
+
+	boxInfo, err := keeper.SetBoxDescription(ctx, msg.Id, msg.Sender, msg.Description)
 	if err != nil {
 		return err.Result()
 	}
 
 	return sdk.Result{
-		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.BoxId),
-		Tags: utils.GetBoxTags(msg.BoxId, boxInfo.BoxType, msg.Sender),
+		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.Id),
+		Tags: utils.GetBoxTags(msg.Id, boxInfo.BoxType, msg.Sender),
 	}
 }

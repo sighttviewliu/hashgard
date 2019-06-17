@@ -10,7 +10,7 @@ import (
 
 // Key for getting a the next available proposalID from the store
 var (
-	KeyDelimiter   = []byte(":")
+	KeyDelimiter   = ":"
 	KeyNextIssueID = []byte("newIssueID")
 )
 
@@ -33,6 +33,9 @@ func KeyAllowed(issueID string, sender sdk.AccAddress, spender sdk.AccAddress) [
 }
 func KeyFreeze(issueID string, accAddress sdk.AccAddress) []byte {
 	return []byte(fmt.Sprintf("freeze:%s:%s", issueID, accAddress.String()))
+}
+func PrefixFreeze(issueID string) []byte {
+	return []byte(fmt.Sprintf("freeze:%s", issueID))
 }
 func KeySymbolIssues(symbol string) []byte {
 	return []byte(fmt.Sprintf("symbol:%s", strings.ToUpper(symbol)))

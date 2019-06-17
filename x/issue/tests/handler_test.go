@@ -10,7 +10,7 @@ import (
 )
 
 func TestHandlerNewMsgIssue(t *testing.T) {
-	mapp, keeper, _, _, _, _ := getMockApp(t, 0, issue.GenesisState{}, nil)
+	mapp, keeper, _, _, _, _ := getMockApp(t, issue.GenesisState{}, nil)
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
 	ctx := mapp.NewContext(false, abci.Header{})
@@ -18,7 +18,7 @@ func TestHandlerNewMsgIssue(t *testing.T) {
 
 	handler := issue.NewHandler(keeper)
 
-	res := handler(ctx, msgs.NewMsgIssue(&CoinIssueInfo))
+	res := handler(ctx, msgs.NewMsgIssue(SenderAccAddr, &IssueParams))
 	require.True(t, res.IsOK())
 
 	var issueID string

@@ -2,6 +2,7 @@ package msgs
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/hashgard/hashgard/x/box/utils"
 
@@ -16,28 +17,25 @@ import (
 // MsgDepositBox to allow a registered boxr
 // to box new coins.
 type MsgDepositBox struct {
-	*params.BoxDepositParams
+	Sender                   sdk.AccAddress `json:"sender"`
+	*params.BoxDepositParams `json:"params"`
 }
 
-func NewMsgDepositBox(params *params.BoxDepositParams) MsgDepositBox {
-	return MsgDepositBox{params}
+func NewMsgDepositBox(sender sdk.AccAddress, params *params.BoxDepositParams) MsgDepositBox {
+	return MsgDepositBox{sender, params}
 }
 
 // Route Implements Msg.
 func (msg MsgDepositBox) Route() string { return types.RouterKey }
 
 // Type Implements Msg.789
-func (msg MsgDepositBox) Type() string { return types.TypeMsgBoxCreateDeposit }
+func (msg MsgDepositBox) Type() string { return types.TypeMsgBoxCreate }
 
 // Implements Msg. Ensures addresses are valid and Coin is positive
 func (msg MsgDepositBox) ValidateBasic() sdk.Error {
-	if types.Deposit != msg.BoxType {
-		return errors.ErrUnknownBoxType()
-	}
 	if len(msg.Sender) == 0 {
 		return sdk.ErrInvalidAddress("Sender address cannot be empty")
 	}
-
 	if msg.TotalAmount.Token.IsZero() || msg.TotalAmount.Token.Amount.IsNegative() {
 		return errors.ErrAmountNotValid("Token amount")
 	}
@@ -47,15 +45,22 @@ func (msg MsgDepositBox) ValidateBasic() sdk.Error {
 	if len(msg.Description) > types.BoxDescriptionMaxLength {
 		return errors.ErrBoxDescriptionMaxLengthNotValid()
 	}
-	if err := msg.validateBox(); err != nil {
-		return err
-	}
 	return nil
 }
-func (msg MsgDepositBox) validateBox() sdk.Error {
-
+func (msg MsgDepositBox) ValidateService() sdk.Error {
+	if err := msg.ValidateBasic(); err != nil {
+		return err
+	}
 	zero := sdk.ZeroInt()
-
+	if msg.Deposit.StartTime <= time.Now().Unix() {
+		return errors.ErrTimeNotValid("StartTime")
+	}
+	if msg.Deposit.EstablishTime <= msg.Deposit.StartTime {
+		return errors.ErrTimeNotValid("EstablishTime")
+	}
+	if msg.Deposit.MaturityTime <= msg.Deposit.EstablishTime {
+		return errors.ErrTimeNotValid("MaturityTime")
+	}
 	if msg.Deposit.BottomLine.LT(zero) || msg.Deposit.BottomLine.GT(msg.TotalAmount.Token.Amount) {
 		return errors.ErrAmountNotValid("BottomLine")
 	}
@@ -69,7 +74,6 @@ func (msg MsgDepositBox) validateBox() sdk.Error {
 		msg.Deposit.Interest.Token, msg.Deposit.Interest.Decimals)) {
 		return errors.ErrAmountNotValid("PerCoupon")
 	}
-
 	return nil
 }
 

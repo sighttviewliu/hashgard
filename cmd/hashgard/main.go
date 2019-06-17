@@ -97,13 +97,13 @@ func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application
 func exportAppStateAndTMValidators(
 	logger log.Logger, db dbm.DB, traceStore io.Writer, height int64, forZeroHeight bool,
 	jailWhiteList []string) (json.RawMessage, []tmtypes.GenesisValidator, error) {
-
 	if height != -1 {
 		hApp := app.NewHashgardApp(logger, db, traceStore, false, uint(1))
 		err := hApp.LoadHeight(height)
 		if err != nil {
 			return nil, nil, err
 		}
+
 		return hApp.ExportAppStateAndValidators(forZeroHeight, jailWhiteList)
 	}
 

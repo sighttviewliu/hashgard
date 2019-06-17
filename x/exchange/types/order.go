@@ -9,7 +9,7 @@ import (
 )
 
 type Order struct {
-	OrderId    uint64         `json:"order_id"`
+	OrderId    uint64         `json:"id"`
 	Seller     sdk.AccAddress `json:"seller"`
 	Supply     sdk.Coin       `json:"supply"`
 	Target     sdk.Coin       `json:"target"`
@@ -28,7 +28,7 @@ func (order Order) String() string {
 }
 
 // Orders is an array of order
-type Orders []Order
+type Orders []*Order
 
 func (orders Orders) String() string {
 	out := fmt.Sprintf("%10s - (%15s) - (%40s) - [%10s] - Create Time\n", "ID", "Supply", "Target", "Remains")

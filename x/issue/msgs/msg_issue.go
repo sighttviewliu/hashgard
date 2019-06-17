@@ -3,6 +3,8 @@ package msgs
 import (
 	"fmt"
 
+	"github.com/hashgard/hashgard/x/issue/params"
+
 	"github.com/hashgard/hashgard/x/issue/utils"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -14,12 +16,13 @@ import (
 // MsgIssue to allow a registered issuer
 // to issue new coins.
 type MsgIssue struct {
-	*types.CoinIssueInfo
+	Sender              sdk.AccAddress `json:"sender"`
+	*params.IssueParams `json:"params"`
 }
 
 //New MsgIssue Instance
-func NewMsgIssue(coinIssueInfo *types.CoinIssueInfo) MsgIssue {
-	return MsgIssue{coinIssueInfo}
+func NewMsgIssue(sender sdk.AccAddress, params *params.IssueParams) MsgIssue {
+	return MsgIssue{sender, params}
 }
 
 // Route Implements Msg.
@@ -30,17 +33,17 @@ func (msg MsgIssue) Type() string { return types.TypeMsgIssue }
 
 // Implements Msg. Ensures addresses are valid and Coin is positive
 func (msg MsgIssue) ValidateBasic() sdk.Error {
-	if len(msg.Owner) == 0 {
+	if len(msg.Sender) == 0 {
 		return sdk.ErrInvalidAddress("Owner address cannot be empty")
 	}
 	// Cannot issue zero or negative coins
-	if msg.CoinIssueInfo.TotalSupply.IsZero() || !msg.CoinIssueInfo.TotalSupply.IsPositive() {
+	if msg.TotalSupply.IsZero() || !msg.TotalSupply.IsPositive() {
 		return sdk.ErrInvalidCoins("Cannot issue 0 or negative coin amounts")
 	}
-	if utils.QuoDecimals(msg.CoinIssueInfo.TotalSupply, msg.CoinIssueInfo.Decimals).GT(types.CoinMaxTotalSupply) {
+	if utils.QuoDecimals(msg.TotalSupply, msg.Decimals).GT(types.CoinMaxTotalSupply) {
 		return errors.ErrCoinTotalSupplyMaxValueNotValid()
 	}
-	if len(msg.Name) > types.CoinNameMaxLength {
+	if len(msg.Name) < types.CoinNameMinLength || len(msg.Name) > types.CoinNameMaxLength {
 		return errors.ErrCoinNamelNotValid()
 	}
 	if len(msg.Symbol) < types.CoinSymbolMinLength || len(msg.Symbol) > types.CoinSymbolMaxLength {
@@ -66,9 +69,9 @@ func (msg MsgIssue) GetSignBytes() []byte {
 
 // GetSigners Implements Msg.
 func (msg MsgIssue) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{msg.Owner}
+	return []sdk.AccAddress{msg.Sender}
 }
 
 func (msg MsgIssue) String() string {
-	return fmt.Sprintf("MsgIssue{%s - %s}", "", msg.Owner.String())
+	return fmt.Sprintf("MsgIssue{%s - %s}", "", msg.Sender.String())
 }

@@ -8,11 +8,15 @@ import (
 var (
 	TxCategory = "exchange"
 
-	Action      = sdk.TagAction
-	Category    = sdk.TagCategory
-	Sender      = sdk.TagSender
-	OrderId     = "order_id"
-	SupplyToken = "supply_token"
-	TargetToken = "target_token"
-	OrderStatus = "order_status"
+	Action         = sdk.TagAction
+	Category       = sdk.TagCategory
+	Sender         = sdk.TagSender
+	OrderId        = "id"
+	OrderStatus    = "status"
+	SupplyDenom    = "supply_denom"
+	TargetDenom    = "target_denom"
+	SupplyAmount   = "supply_amount"
+	TargetAmount   = "target_amount"
+	SupplyTurnover = "supply_turnover"
+	TargetTurnover = "target_turnover"
 )

@@ -6,11 +6,10 @@ import (
 	"github.com/hashgard/hashgard/x/box/tags"
 )
 
-func GetBoxTags(boxID string, boxType string, sender sdk.AccAddress) sdk.Tags {
+func GetBoxTags(id string, boxType string, sender sdk.AccAddress) sdk.Tags {
 	return sdk.NewTags(
-		tags.Category, tags.TxCategory,
-		tags.BoxID, boxID,
-		tags.BoxType, boxType,
+		tags.Category, boxType,
+		tags.BoxID, id,
 		tags.Sender, sender.String(),
 	)
 }

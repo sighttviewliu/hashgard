@@ -14,8 +14,6 @@ import (
 	"testing"
 	"time"
 
-	//"encoding/hex"
-
 	"github.com/tendermint/tendermint/crypto/ed25519"
 
 	"github.com/stretchr/testify/require"
@@ -24,8 +22,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/tests"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/gov"
+
 	"github.com/hashgard/hashgard/app"
+	"github.com/hashgard/hashgard/x/gov"
 )
 
 func TestHashgardCLIExchange(t *testing.T) {
@@ -57,7 +56,7 @@ func TestHashgardCLIExchange(t *testing.T) {
 	tests.WaitForNextNBlocksTM(1, f.Port)
 
 	// Ensure transaction tags can be queried
-	txs := f.QueryTxs(1, 50, "action:create_order", fmt.Sprintf("sender:%s", fooAddr))
+	txs := f.QueryTxs(1, 50, "action:make", fmt.Sprintf("sender:%s", fooAddr))
 	require.Len(t, txs, 1)
 
 	// Ensure supply was deducted
@@ -79,7 +78,7 @@ func TestHashgardCLIExchange(t *testing.T) {
 	tests.WaitForNextNBlocksTM(1, f.Port)
 
 	// Ensure transaction tags can be queried
-	txs = f.QueryTxs(1, 50, "action:take_order", fmt.Sprintf("sender:%s", barAddr))
+	txs = f.QueryTxs(1, 50, "action:take", fmt.Sprintf("sender:%s", barAddr))
 	require.Len(t, txs, 1)
 
 	// Ensure the turnout and remains
@@ -93,7 +92,7 @@ func TestHashgardCLIExchange(t *testing.T) {
 	tests.WaitForNextNBlocksTM(1, f.Port)
 
 	// Ensure transaction tags can be queried
-	txs = f.QueryTxs(1, 50, "action:withdrawal_order", fmt.Sprintf("sender:%s", fooAddr))
+	txs = f.QueryTxs(1, 50, "action:cancel", fmt.Sprintf("sender:%s", fooAddr))
 	require.Len(t, txs, 1)
 }
 
@@ -106,16 +105,16 @@ func TestHashgardCLIIssue(t *testing.T) {
 	defer proc.Stop(false)
 
 	// Save key addresses for later use
-	fooAddr := f.KeyAddress(keyFoo)
+	fooIssue := f.KeyAddress(keyIssue)
 	//barAddr := f.KeyAddress(keyBar)
 
 	// create issue
-	f.TxIssueCreate(keyFoo, "zhuma", "ZHM", 100, "--decimals 18 --gas 200000 -y")
+	f.TxIssueCreate(keyIssue, "zhuma", "ZHM", 100, "--decimals 18 --gas 200000 -y")
 
 	tests.WaitForNextNBlocksTM(1, f.Port)
 
 	// Ensure transaction tags can be queried
-	txs := f.QueryTxs(1, 50, "action:issue", fmt.Sprintf("sender:%s", fooAddr))
+	txs := f.QueryTxs(1, 50, "action:issue", fmt.Sprintf("sender:%s", fooIssue))
 	require.Len(t, txs, 1)
 
 	//issueBytes, _ := hex.DecodeString(txs[0].Data)
@@ -125,42 +124,42 @@ func TestHashgardCLIIssue(t *testing.T) {
 	//
 	//// query the issue
 	//issue1 := f.QueryIssueIssue(issueId)
-	//require.Equal(t, fooAddr, issue1.Owner)
+	//require.Equal(t, fooIssue, issue1.Owner)
 	//
 	//// query the balance
-	//fooAcc1 := f.QueryAccount(fooAddr)
+	//fooAcc1 := f.QueryAccount(fooIssue)
 	//require.Equal(t, sdk.NewInt(1000000), fooAcc1.GetCoins().AmountOf(issueDenom))
 	//
 	//// mint
-	//f.TxIssueMint(keyFoo, issueId, 100, "-y")
+	//f.TxIssueMint(keyIssue, issueId, 100, "-y")
 	//tests.WaitForNextNBlocksTM(1, f.Port)
 	//
 	//// Ensure transaction tags can be queried
-	//txs = f.QueryTxs(1, 50, "action:issue_mint", fmt.Sprintf("sender:%s", fooAddr))
+	//txs = f.QueryTxs(1, 50, "action:issue_mint", fmt.Sprintf("sender:%s", fooIssue))
 	//require.Len(t, txs, 1)
 	//
 	//// Ensure balance
-	//fooAcc2 := f.QueryAccount(fooAddr)
+	//fooAcc2 := f.QueryAccount(fooIssue)
 	//require.Equal(t, sdk.NewInt(2000000), fooAcc2.GetCoins().AmountOf(issueDenom))
 	//
 	//// approve
-	//f.TxIssueApprove(keyFoo, issueId, barAddr.String(), 10, "-y")
+	//f.TxIssueApprove(keyIssue, issueId, barAddr.String(), 10, "-y")
 	//tests.WaitForNextNBlocksTM(1, f.Port)
 	//
 	//// Ensure transaction tags can be queried
-	//txs = f.QueryTxs(1, 50, "action:issue_approve", fmt.Sprintf("sender:%s", fooAddr))
+	//txs = f.QueryTxs(1, 50, "action:issue_approve", fmt.Sprintf("sender:%s", fooIssue))
 	//require.Len(t, txs, 1)
 	//
 	//// query the allowance
-	//approval1 := f.QueryIssueAllowance(issueId, fooAddr.String(), barAddr.String())
+	//approval1 := f.QueryIssueAllowance(issueId, fooIssue.String(), barAddr.String())
 	//require.Equal(t, sdk.NewInt(100000), approval1.Amount)
 	//
 	//// send from
-	//f.TxIssueSendFrom(keyBar, issueId, fooAddr.String(), barAddr.String(), 10, "-y")
+	//f.TxIssueSendFrom(keyBar, issueId, fooIssue.String(), barAddr.String(), 10, "-y")
 	//tests.WaitForNextNBlocksTM(1, f.Port)
 	//
 	//// Ensure transaction tags can be queried
-	//txs = f.QueryTxs(1, 50, "action:issue_send_from", fmt.Sprintf("sender:%s", fooAddr))
+	//txs = f.QueryTxs(1, 50, "action:issue_send_from", fmt.Sprintf("sender:%s", fooIssue))
 	//require.Len(t, txs, 1)
 	//
 	//// ensure the balance

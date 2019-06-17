@@ -2,6 +2,7 @@ package msgs
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/hashgard/hashgard/x/issue/errors"
 
@@ -70,6 +71,15 @@ func (msg MsgIssueFreeze) ValidateBasic() sdk.Error {
 	_, ok := types.FreezeType[msg.FreezeType]
 	if !ok {
 		return errors.ErrUnknownFreezeType()
+	}
+	return nil
+}
+func (msg MsgIssueFreeze) ValidateService() sdk.Error {
+	if err := msg.ValidateBasic(); err != nil {
+		return err
+	}
+	if msg.EndTime <= time.Now().Unix() {
+		return errors.ErrFreezeEndTimestampNotValid()
 	}
 	return nil
 }

@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-var DepositOperation = map[string]uint{DepositTo: 1, Fetch: 2}
+var DepositOperation = map[string]uint{Inject: 1, Cancel: 2}
 
 func CheckDepositOperation(depositOperation string) sdk.Error {
 	_, ok := DepositOperation[depositOperation]

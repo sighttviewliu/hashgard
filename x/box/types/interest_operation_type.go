@@ -4,7 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-var InterestOperation = map[string]uint{Injection: 1, Fetch: 2}
+var InterestOperation = map[string]uint{Inject: 1, Cancel: 2}
 
 func CheckInterestOperation(interestOperation string) sdk.Error {
 	_, ok := InterestOperation[interestOperation]

@@ -2,22 +2,34 @@ package handlers
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/hashgard/hashgard/x/box/tags"
 
 	"github.com/hashgard/hashgard/x/box/keeper"
 	"github.com/hashgard/hashgard/x/box/msgs"
 	"github.com/hashgard/hashgard/x/box/utils"
 )
 
-//Handle MsgBoxInterest
-func HandleMsgBoxInterest(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgBoxInterest) sdk.Result {
-	boxInfo, err := keeper.ProcessDepositBoxInterest(ctx, msg.BoxId, msg.Sender, msg.Interest, msg.Operation)
+//Handle MsgBoxInterestInject
+func HandleMsgBoxInterestInject(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgBoxInterestInject) sdk.Result {
+	boxInfo, err := keeper.InjectDepositBoxInterest(ctx, msg.Id, msg.Sender, msg.Amount)
 	if err != nil {
 		return err.Result()
 	}
 
 	return sdk.Result{
-		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.BoxId),
-		Tags: utils.GetBoxTags(msg.BoxId, boxInfo.BoxType, msg.Sender).AppendTag(tags.Operation, msg.Operation),
+		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.Id),
+		Tags: utils.GetBoxTags(msg.Id, boxInfo.BoxType, msg.Sender),
+	}
+}
+
+//Handle MsgBoxInterestCancel
+func HandleMsgBoxInterestCancel(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgBoxInterestCancel) sdk.Result {
+	boxInfo, err := keeper.CancelInterestFromDepositBox(ctx, msg.Id, msg.Sender, msg.Amount)
+	if err != nil {
+		return err.Result()
+	}
+
+	return sdk.Result{
+		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.Id),
+		Tags: utils.GetBoxTags(msg.Id, boxInfo.BoxType, msg.Sender),
 	}
 }

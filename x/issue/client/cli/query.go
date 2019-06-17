@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
@@ -10,37 +9,81 @@ import (
 	issuequeriers "github.com/hashgard/hashgard/x/issue/client/queriers"
 	"github.com/hashgard/hashgard/x/issue/errors"
 	"github.com/hashgard/hashgard/x/issue/params"
-	"github.com/hashgard/hashgard/x/issue/types"
 	issueutils "github.com/hashgard/hashgard/x/issue/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
-// GetCmdQueryIssue implements the query issue command.
-func GetCmdQueryIssue(cdc *codec.Codec) *cobra.Command {
+// GetQueryParamsCmd implements the query params command.
+func GetQueryParamsCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:     "query-issue [issue-id]",
-		Args:    cobra.ExactArgs(1),
-		Short:   "Query a single issue",
-		Long:    "Query details for a issue. You can find the issue-id by running hashgardcli issue list-issues",
-		Example: "$ hashgardcli issue query-issue gardh1c7d59vebq",
+		Use:     "params",
+		Short:   "Query the parameters of the lock process",
+		Long:    "Query the all the parameters",
+		Example: "$ hashgardcli lock params",
+		Args:    cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-			issueID := args[0]
-			if err := issueutils.CheckIssueId(issueID); err != nil {
-				return errors.Errorf(err)
-			}
-			// Query the issue
-			res, err := issuequeriers.QueryIssueByID(issueID, cliCtx)
+			res, err := issuequeriers.QueryParams(cliCtx)
 			if err != nil {
 				return err
 			}
-			var issueInfo types.Issue
-			cdc.MustUnmarshalJSON(res, &issueInfo)
-			issueInfo.SetTotalSupply(issueutils.QuoDecimals(issueInfo.GetTotalSupply(), issueInfo.GetDecimals()))
-			return cliCtx.PrintOutput(issueInfo)
+			_, err = cliCtx.Output.Write(res)
+			if err != nil {
+				return err
+			}
+			return nil
 		},
 	}
+}
+
+// QueryCmd implements the query issue command.
+func QueryCmd(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:     "issue [denom]",
+		Args:    cobra.ExactArgs(1),
+		Short:   "Query the details of the account coin",
+		Long:    "Query the details of the account issue coin",
+		Example: "$ hashgardcli bank issue coin174876e800",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return processQuery(cdc, args)
+		},
+	}
+}
+
+// GetCmdQueryIssue implements the query issue command.
+func GetCmdQueryIssue(cdc *codec.Codec) *cobra.Command {
+	return &cobra.Command{
+		Use:     "query [issue-id]",
+		Args:    cobra.ExactArgs(1),
+		Short:   "Query a single issue",
+		Long:    "Query details for a issue. You can find the issue-id by running hashgardcli issue list-issues",
+		Example: "$ hashgardcli issue query-issue coin174876e800",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return processQuery(cdc, args)
+		},
+	}
+}
+
+func processQuery(cdc *codec.Codec, args []string) error {
+	cliCtx := context.NewCLIContext().WithCodec(cdc)
+	issueID := args[0]
+	if err := issueutils.CheckIssueId(issueID); err != nil {
+		return errors.Errorf(err)
+	}
+	// Query the issue
+	res, err := issuequeriers.QueryIssueByID(issueID, cliCtx)
+	if err != nil {
+		return err
+	}
+	//var issueInfo types.Issue
+	//cdc.MustUnmarshalJSON(res, &issueInfo)
+	//return cliCtx.PrintOutput(issueInfo)
+	_, err = cliCtx.Output.Write(res)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // GetCmdQueryAllowance implements the query allowance command.
@@ -69,10 +112,15 @@ func GetCmdQueryAllowance(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			var approval types.Approval
-			cdc.MustUnmarshalJSON(res, &approval)
-
-			return cliCtx.PrintOutput(approval)
+			//var approval types.Approval
+			//cdc.MustUnmarshalJSON(res, &approval)
+			//
+			//return cliCtx.PrintOutput(approval)
+			_, err = cliCtx.Output.Write(res)
+			if err != nil {
+				return err
+			}
+			return nil
 		},
 	}
 }
@@ -99,10 +147,15 @@ func GetCmdQueryFreeze(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			var freeze types.IssueFreeze
-			cdc.MustUnmarshalJSON(res, &freeze)
-
-			return cliCtx.PrintOutput(freeze)
+			//var freeze types.IssueFreeze
+			//cdc.MustUnmarshalJSON(res, &freeze)
+			//
+			//return cliCtx.PrintOutput(freeze)
+			_, err = cliCtx.Output.Write(res)
+			if err != nil {
+				return err
+			}
+			return nil
 		},
 	}
 }
@@ -110,7 +163,7 @@ func GetCmdQueryFreeze(cdc *codec.Codec) *cobra.Command {
 // GetCmdQueryIssues implements the query issue command.
 func GetCmdQueryIssues(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:     "list-issues",
+		Use:     "list",
 		Short:   "Query issue list",
 		Long:    "Query all or one of the account issue list, the limit default is 30",
 		Example: "$ hashgardcli issue list-issues",
@@ -132,24 +185,54 @@ func GetCmdQueryIssues(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			var tokenIssues types.CoinIssues
-			cdc.MustUnmarshalJSON(res, &tokenIssues)
-			if len(tokenIssues) == 0 {
-				fmt.Println("No records")
-				return nil
+			//var tokenIssues types.CoinIssues
+			//cdc.MustUnmarshalJSON(res, &tokenIssues)
+			//if len(tokenIssues) == 0 {
+			//	fmt.Println("No records")
+			//	return nil
+			//}
+			//return cliCtx.PrintOutput(tokenIssues)
+			_, err = cliCtx.Output.Write(res)
+			if err != nil {
+				return err
 			}
-			for i, token := range tokenIssues {
-				tokenIssues[i].TotalSupply = issueutils.QuoDecimals(token.TotalSupply, token.Decimals)
-			}
-			return cliCtx.PrintOutput(tokenIssues)
+			return nil
 		},
 	}
 
 	cmd.Flags().String(flagAddress, "", "Token owner address")
-	cmd.Flags().String(flagSymbol, "", "Symbol of issue token")
 	cmd.Flags().String(flagStartIssueId, "", "Start issueId of issues")
 	cmd.Flags().Int32(flagLimit, 30, "Query number of issue results per page returned")
+	return cmd
+}
 
+// GetCmdQueryFreezes implements the query freezes command.
+func GetCmdQueryFreezes(cdc *codec.Codec) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:     "list-freeze",
+		Short:   "Query freeze list",
+		Long:    "Query all or one of the issue freeze list",
+		Example: "$ hashgardcli issue list-freeze",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cliCtx := context.NewCLIContext().WithCodec(cdc)
+			issueID := args[0]
+			if err := issueutils.CheckIssueId(issueID); err != nil {
+				return errors.Errorf(err)
+			}
+			res, err := issuequeriers.QueryIssueFreezes(issueID, cliCtx)
+			if err != nil {
+				return err
+			}
+			//var issueFreeze types.IssueAddressFreezeList
+			//cdc.MustUnmarshalJSON(res, &issueFreeze)
+			//return cliCtx.PrintOutput(issueFreeze)
+			_, err = cliCtx.Output.Write(res)
+			if err != nil {
+				return err
+			}
+			return nil
+		},
+	}
 	return cmd
 }
 
@@ -163,18 +246,19 @@ func GetCmdSearchIssues(cdc *codec.Codec) *cobra.Command {
 		Example: "$ hashgardcli issue search fo",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
-
 			// Query the issue
 			res, err := issuequeriers.QueryIssueBySymbol(strings.ToUpper(args[0]), cliCtx)
 			if err != nil {
 				return err
 			}
-			var tokenIssues types.CoinIssues
-			cdc.MustUnmarshalJSON(res, &tokenIssues)
-			for i, token := range tokenIssues {
-				tokenIssues[i].TotalSupply = issueutils.QuoDecimals(token.TotalSupply, token.Decimals)
+			//var tokenIssues types.CoinIssues
+			//cdc.MustUnmarshalJSON(res, &tokenIssues)
+			//return cliCtx.PrintOutput(tokenIssues)
+			_, err = cliCtx.Output.Write(res)
+			if err != nil {
+				return err
 			}
-			return cliCtx.PrintOutput(tokenIssues)
+			return nil
 		},
 	}
 	return cmd

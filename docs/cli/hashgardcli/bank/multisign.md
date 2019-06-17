@@ -87,7 +87,7 @@ hashgardcli bank multisign  unsignedTx.json a123 a1sign.json a2sign.json \
 The transaction can now be sent to the node:
 
 ```bash
-gaiacli tx broadcast signedTx.json
+hashgardcli tx broadcast signedTx.json
 ```
 
 Tx query:

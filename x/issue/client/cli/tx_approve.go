@@ -1,8 +1,6 @@
 package cli
 
 import (
-	"fmt"
-
 	"github.com/hashgard/hashgard/x/issue/types"
 
 	"github.com/cosmos/cosmos-sdk/client/utils"
@@ -41,7 +39,7 @@ func GetCmdIssueSendFrom(cdc *codec.Codec) *cobra.Command {
 
 			amount, ok := sdk.NewIntFromString(args[3])
 			if !ok {
-				return fmt.Errorf("Amount %s not a valid int, please input a valid amount", args[1])
+				return errors.Errorf(errors.ErrAmountNotValid(args[3]))
 			}
 
 			txBldr, cliCtx, account, err := clientutils.GetCliContext(cdc)
@@ -49,15 +47,15 @@ func GetCmdIssueSendFrom(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			if err := issueutils.CheckAllowance(cdc, cliCtx, issueID, fromAddress, account.GetAddress(), amount); err != nil {
+			if err := clientutils.CheckAllowance(cdc, cliCtx, issueID, fromAddress, account.GetAddress(), amount); err != nil {
 				return err
 			}
 
-			if err = issueutils.CheckFreeze(cdc, cliCtx, issueID, fromAddress, toAddress); err != nil {
+			if err = clientutils.CheckFreeze(cdc, cliCtx, issueID, fromAddress, toAddress); err != nil {
 				return err
 			}
 
-			issueInfo, err := issueutils.GetIssueByID(cdc, cliCtx, issueID)
+			issueInfo, err := clientutils.GetIssueByID(cdc, cliCtx, issueID)
 			if err != nil {
 				return err
 			}
@@ -122,24 +120,19 @@ func GetCmdIssueDecreaseApproval(cdc *codec.Codec) *cobra.Command {
 }
 func issueApprove(cdc *codec.Codec, args []string, approveType string) error {
 	issueID := args[0]
-
 	accAddress, err := sdk.AccAddressFromBech32(args[1])
 	if err != nil {
 		return err
 	}
-
 	amount, ok := sdk.NewIntFromString(args[2])
 	if !ok {
-		return fmt.Errorf("Amount %s not a valid int, please input a valid amount", args[2])
+		return errors.Errorf(errors.ErrAmountNotValid(args[2]))
 	}
-
 	txBldr, cliCtx, account, err := clientutils.GetCliContext(cdc)
 	if err != nil {
 		return err
 	}
-
 	msg, err := clientutils.GetIssueApproveMsg(cdc, cliCtx, issueID, account, accAddress, approveType, amount, true)
-
 	if err != nil {
 		return err
 	}

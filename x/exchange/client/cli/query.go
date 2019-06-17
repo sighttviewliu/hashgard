@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"strconv"
-	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -14,30 +13,28 @@ import (
 	"github.com/hashgard/hashgard/x/exchange/types"
 )
 
-func GetCmdQueryOrder(queryRoute string, cdc *codec.Codec) *cobra.Command {
+func GetQueryCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "query-order [order-id]",
-		Args:  cobra.ExactArgs(1),
-		Short: "Query detail info of the order with the specific order-id",
-		Long: strings.TrimSpace(`
-$ hashgardcli exchange query-order 1
-`),
+		Use:     "query [id]",
+		Args:    cobra.ExactArgs(1),
+		Short:   "Query detail info of the order with the specific id",
+		Example: "$ hashgardcli exchange query 1",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
 			// validate that the proposal id is a uint
-			orderId, err := strconv.ParseUint(args[0], 10, 64)
+			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
-				return fmt.Errorf("order-id %s not a valid uint, please input a valid order-id", args[0])
+				return fmt.Errorf("id %s not a valid uint, please input a valid id", args[0])
 			}
 
-			params := queriers.NewQueryOrderParams(orderId)
+			params := queriers.NewQueryOrderParams(id)
 			bz, err := cdc.MarshalJSON(params)
 			if err != nil {
 				return err
 			}
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/order", queryRoute), bz)
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/order", types.QuerierRoute), bz)
 			if err != nil {
 				return err
 			}
@@ -49,14 +46,12 @@ $ hashgardcli exchange query-order 1
 	}
 }
 
-func GetCmdQueryOrdersByAddr(queryRoute string, cdc *codec.Codec) *cobra.Command {
+func GetListCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "query-orders [address]",
-		Args:  cobra.ExactArgs(1),
-		Short: "Query all orders of a specific address",
-		Long: strings.TrimSpace(`
-$ hashgardcli exchange query-orders gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd
-`),
+		Use:     "list [address]",
+		Args:    cobra.ExactArgs(1),
+		Short:   "Query all orders of a specific address",
+		Example: "$ hashgardcli exchange list gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
@@ -71,7 +66,7 @@ $ hashgardcli exchange query-orders gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd
 				return err
 			}
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/orders", queryRoute), bz)
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/orders", types.QuerierRoute), bz)
 			if err != nil {
 				return err
 			}
@@ -83,14 +78,12 @@ $ hashgardcli exchange query-orders gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd
 	}
 }
 
-func GetCmdFrozenFund(queryRoute string, cdc *codec.Codec) *cobra.Command {
+func GetFrozenFundCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "query-frozen [address]",
-		Args:  cobra.ExactArgs(1),
-		Short: "Query frozen fund of a specific address",
-		Long: strings.TrimSpace(`
-$ hashgardcli exchange query-frozen gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd
-`),
+		Use:     "query-frozen [address]",
+		Args:    cobra.ExactArgs(1),
+		Short:   "Query frozen fund of a specific address",
+		Example: "$ hashgardcli exchange query-frozen gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
@@ -105,7 +98,7 @@ $ hashgardcli exchange query-frozen gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd
 				return err
 			}
 
-			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/frozen", queryRoute), bz)
+			res, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/frozen", types.QuerierRoute), bz)
 			if err != nil {
 				return err
 			}

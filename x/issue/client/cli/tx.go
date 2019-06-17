@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"strings"
 
+	"github.com/hashgard/hashgard/x/issue/params"
+
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -39,20 +41,19 @@ func GetCmdIssueCreate(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			coinIssueInfo := types.CoinIssueInfo{
-				Issuer:             account.GetAddress(),
-				Owner:              account.GetAddress(),
+			coinIssueInfo := params.IssueParams{
 				Name:               args[0],
 				Symbol:             strings.ToUpper(args[1]),
 				BurnOwnerDisabled:  viper.GetBool(flagBurnOwnerDisabled),
 				BurnHolderDisabled: viper.GetBool(flagBurnHolderDisabled),
 				BurnFromDisabled:   viper.GetBool(flagBurnFromDisabled),
 				MintingFinished:    viper.GetBool(flagMintingFinished),
+				FreezeDisabled:     viper.GetBool(flagFreezeDisabled),
 				TotalSupply:        totalSupply,
 				Decimals:           uint(viper.GetInt(flagDecimals)),
 			}
-			coinIssueInfo.SetTotalSupply(issueutils.MulDecimals(coinIssueInfo.TotalSupply, coinIssueInfo.Decimals))
-			msg := msgs.NewMsgIssue(&coinIssueInfo)
+			coinIssueInfo.TotalSupply = issueutils.MulDecimals(coinIssueInfo.TotalSupply, coinIssueInfo.Decimals)
+			msg := msgs.NewMsgIssue(account.GetAddress(), &coinIssueInfo)
 
 			validateErr := msg.ValidateBasic()
 
@@ -68,6 +69,7 @@ func GetCmdIssueCreate(cdc *codec.Codec) *cobra.Command {
 	cmd.Flags().Bool(flagBurnHolderDisabled, false, "Disable token holder burn the token")
 	cmd.Flags().Bool(flagBurnFromDisabled, false, "Disable token owner burn the token from any holder")
 	cmd.Flags().Bool(flagMintingFinished, false, "Token owner can not minting the token")
+	cmd.Flags().Bool(flagFreezeDisabled, false, "Token holder can transfer the token in and out")
 
 	return cmd
 }
@@ -94,7 +96,7 @@ func GetCmdIssueTransferOwnership(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			_, err = issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+			_, err = clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 			if err != nil {
 				return err
 			}
@@ -140,7 +142,7 @@ func GetCmdIssueDescription(cdc *codec.Codec) *cobra.Command {
 			}
 			contents = buffer.Bytes()
 
-			_, err = issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+			_, err = clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 			if err != nil {
 				return err
 			}
@@ -174,7 +176,7 @@ func GetCmdIssueMint(cdc *codec.Codec) *cobra.Command {
 			}
 			amount, ok := sdk.NewIntFromString(args[1])
 			if !ok {
-				return fmt.Errorf("Amount %s not a valid int, please input a valid amount", args[2])
+				return errors.Errorf(errors.ErrAmountNotValid(args[1]))
 			}
 
 			txBldr, cliCtx, account, err := clientutils.GetCliContext(cdc)
@@ -190,7 +192,7 @@ func GetCmdIssueMint(cdc *codec.Codec) *cobra.Command {
 				}
 			}
 
-			issueInfo, err := issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+			issueInfo, err := clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 			if err != nil {
 				return err
 			}
@@ -248,7 +250,7 @@ func GetCmdIssueDisableFeature(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			_, err = issueutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
+			_, err = clientutils.IssueOwnerCheck(cdc, cliCtx, account, issueID)
 			if err != nil {
 				return err
 			}

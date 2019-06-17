@@ -59,18 +59,18 @@ func postIssueSendFrom(cdc *codec.Codec, cliCtx context.CLIContext) http.Handler
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
-		_, err = issueutils.GetIssueByID(cdc, cliCtx, issueID)
+		_, err = clientutils.GetIssueByID(cdc, cliCtx, issueID)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		if err := issueutils.CheckAllowance(cdc, cliCtx, issueID, from, account.GetAddress(), amount); err != nil {
+		if err := clientutils.CheckAllowance(cdc, cliCtx, issueID, from, account.GetAddress(), amount); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 
-		if err = issueutils.CheckFreeze(cdc, cliCtx, issueID, from, to); err != nil {
+		if err = clientutils.CheckFreeze(cdc, cliCtx, issueID, from, to); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}

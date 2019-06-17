@@ -1,8 +1,6 @@
 package cli
 
 import (
-	"fmt"
-
 	"github.com/cosmos/cosmos-sdk/client/utils"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -45,17 +43,14 @@ func GetCmdIssueBurnFrom(cdc *codec.Codec) *cobra.Command {
 }
 
 func issueBurnFrom(cdc *codec.Codec, args []string, burnFromType string) error {
-
 	issueID := args[0]
 	if err := issueutils.CheckIssueId(issueID); err != nil {
 		return errors.Errorf(err)
 	}
-
 	txBldr, cliCtx, account, err := clientutils.GetCliContext(cdc)
 	if err != nil {
 		return err
 	}
-
 	amountStr := ""
 	//burn sender
 	accAddress := account.GetAddress()
@@ -69,16 +64,13 @@ func issueBurnFrom(cdc *codec.Codec, args []string, burnFromType string) error {
 	} else {
 		amountStr = args[1]
 	}
-
 	amount, ok := sdk.NewIntFromString(amountStr)
 	if !ok {
-		return fmt.Errorf("Amount %s not a valid int, please input a valid amount", amountStr)
+		return errors.Errorf(errors.ErrAmountNotValid(amountStr))
 	}
-
 	msg, err := clientutils.GetBurnMsg(cdc, cliCtx, account, accAddress, issueID, amount, burnFromType, true)
 	if err != nil {
 		return err
 	}
-
 	return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
 }

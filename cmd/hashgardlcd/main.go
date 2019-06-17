@@ -11,9 +11,6 @@ import (
 	at "github.com/cosmos/cosmos-sdk/x/auth"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
-	distribution "github.com/cosmos/cosmos-sdk/x/distribution/client/rest"
-	gov "github.com/cosmos/cosmos-sdk/x/gov/client/rest"
-	mint "github.com/cosmos/cosmos-sdk/x/mint/client/rest"
 	slashing "github.com/cosmos/cosmos-sdk/x/slashing/client/rest"
 	staking "github.com/cosmos/cosmos-sdk/x/staking/client/rest"
 	"github.com/rakyll/statik/fs"
@@ -21,7 +18,11 @@ import (
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
 
+	deposit "github.com/hashgard/hashgard/x/deposit/client/rest"
+	exchange "github.com/hashgard/hashgard/x/exchange/client/rest"
+	future "github.com/hashgard/hashgard/x/future/client/rest"
 	issue "github.com/hashgard/hashgard/x/issue/client/rest"
+	lock "github.com/hashgard/hashgard/x/lock/client/rest"
 
 	distributioncmd "github.com/cosmos/cosmos-sdk/x/distribution"
 
@@ -30,6 +31,9 @@ import (
 	_ "github.com/hashgard/hashgard/client/lcd/statik"
 	hashgardInit "github.com/hashgard/hashgard/init"
 	"github.com/hashgard/hashgard/version"
+	distribution "github.com/hashgard/hashgard/x/distribution/client/rest"
+	gov "github.com/hashgard/hashgard/x/gov/client/rest"
+	mint "github.com/hashgard/hashgard/x/mint/client/rest"
 )
 
 // rootCmd is the entry point for this binary
@@ -81,6 +85,10 @@ func registerRoutes(rs *lcd.RestServer) {
 	slashing.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
 	gov.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	issue.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	lock.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	deposit.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	future.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	exchange.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	mint.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 }
 
@@ -89,6 +97,7 @@ func registerSwaggerUI(rs *lcd.RestServer) {
 	if err != nil {
 		panic(err)
 	}
+
 	staticServer := http.FileServer(statikFS)
 	rs.Mux.PathPrefix("/swagger-ui/").Handler(http.StripPrefix("/swagger-ui/", staticServer))
 }

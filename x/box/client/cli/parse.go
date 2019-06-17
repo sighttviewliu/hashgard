@@ -1,16 +1,15 @@
 package cli
 
 const (
-	flagAddress       = "address"
-	flagLimit         = "limit"
-	flagStartBoxId    = "start-box-id"
-	flagTradeDisabled = "trade-disabled"
+	FlagAddress          = "address"
+	FlagLimit            = "limit"
+	FlagStartId          = "start-id"
+	FlagTransferDisabled = "transfer-disabled"
 
-	flagBottomLine    = "bottom-line"
-	flagPrice         = "price"
-	flagInterest      = "interest"
-	flagStartTime     = "start-time"
-	flagEstablishTime = "establish-time"
-	flagMaturityTime  = "maturity-time"
-	flagMiniMultiple  = "mini-multiple"
+	FlagBottomLine    = "bottom-line"
+	FlagPrice         = "price"
+	FlagInterest      = "interest"
+	FlagStartTime     = "start-time"
+	FlagEstablishTime = "establish-time"
+	FlagMaturityTime  = "maturity-time"
 )

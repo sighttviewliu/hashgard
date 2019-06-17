@@ -10,13 +10,18 @@ import (
 
 //Handle MsgBoxDisableFeature
 func HandleMsgBoxDisableFeature(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgBoxDisableFeature) sdk.Result {
-	boxInfo, err := keeper.DisableFeature(ctx, msg.Sender, msg.BoxId, msg.Feature)
-	if err != nil {
+	fee := keeper.GetParams(ctx).DisableFeatureFee
+	if err := keeper.Fee(ctx, msg.Sender, fee); err != nil {
 		return err.Result()
 	}
 
+	boxInfo, err := keeper.DisableFeature(ctx, msg.Sender, msg.Id, msg.Feature)
+	if err != nil {
+		return err.Result()
+	}
 	return sdk.Result{
-		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.BoxId),
-		Tags: utils.GetBoxTags(msg.BoxId, boxInfo.BoxType, msg.Sender).AppendTag(tags.Feature, msg.GetFeature()),
+		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(msg.Id),
+		Tags: utils.GetBoxTags(msg.Id, boxInfo.BoxType, msg.Sender).
+			AppendTag(tags.Feature, msg.GetFeature()).AppendTag(tags.Fee, fee.String()),
 	}
 }

@@ -9,23 +9,25 @@ import (
 )
 
 const (
-	CodeIssuerMismatch            sdk.CodeType = 1
-	CodeIssueIDNotValid           sdk.CodeType = 2
-	CodeIssueNameNotValid         sdk.CodeType = 3
-	CodeIssueSymbolNotValid       sdk.CodeType = 4
-	CodeIssueTotalSupplyNotValid  sdk.CodeType = 5
-	CodeIssueCoinDecimalsNotValid sdk.CodeType = 6
-	CodeIssueDescriptionNotValid  sdk.CodeType = 7
-	CodeUnknownIssue              sdk.CodeType = 8
-	CanNotMint                    sdk.CodeType = 9
-	CanNotBurn                    sdk.CodeType = 10
-	CodeUnknownFeature            sdk.CodeType = 11
-	CodeUnknownFreezeType         sdk.CodeType = 12
-	CodeNotEnoughAmountToTransfer sdk.CodeType = 13
-	CodeCanNotFreeze              sdk.CodeType = 14
-	CodeFreezeEndTimeNotValid     sdk.CodeType = 15
-	CodeNotTransferIn             sdk.CodeType = 16
-	CodeNotTransferOut            sdk.CodeType = 17
+	CodeNotEnoughFee              sdk.CodeType = 1
+	CodeIssuerMismatch            sdk.CodeType = 2
+	CodeIssueIDNotValid           sdk.CodeType = 3
+	CodeIssueNameNotValid         sdk.CodeType = 4
+	CodeAmountNotValid            sdk.CodeType = 5
+	CodeIssueSymbolNotValid       sdk.CodeType = 6
+	CodeIssueTotalSupplyNotValid  sdk.CodeType = 7
+	CodeIssueCoinDecimalsNotValid sdk.CodeType = 8
+	CodeIssueDescriptionNotValid  sdk.CodeType = 9
+	CodeUnknownIssue              sdk.CodeType = 10
+	CanNotMint                    sdk.CodeType = 11
+	CanNotBurn                    sdk.CodeType = 12
+	CodeUnknownFeature            sdk.CodeType = 13
+	CodeUnknownFreezeType         sdk.CodeType = 14
+	CodeNotEnoughAmountToTransfer sdk.CodeType = 15
+	CodeCanNotFreeze              sdk.CodeType = 16
+	CodeFreezeEndTimeNotValid     sdk.CodeType = 17
+	CodeNotTransferIn             sdk.CodeType = 18
+	CodeNotTransferOut            sdk.CodeType = 19
 )
 
 //convert sdk.Error to error
@@ -36,6 +38,12 @@ func Errorf(err sdk.Error) error {
 // Error constructors
 func ErrOwnerMismatch(issueID string) sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeIssuerMismatch, fmt.Sprintf("Owner mismatch with token %s", issueID))
+}
+func ErrNotEnoughFee() sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeNotEnoughFee, fmt.Sprintf("Not enough fee"))
+}
+func ErrAmountNotValid(key string) sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeAmountNotValid, "%s is not a valid amount", key)
 }
 func ErrCoinDecimalsMaxValueNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeIssueCoinDecimalsNotValid, fmt.Sprintf("Decimals max value is %d", types.CoinDecimalsMaxValue))
@@ -53,7 +61,7 @@ func ErrFreezeEndTimestampNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeFreezeEndTimeNotValid, "end-time is not a valid timestamp")
 }
 func ErrCoinNamelNotValid() sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeIssueNameNotValid, fmt.Sprintf("Name max length is %d", types.CoinNameMaxLength))
+	return sdk.NewError(types.DefaultCodespace, CodeIssueNameNotValid, fmt.Sprintf("The length of the name is between %d and %d", types.CoinNameMinLength, types.CoinNameMaxLength))
 }
 func ErrCoinDescriptionNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeIssueDescriptionNotValid, "Description is not valid json")
@@ -86,8 +94,8 @@ func ErrNotEnoughAmountToTransfer() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeNotEnoughAmountToTransfer, fmt.Sprintf("Not enough amount allowed to transfer"))
 }
 func ErrCanNotTransferIn(issueID string, accAddress string) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeNotTransferIn, fmt.Sprintf("Can not transfer %s to %s", issueID, accAddress))
+	return sdk.NewError(types.DefaultCodespace, CodeNotTransferIn, fmt.Sprintf("Can not transfer in %s to %s", issueID, accAddress))
 }
 func ErrCanNotTransferOut(issueID string, accAddress string) sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeNotTransferOut, fmt.Sprintf("Can not transfer %s from %s", issueID, accAddress))
+	return sdk.NewError(types.DefaultCodespace, CodeNotTransferOut, fmt.Sprintf("Can not transfer out %s from %s", issueID, accAddress))
 }

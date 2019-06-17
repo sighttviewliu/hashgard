@@ -15,7 +15,6 @@ const (
 var BoxType = map[string]string{Lock: "aa", Deposit: "ab", Future: "ac"}
 
 func GetMustBoxTypeValue(boxType string) string {
-
 	value, ok := BoxType[boxType]
 	if !ok {
 		panic("unknown type")
@@ -24,7 +23,6 @@ func GetMustBoxTypeValue(boxType string) string {
 }
 
 func CheckBoxType(boxType string) sdk.Error {
-
 	_, ok := BoxType[boxType]
 	if !ok {
 		return sdk.ErrInternal("unknown type:" + boxType)
@@ -33,7 +31,6 @@ func CheckBoxType(boxType string) sdk.Error {
 }
 
 func GetBoxTypeValue(boxType string) (string, error) {
-
 	value, ok := BoxType[boxType]
 	if !ok {
 		return "", fmt.Errorf("unknown type:%s", boxType)

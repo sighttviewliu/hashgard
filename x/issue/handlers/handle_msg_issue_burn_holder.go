@@ -10,7 +10,6 @@ import (
 
 //Handle MsgIssueBurnHolder
 func HandleMsgIssueBurnHolder(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgIssueBurnHolder) sdk.Result {
-
 	_, err := keeper.BurnHolder(ctx, msg.IssueId, msg.Amount, msg.Sender)
 
 	if err != nil {

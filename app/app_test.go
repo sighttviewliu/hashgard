@@ -4,13 +4,14 @@ import (
 	"os"
 	"testing"
 
+	"github.com/hashgard/hashgard/x/issue"
+
+	"github.com/hashgard/hashgard/x/box"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
-	"github.com/cosmos/cosmos-sdk/x/distribution"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	"github.com/cosmos/cosmos-sdk/x/mint"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	"github.com/stretchr/testify/require"
@@ -20,6 +21,9 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 
 	"github.com/hashgard/hashgard/x/exchange"
+	"github.com/hashgard/hashgard/x/gov"
+	"github.com/hashgard/hashgard/x/mint"
+	"github.com/hashgard/hashgard/x/distribution"
 )
 
 func setGenesis(happ *HashgardApp, accs ...*auth.BaseAccount) error {
@@ -38,7 +42,9 @@ func setGenesis(happ *HashgardApp, accs ...*auth.BaseAccount) error {
 		SlashingData:     slashing.DefaultGenesisState(),
 		GovData:          gov.DefaultGenesisState(),
 		ExchangeData:     exchange.DefaultGenesisState(),
-		CrisisData:		  crisis.DefaultGenesisState(),
+		BoxData:          box.DefaultGenesisState(),
+		IssueData:        issue.DefaultGenesisState(),
+		CrisisData:       crisis.DefaultGenesisState(),
 	}
 
 	stateBytes, err := codec.MarshalJSONIndent(happ.cdc, genesisState)

@@ -2,6 +2,9 @@ package issue
 
 import (
 	"bytes"
+	"fmt"
+
+	"github.com/hashgard/hashgard/x/issue/config"
 
 	"github.com/hashgard/hashgard/x/issue/types"
 
@@ -12,12 +15,14 @@ import (
 
 // GenesisState - all issue state that must be provided at genesis
 type GenesisState struct {
-	StartingIssueId uint64 `json:"starting_issue_id"`
+	StartingIssueId uint64          `json:"starting_issue_id"`
+	Issues          []CoinIssueInfo `json:"issues"`
+	Params          config.Params   `json:"params"`
 }
 
 // NewGenesisState creates a new genesis state.
 func NewGenesisState(startingIssueId uint64) GenesisState {
-	return GenesisState{startingIssueId}
+	return GenesisState{StartingIssueId: startingIssueId}
 }
 
 // DefaultGenesisState returns a default genesis state
@@ -42,19 +47,56 @@ func (data GenesisState) Equal(data2 GenesisState) bool {
 func InitGenesis(ctx sdk.Context, keeper keeper.Keeper, data GenesisState) {
 	err := keeper.SetInitialIssueStartingIssueId(ctx, data.StartingIssueId)
 	if err != nil {
-		// TODO: Handle this with #870
 		panic(err)
+	}
+
+	keeper.SetParams(ctx, data.Params)
+
+	for _, issue := range data.Issues {
+		keeper.AddIssue(ctx, &issue)
 	}
 }
 
 // ExportGenesis returns a GenesisState for a given context and keeper.
 func ExportGenesis(ctx sdk.Context, keeper keeper.Keeper) GenesisState {
+	genesisState := GenesisState{}
+
 	startingIssueId, _ := keeper.PeekCurrentIssueID(ctx)
-	return GenesisState{
-		StartingIssueId: startingIssueId,
-	}
+	genesisState.StartingIssueId = startingIssueId
+
+	genesisState.Params = keeper.GetParams(ctx)
+	genesisState.Issues = keeper.ListAll(ctx)
+
+	return genesisState
+
 }
 
 // ValidateGenesis performs basic validation of bank genesis data returning an
 // error for any failed validation criteria.
-func ValidateGenesis(data GenesisState) error { return nil }
+func ValidateGenesis(data GenesisState) error {
+	if data.Params.IssueFee.IsNegative() {
+		return fmt.Errorf("invalid issue fee: %s", data.Params.IssueFee.String())
+	}
+	if data.Params.MintFee.IsNegative() {
+		return fmt.Errorf("invalid mint fee: %s", data.Params.MintFee.String())
+	}
+	if data.Params.BurnFee.IsNegative() {
+		return fmt.Errorf("invalid burn fee: %s", data.Params.BurnFee.String())
+	}
+	if data.Params.BurnFromFee.IsNegative() {
+		return fmt.Errorf("invalid burn from fee: %s", data.Params.BurnFromFee.String())
+	}
+	if data.Params.FreezeFee.IsNegative() {
+		return fmt.Errorf("invalid freeze fee: %s", data.Params.FreezeFee.String())
+	}
+	if data.Params.UnFreezeFee.IsNegative() {
+		return fmt.Errorf("invalid unfreeze fee: %s", data.Params.UnFreezeFee.String())
+	}
+	if data.Params.TransferOwnerFee.IsNegative() {
+		return fmt.Errorf("invalid transfer owner fee: %s", data.Params.TransferOwnerFee.String())
+	}
+	if data.Params.DescribeFee.IsNegative() {
+		return fmt.Errorf("invalid describe fee: %s", data.Params.DescribeFee.String())
+	}
+	return nil
+}

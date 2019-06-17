@@ -5,11 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cosmos/cosmos-sdk/client/context"
-	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	boxqueriers "github.com/hashgard/hashgard/x/box/client/queriers"
 	"github.com/hashgard/hashgard/x/box/errors"
 	"github.com/hashgard/hashgard/x/box/types"
 
@@ -33,19 +29,19 @@ func CalcInterest(perCoupon sdk.Dec, share sdk.Int, interest types.BoxToken) sdk
 	dec := perCoupon.MulInt(share)
 	decimals := interest.Decimals
 	if interest.Token.Denom == types.Agard {
-		decimals = types.GardDecimal
+		decimals = types.GardDecimals
 	}
 	dec = GetMaxPrecision(dec, decimals)
 	return dec.MulInt(issueutils.GetDecimalsInt(decimals)).TruncateInt()
 }
 
-func IsBoxId(boxID string) bool {
-	return strings.HasPrefix(boxID, types.IDPreStr)
+func IsId(id string) bool {
+	return strings.HasPrefix(id, types.IDPreStr)
 }
 
-func CheckBoxId(boxID string) sdk.Error {
-	if !IsBoxId(boxID) {
-		return errors.ErrBoxID(boxID)
+func CheckId(id string) sdk.Error {
+	if !IsId(id) {
+		return errors.ErrBoxID(id)
 	}
 	return nil
 }
@@ -54,7 +50,7 @@ func CalcInterestRate(totalAmount sdk.Int, price sdk.Int, interest sdk.Coin, dec
 	totalCoupon := totalAmount.Quo(price)
 	perCoupon := sdk.NewDecFromBigInt(interest.Amount.BigInt()).QuoInt(totalCoupon)
 	if interest.Denom == types.Agard {
-		decimals = types.GardDecimal
+		decimals = types.GardDecimals
 	}
 	return quoMaxPrecisionByDecimal(perCoupon, decimals)
 }
@@ -65,33 +61,6 @@ func quoMaxPrecisionByDecimal(dec sdk.Dec, decimals uint) sdk.Dec {
 	return dec
 }
 
-func GetBoxByID(cdc *codec.Codec, cliCtx context.CLIContext, boxID string) (types.Box, error) {
-	var boxInfo types.Box
-	// Query the box
-	res, err := boxqueriers.QueryBoxByID(boxID, cliCtx)
-	if err != nil {
-		return nil, err
-	}
-	cdc.MustUnmarshalJSON(res, &boxInfo)
-	return boxInfo, nil
-}
-
-func BoxOwnerCheck(cdc *codec.Codec, cliCtx context.CLIContext, sender auth.Account, boxID string) (types.Box, error) {
-	boxInfo, err := GetBoxByID(cdc, cliCtx, boxID)
-	if err != nil {
-		return nil, err
-	}
-	if !sender.GetAddress().Equals(boxInfo.GetOwner()) {
-		return nil, errors.Errorf(errors.ErrOwnerMismatch(boxID))
-	}
-	return boxInfo, nil
-}
-func GetBoxCoinByDecimal(cdc *codec.Codec, cliCtx context.CLIContext, coin sdk.Coin) sdk.Coin {
-
-	issueInfo, _ := issueutils.GetIssueByID(cdc, cliCtx, coin.Denom)
-
-	return sdk.Coin{fmt.Sprintf("%s(%s)", issueInfo.GetName(), coin.Denom), issueutils.QuoDecimals(coin.Amount, issueInfo.GetDecimals())}
-}
 func GetBoxTypeByValue(value string) string {
 	value = strings.ReplaceAll(value, types.IDPreStr, "")
 	for k, v := range types.BoxType {
@@ -101,8 +70,14 @@ func GetBoxTypeByValue(value string) string {
 	}
 	return ""
 }
-func GetCoinDenomByFutureBoxSeq(boxID string, seq int) string {
-	return fmt.Sprintf("%s%02d", boxID, seq)
+func GetCoinDenomByFutureBoxSeq(id string, seq int) string {
+	return fmt.Sprintf("%s%02d", id, seq)
+}
+func GetIdFromBoxSeqID(idSeq string) string {
+	if len(idSeq) > types.IdLength {
+		return idSeq[:types.IdLength]
+	}
+	return idSeq
 }
 func GetSeqFromFutureBoxSeq(boxSeqStr string) int {
 	seqStr := boxSeqStr[len(boxSeqStr)-2:]

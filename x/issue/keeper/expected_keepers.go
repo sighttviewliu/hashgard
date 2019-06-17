@@ -9,3 +9,8 @@ type BankKeeper interface {
 	SubtractCoins(ctx sdk.Context, addr sdk.AccAddress, amt sdk.Coins) (sdk.Coins, sdk.Error)
 	SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) sdk.Error
 }
+
+// expected fee collection keeper
+type FeeCollectionKeeper interface {
+	AddCollectedFees(ctx sdk.Context, coins sdk.Coins) sdk.Coins
+}

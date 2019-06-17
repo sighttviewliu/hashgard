@@ -36,6 +36,7 @@ const (
 	QueryIssue     = "query"
 	QueryAllowance = "allowance"
 	QueryFreeze    = "freeze"
+	QueryFreezes   = "freezes"
 	QuerySearch    = "search"
 )
 
@@ -59,6 +60,7 @@ const (
 	CoinDecimalsMaxValue                  = uint(18)
 	CoinDecimalsMultiple                  = uint(3)
 	CodeInvalidGenesis       sdk.CodeType = 102
+	CoinNameMinLength                     = 3
 	CoinNameMaxLength                     = 32
 	CoinSymbolMinLength                   = 2
 	CoinSymbolMaxLength                   = 8
