@@ -21,10 +21,10 @@
     * [exchange] Refactor REST API for exchange(HRC11) module
 + Hashgard CLI (hashgardcli)
     + [lock] Add commands for lock module
-    + [deposit] Add commands for lock module
-    + [future] Add commands for lock module
+    + [deposit] Add commands for deposit(HRC12) module
+    + [future] Add commands for future(HRC13) module
     - [box] Remove commands for box module
-    + [issue] Refactor commands for issue module
+    + [issue] Refactor commands for issue(HRC10) module
     * [exchange] Refactor commands for exchange(HRC11)  module
 
 + Hashgard APP
