@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.6.0
+
+### BREAKING CHANGES
+
++ Tendermint
+    + Upgrade tendermint from `v0.31.4` to `v0.31.5`
+
++ Cosmos SDK
+    + Upgrade cosmos-sdk from `v0.34.4` to `v0.35.0`
+
+### FEATURES
+
++ Hashgard REST API (hashgardlcd)
+    + [lock] Add REST API for lock module
+    + [issue]  Add REST API for deposit(HRC10) module
+    + [deposit]  Add REST API for deposit(HRC12) module
+    + [future]  Add REST API for future(HRC13) module
+    * [issue] Refactor REST API for issue module
+    * [exchange] Refactor REST API for exchange(HRC11) module
++ Hashgard CLI (hashgardcli)
+    + [lock] Add commands for lock module
+    + [deposit] Add commands for deposit(HRC12) module
+    + [future] Add commands for future(HRC13) module
+    - [box] Remove commands for box module
+    + [issue] Refactor commands for issue(HRC10) module
+    * [exchange] Refactor commands for exchange(HRC11)  module
+
++ Hashgard APP
+    + [gov] Implementation  parameter change governance
+
+### IMPROVEMENTS
++ Hashgard APP
+    + [fee] Add new fee collection to support lock,deposit,future and issue module
+      
+### BUG FIXES
+
+* Fix for the `x/staking` module security advisory for downstream consumers
+* Fix gas consumption bug in `Undelegate` preventing the ability to sync from genesis.
+* Unbonding from a validator is now only considered "complete" after the full
+unbonding period has elapsed regardless of the validator's status.
+    
 ## 0.5.0
 
 ### BREAKING CHANGES
