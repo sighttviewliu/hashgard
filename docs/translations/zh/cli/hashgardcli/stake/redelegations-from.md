@@ -6,19 +6,19 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake redelegations-from [validator-address] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 基于某一验证人的所有重新委托查询
 
-```
+```shell
 hashgardcli stake redelegations-from gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx --trust-node
 ```
 

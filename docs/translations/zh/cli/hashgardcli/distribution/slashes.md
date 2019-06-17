@@ -6,25 +6,25 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli distribution slashes [validator] [start-height] [end-height] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询参数信息
 
-```
+```shell
 hashgardcli distribution slashes gardvaloper1hr7vm7t7paeyg33ggd6efek2w58mu2huewltta 0 999999 -o=json --trust-node
 ```
 
 运行成功以后，返回的结果如下：
 
-```
+```txt
 [
  {
   "validator_period": "4",

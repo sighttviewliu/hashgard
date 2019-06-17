@@ -11,15 +11,15 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli slashing unjail [flags]
 ```
 
 ## Flags
 
-**全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 检查这个验证人保持 `jailed` 状态的截止时间：
 
@@ -31,7 +31,7 @@ gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx \
 
 如果此验证人状态为 `jailed`，那么你可以看到它的 jail 状态的截止时间
 
-```
+```shell
 Start height: 565, index offset: 2, jailed until: 2018-12-12 06:46:37.274910287 +0000 UTC, missed blocks counter: 2
 ```
 
@@ -43,7 +43,7 @@ ERROR: Msg 0 failed: {"codespace":"SLASH","code":103,"message":"validator not ja
 
 过了 jail 状态的截止时间后，你可以发送一个 `unjail` 交易.
 
-```
+```shell
 hashgardcli slashing unjail --from=<key name> --chain-id=<chain-id>
 ```
 

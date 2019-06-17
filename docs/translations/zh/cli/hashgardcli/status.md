@@ -12,11 +12,11 @@ hashgardcli status [flags]
 
 ## Flags
 
-| 名称, 缩写 | 默认值                | 描述                | 必需 |
+| 名称, 缩写 | 默认值                | 描述                | 是否必需 |
 | ---------- | --------------------- | ------------------- | ---- |
 | --node, -n | tcp://localhost:26657 | [string] 连接的节点 | 否   |
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 

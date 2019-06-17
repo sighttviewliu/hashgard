@@ -28,7 +28,7 @@
 
 [weibo](https://www.weibo.com/p/1005056511186474/home?from=page_100505&mod=TAB&is_all=1&display=0&retcode=6102)
 
-微信公众号：临界Hashgard
+微信公众号：临界 Hashgard
 
 ### 交易市场
 

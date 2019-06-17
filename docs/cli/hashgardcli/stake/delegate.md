@@ -6,7 +6,7 @@ Delegate an amount of liquid coins to a validator from your wallet:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake delegate [validator-addr] [amount] [flags]
 ```
 

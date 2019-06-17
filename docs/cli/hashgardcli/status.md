@@ -14,7 +14,7 @@ hashgardcli status [flags]
 
 | Name,shorthand | Default               | description         | Required |
 | ---------- | --------------------- | ------------------- | ---- |
-| --node, -n | tcp://localhost:26657 |  Node to connect to  | No  |
+| --node, -n | tcp://localhost:26657 |  Node to connect to  | false  |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

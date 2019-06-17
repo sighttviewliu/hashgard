@@ -10,7 +10,7 @@
 
 hashgardlcd 有三个子命令:
 
-| 子命令  | 功能                      | 示例命令                                  |
+| 名称 | 功能                      | 例子命令                                  |
 | ------- | ------------------------- | ----------------------------------------- |
 | help    | 打印帮助信息              | hashgardlcd help                          |
 | version | 打印版本信息              | hashgardlcd version                       |
@@ -22,9 +22,9 @@ hashgardlcd 有三个子命令:
 
 #### Flags
 
-| 参数名称     | 类型   | 默认值                  | 是否必填 | 功能描述                                        |
+| 名称     | 类型   | 默认值                  | 必需 | 描述                                        |
 | ------------ | ------ | ----------------------- | -------- | ----------------------------------------------- |
-| cors         | string | ""                      | false    | 允许跨域访问的地址（\*允许所有）                |
+| cors         | string |                     | false    | 允许跨域访问的地址（\*允许所有）                |
 | laddr        | string | "tcp://localhost:1317"  | false    | 侦听的地址和端口                                |
 | max-open     | int    | 1000                    | false    | 最大连接数                                      |
 | ssl-certfile | int    | 1000                    | false    | ssl 证书所在目录，未设置将自动生成新的证书      |
@@ -32,7 +32,7 @@ hashgardlcd 有三个子命令:
 | ssl-keyfile  | int    | 1000                    | false    | ssl-key 文件所在目录，不设置 ssl 证书时会被忽略 |
 | tls          | bool   | false                   | false    | 打开 SSL/TLS                                    |
 | height       | int    | （最新区块高度）        | false    | 查询的区块高度                                  |
-| node         | string | "tcp://localhost:26657" | false    | 全节点的 rpc 地址                               |
+| falsede         | string | "tcp://localhost:26657" | false    | 全节点的 rpc 地址                               |
 | trust-node   | bool   | false                   | false    | 是否信任全节点                                  |
 | help         | bool   | false                   | false    | 打印帮助信息                                    |
 | indent       | bool   | false                   | false    | 输出结果格式化                                  |
@@ -40,7 +40,7 @@ hashgardlcd 有三个子命令:
 
 #### 全局 flags
 
-| 参数名称 | 类型   | 默认值                | 是否必填 | 功能描述                                        |
+| 名称 | 类型   | 默认值                | 必需 | 描述                                        |
 | -------- | ------ | --------------------- | -------- | ----------------------------------------------- |
 | chain-id | string | null                  | true     | Tendermint 节点的 chain ID                      |
 | encoding | string | "hex"                 | false    | 设置字节编码，(可选 hex、b64、btc)              |
@@ -48,17 +48,17 @@ hashgardlcd 有三个子命令:
 | output   | string | text                  | false    | 输出格式(text、json)                            |
 | trace    | bool   | false                 | false    | 报错时是否打印完整调用栈                        |
 
-## 示例命令
+## 例子命令
 
 1. 默认情况下，hashgardLCD 不信任连接全节点。但是如果您确定连接的完整节点是可信的，那么您应该在启动 hashgardLCD 时加上`--trust-node`：
 
-```bash
+```shell
 hashgardlcd start --chain-id=<chain-id> --trust-node
 ```
 
 2. 如果需要在其他机器上访问此 hashgardlcd 节点，还需要配置`--laddr`参数，例如：
 
-```bash
+```shell
 hashgardlcd start --chain-id=<chain-id> --laddr=tcp://0.0.0.0:1317
 ```
 
@@ -151,7 +151,7 @@ hashgardlcd 启动以后，您可以在浏览器中访问`localhost:1317/swagger
 
 上述的 API 都有三个特殊的查询参数，如上下表所示。默认情况下，它们的值都是 false。每个参数都有其唯一的优先级(这里`0`是最高优先级)。如果多个参数的值都是`true`，则将忽略优先级较低的。例如，如果`generate-only`为`true`，那么其他参数，例如`simulate`和`commit`将被忽略。
 
-| 参数名字      | 类型 | 默认值 | 优先级 | 功能描述                   |
+| 参数名字      | 类型 | 默认值 | 优先级 | 描述                   |
 | ------------- | ---- | ------ | ------ | -------------------------- |
 | generate-only | bool | false  | 0      | 构建一个未签名的交易并返回 |
 | simulate      | bool | false  | 1      | 用仿真的方式去执行交易     |

@@ -4,15 +4,15 @@
 
 查看指定地址的冻结资金
 
-## 使用方式
+## 用法
 
-```
+```shell
 hashgardcli exchange query-frozen [address] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 
@@ -22,7 +22,7 @@ hashgardcli exchange query-frozen [address] [flags]
 hashgardcli exchange query-frozen gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa --chain-id hashgard -o=json --indent
 ```
 
-下面是地址gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa的冻结资金
+下面是地址 gard1p48xfe62mwewxzuqpwkcdjyge42fck6xzc7xpa 的冻结资金
 
 ```txt
 [

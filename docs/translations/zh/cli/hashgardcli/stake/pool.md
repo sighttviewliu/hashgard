@@ -6,19 +6,19 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake pool [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询最新的权益池
 
-```
+```shell
 hashgardcli stake pool --trust-node
 ```
 

@@ -1,9 +1,9 @@
 # hashgardcli issue burn
 
 ## Description
-Token holder or the Owner burn the token he holds 
+Token holder or the Owner burn the token he holds
 ## Usage
-```
+```shell
  hashgardcli issue burn [issue-id] [amount] [flags]
 ```
 ## Flags
@@ -15,7 +15,7 @@ Token holder or the Owner burn the token he holds
 ```shell
 hashgardcli issue burn coin174876e800 88888 --from
 ```
-输入正确的密码之后，你的该代币的便完成了销毁。
+The result is as follows：
 ```txt
 {
    Height: 3020
@@ -25,7 +25,7 @@ hashgardcli issue burn coin174876e800 88888 --from
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 27544
-  Tags: 
+  Tags:
     - action = issue_burn_holder
     - category = issue
     - issue-id = coin174876e802

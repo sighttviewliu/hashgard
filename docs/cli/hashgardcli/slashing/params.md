@@ -6,7 +6,7 @@ Query genesis parameters for the slashing module
 
 ## Usage
 
-```
+```shell
 hashgardcli slashing params [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli slashing params [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli slashing params --trust-node
 ```
 

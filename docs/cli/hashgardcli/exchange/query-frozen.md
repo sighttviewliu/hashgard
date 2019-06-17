@@ -2,11 +2,11 @@
 
 ## Description
 
-View frozen token at a specified address
+View frozen token at a specified address
 
 ## Usage
 
-```
+```shell
 hashgardcli exchange query-frozen [address] [flags]
 ```
 

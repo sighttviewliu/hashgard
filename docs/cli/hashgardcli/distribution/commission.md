@@ -6,7 +6,7 @@
 Query validator commission rewards from delegators to that validator:
 ## Usage
 
-```
+```shell
 hashgardcli distribution commission [validator] [flags]
 ```
 
@@ -17,13 +17,13 @@ hashgardcli distribution commission [validator] [flags]
 
 ## Example
 
-```
+```shell
 hashgardcli distribution commission gardvaloper1m0g2n0r7l6s44sac2knmx40hlsdyv4esgcwg8w -o=json --trust-node
 ```
 
 The result is as follows：
 
-```
+```txt
 [
  {
   "denom": "gard",

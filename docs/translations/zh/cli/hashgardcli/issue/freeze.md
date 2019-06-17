@@ -1,14 +1,14 @@
 # hashgardcli issue freeze
 
 ## 描述
-在没有关闭通证冻结的前提下，owenr冻结用户的转入转出功能。
-## 使用方式
+在没有关闭通证冻结的前提下，owenr 冻结用户的转入转出功能。
+## 用法
 ```shell
- hashgardcli issue freeze [freeze-type] [issue-id][acc-address][end-time] --from
+ hashgardcli issue freeze [freeze-type] [issue-id][acc-address][end-time][flags]
 ```
 ### freeze-type
 
-| 命令   | 描述                 |
+| 名称 | 描述                 |
 | ------ | -------------------- |
 | in     | 该账号本通证转入功能 |
 | out    | 该账号本通证转出功能 |
@@ -16,9 +16,9 @@
 
 
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 ### 冻结某账户转入功能
@@ -35,7 +35,7 @@ Height: 2570
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 16459
-  Tags: 
+  Tags:
     - action = issue_freeze
     - category = issue
     - issue-id = coin174876e800

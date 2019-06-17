@@ -6,7 +6,7 @@ Create and sign a send tx
 
 ## Usage
 
-```
+```shell
 hashgardcli bank send [to_address] [amount] [flags]
 ```
 ## Flags
@@ -17,13 +17,13 @@ hashgardcli bank send [to_address] [amount] [flags]
 
 ### Create and sign a send tx
 
-```
+```shell
 hashgardcli bank send gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl 10gard --from=hashgard --chain-id=hashgard --indent -o json
 ```
 
 After that, you can get remote node status as follows:
 
-```
+```shell
 {
  "height": "21667",
  "txhash": "58110E97BD93CFA123B43B7C893386BA26F238570E1131A7B6E1E6ED5B7DA605",

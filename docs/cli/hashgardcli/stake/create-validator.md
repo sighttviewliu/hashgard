@@ -6,27 +6,27 @@ create new validator initialized with a self-delegation to it
 
 ## Usage
 
-```
+```shell
 hashgardcli stake create-validator [flags]
 ```
 
 ## Flags
 
-| Name                         | type  | Required| Default| Description                                   |
+| Name                         | Type  | Required| Default| Description      |
 | ---------------------------- | ------ | -------- | ------ | --------------------------- |
-| --address-delegator          | string | false    | ""     | delegator address                          |
-| --amount                     | string | true     | ""     | Amount of coins to bond                    |
+| --address-delegator          | string | false    |    | delegator address                          |
+| --amount                     | string | true     |    | Amount of coins to bond                    |
 | --commission-max-change-rate | float  | false    | 0.0    | The maximum commission change rate percentage (per day)|
 | --commission-max-rate        | float  | false    | 0.0    | The maximum commission rate percentage        |
 | --commission-rate            | float  | false    | 0.0    | The initial commission rate percentage     |
-| --details                    | string | false    | ""     | TExport the transaction in gen-tx format; it implies --generate-only |
-| --identity                   | string | false    | ""     | Optional identity signature (ex. UPort or Keybase)|
-| --ip                         | string | false    | ""     | The node's public IP. It takes effect only when used in combination with --generate-only|
-| --min-self-delegation        | string | true     | ""     | The minimum self delegation required on the validator|
-| --moniker                    | string | true     | ""     | The validator's name              |
-| --node-id                    | string | false    | ""     | The node's ID                      |
-| --pubkey                     | string | true     | ""     | The Bech32 encoded PubKey of the validator   |
-| --website                    | string | false    | ""     | The validator's (optional) website   |
+| --details                    | string | false    |    | TExport the transaction in gen-tx format; it implies --generate-only |
+| --identity                   | string | false    |    | Optional identity signature (ex. UPort or Keybase)|
+| --ip                         | string | false    |    | The node's public IP. It takes effect only when used in combination with --generate-only|
+| --min-self-delegation        | string | true     |    | The minimum self delegation required on the validator（Unit agard）|
+| --moniker                    | string | true     |    | The validator's name              |
+| --node-id                    | string | false    |    | The node's ID                      |
+| --pubkey                     | string | true     |    | The Bech32 encoded PubKey of the validator   |
+| --website                    | string | false    |    | The validator's (optional) website   |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

@@ -4,16 +4,16 @@
 
 查询指定提案的投票统计
 
-## 使用方式
+## 用法
 
-```
+```shell
  hashgardcli gov tally [proposal-id] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
- 
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+
 
 ## 例子
 
@@ -33,4 +33,3 @@ hashgardcli gov tally 1 --trust-node
   "no_with_veto": "0.0000000000"
 }
 ```
-

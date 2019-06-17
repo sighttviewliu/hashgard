@@ -6,7 +6,7 @@ Query all slashes of a validator for a given block range:
 
 ## Usage
 
-```
+```shell
 hashgardcli distribution slashes [validator] [start-height] [end-height] [flags]
 ```
 
@@ -17,13 +17,13 @@ hashgardcli distribution slashes [validator] [start-height] [end-height] [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli distribution slashes gardvaloper1hr7vm7t7paeyg33ggd6efek2w58mu2huewltta 0 999999 -o=json --trust-node
 ```
 
 The result is as follows：
 
-```
+```txt
 [
  {
   "validator_period": "4",

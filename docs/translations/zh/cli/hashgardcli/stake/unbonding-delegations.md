@@ -6,19 +6,19 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake unbonding-delegations [delegator-address] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询委托人的 unbonding-delegation
 
-```
+```shell
 hashgardcli stake unbonding-delegations faa13lcwnxpyn2ea3skzmek64vvnp97jsk8qmhl6vx
 ```
 

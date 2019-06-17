@@ -6,23 +6,23 @@ Note, strict routability for addresses is turned off in the config file.
 
 ## Usage
 
-```
+```shell
 hashgard testnet [flags]
 ```
 
 ## Flags
 
-| Name，shorthand          | type  | Default      | Description                                            | Required  |
+| Name，shorthand          | Type  | Default      | Description                                            | Required  |
 | --------------------- | ------ | ------------ | ---------------------------------------------------- | -------- |
-| -h, --help            |        |              | help for testnet                                    | No  |
-| --chain-id            | string |              | genesis file chain-id, if left blank will be randomly created| `Yes`     |
-| --minimum-gas-prices  | string | 0.000006gard |  Minimum gas prices to accept for transactions; All fees in a tx must meet this minimum                      | `Yes`     |
-| --node-cli-home       | string | hashgardcli  | Home directory of the node's cli configuration            | No  |
-| --node-daemon-home    | string | hashgard     | Home directory of the node's daemon configuration| No  |
-| --node-dir-prefix     | string | node         | Prefix the directory name for each node with (node results in node0, node1, ...) | No  |
-| --output-dir          | string | ./mytestnet  | Directory to store initialization data for the testnet| No  |
-| --starting-ip-address | string | 192.168.0.1  | Starting IP address                                     | No  |
-| --v                   | int    | 4            |  Number of validators to initialize the testnet with| No  |
+| -h, --help            |        |              | help for testnet                                    | false  |
+| --chain-id            | string |              | genesis file chain-id, if left blank will be randomly created| `true`     |
+| --minimum-gas-prices  | string | 0.000006gard |  Minimum gas prices to accept for transactions; All fees in a tx must meet this minimum                      | `true`      |
+| --node-cli-home       | string | hashgardcli  | Home directory of the node's cli configuration            | false  |
+| --node-daemon-home    | string | hashgard     | Home directory of the node's daemon configuration| false  |
+| --node-dir-prefix     | string | falsede         | Prefix the directory name for each node with (node results in node0, node1, ...) | false  |
+| --output-dir          | string | ./mytestnet  | Directory to store initialization data for the testnet| false  |
+| --starting-ip-address | string | 192.168.0.1  | Starting IP address                                     | false  |
+| --v                   | int    | 4            |  Number of validators to initialize the testnet with| false  |
 
 ## Example
 

@@ -1,14 +1,15 @@
 # hashgardcli issue mint
 
 ## Description
-在可以增发的前提下，Owner可以对自己发行的代币进行增发，默认增发到自己的账户，也可以增发到指定的账号。
+With the additional switch turned on，Owner Add tokens for yourself or add tokens to others。
+
 ## Usage
-```
+```shell
  hashgardcli issue mint [issue-id] [amount] [flags]
 ```
-| Name   | type    | Required   | Default   | Description      |
+| Name   | Type    | Required   | Default   | Description      |
 | --------  | ------------------- | ----- | ------ | -------- |
-| --to                  | string | No| "" | （可选）增发到指定的账号地址   |
+| --to                  | string | false|| Add tokens to the specified address |
 
 ## Flags
 
@@ -16,11 +17,11 @@
 
 ## Example
 
-### 增发到指定的地址
+### Add tokens to the specified address
 ```shell
 hashgardcli issue mint coin174876e802 9999 --to=gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7 --from
 ```
-输入正确的密码之后，你的该代币的便完成了增发。
+The result is as follows：
 ```txt
 {
   Height: 3138
@@ -30,7 +31,7 @@ hashgardcli issue mint coin174876e802 9999 --to=gard1f76ncl7d9aeq2thj98pyveee8tw
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 40402
-  Tags: 
+  Tags:
     - action = issue_mint
     - category = issue
     - issue-id = coin174876e802

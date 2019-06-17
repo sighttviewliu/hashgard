@@ -4,24 +4,24 @@
 
 设置取回收益时的收款地址
 
-## 使用方式
+## 用法
 
-```
+```shell
 hashgardcli distribution set-withdraw-addr [withdraw-address] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
- 
-```
-## 示例
-```
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+
+
+## 例子
+```shell
 hashgardcli distribution set-withdraw-addr gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl --from joehe1 --chain-id=hashgard --output=json --indent
 ```
 
-执行结果示例：
+执行结果例子：
 
-```
+```txt
 {
  "height": "33500",
  "txhash": "58AB9D329A043FC86DCE2B66E91BEDC1D13DD4000DF22E290041214C56DB04B8",
@@ -40,4 +40,3 @@ hashgardcli distribution set-withdraw-addr gard1c9vrvvz08hd4entr0y5kfrt43v6malv6
  ]
 }
 ```
-

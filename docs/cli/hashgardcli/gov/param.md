@@ -6,13 +6,13 @@ Query the all the parameters for the governance process
 
 ## Usage
 
-```
+```shell
  hashgardcli gov param [param-type] [flags]
 ```
 ## Flags
 
 **Global flags, query command flags** [hashgardcli](../README.md)
- 
+
 
 ## Example
 
@@ -52,12 +52,12 @@ The result is as follows：
 
 
 ### Check by tallying
-```
+```shell
 hashgardcli gov param tallying --trust-node -o=json --indent
 ```
 
 The result is as follows：
-```
+```txt
 {
   "quorum": "0.3340000000",
   "threshold": "0.5000000000",

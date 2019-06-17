@@ -7,14 +7,14 @@ Vote for an active proposal, options: Yes/No/NoWithVeto/Abstain
 
 ## Usage
 
-```
+```shell
 hashgardcli gov vote [proposal-id] [option] [flags]
 ```
 
 ## Flags
 
 **Global flags, query command flags** [hashgardcli](../README.md)
- 
+
 ## Example
 
 ### Vote for proposal

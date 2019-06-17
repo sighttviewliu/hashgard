@@ -2,35 +2,35 @@
 
 ## Description
 
-对代币的高级功能进行关闭，且该关闭不可逆。
+Non-reversible function setting of token
 
 ## Usage
 
-```
-hashgardcli issue disable [issue-id][flags]c--from
+```shell
+hashgardcli issue disable [issue-id][flags]
 ```
 
 ## Flags
 
-| 名称          | type| Required  | Default| Description                               |
+| Name          | Type| Required  | Default| Description                               |
 | ------------- | ---- | -------- | ------ | --------------------------------------- |
-| --burn-owner  | bool | false    | false  | 关闭代币所有者销毁自己持有的代币功能    |
-| --burn-holder | bool | false    | false  | 关闭普通账号销毁该自己持有的代币功能    |
-| --burn-from   | bool | false    | false  | 关闭Owner销毁非管理员账户持有的代币功能 |
-| --minting     | bool | false    | false  | 是否不再增发功能                        |
-| --freeze      | bool | false    | false  | 关闭冻结用户转入转出功能                |
+| --burn-owner  | Bool | false   | false  | Disable owner to burn your own token|
+| --burn-holder | bool | false  | false  | Disable Non-owner users burn their own tokens|
+| --burn-from   | bool | false   | false  | Disable owner burning other user tokens|
+| --minting     | bool | false   | false  | Disable the mint              |
+| --freeze      | bool | false | false  | Disable freeze          |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
 
-### 禁用已经发行的代币的增发功能
+### disable mint of coin
 
 ```shell
-hashgardcli issue disable coin174876e800 minting --from=
+hashgardcli issue disable coin174876e800 minting --from
 ```
 
-输入正确的密码之后，你就讲你的通证的增发功能关闭了。
+After entering the correct password，Disable token minting
 
 ```txt
 {
@@ -41,7 +41,7 @@ hashgardcli issue disable coin174876e800 minting --from=
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 23013
-  Tags: 
+  Tags:
     - action = issue_disable_feature
     - category = issue
     - issue-id = coin174876e800
@@ -50,15 +50,15 @@ hashgardcli issue disable coin174876e800 minting --from=
 }
 ```
 
-查询该通证情况
+Query the token
 
 ```shell
-hashgardcli issue query-issue coin174876e800 
+hashgardcli issue query-issue coin174876e800
 ```
 
-你会看到增发代币的功能已经关闭。
+The result is as follows：
 
-```
+```shell
 {
  Issue:
   IssueId:          			coin174876e800
@@ -69,12 +69,12 @@ hashgardcli issue query-issue coin174876e800
   TotalSupply:      			1000000
   Decimals:         			18
   IssueTime:					1558163118
-  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
-  BurnOwnerDisabled:  			false 
-  BurnHolderDisabled:  			false 
-  BurnFromDisabled:  			false 
-  FreezeDisabled:  				false 
-  MintingFinished:  			true 
+  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"This is a description of the project"}
+  BurnOwnerDisabled:  			false
+  BurnHolderDisabled:  			false
+  BurnFromDisabled:  			false
+  FreezeDisabled:  				false
+  MintingFinished:  			true
 
 }
 ```

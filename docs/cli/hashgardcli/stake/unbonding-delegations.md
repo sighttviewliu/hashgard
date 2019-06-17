@@ -6,7 +6,7 @@ Query unbonding delegations for an individual delegator:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake unbonding-delegations [delegator-address] [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake unbonding-delegations [delegator-address] [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake unbonding-delegations faa13lcwnxpyn2ea3skzmek64vvnp97jsk8qmhl6vx
 ```
 

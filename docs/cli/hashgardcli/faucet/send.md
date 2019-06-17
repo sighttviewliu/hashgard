@@ -6,7 +6,7 @@ get some test coins from faucet account, this function just be available in test
 
 ## Usage
 
-```
+```shell
 hashgardcli faucet send [address] [flags]
 ```
 

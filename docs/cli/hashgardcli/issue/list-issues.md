@@ -2,30 +2,30 @@
 
 ## Description
 
-查询用户在临界上发行的代币列表
+Query the list of issuing tokens
 
 ## Usage
 
-```
+```shell
 hashgardcli issue list-issues [flags]
 ```
 
 ## Flags
 
-| 名称             | type  | Required  | Default| Description             |
+|Name          | Type  | Required  | Default| Description             |
 | ---------------- | ------ | -------- | ------ | --------------------- |
-| --address        | string | false    | ""     | （可选）Owner账号地址 |
-| --limit          | int    | false    | 30     | （可选）每次返回条数  |
-| --start-issue-id | string | false    | ""     | （可选）起始issue-id  |
+| --address        | string | false    |    | Owner address|
+| --limit          | int    | false    | 30     | Number of returns per time|
+| --start-issue-id | string | false    |    | Starting issue-id|
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
 
-### 返回列表
+### Query the list of issuing tokens
 
 ```shell
-hashgardcli issue list-issues 
+hashgardcli issue list-issues
 ```
 ```txt
 [
@@ -63,7 +63,7 @@ hashgardcli issue list-issues
 ```
 
 ```shell
-hashgardcli issue list-issues --limit 1 --start-issue-id coin174876e801 
+hashgardcli issue list-issues --limit 1 --start-issue-id coin174876e801
 ```
 ```txt
 [
@@ -86,7 +86,7 @@ hashgardcli issue list-issues --limit 1 --start-issue-id coin174876e801
 ```
 
 ```shell
-hashgardcli issue list-issues --address=gard1sepa9tuxt238xj3jmvf98k6uk5z7wuwmm4f4mx 
+hashgardcli issue list-issues --address=gard1sepa9tuxt238xj3jmvf98k6uk5z7wuwmm4f4mx
 ```
 ```txt
 [

@@ -8,7 +8,7 @@ This command is used for broadcasting a signed transaction to the network after 
 
 ## Usage
 
-```
+```shell
 hashgardcli bank broadcast [file_path] [flags]
 ```
 
@@ -21,7 +21,6 @@ hashgardcli bank broadcast [file_path] [flags]
 
 ## Example
 
-```
+```shell
 hashgardcli bank broadcast mytxn.json --chain-id=hashgard
 ```
-

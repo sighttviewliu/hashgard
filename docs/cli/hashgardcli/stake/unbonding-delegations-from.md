@@ -6,7 +6,7 @@ Query unbonding delegations for an individual delegator on an individual validat
 
 ## Usage
 
-```
+```shell
 hashgardcli stake unbonding-delegations-from [validator-address] [flags]
 ```
 
@@ -17,6 +17,6 @@ hashgardcli stake unbonding-delegations-from [validator-address] [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake unbonding-delegations-from gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx --chain-id=hashgard
 ```
