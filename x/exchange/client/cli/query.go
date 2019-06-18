@@ -17,7 +17,7 @@ func GetQueryCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:     "query [id]",
 		Args:    cobra.ExactArgs(1),
-		Short:   "Query detail info of the order with the specific id",
+		Short:   "Search detailed info of an order with the specific id ",
 		Example: "$ hashgardcli exchange query 1",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -50,7 +50,7 @@ func GetListCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:     "list [address]",
 		Args:    cobra.ExactArgs(1),
-		Short:   "Query all orders of a specific address",
+		Short:   "Search all orders of a specific address",
 		Example: "$ hashgardcli exchange list gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
@@ -82,7 +82,7 @@ func GetFrozenFundCmd(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
 		Use:     "query-frozen [address]",
 		Args:    cobra.ExactArgs(1),
-		Short:   "Query frozen fund of a specific address",
+		Short:   "Search frozen order list of a specific address ",
 		Example: "$ hashgardcli exchange query-frozen gard1hf4n743fujvxrwx8af7u35anjqpdd2cx8p6cdd",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)

@@ -53,14 +53,14 @@ func GetProposalParam(foundationAddr string) (sdk.Coin, []ProposalParam) {
 	niceVal := "9"
 	niceCoin, _ := sdk.ParseCoin(niceVal + sdk.DefaultBondDenom)
 	proposalParam := []ProposalParam{
-		{Key: communityTax, Value: niceVal},
+		{Key: communityTax, Value: "0.04"},
 		{Key: minDeposit, Value: niceVal + sdk.DefaultBondDenom},
-		{Key: inflation, Value: niceVal},
+		{Key: inflation, Value: "0.07"},
 		{Key: inflationBase, Value: niceVal},
 		{Key: signedBlocksWindow, Value: niceVal},
-		{Key: minSignedPerWindow, Value: niceVal},
+		{Key: minSignedPerWindow, Value: "0.05"},
 		{Key: downtimeJailDuration, Value: niceVal + "s"},
-		{Key: slashFractionDowntime, Value: niceVal},
+		{Key: slashFractionDowntime, Value: "0.05"},
 		{Key: unbondingTime, Value: niceVal + "s"},
 		{Key: maxValidators, Value: niceVal},
 		{Key: foundationAddress, Value: foundationAddr},
@@ -79,12 +79,12 @@ func GetProposalParam(foundationAddr string) (sdk.Coin, []ProposalParam) {
 func getMockApp(t *testing.T, numGenAccs int, genState GenesisState, genAccs []auth.Account) (
 	mapp *mock.App, keeper Keeper, sk staking.Keeper, addrs []sdk.AccAddress,
 	pubKeys []crypto.PubKey, privKeys []crypto.PrivKey) {
-	mapp, keeper, sk, _, _, addrs, pubKeys, privKeys = getMockAppParams(t, numGenAccs, genState, genAccs)
+	mapp, keeper, sk, _, _, addrs, pubKeys, privKeys = getMockAppParams(t, numGenAccs, genState, genAccs, false)
 	return mapp, keeper, sk, addrs, pubKeys, privKeys
 }
 
 // initialize the mock application for this module
-func getMockAppParams(t *testing.T, numGenAccs int, genState GenesisState, genAccs []auth.Account) (
+func getMockAppParams(t *testing.T, numGenAccs int, genState GenesisState, genAccs []auth.Account, bonded bool) (
 	mapp *mock.App, keeper Keeper, sk staking.Keeper, boxKeeper box.Keeper, issueKeeper issue.Keeper, addrs []sdk.AccAddress,
 	pubKeys []crypto.PubKey, privKeys []crypto.PrivKey) {
 
@@ -157,16 +157,15 @@ func getMockAppParams(t *testing.T, numGenAccs int, genState GenesisState, genAc
 	mapp.QueryRouter().AddRoute(QuerierRoute, NewQuerier(keeper))
 
 	mapp.SetEndBlocker(getEndBlocker(keeper))
-	mapp.SetInitChainer(getInitChainer(mapp, keeper, issueKeeper, boxKeeper, mintKeeper, sk, slashingKeeper, genState))
-
-	require.NoError(t, mapp.CompleteSetup(keyStaking, tkeyStaking, keyDistribution, keyMint, keySlashing, keyGov, keyIssue, keyBox))
 
 	valTokens := sdk.TokensFromTendermintPower(42)
 	if genAccs == nil || len(genAccs) == 0 {
 		genAccs, addrs, pubKeys, privKeys = mock.CreateGenAccounts(numGenAccs,
 			sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, valTokens)})
 	}
+	mapp.SetInitChainer(getInitChainer(mapp, keeper, issueKeeper, boxKeeper, mintKeeper, sk, slashingKeeper, genState, pubKeys, addrs, bonded))
 
+	require.NoError(t, mapp.CompleteSetup(keyStaking, tkeyStaking, keyDistribution, keyMint, keySlashing, keyGov, keyIssue, keyBox))
 	mock.SetGenesis(mapp, genAccs)
 
 	return mapp, keeper, sk, boxKeeper, issueKeeper, addrs, pubKeys, privKeys
@@ -184,14 +183,24 @@ func getEndBlocker(keeper Keeper) sdk.EndBlocker {
 
 // gov and staking initchainer
 func getInitChainer(mapp *mock.App, keeper Keeper, issueKeeper issue.Keeper, boxKeeper box.Keeper, mintKeeper mint.Keeper,
-	stakingKeeper staking.Keeper, slashingKeeper slashing.Keeper, genState GenesisState) sdk.InitChainer {
+	stakingKeeper staking.Keeper, slashingKeeper slashing.Keeper, genState GenesisState, pubKeys []crypto.PubKey, addrs []sdk.AccAddress, bonded bool) sdk.InitChainer {
 	return func(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 		mapp.InitChainer(ctx, req)
 
 		stakingGenesis := staking.DefaultGenesisState()
 		tokens := sdk.TokensFromTendermintPower(100000)
-		stakingGenesis.Pool.NotBondedTokens = tokens
 
+		if bonded {
+			stakingGenesis.Pool.BondedTokens = tokens
+			val := sdk.ValAddress(addrs[0])
+			stakingGenesis.Validators = staking.Validators{
+				staking.NewValidator(val, pubKeys[0], staking.NewDescription("test", "", "", ""))}
+			stakingGenesis.Validators[0].Status = sdk.Bonded
+			stakingGenesis.Validators[0].Tokens = tokens
+			stakingGenesis.Validators[0].DelegatorShares = tokens.ToDec()
+		} else {
+			stakingGenesis.Pool.NotBondedTokens = tokens
+		}
 		validators, err := staking.InitGenesis(ctx, stakingKeeper, stakingGenesis)
 		if err != nil {
 			panic(err)

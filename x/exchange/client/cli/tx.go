@@ -18,7 +18,7 @@ import (
 func GetMakeCmd(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "make",
-		Short: "create a new order",
+		Short: "Create a new order",
 		Long: "The supply must have specific amount and coin name, that's what you want to sell." +
 			"So make sure your address have sufficient balance.The target is what you want to get by this order.",
 		Example: "$ hashgardcli exchange make --supply=100gard --target=800apple --from mykey",
@@ -75,7 +75,7 @@ func GetTakeCmd(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "take [id]",
 		Args:  cobra.ExactArgs(1),
-		Short: "take with a active order",
+		Short: "Take an order",
 		Long: "Make sure the --amount is match the order's target coin." +
 			"if send more than the remains of the order target, the order will be filled," +
 			"The extra part will be returned to you. If your amount is more than the exchange threshold," +
@@ -136,7 +136,7 @@ func GetCancelCmd(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "cancel [id]",
 		Args:  cobra.ExactArgs(1),
-		Short: "cancel a exist order",
+		Short: "Cancel an existing order",
 		Long: "If the order's owner is not you, will output error." +
 			"When withdrawal an order successfully, the remains coin of the order will return to the owner address.'",
 		Example: "$ hashgardcli exchange cancel 3 --from mykey",

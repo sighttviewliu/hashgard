@@ -55,9 +55,12 @@ func ValidateProposalParam(proposalParam ProposalParam) sdk.Error {
 	// check key
 	switch proposalParam.Key {
 	case communityTax, inflation, minSignedPerWindow, slashFractionDowntime:
-		_, err := sdk.NewDecFromStr(proposalParam.Value)
+		dec, err := sdk.NewDecFromStr(proposalParam.Value)
 		if err != nil {
 			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, err.Error())
+		}
+		if dec.LT(sdk.NewDec(0)) || dec.GTE(sdk.NewDec(1)) {
+			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, "the value is 0~1")
 		}
 	case minDeposit:
 		_, err := sdk.ParseCoins(proposalParam.Value)
@@ -70,14 +73,20 @@ func ValidateProposalParam(proposalParam ProposalParam) sdk.Error {
 			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, err.Error())
 		}
 	case signedBlocksWindow:
-		_, err := strconv.ParseInt(proposalParam.Value, 10, 64)
+		v, err := strconv.ParseInt(proposalParam.Value, 10, 64)
 		if err != nil {
 			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, err.Error())
 		}
+		if v < 1 {
+			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, "the value must >1")
+		}
 	case maxValidators:
-		_, err := strconv.ParseUint(proposalParam.Value, 10, 16)
+		v, err := strconv.ParseUint(proposalParam.Value, 10, 16)
 		if err != nil {
 			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, err.Error())
+		}
+		if v < 4 {
+			return ErrInvalidParamValue(DefaultCodespace, proposalParam.Key, proposalParam.Value, "the value must >4")
 		}
 	case inflationBase:
 		_, ok := sdk.NewIntFromString(proposalParam.Value)

@@ -225,8 +225,9 @@ func TestTickPassedVotingPeriod(t *testing.T) {
 }
 
 func TestParameterChangePassedVotingPeriod(t *testing.T) {
-	mapp, keeper, _, boxKeeper, issueKeeper, addrs, _, _ := getMockAppParams(t, 10, GenesisState{}, nil)
+	mapp, keeper, _, boxKeeper, issueKeeper, addrs, _, _ := getMockAppParams(t, 1, GenesisState{}, nil, true)
 	SortAddresses(addrs)
+	fmt.Println(addrs[0].String())
 
 	header := abci.Header{Height: mapp.LastBlockHeight() + 1}
 	mapp.BeginBlock(abci.RequestBeginBlock{Header: header})
@@ -252,15 +253,27 @@ func TestParameterChangePassedVotingPeriod(t *testing.T) {
 	var proposalID uint64
 	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(res.Data, &proposalID)
 
-	proposal, _ := keeper.GetProposal(ctx, proposalID)
-	proposal.Status = StatusPassed
-	keeper.SetProposal(ctx, proposal)
+	err, ok := keeper.AddDeposit(ctx, proposalID, addrs[0], proposalCoins)
+	require.True(t, ok)
+	require.NoError(t, err)
 
-	err := keeper.ExecuteProposal(ctx, proposal)
+	err = keeper.AddVote(ctx, proposalID, addrs[0], OptionYes)
 	require.NoError(t, err)
 
 	boxParams := boxKeeper.GetParams(ctx)
 	issueParams := issueKeeper.GetParams(ctx)
+
+	require.NotEqual(t, boxParams.LockCreateFee.Amount, niceCoin.Amount)
+	require.NotEqual(t, issueParams.IssueFee.Amount, niceCoin.Amount)
+
+	newHeader := ctx.BlockHeader()
+	newHeader.Time = time.Now().Add(DefaultPeriod)
+	ctx = ctx.WithBlockHeader(newHeader)
+
+	EndBlocker(ctx, keeper)
+
+	boxParams = boxKeeper.GetParams(ctx)
+	issueParams = issueKeeper.GetParams(ctx)
 
 	require.Equal(t, boxParams.LockCreateFee.Amount, niceCoin.Amount)
 	require.Equal(t, issueParams.IssueFee.Amount, niceCoin.Amount)
