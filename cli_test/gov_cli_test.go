@@ -23,7 +23,6 @@ func TestHashgardCLISubmitProposalParameterChange(t *testing.T) {
 	defer proc.Stop(false)
 
 	fooAddr := f.KeyAddress(keyFoo)
-
 	fooAcc := f.QueryAccount(fooAddr)
 	startTokens := sdk.TokensFromTendermintPower(50)
 	require.Equal(t, startTokens, fooAcc.GetCoins().AmountOf(app.StakeDenom))
