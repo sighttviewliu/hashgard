@@ -225,7 +225,7 @@ func TestTickPassedVotingPeriod(t *testing.T) {
 }
 
 func TestParameterChangePassedVotingPeriod(t *testing.T) {
-	mapp, keeper, _, boxKeeper, issueKeeper, addrs, _, _ := getMockAppParams(t, 1, GenesisState{}, nil)
+	mapp, keeper, _, boxKeeper, issueKeeper, addrs, _, _ := getMockAppParams(t, 1, GenesisState{}, nil, true)
 	SortAddresses(addrs)
 	fmt.Println(addrs[0].String())
 

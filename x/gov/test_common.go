@@ -79,12 +79,12 @@ func GetProposalParam(foundationAddr string) (sdk.Coin, []ProposalParam) {
 func getMockApp(t *testing.T, numGenAccs int, genState GenesisState, genAccs []auth.Account) (
 	mapp *mock.App, keeper Keeper, sk staking.Keeper, addrs []sdk.AccAddress,
 	pubKeys []crypto.PubKey, privKeys []crypto.PrivKey) {
-	mapp, keeper, sk, _, _, addrs, pubKeys, privKeys = getMockAppParams(t, numGenAccs, genState, genAccs)
+	mapp, keeper, sk, _, _, addrs, pubKeys, privKeys = getMockAppParams(t, numGenAccs, genState, genAccs, false)
 	return mapp, keeper, sk, addrs, pubKeys, privKeys
 }
 
 // initialize the mock application for this module
-func getMockAppParams(t *testing.T, numGenAccs int, genState GenesisState, genAccs []auth.Account) (
+func getMockAppParams(t *testing.T, numGenAccs int, genState GenesisState, genAccs []auth.Account, bonded bool) (
 	mapp *mock.App, keeper Keeper, sk staking.Keeper, boxKeeper box.Keeper, issueKeeper issue.Keeper, addrs []sdk.AccAddress,
 	pubKeys []crypto.PubKey, privKeys []crypto.PrivKey) {
 
@@ -163,7 +163,7 @@ func getMockAppParams(t *testing.T, numGenAccs int, genState GenesisState, genAc
 		genAccs, addrs, pubKeys, privKeys = mock.CreateGenAccounts(numGenAccs,
 			sdk.Coins{sdk.NewCoin(sdk.DefaultBondDenom, valTokens)})
 	}
-	mapp.SetInitChainer(getInitChainer(mapp, keeper, issueKeeper, boxKeeper, mintKeeper, sk, slashingKeeper, genState, pubKeys, addrs))
+	mapp.SetInitChainer(getInitChainer(mapp, keeper, issueKeeper, boxKeeper, mintKeeper, sk, slashingKeeper, genState, pubKeys, addrs, bonded))
 
 	require.NoError(t, mapp.CompleteSetup(keyStaking, tkeyStaking, keyDistribution, keyMint, keySlashing, keyGov, keyIssue, keyBox))
 	mock.SetGenesis(mapp, genAccs)
@@ -183,14 +183,14 @@ func getEndBlocker(keeper Keeper) sdk.EndBlocker {
 
 // gov and staking initchainer
 func getInitChainer(mapp *mock.App, keeper Keeper, issueKeeper issue.Keeper, boxKeeper box.Keeper, mintKeeper mint.Keeper,
-	stakingKeeper staking.Keeper, slashingKeeper slashing.Keeper, genState GenesisState, pubKeys []crypto.PubKey, addrs []sdk.AccAddress) sdk.InitChainer {
+	stakingKeeper staking.Keeper, slashingKeeper slashing.Keeper, genState GenesisState, pubKeys []crypto.PubKey, addrs []sdk.AccAddress, bonded bool) sdk.InitChainer {
 	return func(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 		mapp.InitChainer(ctx, req)
 
 		stakingGenesis := staking.DefaultGenesisState()
 		tokens := sdk.TokensFromTendermintPower(100000)
 
-		if len(addrs) > 0 {
+		if bonded {
 			stakingGenesis.Pool.BondedTokens = tokens
 			val := sdk.ValAddress(addrs[0])
 			stakingGenesis.Validators = staking.Validators{
