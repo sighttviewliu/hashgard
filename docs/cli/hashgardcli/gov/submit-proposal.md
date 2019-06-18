@@ -24,33 +24,31 @@ hashgardcli gov submit-proposal [flags]
 ### ParameterChange
 
 | Name      | Type   | Required | Description        |
-| ------------ | ------ | -------- | ------- | ------ |
-| distribution/community_tax  |  浮点型   |   0.02  |  community 抽成的税率  |
-| int/foundation_address | address  |  gard1j2znq44kdk2t8kxznlppl0x0j940y62yadeua8   |  Foundation address for deduction |
-| mint/inflation    | 浮点型    |   0.08  |  annual inflation |
-| mint/inflation_base    |  整型  | 100000000000000000000000000000  |   Inflation base  |
-| gov/min_deposit    |   string   |   100000000000000000000agard   | Proposed minimum deposit |
-| slashing/signed_blocks_window    |  整型  | 100 | 掉线处罚的监测窗口  |
-| slashing/min_signed_per_window    | 浮点型   |  0.5 |   窗口的签名率  |
-| slashing/slash_fraction_downtime     | 浮点型   |  0.02    | 掉线的罚金率   |
-| slashing/downtime_jail_duration|time.Duration| 12h or 720m or 3600s (Supported by：h,m,s)   |  掉线监禁时长  |
-| staking/max_validators    |   整型   | 21  |  Max validators  |
-| staking/unbonding_time     |  time.Duration   |  12h or 720m or 3600s (Supported by：h,m,s) | 股权解绑时间|
-| issue/issue_fee   |   string  | 20000000000000000000000agard   |  Issuance fee |
-| issue/mint_fee   |   string  | 10000000000000000000000agard   |  mint free |
-| issue/burn_fee   |  string   |  10000000000000000000000agard  | Owner burns his own token fee |
-| issue/burn_from_fee    |  string  |  10000000000000000000000agard |  Owner burns other tokens fee  |
-| issue/transfer_owner_fee    |  string  | 20000000000000000000000agard  | Token owner transfer fee   |
-| issue/describe_fee   |   string  |  4000000000000000000000agard | Modigy descrption fee  |
-| issue/freeze_fee   |   string  | 20000000000000000000000agard  |  freeze address fee   |
-| issue/unfreeze_fee     |   string | 20000000000000000000000agard  |  Unfreeze address fee|
-| box/lock_create_fee    |   string | 1000000000000000000000agard  |  Create a lock box fee |
-| box/deposit_box_create_fee     |   string | 10000000000000000000000agard  | Create a deposit box fee   |
-| box/future_box_create_fee    |  string  |10000000000000000000000agard   | Create a future box fee |
-| box/disable_feature_fee   |  string  | 10000000000000000000000agard  |  Use Disabled Function Fee|
-| box/describe_fee    |  string  |10000000000000000000000agard|  Modifying Description Fee   |
-
-
+| ---------- | ------------- |---------------------- | ------- |
+| distribution/community_tax       | 浮点型  | 0.02 | community 抽成的税率   |
+| int/foundation_address  | address       | gard1j2znq44kdk2t8kxznlppl0x0j940y62yadeua8 | 用于扣款的基金会地址   |
+| mint/inflation                   | 浮点型        | 0.08                                        | annual inflation               |
+| mint/inflation_base              | 整型          | 100000000000000000000000000000              | Inflation base               |
+| gov/min_deposit                  | string        | 100000000000000000000agard                  | Proposed minimum deposit         |
+| slashing/signed_blocks_window    | 整型          | 100                                         | 掉线处罚的监测窗口     |
+| slashing/min_signed_per_window   | 浮点型        | 0.5                                         | 窗口的签名率           |
+| slashing/slash_fraction_downtime | 浮点型        | 0.02                                        | 掉线的罚金率           |
+| slashing/downtime_jail_duration  | time.Duration | 12h or 720m or 3600s (Supported by： h,m,s)       | 掉线监禁时长           |
+| staking/max_validators           | 整型          | 21                                          | Max validators         |
+| staking/unbonding_time           | time.Duration | 12h or 720m or 3600s (Supported by： h,m,s)       | 股权解绑时间           |
+| issue/issue_fee                  | string        | 20000000000000000000000agard                | Issuance fee           |
+| issue/mint_fee                   | string        | 10000000000000000000000agard                |  mint free             |
+| issue/burn_fee                   | string        | 10000000000000000000000agard                | Owner burns his own token fee|
+| issue/burn_from_fee              | string        | 10000000000000000000000agard                | Owner burns other tokens fee |
+| issue/transfer_owner_fee         | string        | 20000000000000000000000agard                | Token owner transfer fee  |
+| issue/describe_fee               | string        | 4000000000000000000000agard                 |  Modify descrption fee        |
+| issue/freeze_fee                 | string        | 20000000000000000000000agard                | freeze address fee   |
+| issue/unfreeze_fee               | string        | 20000000000000000000000agard                | unfreeze address fee       |
+| box/lock_create_fee              | string        | 1000000000000000000000agard                 | Create a lock box fee        |
+| box/deposit_box_create_fee       | string        | 10000000000000000000000agard                | Create a deposit box fee         |
+| box/future_box_create_fee        | string        | 10000000000000000000000agard                | Create a future box fee     |
+| box/disable_feature_fee          | string        | 10000000000000000000000agard                | Use Disabled Function Fee        |
+| box/describe_fee                 | string        | 10000000000000000000000agard                | Modifying Description Fee        |
 
 ## Example
 
@@ -140,7 +138,6 @@ hashgardcli gov submit-proposal \
 ```shell
 hashgardcli gov submit-proposal --title="Test-Proposal" --description="My awesome proposal" --type="ParameterChange" --deposit="10gard" --param="box/lock_create_fee=10gard,mint/inflation=1" --from
 ```
-
 ```text
 Height: 14596
 TxHash: D2CAE79F0278CE39A0B17789E0875F997765F3FEE14A58420E74E31C2BF1DC52
