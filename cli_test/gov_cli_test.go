@@ -52,6 +52,5 @@ func TestHashgardCLISubmitProposalParameterChange(t *testing.T) {
 
 	depositParams := f.QueryGovParamDeposit()
 	require.Equal(t, depositParams.MinDeposit.AmountOf(sdk.DefaultBondDenom), niceVal.Amount)
-
 	f.Cleanup()
 }
