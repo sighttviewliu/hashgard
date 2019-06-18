@@ -25,7 +25,7 @@ hashgardcli gov submit-proposal [flags]
 ### ParameterChange
 
 | 名称，速记        | 类型  | 默认值 | 描述          |
-| ------------ | ------ | -------- | ------- | ------ |
+| ---------- | ------ | -------- | ------- | --- |
 | distribution/community_tax  |  浮点型   |   0.02  |  community 抽成的税率  |
 | int/foundation_address | address  |  gard1j2znq44kdk2t8kxznlppl0x0j940y62yadeua8   |  用于扣款的基金会地址  |
 | mint/inflation    | 浮点型    |   0.08  |  年通胀率  |
@@ -50,6 +50,7 @@ hashgardcli gov submit-proposal [flags]
 | box/future_box_create_fee    |  string  |10000000000000000000000agard   |   创建远期支付的费用 |
 | box/disable_feature_fee   |  string  | 10000000000000000000000agard  |  禁用特性的费用 |
 | box/describe_fee    |  string  |10000000000000000000000agard| 修改描述的费用   |
+
 
 
 ## 例子
@@ -86,49 +87,7 @@ hashgardcli gov submit-proposal --title="notice proposal" --type="Text" --descri
  ]
 }
 ```
-### 以提案文件的方式提交一个 'Text' 类型的提案
-```shell
-hashgardcli gov submit-proposal --proposal="path/to/proposal.json" --from=hashgard --chain-id=hashgard ---o json --indent
-```
-提案文件内容如下：
-```shell
-{
-  "title": "Test Proposal",
-  "description": "My awesome proposal",
-  "type": "Text",
-  "deposit": "10gard"
-}
-```
 
-输入正确的密码之后，你就完成提交了一个提案，需要注意的是要记下你的提案 ID，这是可以检索你的提案的唯一要素。
-```txt
-{
- "height": "85903",
- "txhash": "9680C11E6631D4EA4B6CE06775D7AC1DAFDA5BD64A98F68E940990CF3E6142D0",
- "data": "AQQ=",
- "log": "[{\"msg_index\":\"0\",\"success\":true,\"log\":\"\"}]",
- "gas_wanted": "200000",
- "gas_used": "55848",
- "tags": [
-  {
-   "key": "action",
-   "value": "submit_proposal"
-  },
-  {
-   "key": "proposer",
-   "value": "gard10tfnpxvxjh6tm6gxq978ssg4qlk7x6j9aeypzn"
-  },
-  {
-   "key": "proposal-id",
-   "value": "4"
-  },
-  {
-   "key": "voting-period-start",
-   "value": "4"
-  }
- ]
-}
-```
 
 ### 提交一个 ‘ParameterChange’ 类型的提案
 ```shell
