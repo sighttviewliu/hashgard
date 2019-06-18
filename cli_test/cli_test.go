@@ -1197,7 +1197,7 @@ func TestHashgarddAddGenesisAccount(t *testing.T) {
 
 	f.AddGenesisAccount(f.KeyAddress(keyFoo), startCoins)
 	f.AddGenesisAccount(f.KeyAddress(keyBar), bazCoins)
-	genesisState := f.GenesisState()
+	_, _, genesisState := f.GenesisState()
 	require.Equal(t, genesisState.Accounts[0].Address, f.KeyAddress(keyFoo))
 	require.Equal(t, genesisState.Accounts[1].Address, f.KeyAddress(keyBar))
 	require.True(t, genesisState.Accounts[0].Coins.IsEqual(startCoins))

@@ -11,6 +11,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/tendermint/tendermint/types"
+
 	"github.com/stretchr/testify/require"
 
 	"github.com/tendermint/tendermint/crypto"
@@ -103,14 +105,15 @@ func (f Fixtures) GenesisFile() string {
 }
 
 // GenesisFile returns the application's genesis state
-func (f Fixtures) GenesisState() app.GenesisState {
+func (f Fixtures) GenesisState() (*codec.Codec, types.GenesisDoc, app.GenesisState) {
 	cdc := codec.New()
 	genDoc, err := hashgardInit.LoadGenesisDoc(cdc, f.GenesisFile())
 	require.NoError(f.T, err)
 
 	var appState app.GenesisState
 	require.NoError(f.T, cdc.UnmarshalJSON(genDoc.AppState, &appState))
-	return appState
+	appState.GovData.VotingParams.VotingPeriod = 10 * time.Second
+	return cdc, genDoc, appState
 }
 
 // InitFixtures is called at the beginning of a test  and initializes a chain
@@ -148,7 +151,7 @@ func InitFixtures(t *testing.T) (f *Fixtures) {
 	// start an account with tokens
 	f.AddGenesisAccount(f.KeyAddress(keyFoo), startCoins)
 	f.AddGenesisAccount(f.KeyAddress(keyIssue), sdk.Coins{
-		sdk.NewCoin(denom, sdk.TokensFromTendermintPower(1000000000)),
+		sdk.NewCoin(denom, sdk.TokensFromTendermintPower(100000000000000000)),
 	})
 	f.AddGenesisAccount(
 		f.KeyAddress(keyVesting), startCoins,
@@ -157,10 +160,20 @@ func InitFixtures(t *testing.T) (f *Fixtures) {
 		fmt.Sprintf("--vesting-end-time=%d", time.Now().Add(60*time.Second).UTC().UnixNano()),
 	)
 
-	f.AddGenesisAccount(sdk.AccAddress(crypto.AddressHash([]byte("foundationaddress"))), sdk.NewCoins(sdk.NewCoin(denom, sdk.TokensFromTendermintPower(300000000))))
+	f.AddGenesisAccount(sdk.AccAddress(crypto.AddressHash([]byte("foundationaddress"))),
+		sdk.NewCoins(sdk.NewCoin(denom, sdk.TokensFromTendermintPower(300000000))))
 
 	f.GenTx(keyFoo)
 	f.CollectGenTxs()
+
+	cdc, genDoc, genesisState := f.GenesisState()
+	bz, err := cdc.MarshalJSONIndent(genesisState, "", "")
+	require.NoError(f.T, err)
+	genDoc.AppState = bz
+	str, err := cdc.MarshalJSONIndent(genDoc, "", "")
+	require.NoError(f.T, err)
+	err = ioutil.WriteFile(f.GenesisFile(), str, os.ModeDir)
+	require.NoError(f.T, err)
 
 	return
 }
@@ -436,7 +449,18 @@ func (f *Fixtures) QueryTxsInvalid(expectedErr error, page, limit int, tags ...s
 }
 
 //___________________________________________________________________________________
-// hashgardcli stake
+// hashgardcli stakehashgardcli stake validators
+
+// QueryStakingValidator is hashgardcli stake validators
+func (f *Fixtures) QueryStakingValidators(flags ...string) staking.Validators {
+	cmd := fmt.Sprintf("../build/hashgardcli stake validators %v", f.Flags())
+	out, _ := tests.ExecuteT(f.T, addFlags(cmd, flags), "")
+	var validators staking.Validators
+	cdc := app.MakeCodec()
+	err := cdc.UnmarshalJSON([]byte(out), &validators)
+	require.NoError(f.T, err, "out %v\n, err %v", out, err)
+	return validators
+}
 
 // QueryStakingValidator is hashgardcli stake validator
 func (f *Fixtures) QueryStakingValidator(valAddr sdk.ValAddress, flags ...string) staking.Validator {
