@@ -2,7 +2,7 @@
 
 ## Description
 
-Cancel order and withdrawal token
+cancel an existing order
 
 ## Usage
 

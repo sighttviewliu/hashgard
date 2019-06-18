@@ -14,11 +14,11 @@ hashgardcli issue disable [issue-id][flags][flags]
 
 | 名称          | 类型 | 必需 | 默认值 | 描述                                    |
 | ------------- | ---- | -------- | ------ | --------------------------------------- |
-| --burn-owner  | bool | 否       | false  | 关闭代币所有者销毁自己持有的代币功能    |
-| --burn-holder | bool | 否       | false  | 关闭普通账号销毁该自己持有的代币功能    |
-| --burn-from   | bool | 否       | false  | 关闭 Owner 销毁非管理员账户持有的代币功能 |
-| --minting     | bool | 否       | false  | 关闭增发功能                        |
-| --freeze      | bool | 否       | false  | 关闭冻结用户转入转出功能                |
+| burn-owner  | bool | 否       | false  | 关闭代币所有者销毁自己持有的代币功能    |
+| burn-holder | bool | 否       | false  | 关闭普通账号销毁该自己持有的代币功能    |
+| burn-from   | bool | 否       | false  | 关闭 Owner 销毁非管理员账户持有的代币功能 |
+| minting     | bool | 否       | false  | 关闭增发功能                        |
+| freeze      | bool | 否       | false  | 关闭冻结用户转入转出功能                |
 
 **全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 

@@ -14,7 +14,7 @@ hashgardcli future create [name] [total-amount][distribute-file] [flags]
 
 | 名称          | 类型   | 必需 | 默认值 | 描述                   |
 | ------------- | ------ | -------- | ------ | ---------------------- |
-| name          | string | 是       |        | 盒子的名称         |
+| Name          | string | 是       |        | 盒子的名称         |
 | total-amount  | string | 是       |        | 支付的种类和数量       |
 | Mini-multiple | int    | 是       | 1      | 待收款凭证交易最小单位 |
 

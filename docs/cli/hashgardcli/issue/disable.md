@@ -14,11 +14,11 @@ hashgardcli issue disable [issue-id][flags]
 
 | Name          | Type| Required  | Default| Description                               |
 | ------------- | ---- | -------- | ------ | --------------------------------------- |
-| --burn-owner  | Bool | false   | false  | Disable owner to burn your own token|
-| --burn-holder | bool | false  | false  | Disable Non-owner users burn their own tokens|
-| --burn-from   | bool | false   | false  | Disable owner burning other user tokens|
-| --minting     | bool | false   | false  | Disable the mint              |
-| --freeze      | bool | false | false  | Disable freeze          |
+| burn-owner  | Bool | false   | false  | Disable owner to burn your own token|
+| burn-holder | bool | false  | false  | Disable Non-owner users burn their own tokens|
+| burn-from   | bool | false   | false  | Disable owner burning other user tokens|
+| minting     | bool | false   | false  | Disable the mint              |
+| freeze      | bool | false | false  | Disable freeze          |
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 

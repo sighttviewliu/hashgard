@@ -2,7 +2,7 @@
 
 ## Description
 
-Query all valid orders for the specified address
+Search all orders of a specific address 
 
 ## Usage
 

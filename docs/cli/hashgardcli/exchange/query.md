@@ -2,7 +2,7 @@
 
 ## Description
 
-Query order details for the specified id
+Search detailed info of an order with the specific order-id
 
 ## Usage
 

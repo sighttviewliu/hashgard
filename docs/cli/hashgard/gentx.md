@@ -32,7 +32,7 @@ delegation amount:           100000000000000000000agard
 | --home-client                | string | ~/.hashgardcli | client's home directory        | false  |
 | --ip                         | string | localhost IP   | The node's public IP                             | false  |
 | --min-self-delegation        | string |                | The minimum self delegation required on the validator  | `true`     |
-| --name                       | string |                | name of private key with which to sign the gentx   | false  |
+| --name                       | string |                | Name of private key with which to sign the gentx   | false  |
 | --node-id                    | string |            | The node's NodeID                                  | false  |
 | --output-document            | string |                | write the genesis transaction JSON document to the given file instead of the default location| false  |
 | --pubkey                     | string |                | The Bech32 encoded PubKey of the validator                   | false  |

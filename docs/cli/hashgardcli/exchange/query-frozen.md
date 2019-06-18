@@ -2,7 +2,7 @@
 
 ## Description
 
-View frozen token at a specified address
+Search frozen order list of a specific address
 
 ## Usage
 

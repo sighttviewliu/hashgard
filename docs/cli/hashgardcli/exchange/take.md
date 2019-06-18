@@ -2,7 +2,7 @@
 
 ## Description
 
-Create Order  指定提供的币种和数量，以及目标币种及数量。创建成功后，订单处于有效状态，提供的币会处于冻结状态。任何人都能同该订单进行交易。
+take an order
 
 ## Usage
 
