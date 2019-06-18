@@ -23,7 +23,6 @@ func TestHashgardCLISubmitProposalParameterChange(t *testing.T) {
 	defer proc.Stop(false)
 
 	fooAddr := f.KeyAddress(keyFoo)
-
 	fooAcc := f.QueryAccount(fooAddr)
 	startTokens := sdk.TokensFromTendermintPower(50)
 	require.Equal(t, startTokens, fooAcc.GetCoins().AmountOf(app.StakeDenom))
@@ -52,6 +51,5 @@ func TestHashgardCLISubmitProposalParameterChange(t *testing.T) {
 
 	depositParams := f.QueryGovParamDeposit()
 	require.Equal(t, depositParams.MinDeposit.AmountOf(sdk.DefaultBondDenom), niceVal.Amount)
-
 	f.Cleanup()
 }
