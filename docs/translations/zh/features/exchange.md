@@ -22,7 +22,7 @@ Alice 现在知道了密码锁的密码，他就可以去 1 号保险箱取走�
 
 ### 用户创建卖单
 ```shell
-hashgardcli exchange create [flags]
+hashgardcli exchange make[flags]
 ```
 
 ### 用户创建买单

@@ -20,7 +20,7 @@ hashgardcli exchange --help
 
 | 名称                            | 功能    |
 | --------------------------------| ------------------------|
-| [create](create.md)  | 创建卖单 |
+| [make](make.md)  | 创建卖单 |
 | [take](take.md)  | 创建买单 |
 | [cancel](cancel.md)  | 取消挂单 |
 | [query-frozen](query-frozen.md)  | 查询指定地址冻结的资金|

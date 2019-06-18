@@ -53,8 +53,10 @@
 7. [tendermint command](./tendermint/README.md)
 8. [slashing command](./slashing/README.md)
 9. [issue command](./issue/README.md)
-10. [box command](./box/README.md)
-11. [faucet command](./faucet/send.md)
+10. [deposit command](./deposit/README.md)
+11. [lock command](./lock/README.md)
+12. [future command](./future/README.md)
+13. [faucet command](./faucet/send.md)
 
 ## hashgardcli config 命令
 

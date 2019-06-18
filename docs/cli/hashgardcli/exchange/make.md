@@ -1,8 +1,8 @@
-# hashgardcli exchange create
+# hashgardcli exchange make
 
 ## Description
 
-create a new order
+Create a new order
 
 ## Usage
 
@@ -24,7 +24,7 @@ hashgardcli exchange create [flags]
 ### Create order
 
 ```shell
-hashgardcli exchange create --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
+hashgardcli exchange make --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
 ```
 
 Created a 100gard exchange 800apple order
@@ -45,7 +45,7 @@ Created a 100gard exchange 800apple order
  "tags": [
   {
    "key": "action",
-   "value": "create_order"
+   "value": "make"
   },
   {
    "key": "order_id",

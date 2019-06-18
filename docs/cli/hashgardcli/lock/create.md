@@ -10,7 +10,7 @@
 
 | Name      | Type  | Required | Default   | Description                |
 | ------------ | ------ | -------- | ------ | -------------------- |
-| name         | string | true       |        | 盒子的名称       |
+| Name         | string | true       |        | 盒子的名称       |
 | total-amount | string | true       |        | 锁定通证的种类和数量 |
 | end-time     | int    | true       |        | 锁定到期的时间       |
 

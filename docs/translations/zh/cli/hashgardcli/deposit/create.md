@@ -16,7 +16,7 @@ hashgardcli  deposit create [name] [total-amount] [flags]
 
 | 名称         | 类型   | 必需 | 默认值 | 描述                 |
 | ------------ | ------ | -------- | ------ | -------------------- |
-| name         | string | 是       |        | 盒子的名称      |
+| Name         | string | 是       |        | 盒子的名称      |
 | total-amount | string | 是       |        | 接受存款的总量和种类 |
 
 
@@ -37,7 +37,7 @@ hashgardcli  deposit create [name] [total-amount] [flags]
 ## 例子
 ### 创建存款盒子
 ```shell
-hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price=2  --start-time=1558079700  --establish-time=1558080300 --maturity-time=1558080900 --interest=9898 coin174876e800  --from
+hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price=2  --start-time=1558079700  --establish-time=1558080300 --maturity-time=1558080900 --interest=9898coin174876e800  --from
 ```
 成功后，返回结果:
 ```txt

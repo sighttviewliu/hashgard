@@ -19,7 +19,7 @@ hashgardcli distribution --help
 
 ## Available Subcommands
 
-| name                          | Description                                                 |
+| Name                          | Description                                                 |
 | --------------------------------| --------------------------------------------------------------|
 | [params](params.md)  |Query distribution params |
 | [validator-outstanding-rewards](validator-outstanding-rewards.md)  |Query distribution outstanding (un-withdrawn) rewards for a validator and all their delegations|
