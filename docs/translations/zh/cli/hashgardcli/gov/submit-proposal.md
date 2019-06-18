@@ -24,32 +24,32 @@ hashgardcli gov submit-proposal [flags]
 
 ### ParameterChange
 
-| 名称，速记        | 类型  | 默认值 | 描述          |
-| ---------- | ------ | -------- | ------- | --- |
-| distribution/community_tax  |  浮点型   |   0.02  |  community 抽成的税率  |
-| int/foundation_address | address  |  gard1j2znq44kdk2t8kxznlppl0x0j940y62yadeua8   |  用于扣款的基金会地址  |
-| mint/inflation    | 浮点型    |   0.08  |  年通胀率  |
-| mint/inflation_base    |  整型  | 100000000000000000000000000000  |   通胀基数  |
-| gov/min_deposit    |   string   |   100000000000000000000agard   | 提案的最低存款  |
-| slashing/signed_blocks_window    |  整型  | 100 | 掉线处罚的监测窗口  |
-| slashing/min_signed_per_window    | 浮点型   |  0.5 |   窗口的签名率  |
-| slashing/slash_fraction_downtime     | 浮点型   |  0.02    | 掉线的罚金率   |
-| slashing/downtime_jail_duration|time.Duration| 12h or 720m or 3600s (支持单位 h,m,s)   |  掉线监禁时长  |
-| staking/max_validators    |   整型   | 21  |  活跃验证人数量  |
-| staking/unbonding_time     |  time.Duration   |  12h or 720m or 3600s (支持单位 h,m,s) | 股权解绑时间|
-| issue/issue_fee   |   string  | 20000000000000000000000agard   |  发行的费用 |
-| issue/mint_fee   |   string  | 10000000000000000000000agard   |  增发的费用 |
-| issue/burn_fee   |  string   |  10000000000000000000000agard  | 销毁自身持有代币的费用  |
-| issue/burn_from_fee    |  string  |  10000000000000000000000agard |  owner 消毁持有者的费用  |
-| issue/transfer_owner_fee    |  string  | 20000000000000000000000agard  | 转移 owner 权限的费用  |
-| issue/describe_fee   |   string  |  4000000000000000000000agard |修改描述的费用 |
-| issue/freeze_fee   |   string  | 20000000000000000000000agard  |  冻结账户地址的费用  |
-| issue/unfreeze_fee     |   string | 20000000000000000000000agard  |  解冻地址的费用 |
-| box/lock_create_fee    |   string | 1000000000000000000000agard  |  创建锁仓的费用  |
-| box/deposit_box_create_fee     |   string | 10000000000000000000000agard  | 创建存款的费用   |
-| box/future_box_create_fee    |  string  |10000000000000000000000agard   |   创建远期支付的费用 |
-| box/disable_feature_fee   |  string  | 10000000000000000000000agard  |  禁用特性的费用 |
-| box/describe_fee    |  string  |10000000000000000000000agard| 修改描述的费用   |
+| 名称，速记      | 类型          | 默认值              | 描述|
+| ---------- | ------------- |---------------------- | ------- |
+| distribution/community_tax       | 浮点型  | 0.02 | community 抽成的税率   |
+| int/foundation_address  | address       | gard1j2znq44kdk2t8kxznlppl0x0j940y62yadeua8 | 用于扣款的基金会地址   |
+| mint/inflation                   | 浮点型        | 0.08                                        | 年通胀率               |
+| mint/inflation_base              | 整型          | 100000000000000000000000000000              | 通胀基数               |
+| gov/min_deposit                  | string        | 100000000000000000000agard                  | 提案的最低存款         |
+| slashing/signed_blocks_window    | 整型          | 100                                         | 掉线处罚的监测窗口     |
+| slashing/min_signed_per_window   | 浮点型        | 0.5                                         | 窗口的签名率           |
+| slashing/slash_fraction_downtime | 浮点型        | 0.02                                        | 掉线的罚金率           |
+| slashing/downtime_jail_duration  | time.Duration | 12h or 720m or 3600s (支持单位 h,m,s)       | 掉线监禁时长           |
+| staking/max_validators           | 整型          | 21                                          | 活跃验证人数量         |
+| staking/unbonding_time           | time.Duration | 12h or 720m or 3600s (支持单位 h,m,s)       | 股权解绑时间           |
+| issue/issue_fee                  | string        | 20000000000000000000000agard                | 发行的费用             |
+| issue/mint_fee                   | string        | 10000000000000000000000agard                | 增发的费用             |
+| issue/burn_fee                   | string        | 10000000000000000000000agard                | 销毁自身持有代币的费用 |
+| issue/burn_from_fee              | string        | 10000000000000000000000agard                | owner 消毁持有者的费用 |
+| issue/transfer_owner_fee         | string        | 20000000000000000000000agard                | 转移 owner 权限的费用  |
+| issue/describe_fee               | string        | 4000000000000000000000agard                 | 修改描述的费用         |
+| issue/freeze_fee                 | string        | 20000000000000000000000agard                | 冻结账户地址的费用     |
+| issue/unfreeze_fee               | string        | 20000000000000000000000agard                | 解冻地址的费用         |
+| box/lock_create_fee              | string        | 1000000000000000000000agard                 | 创建锁仓的费用         |
+| box/deposit_box_create_fee       | string        | 10000000000000000000000agard                | 创建存款的费用         |
+| box/future_box_create_fee        | string        | 10000000000000000000000agard                | 创建远期支付的费用     |
+| box/disable_feature_fee          | string        | 10000000000000000000000agard                | 禁用特性的费用         |
+| box/describe_fee                 | string        | 10000000000000000000000agard                | 修改描述的费用         |
 
 
 
