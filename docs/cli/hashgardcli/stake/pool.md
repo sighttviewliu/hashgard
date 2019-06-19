@@ -6,7 +6,7 @@ Query values for amounts stored in the staking pool:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake pool [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake pool [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake pool --trust-node
 ```
 
@@ -29,5 +29,4 @@ Loose Tokens: 99890.0000000000
 Bonded Tokens: 310.0000000000
 Token Supply: 100200.0000000000
 Bonded Ratio: 0.0030938124
-
 ```

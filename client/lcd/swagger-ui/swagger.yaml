@@ -20,7 +20,7 @@ tags:
 - name: ICS25
   description: Token lock-up APIs
 - name: HRC10
-  description: Issue module APIs
+  description: Issue module (HRC10)  APIs
 - name: HRC11
   description: Exchange module (HRC11)  APIs
 - name: HRC12

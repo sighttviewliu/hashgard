@@ -4,16 +4,16 @@
 
 查询指定提案、指定投票者的投票情况
 
-## 使用方式
+## 用法
 
-```
+```shell
 hashgardcli gov query-vote [proposal-id] [voter-addr] [flags]
 ```
 
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
- 
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
+
 ### 查询投票
 
 ```shell

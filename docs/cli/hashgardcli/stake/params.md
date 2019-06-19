@@ -6,7 +6,7 @@ Query values set as staking parameters:
 
 ## Usage
 
-```
+```shell
 hashgardcli stake params [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake params [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli stake params --trust-node
 ```
 

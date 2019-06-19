@@ -1,4 +1,4 @@
-# hashgardcli stake delegation
+s# hashgardcli stake delegation
 
 ## 描述
 
@@ -6,15 +6,15 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake delegation [delegator-addr] [validator-addr] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询委托人和验证人的委托交易
 

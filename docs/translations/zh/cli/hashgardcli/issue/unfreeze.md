@@ -2,25 +2,26 @@
 
 ## 描述
 解冻用户的转入和转出功能
-## 使用方式
+
+## 用法
 ```shell
- hashgardcli issue unfreeze [unfreeze-type] [issue-id][address] --from
+ hashgardcli issue unfreeze [unfreeze-type] [issue-id][address][flags]
 ```
 ### unfreeze-type
 
-| 命令   | 描述                 |
+| 名称   | 描述                 |
 | ------ | -------------------- |
 | in     | 该账号本通证转入功能 |
 | out    | 该账号本通证转出功能 |
 | In-out | 该账号转入和转出功能 |
 
 
+## Flags
 
-## Global Flags
-
- ### 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
+
 ### 解冻某地址的转入功能
 ```shell
 hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n --from
@@ -35,7 +36,7 @@ hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvx
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 16203
-  Tags: 
+  Tags:
     - action = issue_unfreeze
     - category = issue
     - issue-id = coin174876e800

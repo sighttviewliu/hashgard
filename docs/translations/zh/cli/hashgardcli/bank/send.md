@@ -2,28 +2,28 @@
 
 ## 描述
 
-发送通证到指定地址 
+发送通证到指定地址
 
-## 使用方式
+## 用法
 
-```
+```shell
 hashgardcli bank send [to_address] [amount] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 
-### 发送通证到指定地址 
+### 发送通证到指定地址
 
-```
+```shell
 hashgardcli bank send gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl 10gard --from=hashgard --chain-id=hashgard --indent -o json
 ```
 
-命令执行完成后，返回执行的细节信息
+成功后，返回结果:
 
-```
+```txt
 {
  "height": "21667",
  "txhash": "58110E97BD93CFA123B43B7C893386BA26F238570E1131A7B6E1E6ED5B7DA605",

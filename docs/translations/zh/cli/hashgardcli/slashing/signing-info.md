@@ -6,19 +6,19 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli slashing signing-info [validator-conspub] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询验证人的签名信息
 
-```
+```shell
 hashgardcli slashing signing-info \
 gardvalconspub1zcjduepqgsmuj0qallsw79hjj9qztcke6hj3ujdcpjv249uny9fvzp4eulms0tqvgs \
 --trust-node

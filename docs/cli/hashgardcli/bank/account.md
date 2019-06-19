@@ -7,8 +7,8 @@ This command is used for querying balance information of certain address.
 
 ## Usage
 
-```
-hashgardcli bank account [address] [flags] 
+```shell
+hashgardcli bank account [address] [flags]
 ```
 
 ## Flags
@@ -19,13 +19,13 @@ hashgardcli bank account [address] [flags]
 
 ### Query your account in trust-mode
 
-```
+```shell
 hashgardcli bank account gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx -o json --trust-node --indent
 ```
 
 After that, you will get the detail info for the account.
 
-```
+```shell
 {
  "type": "auth/Account",
  "value": {
@@ -46,12 +46,12 @@ After that, you will get the detail info for the account.
 }
 ```
 If you query an wrong account, you will get the follow information.
-```
+```shell
 hashgardcli bank account gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429zz
 ERROR: decoding bech32 failed: checksum failed. Expected d429yx, got d429zz.
 ```
 If you query an account with no transactions on the chain, you will get the follow error.
-```
+```shell
 hashgardcli bank account gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7
 ERROR: No account with address gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7 was found in the state.
 Are you sure there has been a transaction involving it?

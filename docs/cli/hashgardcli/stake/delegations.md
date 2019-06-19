@@ -7,7 +7,7 @@ Query all delegations delegated from one delegator
 
 ## Usage
 
-```
+```shell
 hashgardcli stake delegations [delegator-address] [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli stake delegations [delegator-address] [flags]
 
 ## Example
 
-```
+```shell
 hashgardcli stake delegations gard1m3m4l6g5774qe5jj8cwlyasue22yh32jf4wwet --trust-node
 ```
 

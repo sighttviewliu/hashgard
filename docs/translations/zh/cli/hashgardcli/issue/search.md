@@ -2,13 +2,13 @@
 
 ## 描述
 根据代币符号来搜索发行的代币信息
-## 使用方式
-```
+## 用法
+```shell
 hashgardcli issue search [symbol] [flags]
 ```
-## Global Flags
+## Flags
 
- ### 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 ### 搜索
@@ -26,7 +26,7 @@ hashgardcli issue search AAA
         "symbol":"AAA",
         "total_supply":"10000000001023",
         "decimals":"18",
-        "description":"{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}",
+        "description":"{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"This is a description of the project"}",
         "burn_owner_disabled":false,
         "burn_holder_disabled":false,
         "burn_from_disabled":false,

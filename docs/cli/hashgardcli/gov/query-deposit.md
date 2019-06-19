@@ -6,7 +6,7 @@ Query details for a single proposal deposit on a proposal by its identifier
 
 ## Usage
 
-```
+```shell
  hashgardcli gov query-deposit [proposal-id] [depositer-addr] [flags]
 ```
 

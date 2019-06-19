@@ -16,7 +16,7 @@ hashgardcli gov [command]
 
 Print all supported subcommands and flags:
 
-```
+```shell
 hashgardcli gov --help
 ```
 ## Available Commands

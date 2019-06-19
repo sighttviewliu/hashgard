@@ -1,9 +1,10 @@
 # hashgardcli issue query
 
 ## Description
-查询指定issue-id值的发行的信息。
+Query information about the release of the specified issue-id .
+
 ## Usage
-```
+```shell
 hashgardcli issue query-issue [issue-id] [flags]
 ```
 ## Flags
@@ -11,9 +12,9 @@ hashgardcli issue query-issue [issue-id] [flags]
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
-### 查询发行信息
+### Query issue information
 ```shell
-hashgardcli issue query-issue coin174876e800 
+hashgardcli issue query-issue coin174876e800
 ```
 ```txt
 {
@@ -26,12 +27,12 @@ Issue:
   TotalSupply:      			10000000001023
   Decimals:         			18
   IssueTime:					1558179518
-  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"新一代金融公有链"}
-  BurnOwnerDisabled:  			false 
-  BurnHolderDisabled:  			false 
-  BurnFromDisabled:  			false 
-  FreezeDisabled:  				false 
-  MintingFinished:  			false 
+  Description:	    			{"org":"Hashgard","website":"https://www.hashgard.com","logo":"https://cdn.hashgard.com/static/logo.2d949f3d.png","intro":"a good project"}
+  BurnOwnerDisabled:  			false
+  BurnHolderDisabled:  			false
+  BurnFromDisabled:  			false
+  FreezeDisabled:  				false
+  MintingFinished:  			false
  }
 }
 ```

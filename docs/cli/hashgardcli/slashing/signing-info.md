@@ -6,7 +6,7 @@ Use a validators' consensus public key to find the signing-info for that validat
 
 ## Usage
 
-```
+```shell
 hashgardcli slashing signing-info [validator-conspub] [flags]
 ```
 
@@ -17,7 +17,7 @@ hashgardcli slashing signing-info [validator-conspub] [flags]
 ## Example
 
 
-```
+```shell
 hashgardcli slashing signing-info \
 gardvalconspub1zcjduepqgsmuj0qallsw79hjj9qztcke6hj3ujdcpjv249uny9fvzp4eulms0tqvgs \
 --trust-node

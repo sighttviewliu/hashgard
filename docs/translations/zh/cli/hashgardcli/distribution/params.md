@@ -6,25 +6,25 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli distribution params [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询参数信息
 
-```
+```shell
 hashgardcli distribution params --trust-node
 ```
 
 运行成功以后，返回的结果如下：
 
-```
+```txt
 Distribution Params:
   Community Tax:          "0.020000000000000000"
   Base Proposer Reward:   "0.010000000000000000"

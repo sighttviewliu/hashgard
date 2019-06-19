@@ -6,7 +6,7 @@
 
 ## 用法
 
-```
+```shell
   hashgardcli tendermint tendermint-validator-set [height] [flags]
 ```
 
@@ -18,7 +18,7 @@
 | --node string | tcp://localhost:26657 | 要连接的节点                         | 否                                 |
 | --trust-node  | true                  | 信任连接的完整节点，关闭响应结果校验 | 否                                 |
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
 ## 例子
 
@@ -28,7 +28,7 @@ hashgardcli tendermint tendermint-validator-set 114360 --trust-node
 
 返回结果如下：
 
-```
+```txt
 block height: 123
 
   Address:          gardvalcons13ja77lpt0deamvuwz5eugy9kwkutxukjwjwwf3

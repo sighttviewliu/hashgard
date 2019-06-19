@@ -12,7 +12,7 @@ hashgard tendermint [subcommand] [flags]
 
 ## Subcommands
 
-| Commands           | Description                            |
+| Name          | Description                            |
 | ---------------- | ------------------------------------ |
 | --show-node-id   | Show this node's ID                   |
 | --show-validator | Show this node's tendermint validator info |
@@ -20,11 +20,11 @@ hashgard tendermint [subcommand] [flags]
 
 ## Flags
 
-| Name, shorthand|type  | Default     | description              | Required  |
+| Name, shorthand|Type  | Default     | description              | Required  |
 | ---------- | ------ | ----------- | ------------------------ | -------- |
-| -h, --help |        |             | help for tendermint       | No  |
-| --home     | string | ~/.hashgard | directory for config and data         | No  |
-| --trace    | bool   |             | print out full stack trace on errors | No  |
+| -h, --help |        |             | help for tendermint       | false  |
+| --home     | string | ~/.hashgard | directory for config and data         | false  |
+| --trace    | bool   |             | print out full stack trace on errors | false  |
 
 ## Example
 

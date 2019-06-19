@@ -10,8 +10,6 @@ Change the password used to protect private key
 hashgardcli keys update <name> [flags]
 ```
 
-
-
 ## Flags
 
 **Global flags, query command flags** [hashgardcli](../README.md)

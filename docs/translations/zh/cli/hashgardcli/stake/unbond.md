@@ -6,26 +6,26 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake unbond [validator-addr] [amount] [flags]
 ```
 
-## 参数（子命令）
+## 子命令
 
-| 名称           | 类型   | 是否必填 | 默认值 | 功能描述            |
+| 名称           | 类型   | 必需 | 默认值 | 描述            |
 | -------------- | ------ | -------- | ------ | ------------------- |
-| validator-addr | string | `是`     |        | 验证人地址          |
-| amount         | int    | `是`     |        | 要解绑的 stake 数量 |
+| validator-addr | string |是    |        | 验证人地址          |
+| amount         | string    | 是     |        | 要解绑的 stake 数量和种类（单位 gard）|
 
 ## Flags
 
-| 名称   | 类型   | 是否必填 | 默认值 | 功能描述             |
+| 名称   | 类型   | 必需 | 默认值 | 描述             |
 | ------ | ------ | -------- | ------ | -------------------- |
-| --from | string | `是`     | ""     | 委托人的账户名或地址 |
+| --from | string | 是     |    | 委托人的账户名或地址 |
 
-**全局 flags、发送交易命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 ```shell
 hashgardcli stake unbond \

@@ -1,27 +1,27 @@
 # hashgardcli issue unfreeze
 
 ## Description
-解冻用户的转入和转出功能
+Token owner unFreeze the transfer from a address
 ## Usage
 ```shell
- hashgardcli issue unfreeze [unfreeze-type] [issue-id][address] --from
+ hashgardcli issue unfreeze [unfreeze-type] [issue-id][address][flags]
 ```
-### unfreeze-type
+### unfreeze-Type
 
-| 命令   | Description            |
+| Name | Description            |
 | ------ | -------------------- |
-| in     | 该账号本通证转入功能 |
-| out    | 该账号本通证转出功能 |
-| In-out | 该账号转入和转出功能 |
+| in     | Transfer in|
+| out    | Transfer out|
+| In-out | Transfer in and Transfer out|
 
 **Global flags, query command flags** [hashgardcli](../README.md)
 
 ## Example
-### 解冻某地址的转入功能
+### Unfreeze the transfer  of an address
 ```shell
 hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n --from
 ```
-输入正确的密码之后，你就解冻该账户的解冻功能
+The result is as follows：
 ```txt
 {
   Height: 2758
@@ -31,7 +31,7 @@ hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvx
   Logs: [{"msg_index":0,"success":true,"log":""}]
   GasWanted: 200000
   GasUsed: 16203
-  Tags: 
+  Tags:
     - action = issue_unfreeze
     - category = issue
     - issue-id = coin174876e800

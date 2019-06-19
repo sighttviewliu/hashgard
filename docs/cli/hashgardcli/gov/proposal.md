@@ -6,13 +6,13 @@ Query details for a proposal. You can find the proposal-id by running hashgardcl
 
 ## Usage
 
-```
+```shell
 hashgardcli gov proposal [proposal-id] [flags]
 ```
 ## Flags
 
 **Global flags, query command flags** [hashgardcli](../README.md)
- 
+
 ## Example
 
 ### Query specified proposal

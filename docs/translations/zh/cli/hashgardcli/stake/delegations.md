@@ -6,19 +6,19 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli stake delegations [delegator-address] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询某个委托人发起的所有委托记录
 
-```
+```shell
 hashgardcli stake delegations gard1m3m4l6g5774qe5jj8cwlyasue22yh32jf4wwet --trust-node
 ```
 

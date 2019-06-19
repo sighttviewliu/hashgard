@@ -6,26 +6,26 @@
 
 ## 用法
 
-```
+```shell
 hashgardcli distribution rewards [delegator-addr] [<validator-addr>] [flags]
 ```
 
 ## Flags
 
-**全局 flags、查询命令 flags** 参考：[hashgardcli](../README.md)
+**全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)
 
-## 示例
+## 例子
 
 查询参数信息
 
-```
+```shell
 hashgardcli distribution rewards gard1hr7vm7t7paeyg33ggd6efek2w58mu2hutvjrms -o=json --trust-node
 hashgardcli distribution rewards gard1hr7vm7t7paeyg33ggd6efek2w58mu2hutvjrms gardvaloper1hr7vm7t7paeyg33ggd6efek2w58mu2huewltta -o=json --trust-node
 ```
 
 运行成功以后，返回的结果如下：
 
-```
+```txt
 [
  {
   "denom": "gard",
