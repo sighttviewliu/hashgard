@@ -6,7 +6,7 @@
 
 
 
-|  Name |    ConsAddress     |     ValAddress     |
+|  Name |    Type     |     descrption    |
 | :---------: | :----------------: | :----------------: |
 | AccAddress  |      普通账户      | 转账，委托，投票等 |
 | ConsAddress | tendermint 共识地址 |   验证者进行签名   |
@@ -34,7 +34,7 @@
 
 
 
-| HRP            | 定义                                                     |
+| HRP            | descrption                                                    |
 | -------------- | -------------------------------------------------------- |
 | gard           | gard 账户地址，本地数据库                                |
 | gardpub        | gard 账户公钥，本地数据库                                |
