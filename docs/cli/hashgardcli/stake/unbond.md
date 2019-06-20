@@ -30,7 +30,7 @@ hashgardcli stake unbond [validator-addr] [amount] [flags]
 ```shell
 hashgardcli stake unbond \
 gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx \
-5000 \
+10gard \
 --from=hashgard \
 --chain-id=hashgard
 ```
