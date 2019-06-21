@@ -40,6 +40,7 @@ func GetCmdFaucetSend(cdc *codec.Codec) *cobra.Command {
 			chainID := viper.GetString(client.FlagChainID)
 			if chainID == "" {
 				return fmt.Errorf("chain ID required but not specified")
+
 			}
 
 			cliCtx := context.NewCLIContext().
