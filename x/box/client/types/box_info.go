@@ -54,7 +54,7 @@ type FutureBoxInfos []FutureBoxInfo
 func getString(Id string, Status string, Owner sdk.AccAddress, Name string, CreatedTime int64,
 	TotalAmount types.BoxToken, Description string, TransferDisabled bool) string {
 	return fmt.Sprintf(`BoxInfo:
-  Id:			%s
+  Id:				%s
   Status:			%s
   Owner:			%s
   Name:				%s

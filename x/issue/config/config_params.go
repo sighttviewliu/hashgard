@@ -90,7 +90,7 @@ func (dp Params) String() string {
   UnFreezeFee:			%s
   BurnFee:			%s
   BurnFromFee:			%s
-  TransferOwnerFee:			%s
+  TransferOwnerFee:		%s
   DescribeFee:			%s`,
 		dp.IssueFee.String(),
 		dp.MintFee.String(),
