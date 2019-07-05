@@ -40,6 +40,10 @@ var (
 		Type:               "image-hash",
 		Author:             "TEST",
 		RecordNo:           "test-008"}
+
+	RecordQueryParams = params.RecordQueryParams{
+		Sender:             SenderAccAddr,
+		Author:             "TEST"}
 )
 
 // initialize the mock application for this module

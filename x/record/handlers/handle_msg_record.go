@@ -26,7 +26,7 @@ func HandleMsgRecord(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgRecord) 
 	}
 
 	return sdk.Result{
-		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(recordInfo.ID),
+		Data: keeper.Getcdc().MustMarshalBinaryLengthPrefixed(recordInfo.Hash),
 		Tags: utils.GetRecordTags(recordInfo.ID, recordInfo.Hash, recordInfo.Sender),
 	}
 }
