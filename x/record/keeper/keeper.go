@@ -4,6 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/params"
+	"github.com/hashgard/hashgard/x/record/errors"
 	"github.com/hashgard/hashgard/x/record/types"
 	recordparams "github.com/hashgard/hashgard/x/record/params"
 )
@@ -13,7 +14,7 @@ var (
 )
 func ParamKeyTable() params.KeyTable {
 	return params.NewKeyTable(
-		ParamsStoreKeyRecordParams,
+		ParamsStoreKeyRecordParams, recordparams.RecordParams{},
 	)
 }
 
@@ -61,6 +62,10 @@ func (keeper Keeper) AddRecord(ctx sdk.Context, recordInfo *types.RecordInfo) {
 //Create a record
 func (keeper Keeper) CreateRecord(ctx sdk.Context, recordInfo *types.RecordInfo) sdk.Error {
 	store := ctx.KVStore(keeper.storeKey)
+	bz := store.Get(KeyRecord(recordInfo.Hash))
+	if len(bz) > 0 {
+		return errors.ErrRecordExist(recordInfo.Hash)
+	}
 	id, err := keeper.getNewRecordID(store)
 	if err != nil {
 		return err
@@ -82,7 +87,7 @@ func (keeper Keeper) GetRecord(ctx sdk.Context, record string) *types.RecordInfo
 		return nil
 	}
 	var recordId string
-	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, recordId)
+	keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &recordId)
 	return keeper.getRecordByID(ctx, recordId)
 }
 func (keeper Keeper) getRecordByID(ctx sdk.Context, id string) *types.RecordInfo {
@@ -99,6 +104,9 @@ func (keeper Keeper) getRecordByID(ctx sdk.Context, id string) *types.RecordInfo
 func (keeper Keeper) List(ctx sdk.Context, params recordparams.RecordQueryParams) []*types.RecordInfo {
 	iterator := keeper.Iterator(ctx, params.StartRecordId)
 	defer iterator.Close()
+	if params.Limit < 1 {
+		params.Limit = 20
+	}
 	list := make([]*types.RecordInfo, 0, params.Limit)
 	for ; iterator.Valid(); iterator.Next() {
 		bz := iterator.Value()
@@ -110,23 +118,20 @@ func (keeper Keeper) List(ctx sdk.Context, params recordparams.RecordQueryParams
 		if params.Sender != nil && !params.Sender.Empty() && params.Author != "" {
 			if info.Sender.Equals(params.Sender) && info.Author == params.Author {
 				list = append(list, &info)
-			} else {
-				break
 			}
+			continue
 		}
 		if params.Sender != nil && !params.Sender.Empty() {
 			if info.Sender.Equals(params.Sender) {
 				list = append(list, &info)
-			} else {
-				break
 			}
+			continue
 		}
 		if params.Author != "" {
 			if info.Author == params.Author {
 				list = append(list, &info)
-			} else {
-				break
 			}
+			continue
 		}
 		list = append(list, &info)
 		if len(list) >= params.Limit {

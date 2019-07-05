@@ -19,13 +19,13 @@ type GenesisState struct {
 }
 
 // NewGenesisState creates a new genesis state.
-func NewGenesisState() GenesisState {
-	return GenesisState{}
+func NewGenesisState(startingRecordId uint64) GenesisState {
+	return GenesisState{StartingRecordId: startingRecordId}
 }
 
 // DefaultGenesisState returns a default genesis state
 func DefaultGenesisState() GenesisState {
-	return NewGenesisState()
+	return NewGenesisState(types.RecordMinId)
 }
 
 // Returns if a GenesisState is empty or has data in it
