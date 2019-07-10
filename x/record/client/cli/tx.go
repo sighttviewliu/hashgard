@@ -46,7 +46,7 @@ func GetCmdRecordCreate(cdc *codec.Codec) *cobra.Command {
 			para := params.RecordParams{
 				Name:               args[0],
 				Hash:             	strings.ToUpper(args[1]),
-				Type:  				viper.GetString(flagType),
+				RecordType:  		viper.GetString(flagRecordType),
 				Author:  			viper.GetString(flagAuthor),
 				RecordNo:  			viper.GetString(flagRecordNo),
 				Description:  		viper.GetString(flagDescription),
@@ -62,7 +62,7 @@ func GetCmdRecordCreate(cdc *codec.Codec) *cobra.Command {
 		},
 	}
 
-	cmd.Flags().String(flagType, "", "customized record-type")
+	cmd.Flags().String(flagRecordType, "", "customized record-type")
 	cmd.Flags().String(flagAuthor, "", "author of the record data")
 	cmd.Flags().String(flagRecordNo, "", "customized record-number")
 	cmd.Flags().String(flagDescription, "", "customized description of the record")

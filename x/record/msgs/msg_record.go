@@ -41,13 +41,13 @@ func (msg MsgRecord) ValidateBasic() sdk.Error {
 	if len(msg.Name) < types.NameMinLength || len(msg.Name) > types.NameMaxLength {
 		return errors.ErrRecordNameNotValid()
 	}
-	if len(msg.Author) < types.AuthorMinLength || len(msg.Author) > types.AuthorMaxLength {
+	if len(msg.Author) > types.AuthorMaxLength {
 		return errors.ErrRecordAuthorNotValid()
 	}
-	if len(msg.Type()) < types.TypeMinLength || len(msg.Author) > types.TypeMaxLength {
+	if len(msg.RecordType) > types.RecordTypeMaxLength {
 		return errors.ErrRecordTypeNotValid()
 	}
-	if len(msg.RecordNo) < types.RecordNoMinLength || len(msg.Author) > types.RecordNoMaxLength {
+	if len(msg.RecordNo) > types.RecordNoMaxLength {
 		return errors.ErrRecordNumberNotValid()
 	}
 	return nil

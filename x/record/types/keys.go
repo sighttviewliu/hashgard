@@ -44,10 +44,7 @@ const (
 	HashLength	                      = 64
 	NameMinLength                     = 3
 	NameMaxLength                     = 32
-	AuthorMinLength                   = 3
 	AuthorMaxLength                   = 64
-	TypeMinLength                     = 3
-	TypeMaxLength                     = 32
-	RecordNoMinLength                 = 3
+	RecordTypeMaxLength               = 32
 	RecordNoMaxLength                 = 32
 )

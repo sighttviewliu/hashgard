@@ -30,8 +30,8 @@ type Record interface {
 	GetAuthor() string
 	SetAuthor(string)
 
-	GetType() string
-	SetType(string)
+	GetRecordType() string
+	SetRecordType(string)
 
 	GetDescription() string
 	SetDescription(string)
@@ -51,7 +51,7 @@ type RecordInfo struct {
 	RecordTime         int64          `json:"record_time"`
 	Name               string         `json:"name"`
 	Author             string         `json:"author"`
-	Type               string         `json:"type"`
+	RecordType         string         `json:"record_type"`
 	Description        string         `json:"description"`
 }
 
@@ -101,11 +101,11 @@ func (ci RecordInfo) GetAuthor() string {
 func (ci *RecordInfo) SetAuthor(author string) {
 	ci.Author = author
 }
-func (ci RecordInfo) GetType() string {
-	return ci.Type
+func (ci RecordInfo) GetRecordType() string {
+	return ci.RecordType
 }
-func (ci *RecordInfo) SetType(recordType string) {
-	ci.Type = recordType
+func (ci *RecordInfo) SetRecordType(recordType string) {
+	ci.RecordType = recordType
 }
 func (ci RecordInfo) GetDescription() string {
 	return ci.Description
@@ -124,17 +124,17 @@ func (ci RecordInfo) String() string {
   Name:             			%s
   Author:             	 		%s
   Description:           	 	%s
-  Type:    	    		 		%s`,
-		ci.ID, ci.Hash, ci.RecordNo, ci.Sender.String(), ci.Name, ci.Author, ci.Description, ci.Type)
+  RecordType:    	    		%s`,
+		ci.ID, ci.Hash, ci.RecordNo, ci.Sender.String(), ci.Name, ci.Author, ci.Description, ci.RecordType)
 }
 
 //nolint
 func (records Records) String() string {
 	out := fmt.Sprintf("%-17s|%-17s|%-10s|%-44s|%-10s|%-6s|%-6s|%s\n",
-		"Id", "Hash", "RecordNo", "Sender", "Name", "Author", "Type", "RecordTime")
+		"Id", "Hash", "RecordNo", "Sender", "Name", "Author", "RecordType", "RecordTime")
 	for _, record := range records {
 		out += fmt.Sprintf("%-17s|%-17s|%-10s|%-44s|%-10s|%-6s|%-6s|%d\n",
-			record.ID, record.Hash, record.RecordNo, record.GetSender().String(), record.Name, record.Author, record.Type, record.RecordTime)
+			record.ID, record.Hash, record.RecordNo, record.GetSender().String(), record.Name, record.Author, record.RecordType, record.RecordTime)
 	}
 	return strings.TrimSpace(out)
 }

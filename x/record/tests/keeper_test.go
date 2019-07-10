@@ -23,7 +23,7 @@ func TestCreateRecord(t *testing.T) {
 	recordRes := keeper.GetRecord(ctx, RecordInfo.Hash)
 	require.Equal(t, recordRes.Hash, RecordInfo.Hash)
 	require.Equal(t, recordRes.Name, RecordInfo.Name)
-	require.Equal(t, recordRes.Type, RecordInfo.Type)
+	require.Equal(t, recordRes.RecordType, RecordInfo.RecordType)
 	require.Equal(t, recordRes.Author, RecordInfo.Author)
 	require.Equal(t, recordRes.RecordNo, RecordInfo.RecordNo)
 }

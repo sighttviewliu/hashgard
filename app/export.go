@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"github.com/hashgard/hashgard/x/record"
 	"log"
 
 	"github.com/hashgard/hashgard/x/box"
@@ -56,6 +57,7 @@ func (app *HashgardApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhit
 		slashing.ExportGenesis(ctx, app.slashingKeeper),
 		exchange.ExportGenesis(ctx, app.exchangeKeeper),
 		issue.ExportGenesis(ctx, app.issueKeeper),
+		record.ExportGenesis(ctx, app.recordKeeper),
 		box.ExportGenesis(ctx, app.boxKeeper),
 		crisis.ExportGenesis(ctx, app.crisisKeeper),
 	)

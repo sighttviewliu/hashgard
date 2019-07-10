@@ -15,9 +15,9 @@ func HandleMsgRecord(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgRecord) 
 		Sender:             msg.Sender,
 		Hash:               msg.Hash,
 		Name:               msg.Name,
-		Author:               msg.Author,
-		Type:               msg.Type(),
-		RecordNo:               msg.RecordNo,
+		Author:             msg.Author,
+		RecordType:         msg.RecordType,
+		RecordNo:           msg.RecordNo,
 	}
 
 	err := keeper.CreateRecord(ctx, &recordInfo)

@@ -34,7 +34,7 @@ func CheckRecordId(issueID string) sdk.Error {
 
 func CheckRecordHash(hash string) sdk.Error {
 	if len(hash) != 64 {
-		return errors.ErrRecordHashNotValid(hash)
+		return errors.ErrRecordHashNotValid()
 	}
 	return nil
 }

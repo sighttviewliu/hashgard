@@ -2,7 +2,7 @@ package cli
 
 const (
 	flagSender  	   		= "sender"
-	flagType       		   	= "type"
+	flagRecordType       	= "record-type"
 	flagAuthor	           	= "author"
 	flagRecordNo	       	= "record-number"
 	flagDescription	       	= "description"

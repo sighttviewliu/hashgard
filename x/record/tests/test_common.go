@@ -29,7 +29,7 @@ var (
 	RecordParams = params.RecordParams{
 		Hash:               "BC38CAEE32149BEF4CCFAEAB518EC9A5FBC85AE6AC8D5A9F6CD710FAF5E4A2B8",
 		Name:               "testRecord",
-		Type:               "image-hash",
+		RecordType:         "image-hash",
 		Description:        "{}",
 		Author:             "TEST",
 		RecordNo:           "test-008"}
@@ -38,7 +38,7 @@ var (
 		Sender:             SenderAccAddr,
 		Hash:               "BC38CAEE32149BEF4CCFAEAB518EC9A5FBC85AE6AC8D5A9F6CD710FAF5E4A2B8",
 		Name:               "testRecord",
-		Type:               "image-hash",
+		RecordType:         "image-hash",
 		Description:        "{}",
 		Author:             "TEST",
 		RecordNo:           "test-008"}

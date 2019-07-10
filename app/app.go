@@ -21,11 +21,12 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 
 	"github.com/hashgard/hashgard/x/box"
+	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
 	"github.com/hashgard/hashgard/x/issue"
 	"github.com/hashgard/hashgard/x/mint"
-	"github.com/hashgard/hashgard/x/distribution"
+	"github.com/hashgard/hashgard/x/record"
 )
 
 const (
@@ -59,6 +60,7 @@ type HashgardApp struct {
 	tkeyDistribution *sdk.TransientStoreKey
 	keyGov           *sdk.KVStoreKey
 	keyIssue         *sdk.KVStoreKey
+	keyRecord        *sdk.KVStoreKey
 	keyBox           *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 	keyExchange      *sdk.KVStoreKey
@@ -78,6 +80,7 @@ type HashgardApp struct {
 	crisisKeeper        crisis.Keeper
 	paramsKeeper        params.Keeper
 	issueKeeper         issue.Keeper
+	recordKeeper        record.Keeper
 	boxKeeper           box.Keeper
 }
 
@@ -107,6 +110,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
 		keyGov:           sdk.NewKVStoreKey(gov.StoreKey),
 		keyIssue:         sdk.NewKVStoreKey(issue.StoreKey),
+		keyRecord:        sdk.NewKVStoreKey(record.StoreKey),
 		keyBox:           sdk.NewKVStoreKey(box.StoreKey),
 		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyExchange:      sdk.NewKVStoreKey(exchange.StoreKey),
@@ -184,6 +188,13 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		app.feeCollectionKeeper,
 		issue.DefaultCodespace)
 
+	app.recordKeeper = record.NewKeeper(
+		app.cdc,
+		app.keyRecord,
+		app.paramsKeeper,
+		app.paramsKeeper.Subspace(record.DefaultParamspace),
+		record.DefaultCodespace)
+
 	app.boxKeeper = box.NewKeeper(
 		app.cdc,
 		app.keyBox,
@@ -250,6 +261,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		AddRoute(gov.RouterKey, gov.NewHandler(app.govKeeper)).
 		AddRoute(exchange.RouterKey, exchange.NewHandler(app.exchangeKeeper)).
 		AddRoute(issue.RouterKey, issue.NewHandler(app.issueKeeper)).
+		AddRoute(record.RouterKey, record.NewHandler(app.recordKeeper)).
 		AddRoute(box.RouterKey, box.NewHandler(app.boxKeeper)).
 		AddRoute(crisis.RouterKey, crisis.NewHandler(app.crisisKeeper))
 
@@ -261,6 +273,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		AddRoute(distribution.QuerierRoute, distribution.NewQuerier(app.distributionKeeper)).
 		AddRoute(exchange.QuerierRoute, exchange.NewQuerier(app.exchangeKeeper, app.cdc)).
 		AddRoute(issue.QuerierRoute, issue.NewQuerier(app.issueKeeper)).
+		AddRoute(record.QuerierRoute, record.NewQuerier(app.recordKeeper)).
 		AddRoute(box.QuerierRoute, box.NewQuerier(app.boxKeeper)).
 		AddRoute(mint.QuerierRoute, mint.NewQuerier(app.mintKeeper))
 
@@ -274,6 +287,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		app.keySlashing,
 		app.keyGov,
 		app.keyIssue,
+		app.keyRecord,
 		app.keyBox,
 		app.keyFeeCollection,
 		app.keyExchange,
@@ -309,6 +323,7 @@ func MakeCodec() *codec.Codec {
 	gov.RegisterCodec(cdc)
 	exchange.RegisterCodec(cdc)
 	issue.RegisterCodec(cdc)
+	record.RegisterCodec(cdc)
 	box.RegisterCodec(cdc)
 	crisis.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
@@ -385,6 +400,7 @@ func (app *HashgardApp) initFromGenesisState(ctx sdk.Context, genesisState Genes
 	gov.InitGenesis(ctx, app.govKeeper, genesisState.GovData)
 	mint.InitGenesis(ctx, app.mintKeeper, genesisState.MintData)
 	issue.InitGenesis(ctx, app.issueKeeper, genesisState.IssueData)
+	record.InitGenesis(ctx, app.recordKeeper, genesisState.RecordData)
 	box.InitGenesis(ctx, app.boxKeeper, genesisState.BoxData)
 	exchange.InitGenesis(ctx, app.exchangeKeeper, genesisState.ExchangeData)
 	crisis.InitGenesis(ctx, app.crisisKeeper, genesisState.CrisisData)

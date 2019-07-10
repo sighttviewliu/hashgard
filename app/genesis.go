@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/hashgard/hashgard/x/record"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -50,6 +51,7 @@ type GenesisState struct {
 	GovData          gov.GenesisState          `json:"gov"`
 	ExchangeData     exchange.GenesisState     `json:"exchange"`
 	IssueData        issue.GenesisState        `json:"issue"`
+	RecordData       record.GenesisState       `json:"record"`
 	BoxData          box.GenesisState          `json:"box"`
 	CrisisData       crisis.GenesisState       `json:"crisis"`
 	GenTxs           []json.RawMessage         `json:"gentxs"`
@@ -66,6 +68,7 @@ func NewGenesisState(
 	slashingData slashing.GenesisState,
 	exchangeData exchange.GenesisState,
 	issueData issue.GenesisState,
+	recordData record.GenesisState,
 	boxData box.GenesisState,
 	crisisData crisis.GenesisState,
 ) GenesisState {
@@ -80,6 +83,7 @@ func NewGenesisState(
 		GovData:          govData,
 		SlashingData:     slashingData,
 		IssueData:        issueData,
+		RecordData:       recordData,
 		BoxData:          boxData,
 		ExchangeData:     exchangeData,
 		CrisisData:       crisisData,
@@ -110,6 +114,7 @@ func NewDefaultGenesisState() GenesisState {
 		SlashingData:     slashing.DefaultGenesisState(),
 		ExchangeData:     exchange.DefaultGenesisState(),
 		IssueData:        createIssueGenesisState(),
+		RecordData:       createRecordGenesisState(),
 		BoxData:          createBoxGenesisState(),
 		CrisisData:       createCrisisGenesisState(),
 		GenTxs:           nil,
@@ -163,6 +168,10 @@ func createBoxGenesisState() box.GenesisState {
 func createIssueGenesisState() issue.GenesisState {
 	genesisState := issue.DefaultGenesisState()
 	genesisState.Params = issue.DefaultParams(StakeDenom)
+	return genesisState
+}
+func createRecordGenesisState() record.GenesisState {
+	genesisState := record.DefaultGenesisState()
 	return genesisState
 }
 
@@ -346,6 +355,9 @@ func HashgardValidateGenesisState(genesisState GenesisState) error {
 		return err
 	}
 	if err := issue.ValidateGenesis(genesisState.IssueData); err != nil {
+		return err
+	}
+	if err := record.ValidateGenesis(genesisState.RecordData); err != nil {
 		return err
 	}
 	if err := box.ValidateGenesis(genesisState.BoxData); err != nil {

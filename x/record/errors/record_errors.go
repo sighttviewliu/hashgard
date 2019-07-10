@@ -33,16 +33,16 @@ func ErrRecordHashNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeRecordHashNotValid, fmt.Sprintf("Record hash length must be %d character", types.HashLength))
 }
 func ErrRecordNumberNotValid() sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeRecordNumberNotValid, fmt.Sprintf("RecordNo. length is %d-%d character", types.RecordNoMinLength, types.RecordNoMaxLength))
+	return sdk.NewError(types.DefaultCodespace, CodeRecordNumberNotValid, fmt.Sprintf("RecordNo. max length is %d character", types.RecordNoMaxLength))
 }
 func ErrRecordAuthorNotValid() sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeRecordAuthorNotValid, fmt.Sprintf("Symbol length is %d-%d character", types.AuthorMinLength, types.AuthorMaxLength))
+	return sdk.NewError(types.DefaultCodespace, CodeRecordAuthorNotValid, fmt.Sprintf("Author max length is %d character", types.AuthorMaxLength))
 }
 func ErrRecordNameNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeRecordNameNotValid, fmt.Sprintf("The length of the name is between %d and %d", types.NameMinLength, types.NameMaxLength))
 }
 func ErrRecordTypeNotValid() sdk.Error {
-	return sdk.NewError(types.DefaultCodespace, CodeRecordTypeNotValid, fmt.Sprintf("The length of type is between %d and %d", types.TypeMinLength, types.TypeMaxLength))
+	return sdk.NewError(types.DefaultCodespace, CodeRecordTypeNotValid, fmt.Sprintf("The max length of record type is %d", types.RecordTypeMaxLength))
 }
 func ErrRecordIDNotValid(recordID string) sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeRecordIDNotValid, fmt.Sprintf("Record-id %s is not a valid recordId", recordID))
