@@ -1,6 +1,7 @@
 package record
 
 import (
+	"github.com/hashgard/hashgard/x/record/client"
 	"github.com/hashgard/hashgard/x/record/keeper"
 	"github.com/hashgard/hashgard/x/record/types"
 )
@@ -12,6 +13,7 @@ type (
 
 var (
 	NewKeeper       = keeper.NewKeeper
+	NewModuleClient = client.NewModuleClient
 )
 
 const (

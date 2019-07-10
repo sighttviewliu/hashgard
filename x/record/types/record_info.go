@@ -33,6 +33,9 @@ type Record interface {
 	GetType() string
 	SetType(string)
 
+	GetDescription() string
+	SetDescription(string)
+
 	String() string
 }
 
@@ -49,6 +52,7 @@ type RecordInfo struct {
 	Name               string         `json:"name"`
 	Author             string         `json:"author"`
 	Type               string         `json:"type"`
+	Description        string         `json:"description"`
 }
 
 // Implements Record Interface
@@ -103,6 +107,12 @@ func (ci RecordInfo) GetType() string {
 func (ci *RecordInfo) SetType(recordType string) {
 	ci.Type = recordType
 }
+func (ci RecordInfo) GetDescription() string {
+	return ci.Description
+}
+func (ci *RecordInfo) SetDescription(description string) {
+	ci.Description = description
+}
 
 //nolint
 func (ci RecordInfo) String() string {
@@ -113,8 +123,9 @@ func (ci RecordInfo) String() string {
   Sender:           			%s
   Name:             			%s
   Author:             	 		%s
+  Description:           	 	%s
   Type:    	    		 		%s`,
-		ci.ID, ci.Hash, ci.RecordNo, ci.Sender.String(), ci.Name, ci.Author, ci.Type)
+		ci.ID, ci.Hash, ci.RecordNo, ci.Sender.String(), ci.Name, ci.Author, ci.Description, ci.Type)
 }
 
 //nolint

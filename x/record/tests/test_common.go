@@ -30,6 +30,7 @@ var (
 		Hash:               "BC38CAEE32149BEF4CCFAEAB518EC9A5FBC85AE6AC8D5A9F6CD710FAF5E4A2B8",
 		Name:               "testRecord",
 		Type:               "image-hash",
+		Description:        "{}",
 		Author:             "TEST",
 		RecordNo:           "test-008"}
 
@@ -38,6 +39,7 @@ var (
 		Hash:               "BC38CAEE32149BEF4CCFAEAB518EC9A5FBC85AE6AC8D5A9F6CD710FAF5E4A2B8",
 		Name:               "testRecord",
 		Type:               "image-hash",
+		Description:        "{}",
 		Author:             "TEST",
 		RecordNo:           "test-008"}
 

@@ -41,6 +41,7 @@ import (
 	"github.com/hashgard/hashgard/x/gov"
 	govcmd "github.com/hashgard/hashgard/x/gov/client/cli"
 	"github.com/hashgard/hashgard/x/issue"
+	"github.com/hashgard/hashgard/x/record"
 	mintcmd "github.com/hashgard/hashgard/x/mint/client/cli"
 )
 
@@ -100,6 +101,8 @@ func main() {
 	addDepositCmd(cdc, rootCmd)
 	// Add future subcommands
 	addFutureCmd(cdc, rootCmd)
+	// Add record subcommands
+	addRecordCmd(cdc, rootCmd)
 	// Add slashing subcommands
 	addSlashingCmd(cdc, rootCmd)
 	// Add stake subcommands
@@ -191,6 +194,12 @@ func addLockCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 // Add deposit subcommands
 func addDepositCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	moduleClient := deposit.NewModuleClient(cdc)
+	rootCmd.AddCommand(moduleClient.GetCmd())
+}
+
+// Add record subcommands
+func addRecordCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	moduleClient := record.NewModuleClient(cdc)
 	rootCmd.AddCommand(moduleClient.GetCmd())
 }
 

@@ -22,10 +22,10 @@ func GetQueryRecordsPath() string {
 func QueryParams(cliCtx context.CLIContext) ([]byte, error) {
 	return cliCtx.QueryWithData(GetQueryParamsPath(), nil)
 }
-func QueryRecordByID(recordID string, cliCtx context.CLIContext) ([]byte, error) {
-	return cliCtx.QueryWithData(GetQueryRecordPath(recordID), nil)
+func QueryRecord(hash string, cliCtx context.CLIContext) ([]byte, error) {
+	return cliCtx.QueryWithData(GetQueryRecordPath(hash), nil)
 }
-func QueryRecordsList(params params.RecordQueryParams, cdc *codec.Codec, cliCtx context.CLIContext) ([]byte, error) {
+func QueryRecords(params params.RecordQueryParams, cdc *codec.Codec, cliCtx context.CLIContext) ([]byte, error) {
 	bz, err := cdc.MarshalJSON(params)
 	if err != nil {
 		return nil, err

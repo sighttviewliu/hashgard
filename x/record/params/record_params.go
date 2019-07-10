@@ -7,4 +7,5 @@ type RecordParams struct {
 	Type               string  `json:"type"`
 	Hash               string  `json:"hash"`
 	RecordNo           string  `json:"record_number"`
+	Description        string  `json:"description"`
 }
