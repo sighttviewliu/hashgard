@@ -7,6 +7,7 @@ import (
 	"github.com/hashgard/hashgard/x/record/errors"
 	"github.com/hashgard/hashgard/x/record/types"
 	recordparams "github.com/hashgard/hashgard/x/record/params"
+	"strings"
 )
 
 var (
@@ -58,6 +59,9 @@ func (keeper Keeper) AddRecord(ctx sdk.Context, recordInfo *types.RecordInfo) {
 
 	// save record.id with key: record.hash
 	store.Set(KeyRecord(recordInfo.Hash), keeper.cdc.MustMarshalBinaryLengthPrefixed(recordInfo.ID))
+
+	// save nil with key: record.sender:record.id
+	store.Set(KeyAddressRecord(recordInfo.Sender.String(), recordInfo.ID), keeper.cdc.MustMarshalBinaryLengthPrefixed(""))
 }
 //Create a record
 func (keeper Keeper) CreateRecord(ctx sdk.Context, recordInfo *types.RecordInfo) sdk.Error {
@@ -102,10 +106,34 @@ func (keeper Keeper) getRecordByID(ctx sdk.Context, id string) *types.RecordInfo
 }
 
 func (keeper Keeper) List(ctx sdk.Context, params recordparams.RecordQueryParams) []*types.RecordInfo {
+	if params.Sender != nil && !params.Sender.Empty() {
+		return keeper.getAddressRecords(ctx, params)
+	}
+	return keeper.getRecords(ctx, params)
+}
+func (keeper Keeper) getAddressRecords(ctx sdk.Context, params recordparams.RecordQueryParams) []*types.RecordInfo {
+	store := ctx.KVStore(keeper.storeKey)
+	iterator := sdk.KVStorePrefixIterator(store, KeyAddress(params.Sender.String()))
+	defer iterator.Close()
+	if params.Limit < 1 {
+		params.Limit = 30
+	}
+	list := make([]*types.RecordInfo, 0, params.Limit)
+	for ; iterator.Valid(); iterator.Next() {
+		key := iterator.Key()
+		info := keeper.getRecordByID(ctx, strings.Split(string(key[:]), ":")[2])
+		list = append(list, info)
+		if len(list) >= params.Limit {
+			break
+		}
+	}
+	return list
+}
+func (keeper Keeper) getRecords(ctx sdk.Context, params recordparams.RecordQueryParams) []*types.RecordInfo {
 	iterator := keeper.Iterator(ctx, params.StartRecordId)
 	defer iterator.Close()
 	if params.Limit < 1 {
-		params.Limit = 20
+		params.Limit = 30
 	}
 	list := make([]*types.RecordInfo, 0, params.Limit)
 	for ; iterator.Valid(); iterator.Next() {
@@ -115,24 +143,6 @@ func (keeper Keeper) List(ctx sdk.Context, params recordparams.RecordQueryParams
 		}
 		var info types.RecordInfo
 		keeper.cdc.MustUnmarshalBinaryLengthPrefixed(bz, &info)
-		if params.Sender != nil && !params.Sender.Empty() && params.Author != "" {
-			if info.Sender.Equals(params.Sender) && info.Author == params.Author {
-				list = append(list, &info)
-			}
-			continue
-		}
-		if params.Sender != nil && !params.Sender.Empty() {
-			if info.Sender.Equals(params.Sender) {
-				list = append(list, &info)
-			}
-			continue
-		}
-		if params.Author != "" {
-			if info.Author == params.Author {
-				list = append(list, &info)
-			}
-			continue
-		}
 		list = append(list, &info)
 		if len(list) >= params.Limit {
 			break

@@ -8,6 +8,5 @@ import (
 type RecordQueryParams struct {
 	StartRecordId string         `json:"start_record_id"`
 	Sender        sdk.AccAddress `json:"sender"`
-	Author        string 		 `json:"author"`
 	Limit         int            `json:"limit"`
 }

@@ -17,13 +17,12 @@ func KeyRecord(recordHash string) []byte {
 }
 
 // Key for getting records by a specific address from the store
-func KeyAddressRecords(addr string) []byte {
-	return []byte(fmt.Sprintf("address:%s", addr))
+func KeyAddress(addr string) []byte {
+	return []byte(fmt.Sprintf("addr:%s", addr))
 }
-
-// Key for getting records by a specific author from the store
-func KeyAuthorRecords(author string) []byte {
-	return []byte(fmt.Sprintf("author:%s", author))
+// Key for saving a record by a specific address:id
+func KeyAddressRecord(addr string, id string) []byte {
+	return []byte(fmt.Sprintf("addr:%s:%s", addr, id))
 }
 
 func KeyRecordId(id string) []byte {

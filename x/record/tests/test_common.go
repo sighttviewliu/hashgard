@@ -44,8 +44,7 @@ var (
 		RecordNo:           "test-008"}
 
 	RecordQueryParams = params.RecordQueryParams{
-		Sender:             SenderAccAddr,
-		Author:             "TEST"}
+		Sender:             SenderAccAddr}
 )
 
 // initialize the mock application for this module

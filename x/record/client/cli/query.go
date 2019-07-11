@@ -1,12 +1,14 @@
 package cli
 
 import (
+	"fmt"
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	recordqueriers "github.com/hashgard/hashgard/x/record/client/queriers"
 	"github.com/hashgard/hashgard/x/record/errors"
 	"github.com/hashgard/hashgard/x/record/params"
+	"github.com/hashgard/hashgard/x/record/types"
 	recordutils "github.com/hashgard/hashgard/x/record/utils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -37,23 +39,23 @@ func processQuery(cdc *codec.Codec, args []string) error {
 	if err != nil {
 		return err
 	}
-	//var recordInfo types.Record
-	//cdc.MustUnmarshalJSON(res, &recordInfo)
-	//return cliCtx.PrintOutput(recordInfo)
-	_, err = cliCtx.Output.Write(res)
-	if err != nil {
-		return err
-	}
-	return nil
+	var recordInfo types.Record
+	cdc.MustUnmarshalJSON(res, &recordInfo)
+	return cliCtx.PrintOutput(recordInfo)
+	//_, err = cliCtx.Output.Write(res)
+	//if err != nil {
+	//	return err
+	//}
+	//return nil
 }
 
 // GetCmdQueryList implements the query records command.
 func GetCmdQueryList(cdc *codec.Codec) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "list",
-		Short:   "Query record list by sender and author",
-		Long:    "Query record list by sender and author, flag sender or author must be provided, default limit is 30",
-		Example: "$ hashgardcli record list --sender gard1s6auwlcevspesynw44vx23e3zhuz7as9ulz56l --author authorName",
+		Short:   "Query record list",
+		Long:    "Query record list, flag sender is optional, default limit is 30",
+		Example: "$ hashgardcli record list --sender gard1s6auwlcevspesynw44vx23e3zhuz7as9ulz56l",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc)
 
@@ -64,7 +66,6 @@ func GetCmdQueryList(cdc *codec.Codec) *cobra.Command {
 			recordQueryParams := params.RecordQueryParams{
 				StartRecordId: 	viper.GetString(flagStartRecordId),
 				Sender:        	sender,
-				Author:        	viper.GetString(flagAuthor),
 				Limit:        	viper.GetInt(flagLimit),
 			}
 			// Query the record
@@ -73,23 +74,22 @@ func GetCmdQueryList(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			//var tokenRecords types.CoinRecords
-			//cdc.MustUnmarshalJSON(res, &tokenRecords)
-			//if len(tokenRecords) == 0 {
-			//	fmt.Println("No records")
-			//	return nil
-			//}
-			//return cliCtx.PrintOutput(tokenRecords)
-			_, err = cliCtx.Output.Write(res)
-			if err != nil {
-				return err
+			var ls types.Records
+			cdc.MustUnmarshalJSON(res, &ls)
+			if len(ls) == 0 {
+				fmt.Println("No records")
+				return nil
 			}
-			return nil
+			return cliCtx.PrintOutput(ls)
+			//_, err = cliCtx.Output.Write(res)
+			//if err != nil {
+			//	return err
+			//}
+			//return nil
 		},
 	}
 
 	cmd.Flags().String(flagSender, "", "sender address")
-	cmd.Flags().String(flagAuthor, "", "auther name")
 	cmd.Flags().String(flagStartRecordId, "", "Start recordId of records")
 	cmd.Flags().Int32(flagLimit, 30, "Query number of record results per page returned")
 	return cmd

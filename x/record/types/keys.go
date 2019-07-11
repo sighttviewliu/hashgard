@@ -26,7 +26,7 @@ var (
 )
 
 const (
-	IDPreStr = "record"
+	IDPreStr = "rec"
 	Custom   = "custom"
 )
 const (

@@ -15,4 +15,6 @@ var (
 	Name            = "name"
 	Hash            = "hash"
 	Author          = "author"
+	RecordType      = "record-type"
+	RecordNo        = "record-number"
 )
