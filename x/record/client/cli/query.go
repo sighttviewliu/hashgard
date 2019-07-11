@@ -66,7 +66,11 @@ func GetCmdQueryList(cdc *codec.Codec) *cobra.Command {
 			recordQueryParams := params.RecordQueryParams{
 				StartRecordId: 	viper.GetString(flagStartRecordId),
 				Sender:        	sender,
-				Limit:        	viper.GetInt(flagLimit),
+				Limit:        	30,
+			}
+			limit := viper.GetInt(flagLimit)
+			if limit > 0 {
+				recordQueryParams.Limit = limit
 			}
 			// Query the record
 			res, err := recordqueriers.QueryRecords(recordQueryParams, cdc, cliCtx)

@@ -115,9 +115,6 @@ func (keeper Keeper) getAddressRecords(ctx sdk.Context, params recordparams.Reco
 	store := ctx.KVStore(keeper.storeKey)
 	iterator := sdk.KVStorePrefixIterator(store, KeyAddress(params.Sender.String()))
 	defer iterator.Close()
-	if params.Limit < 1 {
-		params.Limit = 30
-	}
 	list := make([]*types.RecordInfo, 0, params.Limit)
 	for ; iterator.Valid(); iterator.Next() {
 		key := iterator.Key()
@@ -132,9 +129,6 @@ func (keeper Keeper) getAddressRecords(ctx sdk.Context, params recordparams.Reco
 func (keeper Keeper) getRecords(ctx sdk.Context, params recordparams.RecordQueryParams) []*types.RecordInfo {
 	iterator := keeper.Iterator(ctx, params.StartRecordId)
 	defer iterator.Close()
-	if params.Limit < 1 {
-		params.Limit = 30
-	}
 	list := make([]*types.RecordInfo, 0, params.Limit)
 	for ; iterator.Valid(); iterator.Next() {
 		bz := iterator.Value()

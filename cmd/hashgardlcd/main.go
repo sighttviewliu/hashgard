@@ -23,6 +23,7 @@ import (
 	future "github.com/hashgard/hashgard/x/future/client/rest"
 	issue "github.com/hashgard/hashgard/x/issue/client/rest"
 	lock "github.com/hashgard/hashgard/x/lock/client/rest"
+	record "github.com/hashgard/hashgard/x/record/client/rest"
 
 	distributioncmd "github.com/cosmos/cosmos-sdk/x/distribution"
 
@@ -85,6 +86,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	slashing.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
 	gov.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	issue.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	record.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	lock.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	deposit.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	future.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
