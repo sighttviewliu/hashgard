@@ -113,19 +113,13 @@ func (keeper Keeper) List(ctx sdk.Context, params recordparams.RecordQueryParams
 }
 func (keeper Keeper) getAddressRecords(ctx sdk.Context, params recordparams.RecordQueryParams) []*types.RecordInfo {
 	store := ctx.KVStore(keeper.storeKey)
-	iterator := sdk.KVStorePrefixIterator(store, KeyAddress(params.Sender.String()))
+	startId, endId := keeper.getIteratorRange(ctx, params.StartRecordId)
+	iterator := store.ReverseIterator(KeyAddressRecord(params.Sender.String(), startId), KeyAddressRecord(params.Sender.String(), endId))
 	defer iterator.Close()
 	list := make([]*types.RecordInfo, 0, params.Limit)
-	startIdPassed := false
 	for ; iterator.Valid(); iterator.Next() {
 		key := iterator.Key()
 		id := strings.Split(string(key[:]), ":")[2]
-		if len(params.StartRecordId) > 0 && !startIdPassed {
-			if id == params.StartRecordId {
-				startIdPassed = true
-			}
-			continue
-		}
 		list = append(list, keeper.getRecordByID(ctx, id))
 		if len(list) >= params.Limit {
 			break
@@ -134,8 +128,11 @@ func (keeper Keeper) getAddressRecords(ctx sdk.Context, params recordparams.Reco
 	return list
 }
 func (keeper Keeper) getRecords(ctx sdk.Context, params recordparams.RecordQueryParams) []*types.RecordInfo {
-	iterator := keeper.Iterator(ctx, params.StartRecordId)
+	store := ctx.KVStore(keeper.storeKey)
+	startId, endId := keeper.getIteratorRange(ctx, params.StartRecordId)
+	iterator := store.ReverseIterator(KeyRecordId(startId), KeyRecordId(endId))
 	defer iterator.Close()
+
 	list := make([]*types.RecordInfo, 0, params.Limit)
 	for ; iterator.Valid(); iterator.Next() {
 		bz := iterator.Value()
@@ -151,8 +148,7 @@ func (keeper Keeper) getRecords(ctx sdk.Context, params recordparams.RecordQuery
 	}
 	return list
 }
-func (keeper Keeper) Iterator(ctx sdk.Context, startRecordId string) sdk.Iterator {
-	store := ctx.KVStore(keeper.storeKey)
+func (keeper Keeper) getIteratorRange(ctx sdk.Context, startRecordId string) (startId string, endId string) {
 	endRecordId := startRecordId
 
 	if len(startRecordId) == 0 {
@@ -161,8 +157,7 @@ func (keeper Keeper) Iterator(ctx sdk.Context, startRecordId string) sdk.Iterato
 	} else {
 		startRecordId = KeyRecordIdStr(types.RecordMinId - 1)
 	}
-	iterator := store.ReverseIterator(KeyRecordId(startRecordId), KeyRecordId(endRecordId))
-	return iterator
+	return startRecordId, endRecordId
 }
 
 //Set the initial record id
