@@ -26,7 +26,7 @@ func queryRecordHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Hand
 	return func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		hash := vars[Hash]
-		if err := recordutils.CheckRecordId(hash); err != nil {
+		if err := recordutils.CheckRecordHash(hash); err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
@@ -46,10 +46,17 @@ func queryRecordsHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Han
 			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
 			return
 		}
+		startId := r.URL.Query().Get(StartRecordID)
+		if len(startId) > 0 {
+			if  err := recordutils.CheckRecordId(startId); err != nil {
+				rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+				return
+			}
+		}
 		recordQueryParams := params.RecordQueryParams{
-			StartRecordId: r.URL.Query().Get(StartRecordID),
-			Sender: sender,
-			Limit:        30,
+			StartRecordId: 	startId,
+			Sender: 		sender,
+			Limit:        	30,
 		}
 		strNumLimit := r.URL.Query().Get(Limit)
 		if len(strNumLimit) > 0 {

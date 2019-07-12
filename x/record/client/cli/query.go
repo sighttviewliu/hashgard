@@ -63,8 +63,14 @@ func GetCmdQueryList(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
+			startId := viper.GetString(flagStartRecordId)
+			if len(startId) > 0 {
+				if  err := recordutils.CheckRecordId(startId); err != nil {
+					return errors.Errorf(err)
+				}
+			}
 			recordQueryParams := params.RecordQueryParams{
-				StartRecordId: 	viper.GetString(flagStartRecordId),
+				StartRecordId: 	startId,
 				Sender:        	sender,
 				Limit:        	30,
 			}

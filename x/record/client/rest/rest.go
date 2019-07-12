@@ -7,9 +7,8 @@ import (
 )
 
 const (
-	StartRecordID	= "start-record-id"
+	StartRecordID	= "start_record_id"
 	Limit			= "limit"
-	ID   			= "record-id"
 	Hash   			= "hash"
 	Sender	    	= "sender"
 )

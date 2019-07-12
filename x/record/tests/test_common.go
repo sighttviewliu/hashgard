@@ -44,6 +44,7 @@ var (
 		RecordNo:           "test-008"}
 
 	RecordQueryParams = params.RecordQueryParams{
+		Limit: 				30,
 		Sender:             SenderAccAddr}
 )
 

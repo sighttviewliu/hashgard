@@ -5,8 +5,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/params"
 	"github.com/hashgard/hashgard/x/record/errors"
-	"github.com/hashgard/hashgard/x/record/types"
 	recordparams "github.com/hashgard/hashgard/x/record/params"
+	"github.com/hashgard/hashgard/x/record/types"
 	"strings"
 )
 
@@ -116,10 +116,17 @@ func (keeper Keeper) getAddressRecords(ctx sdk.Context, params recordparams.Reco
 	iterator := sdk.KVStorePrefixIterator(store, KeyAddress(params.Sender.String()))
 	defer iterator.Close()
 	list := make([]*types.RecordInfo, 0, params.Limit)
+	startIdPassed := false
 	for ; iterator.Valid(); iterator.Next() {
 		key := iterator.Key()
-		info := keeper.getRecordByID(ctx, strings.Split(string(key[:]), ":")[2])
-		list = append(list, info)
+		id := strings.Split(string(key[:]), ":")[2]
+		if len(params.StartRecordId) > 0 && !startIdPassed {
+			if id == params.StartRecordId {
+				startIdPassed = true
+			}
+			continue
+		}
+		list = append(list, keeper.getRecordByID(ctx, id))
 		if len(list) >= params.Limit {
 			break
 		}
