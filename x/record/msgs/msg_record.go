@@ -2,6 +2,7 @@ package msgs
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/hashgard/hashgard/x/record/params"
 
@@ -14,8 +15,8 @@ import (
 // MsgRecord to allow a registered recordr
 // to record new coins.
 type MsgRecord struct {
-	Sender              sdk.AccAddress  `json:"sender"`
-	*params.RecordParams 				`json:"params"`
+	Sender               sdk.AccAddress `json:"sender"`
+	*params.RecordParams `json:"params"`
 }
 
 //New MsgRecord Instance
@@ -35,7 +36,8 @@ func (msg MsgRecord) ValidateBasic() sdk.Error {
 		return sdk.ErrInvalidAddress("Sender address cannot be empty")
 	}
 	// record hash must be 64 characters length
-	if len(msg.Hash) != types.HashLength {
+	res, err := regexp.Match("^[0-9a-zA-Z]{64}$", []byte(msg.RecordParams.Hash))
+	if err != nil || !res {
 		return errors.ErrRecordHashNotValid()
 	}
 	if len(msg.Name) < types.NameMinLength || len(msg.Name) > types.NameMaxLength {

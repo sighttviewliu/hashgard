@@ -18,7 +18,11 @@ func TestHandlerNewMsgRecord(t *testing.T) {
 
 	handler := record.NewHandler(keeper)
 
-	res := handler(ctx, msgs.NewMsgRecord(SenderAccAddr, &RecordParams))
+	msg := msgs.NewMsgRecord(SenderAccAddr, &RecordParams)
+	err := msg.ValidateBasic()
+	require.Nil(t, err)
+
+	res := handler(ctx, msg)
 	require.True(t, res.IsOK())
 
 	var recordID string
