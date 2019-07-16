@@ -2,9 +2,8 @@ package record
 
 import (
 	"bytes"
-	"github.com/hashgard/hashgard/x/record/params"
-
 	"github.com/hashgard/hashgard/x/record/msgs"
+	"github.com/hashgard/hashgard/x/record/params"
 	"github.com/hashgard/hashgard/x/record/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -14,8 +13,8 @@ import (
 
 // GenesisState - all record state that must be provided at genesis
 type GenesisState struct {
-	StartingRecordId 	uint64          		`json:"starting_record_id"`
-	Records           	[]*types.RecordInfo    	`json:"records"`
+	StartingRecordId uint64              `json:"starting_record_id"`
+	Records          []*types.RecordInfo `json:"records"`
 }
 
 // NewGenesisState creates a new genesis state.
@@ -57,7 +56,9 @@ func InitGenesis(ctx sdk.Context, keeper keeper.Keeper, data GenesisState) {
 func ExportGenesis(ctx sdk.Context, keeper keeper.Keeper) GenesisState {
 	genesisState := GenesisState{}
 
-	genesisState.Records = keeper.List(ctx, params.RecordQueryParams{})
+	genesisState.Records = keeper.List(ctx, params.RecordQueryParams{
+		Limit: 99999999,
+	})
 
 	return genesisState
 

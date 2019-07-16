@@ -58,6 +58,7 @@ func TestGetRecords(t *testing.T) {
 	}
 	records := keeper.List(ctx, params.RecordQueryParams{
 		Sender: RecordInfo.Sender,
+		Limit:  99999999,
 	})
 
 	require.Len(t, records, cap)
