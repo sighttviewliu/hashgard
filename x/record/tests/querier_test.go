@@ -27,15 +27,16 @@ func TestQueryRecord(t *testing.T) {
 	handler := record.NewHandler(keeper)
 
 	res := handler(ctx, msgs.NewMsgRecord(SenderAccAddr, &RecordParams))
-	var recordHash string
-	keeper.Getcdc().MustUnmarshalBinaryLengthPrefixed(res.Data, &recordHash)
+	recordHash := string(res.Tags[3].Value)
+	require.NotNil(t, recordHash)
+	require.Equal(t, RecordParams.Hash, recordHash)
+
 	bz := getQueried(t, ctx, querier, queriers2.GetQueryRecordPath(recordHash), types.QueryRecord, recordHash, nil)
 	var recordInfo types.RecordInfo
 	keeper.Getcdc().MustUnmarshalJSON(bz, &recordInfo)
 
-	require.Equal(t, recordInfo.Hash, recordHash)
-	require.Equal(t, recordInfo.GetName(), RecordInfo.GetName())
-
+	require.Equal(t, recordHash, recordInfo.Hash)
+	require.Equal(t, RecordParams.Name, RecordInfo.GetName())
 }
 
 func TestQueryRecords(t *testing.T) {
@@ -59,7 +60,7 @@ func TestQueryRecords(t *testing.T) {
 	var records []*types.RecordInfo
 	keeper.Getcdc().MustUnmarshalJSON(bz, &records)
 	require.Len(t, records, cap)
-	require.Equal(t, "rec174876e800", records[len(records) - 1].ID)
+	require.Equal(t, "rec174876e800", records[len(records)-1].ID)
 
 	// query by sender
 	RecordQueryParams.Sender = SenderAccAddr
@@ -68,7 +69,7 @@ func TestQueryRecords(t *testing.T) {
 	var records2 []*types.RecordInfo
 	keeper.Getcdc().MustUnmarshalJSON(bz2, &records2)
 	require.Len(t, records2, cap)
-	require.Equal(t, "rec174876e800", records2[len(records) - 1].ID)
+	require.Equal(t, "rec174876e800", records2[len(records)-1].ID)
 
 	// query with start id and sender
 	RecordQueryParams.StartRecordId = "rec174876e805"

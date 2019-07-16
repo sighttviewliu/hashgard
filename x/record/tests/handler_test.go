@@ -25,7 +25,6 @@ func TestHandlerNewMsgRecord(t *testing.T) {
 	res := handler(ctx, msg)
 	require.True(t, res.IsOK())
 
-	var recordID string
-	keeper.Getcdc().MustUnmarshalBinaryLengthPrefixed(res.Data, &recordID)
-	require.NotNil(t, recordID)
+	recordHash := string(res.Tags[3].Value)
+	require.NotNil(t, recordHash)
 }
