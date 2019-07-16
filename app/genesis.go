@@ -18,6 +18,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
@@ -25,10 +26,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	tmtypes "github.com/tendermint/tendermint/types"
 
+	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
 	"github.com/hashgard/hashgard/x/mint"
-	"github.com/hashgard/hashgard/x/distribution"
 )
 
 var (
@@ -42,6 +43,7 @@ var (
 // State to Unmarshal
 type GenesisState struct {
 	Accounts         []GenesisAccount          `json:"accounts"`
+	AccMustMemoData  acc.GenesisState          `json:"must-memo-addresses"`
 	AuthData         auth.GenesisState         `json:"auth"`
 	BankData         bank.GenesisState         `json:"bank"`
 	StakingData      staking.GenesisState      `json:"staking"`
@@ -59,6 +61,7 @@ type GenesisState struct {
 
 func NewGenesisState(
 	accounts []GenesisAccount,
+	accMustMemoData acc.GenesisState,
 	authData auth.GenesisState,
 	bankData bank.GenesisState,
 	stakingData staking.GenesisState,
@@ -75,6 +78,7 @@ func NewGenesisState(
 
 	return GenesisState{
 		Accounts:         accounts,
+		AccMustMemoData:  accMustMemoData,
 		AuthData:         authData,
 		BankData:         bankData,
 		StakingData:      stakingData,
@@ -105,6 +109,7 @@ func (gs GenesisState) Sanitize() {
 func NewDefaultGenesisState() GenesisState {
 	return GenesisState{
 		Accounts:         nil,
+		AccMustMemoData:  acc.DefaultGenesisState(),
 		AuthData:         auth.DefaultGenesisState(),
 		BankData:         bank.DefaultGenesisState(),
 		StakingData:      createStakingGenesisState(),
@@ -336,6 +341,9 @@ func HashgardValidateGenesisState(genesisState GenesisState) error {
 		return nil
 	}
 
+	if err := acc.ValidateGenesis(genesisState.AccMustMemoData); err != nil {
+		return err
+	}
 	if err := auth.ValidateGenesis(genesisState.AuthData); err != nil {
 		return err
 	}

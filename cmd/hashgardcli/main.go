@@ -9,9 +9,9 @@ import (
 
 	"github.com/hashgard/hashgard/x/box"
 
-	"github.com/cosmos/cosmos-sdk/x/auth"
-
 	"github.com/cosmos/cosmos-sdk/client/keys"
+	acc "github.com/cosmos/cosmos-sdk/x/account/client/cli"
+	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/hashgard/hashgard/x/deposit"
 	"github.com/hashgard/hashgard/x/future"
 	"github.com/hashgard/hashgard/x/lock"
@@ -41,8 +41,8 @@ import (
 	"github.com/hashgard/hashgard/x/gov"
 	govcmd "github.com/hashgard/hashgard/x/gov/client/cli"
 	"github.com/hashgard/hashgard/x/issue"
-	"github.com/hashgard/hashgard/x/record"
 	mintcmd "github.com/hashgard/hashgard/x/mint/client/cli"
+	"github.com/hashgard/hashgard/x/record"
 )
 
 // rootCmd is the entry point for this binary
@@ -85,6 +85,8 @@ func main() {
 	addTendermintCmd(cdc, rootCmd)
 	//add x moudle
 	rootCmd.AddCommand(client.LineBreak)
+	// Add must-memo subcommands
+	addMustMemoCmd(cdc, rootCmd)
 	// Add bank subcommands
 	addBankCmd(cdc, rootCmd)
 	// Add distribution subcommands
@@ -146,6 +148,22 @@ func addTendermintCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 		tx.QueryTxCmd(cdc),
 	)
 	rootCmd.AddCommand(tendermintCmd)
+}
+
+// Add must-memo subcommands
+func addMustMemoCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	mustMemoCmd := &cobra.Command{
+		Use:   "must-memo",
+		Short: "must-memo subcommands",
+	}
+	mustMemoCmd.AddCommand(
+		acc.GetCmdSetMustMemo(cdc),
+		client.LineBreak,
+		acc.GetCmdQueryMustMemo(cdc),
+		acc.GetCmdQueryMustMemoList(cdc),
+		client.LineBreak,
+	)
+	rootCmd.AddCommand(mustMemoCmd)
 }
 
 // Add bank subcommands

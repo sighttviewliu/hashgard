@@ -9,6 +9,7 @@ import (
 	bam "github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
@@ -51,6 +52,7 @@ type HashgardApp struct {
 
 	// keys to access the multistore
 	keyMain          *sdk.KVStoreKey
+	keyAccMustMemo   *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
 	keyStaking       *sdk.KVStoreKey
 	tkeyStaking      *sdk.TransientStoreKey
@@ -68,6 +70,7 @@ type HashgardApp struct {
 	tkeyParams       *sdk.TransientStoreKey
 
 	// manage getting and setting accounts
+	accMustMemoKeeper   acc.Keeper
 	accountKeeper       auth.AccountKeeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	bankKeeper          bank.Keeper
@@ -101,6 +104,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		cdc:              cdc,
 		invCheckPeriod:   invCheckPeriod,
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
+		keyAccMustMemo:   sdk.NewKVStoreKey(acc.StoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
 		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
 		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
@@ -124,6 +128,12 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		app.tkeyParams,
 	)
 
+	app.accMustMemoKeeper = acc.NewKeeper(
+		app.cdc,
+		app.keyAccMustMemo,
+		app.paramsKeeper.Subspace(acc.DefaultParamspace),
+		acc.DefaultCodespace,
+	)
 	// define the accountKeeper
 	app.accountKeeper = auth.NewAccountKeeper(
 		app.cdc,
@@ -254,6 +264,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 
 	// register message routes
 	app.Router().
+		AddRoute(acc.RouterKey, acc.NewHandler(app.accMustMemoKeeper)).
 		AddRoute(bank.RouterKey, bank.NewHandler(app.bankKeeper)).
 		AddRoute(staking.RouterKey, staking.NewHandler(app.stakingKeeper)).
 		AddRoute(distribution.RouterKey, distribution.NewHandler(app.distributionKeeper)).
@@ -266,6 +277,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		AddRoute(crisis.RouterKey, crisis.NewHandler(app.crisisKeeper))
 
 	app.QueryRouter().
+		AddRoute(acc.QuerierRoute, acc.NewQuerier(app.accMustMemoKeeper)).
 		AddRoute(auth.QuerierRoute, auth.NewQuerier(app.accountKeeper)).
 		AddRoute(staking.QuerierRoute, staking.NewQuerier(app.stakingKeeper, app.cdc)).
 		AddRoute(slashing.QuerierRoute, slashing.NewQuerier(app.slashingKeeper, app.cdc)).
@@ -280,6 +292,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 	// initialize BaseApp
 	app.MountStores(
 		app.keyMain,
+		app.keyAccMustMemo,
 		app.keyAccount,
 		app.keyStaking,
 		app.keyMint,
@@ -315,6 +328,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 func MakeCodec() *codec.Codec {
 	cdc := codec.New()
 
+	acc.RegisterCodec(cdc)
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
 	staking.RegisterCodec(cdc)
@@ -394,6 +408,7 @@ func (app *HashgardApp) initFromGenesisState(ctx sdk.Context, genesisState Genes
 	}
 
 	// initialize module-specific stores
+	acc.InitGenesis(ctx, app.accMustMemoKeeper, genesisState.AccMustMemoData)
 	auth.InitGenesis(ctx, app.accountKeeper, app.feeCollectionKeeper, genesisState.AuthData)
 	bank.InitGenesis(ctx, app.bankKeeper, genesisState.BankData)
 	slashing.InitGenesis(ctx, app.slashingKeeper, genesisState.SlashingData, genesisState.StakingData.Validators.ToSDKValidators())
