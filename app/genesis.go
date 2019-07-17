@@ -18,7 +18,6 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
@@ -26,6 +25,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	tmtypes "github.com/tendermint/tendermint/types"
 
+	acc "github.com/hashgard/hashgard/x/account"
 	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"

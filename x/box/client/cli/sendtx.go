@@ -2,9 +2,11 @@ package cli
 
 import (
 	"fmt"
+	"github.com/spf13/viper"
 
 	"github.com/hashgard/hashgard/x/box/errors"
 
+	acc "github.com/hashgard/hashgard/x/account"
 	"github.com/hashgard/hashgard/x/box/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -40,6 +42,20 @@ func SendTxCmd(cdc *codec.Codec) *cobra.Command {
 			to, err := sdk.AccAddressFromBech32(args[0])
 			if err != nil {
 				return err
+			}
+
+			// check if address_to must memo
+			memo := viper.GetString(client.FlagMemo)
+			if len(memo) == 0 {
+				bz, err := cliCtx.QueryWithData(fmt.Sprintf("custom/%s/%s/%s", acc.QuerierRoute, acc.QueryMustMemoAddress, to), nil)
+				if err != nil {
+					return err
+				}
+				var accStatus acc.AccountInfo
+				cdc.MustUnmarshalJSON(bz, &accStatus)
+				if accStatus.MustMemo {
+					return fmt.Errorf("Memo is required to transfer to address %s ", to)
+				}
 			}
 
 			// parse coins trying to be sent

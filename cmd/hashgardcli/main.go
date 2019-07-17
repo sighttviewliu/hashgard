@@ -10,8 +10,8 @@ import (
 	"github.com/hashgard/hashgard/x/box"
 
 	"github.com/cosmos/cosmos-sdk/client/keys"
-	acc "github.com/cosmos/cosmos-sdk/x/account/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/auth"
+	acc "github.com/hashgard/hashgard/x/account/client/cli"
 	"github.com/hashgard/hashgard/x/deposit"
 	"github.com/hashgard/hashgard/x/future"
 	"github.com/hashgard/hashgard/x/lock"
@@ -81,12 +81,12 @@ func main() {
 		client.LineBreak,
 		keys.Commands(),
 	)
+	// Add must-memo subcommands
+	addMustMemoCmd(cdc, rootCmd)
 	// Add tendermint subcommands
 	addTendermintCmd(cdc, rootCmd)
 	//add x moudle
 	rootCmd.AddCommand(client.LineBreak)
-	// Add must-memo subcommands
-	addMustMemoCmd(cdc, rootCmd)
 	// Add bank subcommands
 	addBankCmd(cdc, rootCmd)
 	// Add distribution subcommands

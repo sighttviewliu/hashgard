@@ -9,7 +9,6 @@ import (
 	"github.com/hashgard/hashgard/x/box"
 
 	"github.com/cosmos/cosmos-sdk/codec"
-	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
@@ -21,6 +20,7 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
+	acc "github.com/hashgard/hashgard/x/account"
 	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
