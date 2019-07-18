@@ -29,6 +29,8 @@ tags:
   description: Future payment protocol (HRC13) APIs
 - name: Record
   description: Recording service APIs
+- name: MustMemo
+  description: must-memo quering APIs
 - name: version
   description: Query app version
 schemes:
@@ -3677,6 +3679,42 @@ paths:
             $ref: "#/definitions/Record"
         500:
           description: Internal Server Error
+  /account/query/{address}:
+    get:
+      summary: Query must-memo status of address
+      produces:
+        - application/json
+      tags:
+        - MustMemo
+      parameters:
+        - type: string
+          name: address
+          required: true
+          in: path
+          x-example: 'gard1knawd6zjv6fcaxuyqxl99vhx0vedgv4c8m7d0n'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/MustMemo"
+        400:
+          description: Invalid address
+        500:
+          description: Internal Server Error
+  /account/list:
+    get:
+      summary: must-memo address list
+      produces:
+        - application/json
+      tags:
+        - MustMemo
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/MustMemo"
+        500:
+          description: Internal Server Error
   /exchange/order/{orderId}:
     get:
       summary: Query a order
@@ -4471,6 +4509,13 @@ definitions:
         type: string
       record_number:
         type: string
+  MustMemo:
+    type: object
+    properties:
+      sender:
+        type: string
+      must_memo:
+        type: bool
   LockBox:
     type: object
     properties:

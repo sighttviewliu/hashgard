@@ -43,7 +43,7 @@ func queryRecordsHandlerFn(cdc *codec.Codec, cliCtx context.CLIContext) http.Han
 
 		sender, err := sdk.AccAddressFromBech32(r.URL.Query().Get(Sender))
 		if err != nil {
-			rest.WriteErrorResponse(w, http.StatusInternalServerError, err.Error())
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
 		}
 		startId := r.URL.Query().Get(StartRecordID)

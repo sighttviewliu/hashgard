@@ -18,23 +18,22 @@ import (
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
 
-	deposit "github.com/hashgard/hashgard/x/deposit/client/rest"
-	exchange "github.com/hashgard/hashgard/x/exchange/client/rest"
-	future "github.com/hashgard/hashgard/x/future/client/rest"
-	issue "github.com/hashgard/hashgard/x/issue/client/rest"
-	lock "github.com/hashgard/hashgard/x/lock/client/rest"
-	record "github.com/hashgard/hashgard/x/record/client/rest"
-
 	distributioncmd "github.com/cosmos/cosmos-sdk/x/distribution"
-
 	"github.com/hashgard/hashgard/app"
 	"github.com/hashgard/hashgard/client/lcd"
 	_ "github.com/hashgard/hashgard/client/lcd/statik"
 	hashgardInit "github.com/hashgard/hashgard/init"
 	"github.com/hashgard/hashgard/version"
+	acc "github.com/hashgard/hashgard/x/account/client/rest"
+	deposit "github.com/hashgard/hashgard/x/deposit/client/rest"
 	distribution "github.com/hashgard/hashgard/x/distribution/client/rest"
+	exchange "github.com/hashgard/hashgard/x/exchange/client/rest"
+	future "github.com/hashgard/hashgard/x/future/client/rest"
 	gov "github.com/hashgard/hashgard/x/gov/client/rest"
+	issue "github.com/hashgard/hashgard/x/issue/client/rest"
+	lock "github.com/hashgard/hashgard/x/lock/client/rest"
 	mint "github.com/hashgard/hashgard/x/mint/client/rest"
+	record "github.com/hashgard/hashgard/x/record/client/rest"
 )
 
 // rootCmd is the entry point for this binary
@@ -79,6 +78,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	registerSwaggerUI(rs)
 	rpc.RegisterRoutes(rs.CliCtx, rs.Mux)
 	tx.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	acc.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	auth.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, at.StoreKey)
 	bank.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
 	distribution.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, distributioncmd.StoreKey)
