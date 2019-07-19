@@ -47,7 +47,7 @@ func (ci *AccountInfo) SetMustMemo(mustMemo bool) {
 func (ci AccountInfo) String() string {
 	return fmt.Sprintf(`Account:
   Sender:           			%s
-  MustMemo:            			%s`,
+  MustMemo:            			%v`,
 		ci.Sender.String(), ci.MustMemo)
 }
 
@@ -55,7 +55,7 @@ func (ci AccountInfo) String() string {
 func (ls Accounts) String() string {
 	out := fmt.Sprintf("%-44s|%s\n", "Sender", "MustMemo")
 	for _, acc := range ls {
-		out += fmt.Sprintf("%-44s|%s\n",
+		out += fmt.Sprintf("%-44s|%v\n",
 			acc.GetSender().String(), acc.MustMemo)
 	}
 	return strings.TrimSpace(out)
