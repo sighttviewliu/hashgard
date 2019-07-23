@@ -11,7 +11,6 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client/keys"
 	"github.com/cosmos/cosmos-sdk/x/auth"
-	acc "github.com/hashgard/hashgard/x/account/client/cli"
 	"github.com/hashgard/hashgard/x/deposit"
 	"github.com/hashgard/hashgard/x/future"
 	"github.com/hashgard/hashgard/x/lock"
@@ -22,6 +21,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	acc "github.com/cosmos/cosmos-sdk/x/account/client/cli"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	crisiscmd "github.com/cosmos/cosmos-sdk/x/crisis/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/slashing"

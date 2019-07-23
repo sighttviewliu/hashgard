@@ -20,7 +20,7 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
-	acc "github.com/hashgard/hashgard/x/account"
+	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/hashgard/hashgard/x/box"
 	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
@@ -254,7 +254,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 	)
 
 	app.bankKeeper = *bankKeeper.SetHooks(
-		NewBankHooks(app.boxKeeper.Hooks(), app.issueKeeper.Hooks()),
+		NewBankHooks(app.boxKeeper.Hooks(), app.issueKeeper.Hooks(), app.accMustMemoKeeper.Hooks()),
 	)
 
 	// register the crisis routes
@@ -551,12 +551,15 @@ var _ bank.BankHooks = BankHooks{}
 type BankHooks struct {
 	boxHooks   box.Hooks
 	issueHooks issue.Hooks
+	accHooks acc.Hooks
+
 }
 
-func NewBankHooks(boxHooks box.Hooks, issueHooks issue.Hooks) BankHooks {
+func NewBankHooks(boxHooks box.Hooks, issueHooks issue.Hooks, accHooks acc.Hooks) BankHooks {
 	return BankHooks{
 		boxHooks:   boxHooks,
 		issueHooks: issueHooks,
+		accHooks: accHooks,
 	}
 }
 
@@ -573,4 +576,12 @@ func (bankHooks BankHooks) CanSend(ctx sdk.Context, fromAddr sdk.AccAddress, toA
 	}
 
 	return true, nil
+}
+
+func (bankHooks BankHooks) CheckMustMemoAddress(ctx sdk.Context, toAddr sdk.AccAddress, memo string) (bool, sdk.Error) {
+	_, err := bankHooks.accHooks.CheckMustMemoAddress(ctx, toAddr, memo)
+	if err != nil {
+		return true, err
+	}
+	return false, nil
 }

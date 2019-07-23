@@ -20,7 +20,7 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	acc "github.com/hashgard/hashgard/x/account"
+	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
