@@ -579,9 +579,5 @@ func (bankHooks BankHooks) CanSend(ctx sdk.Context, fromAddr sdk.AccAddress, toA
 }
 
 func (bankHooks BankHooks) CheckMustMemoAddress(ctx sdk.Context, toAddr sdk.AccAddress, memo string) (bool, sdk.Error) {
-	_, err := bankHooks.accHooks.CheckMustMemoAddress(ctx, toAddr, memo)
-	if err != nil {
-		return true, err
-	}
-	return false, nil
+	return bankHooks.accHooks.CheckMustMemoAddress(ctx, toAddr, memo)
 }
