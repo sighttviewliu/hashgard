@@ -70,7 +70,7 @@ func GetCmdFaucetSend(cdc *codec.Codec) *cobra.Command {
 				1.0,
 				false,
 				chainID,
-				"",
+				viper.GetString(client.FlagMemo),
 				nil,
 				nil,
 			)
@@ -93,7 +93,11 @@ func GetCmdFaucetSend(cdc *codec.Codec) *cobra.Command {
 				txbldr = txbldr.WithSequence(accSeq)
 			}
 
-			msg := bank.NewMsgSend(Info.GetAddress(), receiver, sdk.NewCoins(sdk.NewCoin("agard", sdk.TokensFromTendermintPower(10000)), sdk.NewInt64Coin("apple", 10000)).Sort())
+			msg := bank.NewMsgSend(
+				Info.GetAddress(),
+				receiver,
+				sdk.NewCoins(sdk.NewCoin("agard", sdk.TokensFromTendermintPower(10000)),sdk.NewInt64Coin("apple", 10000)).Sort(),
+				txbldr.Memo())
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

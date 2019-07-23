@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"github.com/spf13/viper"
 
 	"github.com/hashgard/hashgard/x/box/errors"
 
@@ -68,7 +69,7 @@ func SendTxCmd(cdc *codec.Codec) *cobra.Command {
 			}
 
 			// build and sign the transaction, then broadcast to Tendermint
-			msg := bank.NewMsgSend(from, to, coins)
+			msg := bank.NewMsgSend(from, to, coins, viper.GetString(client.FlagMemo))
 			return utils.GenerateOrBroadcastMsgs(cliCtx, txBldr, []sdk.Msg{msg}, false)
 		},
 	}

@@ -2,6 +2,7 @@ package app
 
 import (
 	"encoding/json"
+	"github.com/hashgard/hashgard/x/record"
 	"log"
 
 	"github.com/hashgard/hashgard/x/box"
@@ -13,16 +14,17 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 
+	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
 	"github.com/hashgard/hashgard/x/mint"
-	"github.com/hashgard/hashgard/x/distribution"
 )
 
 // export the state of hashgard for a genesis file
@@ -47,6 +49,7 @@ func (app *HashgardApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhit
 
 	genState := NewGenesisState(
 		accounts,
+		acc.ExportGenesis(ctx, app.accMustMemoKeeper),
 		auth.ExportGenesis(ctx, app.accountKeeper, app.feeCollectionKeeper),
 		bank.ExportGenesis(ctx, app.bankKeeper),
 		staking.ExportGenesis(ctx, app.stakingKeeper),
@@ -56,6 +59,7 @@ func (app *HashgardApp) ExportAppStateAndValidators(forZeroHeight bool, jailWhit
 		slashing.ExportGenesis(ctx, app.slashingKeeper),
 		exchange.ExportGenesis(ctx, app.exchangeKeeper),
 		issue.ExportGenesis(ctx, app.issueKeeper),
+		record.ExportGenesis(ctx, app.recordKeeper),
 		box.ExportGenesis(ctx, app.boxKeeper),
 		crisis.ExportGenesis(ctx, app.crisisKeeper),
 	)

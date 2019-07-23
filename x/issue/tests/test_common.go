@@ -55,6 +55,22 @@ var (
 		MintingFinished:    false}
 )
 
+// Wrapper struct
+type MockHooks struct {
+	keeper issue.Keeper
+}
+
+// Create new issue hooks
+func NewMockHooks(ik issue.Keeper) MockHooks { return MockHooks{ik} }
+
+func (hooks MockHooks) CanSend(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) (bool, sdk.Error) {
+	return hooks.keeper.Hooks().CanSend(ctx, fromAddr, toAddr, amt)
+}
+
+func (hooks MockHooks) CheckMustMemoAddress(ctx sdk.Context, toAddr sdk.AccAddress, memo string) (bool, sdk.Error) {
+	return false, nil
+}
+
 // initialize the mock application for this module
 func getMockApp(t *testing.T, genState issue.GenesisState, genAccs []auth.Account) (
 	mapp *mock.App, keeper keeper.Keeper, sk staking.Keeper, addrs []sdk.AccAddress,
@@ -72,7 +88,7 @@ func getMockApp(t *testing.T, genState issue.GenesisState, genAccs []auth.Accoun
 
 	sk = staking.NewKeeper(mapp.Cdc, keyStaking, tkeyStaking, ck, pk.Subspace(staking.DefaultParamspace), staking.DefaultCodespace)
 	keeper = issue.NewKeeper(mapp.Cdc, keyIssue, pk, pk.Subspace("testissue"), &ck, fck, types.DefaultCodespace)
-	ck.SetHooks(keeper.Hooks())
+	ck.SetHooks(NewMockHooks(keeper))
 
 	mapp.Router().AddRoute(types.RouterKey, issue.NewHandler(keeper))
 	mapp.QueryRouter().AddRoute(types.QuerierRoute, issue.NewQuerier(keeper))
