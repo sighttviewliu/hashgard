@@ -96,7 +96,7 @@ func GetCmdFaucetSend(cdc *codec.Codec) *cobra.Command {
 			msg := bank.NewMsgSend(
 				Info.GetAddress(),
 				receiver,
-				sdk.NewCoins(sdk.NewCoin("agard", sdk.TokensFromTendermintPower(10000)),sdk.NewInt64Coin("apple", 10000)).Sort(),
+				sdk.NewCoins(sdk.NewCoin("agard", sdk.TokensFromTendermintPower(100000))),
 				txbldr.Memo())
 			if err := msg.ValidateBasic(); err != nil {
 				return err
