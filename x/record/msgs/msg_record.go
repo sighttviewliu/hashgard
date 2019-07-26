@@ -52,6 +52,9 @@ func (msg MsgRecord) ValidateBasic() sdk.Error {
 	if len(msg.RecordNo) > types.RecordNoMaxLength {
 		return errors.ErrRecordNumberNotValid()
 	}
+	if len(msg.Description) > types.DescriptionMaxLength {
+		return errors.ErrDescriptionNotValid()
+	}
 	return nil
 }
 

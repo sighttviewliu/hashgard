@@ -9,15 +9,16 @@ import (
 )
 
 const (
-	CodeRecordExist                sdk.CodeType = 1
-	CodeRecordHashNotValid         sdk.CodeType = 2
-	CodeRecordIDNotValid           sdk.CodeType = 3
-	CodeRecordNumberNotValid           sdk.CodeType = 4
-	CodeRecordNameNotValid         sdk.CodeType = 5
-	CodeRecordAuthorNotValid       sdk.CodeType = 6
-	CodeRecordTypeNotValid     	   sdk.CodeType = 7
-	CodeUnknownRecord              sdk.CodeType = 8
-	CodeUnknownAuthor              sdk.CodeType = 9
+	CodeRecordExist          sdk.CodeType = 1
+	CodeRecordHashNotValid   sdk.CodeType = 2
+	CodeRecordIDNotValid     sdk.CodeType = 3
+	CodeRecordNumberNotValid sdk.CodeType = 4
+	CodeRecordNameNotValid   sdk.CodeType = 5
+	CodeRecordAuthorNotValid sdk.CodeType = 6
+	CodeRecordTypeNotValid   sdk.CodeType = 7
+	CodeDescriptionNotValid  sdk.CodeType = 8
+	CodeUnknownRecord        sdk.CodeType = 9
+	CodeUnknownAuthor        sdk.CodeType = 10
 )
 
 //convert sdk.Error to error
@@ -43,6 +44,9 @@ func ErrRecordNameNotValid() sdk.Error {
 }
 func ErrRecordTypeNotValid() sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeRecordTypeNotValid, fmt.Sprintf("The max length of record type is %d", types.RecordTypeMaxLength))
+}
+func ErrDescriptionNotValid() sdk.Error {
+	return sdk.NewError(types.DefaultCodespace, CodeDescriptionNotValid, fmt.Sprintf("The max length of description is %d", types.DescriptionMaxLength))
 }
 func ErrRecordIDNotValid(recordID string) sdk.Error {
 	return sdk.NewError(types.DefaultCodespace, CodeRecordIDNotValid, fmt.Sprintf("Record-id %s is not a valid recordId", recordID))

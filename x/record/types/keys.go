@@ -21,8 +21,8 @@ const (
 )
 
 var (
-	RecordMaxId        uint64 = 999999999999
-	RecordMinId        uint64 = 100000000000
+	RecordMaxId uint64 = 999999999999
+	RecordMinId uint64 = 100000000000
 )
 
 const (
@@ -30,21 +30,22 @@ const (
 	Custom   = "custom"
 )
 const (
-	QueryParams    = "params"
-	QueryRecords   = "list"
-	QueryRecord    = "query"
-	QuerySearch    = "search"
+	QueryParams  = "params"
+	QueryRecords = "list"
+	QueryRecord  = "query"
+	QuerySearch  = "search"
 )
 
 const (
-	TypeMsgRecord                  = "record"
+	TypeMsgRecord = "record"
 )
 const (
 	CodeInvalidGenesis   sdk.CodeType = 102
-	HashLength	                      = 64
+	HashLength                        = 64
 	NameMinLength                     = 3
 	NameMaxLength                     = 32
 	AuthorMaxLength                   = 64
 	RecordTypeMaxLength               = 32
 	RecordNoMaxLength                 = 32
+	DescriptionMaxLength              = 1024
 )
