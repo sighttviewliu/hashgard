@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.7.0
+
+### BREAKING CHANGES
+
++ Cosmos SDK
+    + Upgrade cosmos-sdk from `v0.35.0` to `v0.35.5`
+
+### FEATURES
+
++ Hashgard REST API (hashgardlcd)
+    + [record] Add REST API for recording module
+    + [account]  Add REST API for account-must-memo module
++ Hashgard CLI (hashgardcli)
+    + [record] Add commands for recording module
+    * [keys] Add commands for account-must-memo module
+
 ## 0.6.0
 
 ### BREAKING CHANGES
