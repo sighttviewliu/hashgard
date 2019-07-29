@@ -40,6 +40,9 @@ func (msg MsgMake) ValidateBasic() sdk.Error {
 	if msg.Target.Amount.LTE(sdk.ZeroInt()) {
 		return sdk.NewError(types.DefaultCodespace, types.CodeInvalidInput, "target amount is invalid: "+msg.Target.String())
 	}
+	if msg.Target.Denom == msg.Supply.Denom {
+		return sdk.NewError(types.DefaultCodespace, types.CodeInvalidInput, "target coin can't be same with supply coin")
+	}
 
 	return nil
 }

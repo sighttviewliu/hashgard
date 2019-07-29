@@ -1,8 +1,6 @@
 package cli
 
 import (
-	"strings"
-
 	"github.com/hashgard/hashgard/x/record/params"
 
 	"github.com/cosmos/cosmos-sdk/client/context"
@@ -17,7 +15,6 @@ import (
 	"github.com/hashgard/hashgard/x/record/errors"
 	"github.com/hashgard/hashgard/x/record/msgs"
 )
-
 
 func GetCliContext(cdc *codec.Codec) (authtxb.TxBuilder, context.CLIContext, auth.Account, error) {
 	txBldr := authtxb.NewTxBuilderFromCLI().WithTxEncoder(utils.GetTxEncoder(cdc))
@@ -44,12 +41,12 @@ func GetCmdRecordCreate(cdc *codec.Codec) *cobra.Command {
 			}
 
 			para := params.RecordParams{
-				Name:               args[0],
-				Hash:             	strings.ToUpper(args[1]),
-				RecordType:  		viper.GetString(flagRecordType),
-				Author:  			viper.GetString(flagAuthor),
-				RecordNo:  			viper.GetString(flagRecordNo),
-				Description:  		viper.GetString(flagDescription),
+				Name:        args[0],
+				Hash:        args[1],
+				RecordType:  viper.GetString(flagRecordType),
+				Author:      viper.GetString(flagAuthor),
+				RecordNo:    viper.GetString(flagRecordNo),
+				Description: viper.GetString(flagDescription),
 			}
 			msg := msgs.NewMsgRecord(account.GetAddress(), &para)
 

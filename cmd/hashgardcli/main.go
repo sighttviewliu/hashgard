@@ -79,10 +79,8 @@ func main() {
 		client.ConfigCmd(app.DefaultCLIHome),
 		rpc.StatusCommand(),
 		client.LineBreak,
-		keys.Commands(),
+		addKeysCmd(cdc, keys.Commands()),
 	)
-	// Add must-memo subcommands
-	addMustMemoCmd(cdc, rootCmd)
 	// Add tendermint subcommands
 	addTendermintCmd(cdc, rootCmd)
 	//add x moudle
@@ -150,20 +148,15 @@ func addTendermintCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	rootCmd.AddCommand(tendermintCmd)
 }
 
-// Add must-memo subcommands
-func addMustMemoCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
-	mustMemoCmd := &cobra.Command{
-		Use:   "must-memo",
-		Short: "must-memo subcommands",
-	}
-	mustMemoCmd.AddCommand(
-		acc.GetCmdSetMustMemo(cdc),
+// Add keys subcommands
+func addKeysCmd(cdc *codec.Codec, keysCmd *cobra.Command) *cobra.Command {
+	keysCmd.AddCommand(
 		client.LineBreak,
+		acc.GetCmdSetMustMemo(cdc),
 		acc.GetCmdQueryMustMemo(cdc),
-		acc.GetCmdQueryMustMemoList(cdc),
 		client.LineBreak,
 	)
-	rootCmd.AddCommand(mustMemoCmd)
+	return keysCmd
 }
 
 // Add bank subcommands

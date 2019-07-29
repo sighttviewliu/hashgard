@@ -12,12 +12,13 @@ import (
 //Handle MsgRecord
 func HandleMsgRecord(ctx sdk.Context, keeper keeper.Keeper, msg msgs.MsgRecord) sdk.Result {
 	recordInfo := types.RecordInfo{
-		Sender:     msg.Sender,
-		Hash:       msg.Hash,
-		Name:       msg.Name,
-		Author:     msg.Author,
-		RecordType: msg.RecordType,
-		RecordNo:   msg.RecordNo,
+		Sender:      msg.Sender,
+		Hash:        msg.Hash,
+		Name:        msg.Name,
+		Author:      msg.Author,
+		RecordType:  msg.RecordType,
+		RecordNo:    msg.RecordNo,
+		Description: msg.Description,
 	}
 
 	err := keeper.CreateRecord(ctx, &recordInfo)
