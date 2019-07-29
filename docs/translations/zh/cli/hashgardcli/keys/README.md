@@ -20,6 +20,8 @@ hashgardcli keys [command]
 | [show](show.md)         | 显示指定名称的关键信息                                     |
 | [delete](delete.md)     | 删除指定的密钥                                         |
 | [update](update.md)     | 更改用于保护私钥的密码                                    |
+| [flag-required](flag-required.md)   | 设置账户转入必须填写备注信息  |
+| [flag-required-query](flag-required-query.md)   | 查询指定地址设置交易强制备注信息状态  |
 
 ## Flags
 **全局 flags、查询命令 flags** 参考:[hashgardcli](../README.md)

@@ -28,7 +28,7 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags]
 ### 发行一个新币
 
 ```shell
-hashgardcli issue create issuename AAA 10000000000000 --from
+hashgardcli issue create issuename AAA 10000000000000 --from $you_wallet_name
 ```
 
 输入正确的密码之后，你就完成发行了一个代币，需要注意的是要记下你的 issue-id 值，这是可以检索及操作你的代币的唯一要素。

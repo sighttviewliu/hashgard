@@ -28,7 +28,7 @@ hashgardcli bank withdraw [box-id] [flags]
 ### 对到期盒子中的通证进行取回
 
 ```shell
-hashgardcli bank withdraw boxac3jlxpt2pw01 --from
+hashgardcli bank withdraw boxac3jlxpt2pw01 --from $you_wallet_name
 ```
 
 

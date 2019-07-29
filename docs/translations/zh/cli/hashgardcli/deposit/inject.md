@@ -27,7 +27,7 @@ hashgardcli deposit inject [box-id] [amount] [flags]
 ### 进行存款
 
 ```shell
- hashgardcli deposit inject boxab3jlxpt2pt 10000 --from
+ hashgardcli deposit inject boxab3jlxpt2pt 10000 --from $you_wallet_name
 ```
 
 

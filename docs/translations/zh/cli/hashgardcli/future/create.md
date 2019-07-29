@@ -41,7 +41,7 @@ hashgardcli future create [name] [total-amount][distribute-file] [flags]
 ## 例子
 ### 创建远期支付盒子
 ```shell
-hashgardcli future create  pay-one 1800gard  .path/future.json --from
+hashgardcli future create  pay-one 1800gard  .path/future.json --from $you_wallet_name
 ```
 输入正确的密码后，远期支付盒子创建完成。
 ```txt
@@ -64,7 +64,7 @@ Response:
 为盒子存入需要支付的存款
 
 ```shell
-hashgardcli future inject boxac3jlxpt2ps 1800  --from
+hashgardcli future inject boxac3jlxpt2ps 1800  --from $you_wallet_name
 ```
 
 成功后，返回结果:

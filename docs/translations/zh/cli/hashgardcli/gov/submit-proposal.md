@@ -58,7 +58,7 @@ hashgardcli gov submit-proposal [flags]
 ### 提交一个'Text'类型的提案
 
 ```shell
-hashgardcli gov submit-proposal --title="notice proposal" --type="Text" --description="a new text proposal" --from=hashgard --chain-id=hashgard -o json --indent
+hashgardcli gov submit-proposal --title="notice proposal" --type="Text" --description="a new text proposal" --from $you_wallet_name
 ```
 
 输入正确的密码之后，你就完成提交了一个提案，需要注意的是要记下你的提案 ID，这是可以检索你的提案的唯一要素。
@@ -91,7 +91,7 @@ hashgardcli gov submit-proposal --title="notice proposal" --type="Text" --descri
 
 ### 提交一个 ‘ParameterChange’ 类型的提案
 ```shell
-hashgardcli gov submit-proposal --title="Test-Proposal" --description="My awesome proposal" --type="ParameterChange" --deposit="10gard" --param="box/lock_create_fee=10gard,mint/inflation=1" --from
+hashgardcli gov submit-proposal --title="Test-Proposal" --description="My awesome proposal" --type="ParameterChange" --deposit="10gard" --param="box/lock_create_fee=10gard,mint/inflation=1" --from $you_wallet_name
 ```
 返回结果
 ```text
@@ -115,7 +115,7 @@ Tags:
 
 
 ```shell
-hashgardcli gov submit-proposal --title="hashgard" --type="SoftwareUpgrade" --description="a new software upgrade proposal" --from
+hashgardcli gov submit-proposal --title="hashgard" --type="SoftwareUpgrade" --description="a new software upgrade proposal" --from $you_wallet_name
 ```
 
 在这种场景下，提案的 --title、--type 和 --description 参数必不可少，另外你也应该保留好提案 ID，这是检索所提交提案的唯一方法。

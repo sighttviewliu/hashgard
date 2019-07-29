@@ -44,7 +44,7 @@ ERROR: Msg 0 failed: {"codespace":"SLASH","code":103,"message":"validator not ja
 过了 jail 状态的截止时间后，你可以发送一个 `unjail` 交易.
 
 ```shell
-hashgardcli slashing unjail --from=<key name> --chain-id=<chain-id>
+hashgardcli slashing unjail --from <key name> --chain-id <chain-id>
 ```
 
 输出:

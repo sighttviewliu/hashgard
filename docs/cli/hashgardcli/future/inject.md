@@ -29,7 +29,7 @@ hashgardcli future inject [box-id] [amount] [flags]
 ### Inject coin
 
 ```shell
-hashgardcli future  inject boxac3jlxpt2ps 1800 --from
+hashgardcli future  inject boxac3jlxpt2ps 1800 --from $you_wallet_name
 ```
 
 

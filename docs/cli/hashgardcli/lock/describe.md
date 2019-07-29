@@ -13,7 +13,7 @@ Owner describes the box。The description file must be in josn format and no mor
 ## Example
 ### 给盒子设置描述
 ```shell
-hashgardcli lock describe boxaa3jlxpt2ps .path/Desktop/description.json --from
+hashgardcli lock describe boxaa3jlxpt2ps .path/Desktop/description.json --from $you_wallet_name
 ```
 ### Template
 ```shell

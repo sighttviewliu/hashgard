@@ -57,6 +57,8 @@
 11. [lock command](./lock/README.md)
 12. [future command](./future/README.md)
 13. [faucet command](./faucet/send.md)
+14. [record command](./record/README.md)
+15. [must-memo command](./must-memo/README.md)
 
 ## hashgardcli config 命令
 

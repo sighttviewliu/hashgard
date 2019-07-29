@@ -20,6 +20,8 @@ hashgardcli keys [command]
 | [show](show.md)         | Show key info for the given name                          |
 | [delete](delete.md)     | Delete the given key                                         |
 | [update](update.md)     | Change the password used to protect private key                                            |
+| [flag-required](flag-required.md)   | Set the account address to transfer into memo status  |
+| [flag-required-query](flag-required-query.md)    |  Query Specific address of memo status |
 
 ## Flags
 

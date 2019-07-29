@@ -24,7 +24,7 @@
 
 ### 解冻某地址的转入功能
 ```shell
-hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n --from
+hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n --from $you_wallet_name
 ```
 输入正确的密码之后，你就解冻该账户的解冻功能
 ```txt

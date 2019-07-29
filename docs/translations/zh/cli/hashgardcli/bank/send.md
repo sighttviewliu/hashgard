@@ -18,7 +18,7 @@ hashgardcli bank send [to_address] [amount] [flags]
 ### 发送通证到指定地址
 
 ```shell
-hashgardcli bank send gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl 10gard --from=hashgard --chain-id=hashgard --indent -o json
+hashgardcli bank send gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl 10gard --from $you_wallet_name 
 ```
 
 成功后，返回结果:

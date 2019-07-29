@@ -19,7 +19,7 @@ hashgardcli exchange cancel [order_id] [flags]
 ### 撤销订单
 
 ```shell
-hashgardcli exchange cancel 2 --from mykey --chain-id hashgard -o=json --indent
+hashgardcli exchange cancel 2 --from $you_wallet_name --chain-id hashgard -o=json --indent
 ```
 
 必须是订单的 seller 账户操作，输入正确的密码后，order_id 为 2 的订单已经撤销。

@@ -24,7 +24,7 @@ hashgardcli exchange create [flags]
 ### Create order
 
 ```shell
-hashgardcli exchange make --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
+hashgardcli exchange make --supply 100gard --target 800apple --from $you_wallet_name
 ```
 
 Created a 100gard exchange 800apple order
