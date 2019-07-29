@@ -13,7 +13,7 @@
 11. [deposit command](./hashgardcli/deposit/README.md)
 12. [future command](./hashgardcli/future/README.md)
 13. [faucet command](./hashgardcli/faucet/send.md)
-14. [record command](./record/README.md)
+14. [record command](./hashgardcli/record/README.md)
 
 
 
