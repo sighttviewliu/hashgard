@@ -27,6 +27,10 @@ tags:
   description: Deposit protocol (HRC12) APIs
 - name: HRC13
   description: Future payment protocol (HRC13) APIs
+- name: Record
+  description: Recording service APIs
+- name: MustMemo
+  description: must-memo quering APIs
 - name: version
   description: Query app version
 schemes:
@@ -3623,6 +3627,94 @@ paths:
           description: Invalid issue body
         500:
           description: Internal Server Error
+  /record/query/{hash}:
+    get:
+      summary: Query a record
+      produces:
+        - application/json
+      tags:
+        - Record
+      parameters:
+        - type: string
+          name: hash
+          required: true
+          in: path
+          x-example: 'BC38CAEE32149BEF4CCFAEAB518EC9A5FBC85AE6AC8D5A9F6CD710FAF5E4A2B1'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Record"
+        400:
+          description: Invalid record hash
+        500:
+          description: Internal Server Error
+  /record/list:
+    get:
+      summary: Record list
+      produces:
+        - application/json
+      tags:
+        - Record
+      parameters:
+        - in: query
+          name: limit
+          description: Maximum number of items per page
+          type: integer
+          x-example: 30
+        - in: query
+          name: sender
+          description: Sender address
+          type: string
+          x-example: 'gard1knawd6zjv6fcaxuyqxl99vhx0vedgv4c8m7d0n'
+        - in: query
+          name: start_record_id
+          description: Start recordId of records
+          type: string
+          x-example: 'rec174876e803'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Record"
+        500:
+          description: Internal Server Error
+  /account/query/{address}:
+    get:
+      summary: Query must-memo status of address
+      produces:
+        - application/json
+      tags:
+        - MustMemo
+      parameters:
+        - type: string
+          name: address
+          required: true
+          in: path
+          x-example: 'gard1knawd6zjv6fcaxuyqxl99vhx0vedgv4c8m7d0n'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/MustMemo"
+        400:
+          description: Invalid address
+        500:
+          description: Internal Server Error
+  /account/list:
+    get:
+      summary: must-memo address list
+      produces:
+        - application/json
+      tags:
+        - MustMemo
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/MustMemo"
+        500:
+          description: Internal Server Error
   /exchange/order/{orderId}:
     get:
       summary: Query a order
@@ -4400,6 +4492,30 @@ definitions:
         type: boolean
       minting_finished:
         type: boolean
+  Record:
+    type: object
+    properties:
+      id:
+        type: string
+      sender:
+        type: string
+      author:
+        type: string
+      record_time:
+        type: integer
+      name:
+        type: string
+      record_type:
+        type: string
+      record_number:
+        type: string
+  MustMemo:
+    type: object
+    properties:
+      sender:
+        type: string
+      must_memo:
+        type: bool
   LockBox:
     type: object
     properties:

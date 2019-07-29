@@ -23,7 +23,7 @@
 ## 例子
 ### 冻结某账户转入功能
 ```shell
-hashgardcli issue freeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n\ 253382641454 --from
+hashgardcli issue freeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n\ 253382641454 --from $you_wallet_name
 ```
 输入正确的密码后，你就冻结了该地址的该通证的转入功能。
 ```txt

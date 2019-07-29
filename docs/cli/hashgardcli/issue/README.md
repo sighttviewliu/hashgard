@@ -20,7 +20,7 @@ hashgardcli issue --help
 
 ## Available Commands
 
-| Name                                       | Description                            |
+| Name                                       | Description                            |
 | ------------------------------------------- | ------------------------------------ |
 | [create](create.md)                         | Issue a new token                |
 | [describe](describe.md)                     | Set token description              |

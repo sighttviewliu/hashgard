@@ -3,6 +3,10 @@ package cli
 import (
 	"strings"
 
+	"github.com/hashgard/hashgard/x/issue/config"
+
+	"github.com/hashgard/hashgard/x/issue/types"
+
 	"github.com/cosmos/cosmos-sdk/client/context"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -28,11 +32,9 @@ func GetQueryParamsCmd(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			_, err = cliCtx.Output.Write(res)
-			if err != nil {
-				return err
-			}
-			return nil
+			var params config.Params
+			cdc.MustUnmarshalJSON(res, &params)
+			return cliCtx.PrintOutput(params)
 		},
 	}
 }
@@ -76,14 +78,9 @@ func processQuery(cdc *codec.Codec, args []string) error {
 	if err != nil {
 		return err
 	}
-	//var issueInfo types.Issue
-	//cdc.MustUnmarshalJSON(res, &issueInfo)
-	//return cliCtx.PrintOutput(issueInfo)
-	_, err = cliCtx.Output.Write(res)
-	if err != nil {
-		return err
-	}
-	return nil
+	var issueInfo types.Issue
+	cdc.MustUnmarshalJSON(res, &issueInfo)
+	return cliCtx.PrintOutput(issueInfo)
 }
 
 // GetCmdQueryAllowance implements the query allowance command.
@@ -112,15 +109,10 @@ func GetCmdQueryAllowance(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			//var approval types.Approval
-			//cdc.MustUnmarshalJSON(res, &approval)
-			//
-			//return cliCtx.PrintOutput(approval)
-			_, err = cliCtx.Output.Write(res)
-			if err != nil {
-				return err
-			}
-			return nil
+			var approval types.Approval
+			cdc.MustUnmarshalJSON(res, &approval)
+
+			return cliCtx.PrintOutput(approval)
 		},
 	}
 }
@@ -147,15 +139,10 @@ func GetCmdQueryFreeze(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			//var freeze types.IssueFreeze
-			//cdc.MustUnmarshalJSON(res, &freeze)
-			//
-			//return cliCtx.PrintOutput(freeze)
-			_, err = cliCtx.Output.Write(res)
-			if err != nil {
-				return err
-			}
-			return nil
+			var freeze types.IssueFreeze
+			cdc.MustUnmarshalJSON(res, &freeze)
+
+			return cliCtx.PrintOutput(freeze)
 		},
 	}
 }
@@ -185,18 +172,9 @@ func GetCmdQueryIssues(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			//var tokenIssues types.CoinIssues
-			//cdc.MustUnmarshalJSON(res, &tokenIssues)
-			//if len(tokenIssues) == 0 {
-			//	fmt.Println("No records")
-			//	return nil
-			//}
-			//return cliCtx.PrintOutput(tokenIssues)
-			_, err = cliCtx.Output.Write(res)
-			if err != nil {
-				return err
-			}
-			return nil
+			var issues types.CoinIssues
+			cdc.MustUnmarshalJSON(res, &issues)
+			return cliCtx.PrintOutput(issues)
 		},
 	}
 
@@ -223,14 +201,9 @@ func GetCmdQueryFreezes(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			//var issueFreeze types.IssueAddressFreezeList
-			//cdc.MustUnmarshalJSON(res, &issueFreeze)
-			//return cliCtx.PrintOutput(issueFreeze)
-			_, err = cliCtx.Output.Write(res)
-			if err != nil {
-				return err
-			}
-			return nil
+			var issueFreeze types.IssueAddressFreezeList
+			cdc.MustUnmarshalJSON(res, &issueFreeze)
+			return cliCtx.PrintOutput(issueFreeze)
 		},
 	}
 	return cmd
@@ -251,14 +224,9 @@ func GetCmdSearchIssues(cdc *codec.Codec) *cobra.Command {
 			if err != nil {
 				return err
 			}
-			//var tokenIssues types.CoinIssues
-			//cdc.MustUnmarshalJSON(res, &tokenIssues)
-			//return cliCtx.PrintOutput(tokenIssues)
-			_, err = cliCtx.Output.Write(res)
-			if err != nil {
-				return err
-			}
-			return nil
+			var issues types.CoinIssues
+			cdc.MustUnmarshalJSON(res, &issues)
+			return cliCtx.PrintOutput(issues)
 		},
 	}
 	return cmd

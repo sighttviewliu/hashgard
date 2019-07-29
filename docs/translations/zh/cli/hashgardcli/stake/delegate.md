@@ -20,11 +20,7 @@ hashgardcli stake delegate [validator-addr] [amount] [flags]
 hashgardcli stake delegate \
 gardvaloper1rkqp5w062sdqu68qsufn3safwz0e5m9frmy4dm \
 80gard \
---from=hashgard \
---fees=2gard \
---chain-id=hashgard \
---output=json
---indent
+--from $you_wallet_name
 ```
 
 然后你将会得到如下消息：

@@ -20,8 +20,8 @@ hashgardcli stake redelegate [src-validator-addr] [dst-validator-addr] [amount] 
 hashgardcli stake redelegate \
 gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx \
 gardvaloper1xn4kvq867rap8vkrwfnp5n2entvpq2avtd0ytq \
-50000000 \
---chain-id=hashgard --from=hashgard --gas=auto
+10gard \
+--chain-id=hashgard --from $you_wallet_name --gas auto
 ```
 
 > set `--gas=auto` Automatic calculation gas

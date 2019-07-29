@@ -20,10 +20,11 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
+	acc "github.com/cosmos/cosmos-sdk/x/account"
+	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
 	"github.com/hashgard/hashgard/x/mint"
-	"github.com/hashgard/hashgard/x/distribution"
 )
 
 func setGenesis(happ *HashgardApp, accs ...*auth.BaseAccount) error {
@@ -34,6 +35,7 @@ func setGenesis(happ *HashgardApp, accs ...*auth.BaseAccount) error {
 
 	genesisState := GenesisState{
 		Accounts:         genaccs,
+		AccMustMemoData:  acc.DefaultGenesisState(),
 		AuthData:         auth.DefaultGenesisState(),
 		BankData:         bank.DefaultGenesisState(),
 		StakingData:      staking.DefaultGenesisState(),

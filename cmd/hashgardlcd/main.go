@@ -8,6 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	acc "github.com/cosmos/cosmos-sdk/x/account/client/rest"
 	at "github.com/cosmos/cosmos-sdk/x/auth"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/client/rest"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/client/rest"
@@ -18,22 +19,21 @@ import (
 	"github.com/spf13/viper"
 	"github.com/tendermint/tendermint/libs/cli"
 
-	deposit "github.com/hashgard/hashgard/x/deposit/client/rest"
-	exchange "github.com/hashgard/hashgard/x/exchange/client/rest"
-	future "github.com/hashgard/hashgard/x/future/client/rest"
-	issue "github.com/hashgard/hashgard/x/issue/client/rest"
-	lock "github.com/hashgard/hashgard/x/lock/client/rest"
-
 	distributioncmd "github.com/cosmos/cosmos-sdk/x/distribution"
-
 	"github.com/hashgard/hashgard/app"
 	"github.com/hashgard/hashgard/client/lcd"
 	_ "github.com/hashgard/hashgard/client/lcd/statik"
 	hashgardInit "github.com/hashgard/hashgard/init"
 	"github.com/hashgard/hashgard/version"
+	deposit "github.com/hashgard/hashgard/x/deposit/client/rest"
 	distribution "github.com/hashgard/hashgard/x/distribution/client/rest"
+	exchange "github.com/hashgard/hashgard/x/exchange/client/rest"
+	future "github.com/hashgard/hashgard/x/future/client/rest"
 	gov "github.com/hashgard/hashgard/x/gov/client/rest"
+	issue "github.com/hashgard/hashgard/x/issue/client/rest"
+	lock "github.com/hashgard/hashgard/x/lock/client/rest"
 	mint "github.com/hashgard/hashgard/x/mint/client/rest"
+	record "github.com/hashgard/hashgard/x/record/client/rest"
 )
 
 // rootCmd is the entry point for this binary
@@ -78,6 +78,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	registerSwaggerUI(rs)
 	rpc.RegisterRoutes(rs.CliCtx, rs.Mux)
 	tx.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	acc.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	auth.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, at.StoreKey)
 	bank.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
 	distribution.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, distributioncmd.StoreKey)
@@ -85,6 +86,7 @@ func registerRoutes(rs *lcd.RestServer) {
 	slashing.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc, rs.KeyBase)
 	gov.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	issue.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
+	record.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	lock.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	deposit.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)
 	future.RegisterRoutes(rs.CliCtx, rs.Mux, rs.Cdc)

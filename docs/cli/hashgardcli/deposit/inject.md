@@ -16,8 +16,8 @@ hashgardcli deposit inject [box-id] [amount] [flags]
 
 | Name| Type  | Required | Default   | Description        |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | true       |        | 盒子的 id |
-| amount | int   | true       |        | 存款的数量   |
+| box-id | string | true       |        | box ID|
+| amount | int   | true       |        | amount   |
 
 
 
@@ -29,7 +29,7 @@ hashgardcli deposit inject [box-id] [amount] [flags]
 ### 进行存款
 
 ```shell
- hashgardcli deposit inject boxab3jlxpt2pt 10000 --from
+ hashgardcli deposit inject boxab3jlxpt2pt 10000 --from $you_wallet_name
 ```
 
 

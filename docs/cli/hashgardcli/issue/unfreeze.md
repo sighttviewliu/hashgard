@@ -19,7 +19,7 @@ Token owner unFreeze the transfer from a address
 ## Example
 ### Unfreeze the transfer  of an address
 ```shell
-hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n --from
+hashgardcli issue unfreeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n --from $you_wallet_name
 ```
 The result is as follows：
 ```txt

@@ -32,7 +32,7 @@ hashgardcli bank sign [file] [flags]
 First you must **hashgardcli bank send** command with flag **--generate-only** to generate a send recorder. Just like this.
 
 ```shell
-hashgardcli bank send gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx 10gard --from=test --chain-id=hashgard --generate-only
+hashgardcli bank send gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx 10gard --from $you_wallet_name
 
 {"type":"auth/StdTx","value":{"msg":[{"type":"cosmos-sdk/Send","value":{"inputs":[{"address":"gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx","coins":[{"denom":"gard","amount":"10000000000000000000"}]}],"outputs":[{"address":"gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx","coins":[{"denom":"gard","amount":"10000000000000000000"}]}]}}],"fee":{"amount":[{"denom":"gard","amount":"4000000000000000"}],"gas":"200000"},"signatures":null,"memo":""}}
 ```
@@ -42,7 +42,7 @@ And then save the output in /root/node0/test_send_10hashgard.txt
 Then you can sign the offline file.
 
 ```shell
-hashgardcli bank sign /root/node0/test_send_10hashgard.txt --from=test  --offline=false --print-response --append=true
+hashgardcli bank sign /root/node0/test_send_10hashgard.txt --from $you_wallet_name
 ```
 
 After that, you will get the detail info for the sign. Like the follow output you will see the signature:

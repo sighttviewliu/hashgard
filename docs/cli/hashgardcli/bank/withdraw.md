@@ -26,7 +26,7 @@ hashgardcli bank withdraw [box-id] [flags]
 ### retrieve tokens in the expired box
 
 ```shell
-hashgardcli bank withdraw boxac3jlxpt2pw01 --from
+hashgardcli bank withdraw boxac3jlxpt2pw01 --from $you_wallet_name
 ```
 
 

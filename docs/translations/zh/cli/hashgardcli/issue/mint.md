@@ -20,7 +20,7 @@
 
 ### 增发到指定的地址
 ```shell
-hashgardcli issue mint coin174876e802 9999 --to=gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7 --from
+hashgardcli issue mint coin174876e802 9999 --to=gard1f76ncl7d9aeq2thj98pyveee8twplfqy3q4yv7 --from $you_wallet_name
 ```
 输入正确的密码之后，你的该代币的便完成了增发。
 ```txt

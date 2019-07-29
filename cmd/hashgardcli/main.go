@@ -9,9 +9,8 @@ import (
 
 	"github.com/hashgard/hashgard/x/box"
 
-	"github.com/cosmos/cosmos-sdk/x/auth"
-
 	"github.com/cosmos/cosmos-sdk/client/keys"
+	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/hashgard/hashgard/x/deposit"
 	"github.com/hashgard/hashgard/x/future"
 	"github.com/hashgard/hashgard/x/lock"
@@ -22,6 +21,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	acc "github.com/cosmos/cosmos-sdk/x/account/client/cli"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	crisiscmd "github.com/cosmos/cosmos-sdk/x/crisis/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/slashing"
@@ -42,6 +42,7 @@ import (
 	govcmd "github.com/hashgard/hashgard/x/gov/client/cli"
 	"github.com/hashgard/hashgard/x/issue"
 	mintcmd "github.com/hashgard/hashgard/x/mint/client/cli"
+	"github.com/hashgard/hashgard/x/record"
 )
 
 // rootCmd is the entry point for this binary
@@ -78,7 +79,7 @@ func main() {
 		client.ConfigCmd(app.DefaultCLIHome),
 		rpc.StatusCommand(),
 		client.LineBreak,
-		keys.Commands(),
+		addKeysCmd(cdc, keys.Commands()),
 	)
 	// Add tendermint subcommands
 	addTendermintCmd(cdc, rootCmd)
@@ -100,6 +101,8 @@ func main() {
 	addDepositCmd(cdc, rootCmd)
 	// Add future subcommands
 	addFutureCmd(cdc, rootCmd)
+	// Add record subcommands
+	addRecordCmd(cdc, rootCmd)
 	// Add slashing subcommands
 	addSlashingCmd(cdc, rootCmd)
 	// Add stake subcommands
@@ -143,6 +146,17 @@ func addTendermintCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 		tx.QueryTxCmd(cdc),
 	)
 	rootCmd.AddCommand(tendermintCmd)
+}
+
+// Add keys subcommands
+func addKeysCmd(cdc *codec.Codec, keysCmd *cobra.Command) *cobra.Command {
+	keysCmd.AddCommand(
+		client.LineBreak,
+		acc.GetCmdSetMustMemo(cdc),
+		acc.GetCmdQueryMustMemo(cdc),
+		client.LineBreak,
+	)
+	return keysCmd
 }
 
 // Add bank subcommands
@@ -191,6 +205,12 @@ func addLockCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 // Add deposit subcommands
 func addDepositCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
 	moduleClient := deposit.NewModuleClient(cdc)
+	rootCmd.AddCommand(moduleClient.GetCmd())
+}
+
+// Add record subcommands
+func addRecordCmd(cdc *codec.Codec, rootCmd *cobra.Command) {
+	moduleClient := record.NewModuleClient(cdc)
 	rootCmd.AddCommand(moduleClient.GetCmd())
 }
 

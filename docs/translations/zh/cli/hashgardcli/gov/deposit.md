@@ -18,7 +18,7 @@ hashgardcli gov deposit [proposal-id] [deposit] [flags]
 ### 充值保证金
 
 ```shell
- hashgardcli gov deposit  1 50gard --from=hashgard --chain-id=hashgard -o=json --indent
+ hashgardcli gov deposit  1 50gard --from $you_wallet_name --chain-id hashgard 
 ```
 
 输入正确的密码后，你就充值了 50 个 gard 用以激活提案的投票状态。

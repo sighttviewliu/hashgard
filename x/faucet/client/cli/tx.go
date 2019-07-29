@@ -40,6 +40,7 @@ func GetCmdFaucetSend(cdc *codec.Codec) *cobra.Command {
 			chainID := viper.GetString(client.FlagChainID)
 			if chainID == "" {
 				return fmt.Errorf("chain ID required but not specified")
+
 			}
 
 			cliCtx := context.NewCLIContext().
@@ -69,7 +70,7 @@ func GetCmdFaucetSend(cdc *codec.Codec) *cobra.Command {
 				1.0,
 				false,
 				chainID,
-				"",
+				viper.GetString(client.FlagMemo),
 				nil,
 				nil,
 			)
@@ -92,7 +93,11 @@ func GetCmdFaucetSend(cdc *codec.Codec) *cobra.Command {
 				txbldr = txbldr.WithSequence(accSeq)
 			}
 
-			msg := bank.NewMsgSend(Info.GetAddress(), receiver, sdk.NewCoins(sdk.NewCoin("agard", sdk.TokensFromTendermintPower(10000)), sdk.NewInt64Coin("apple", 10000)).Sort())
+			msg := bank.NewMsgSend(
+				Info.GetAddress(),
+				receiver,
+				sdk.NewCoins(sdk.NewCoin("agard", sdk.TokensFromTendermintPower(100000))),
+				txbldr.Memo())
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

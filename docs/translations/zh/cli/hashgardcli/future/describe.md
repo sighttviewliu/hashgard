@@ -13,7 +13,7 @@ hashgardcli future describe [box-id] [description-file] [flags]
 ## 例子
 ### 给盒子设置描述
 ```shell
-hashgardcli future describe boxaa3jlxpt2ps .path/Desktop/description.json --from
+hashgardcli future describe boxaa3jlxpt2ps .path/Desktop/description.json --from $you_wallet_name
 ```
 #### 模板
 ```shell

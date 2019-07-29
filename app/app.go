@@ -20,12 +20,14 @@ import (
 	dbm "github.com/tendermint/tendermint/libs/db"
 	"github.com/tendermint/tendermint/libs/log"
 
+	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/hashgard/hashgard/x/box"
+	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
 	"github.com/hashgard/hashgard/x/issue"
 	"github.com/hashgard/hashgard/x/mint"
-	"github.com/hashgard/hashgard/x/distribution"
+	"github.com/hashgard/hashgard/x/record"
 )
 
 const (
@@ -50,6 +52,7 @@ type HashgardApp struct {
 
 	// keys to access the multistore
 	keyMain          *sdk.KVStoreKey
+	keyAccMustMemo   *sdk.KVStoreKey
 	keyAccount       *sdk.KVStoreKey
 	keyStaking       *sdk.KVStoreKey
 	tkeyStaking      *sdk.TransientStoreKey
@@ -59,6 +62,7 @@ type HashgardApp struct {
 	tkeyDistribution *sdk.TransientStoreKey
 	keyGov           *sdk.KVStoreKey
 	keyIssue         *sdk.KVStoreKey
+	keyRecord        *sdk.KVStoreKey
 	keyBox           *sdk.KVStoreKey
 	keyFeeCollection *sdk.KVStoreKey
 	keyExchange      *sdk.KVStoreKey
@@ -66,6 +70,7 @@ type HashgardApp struct {
 	tkeyParams       *sdk.TransientStoreKey
 
 	// manage getting and setting accounts
+	accMustMemoKeeper   acc.Keeper
 	accountKeeper       auth.AccountKeeper
 	feeCollectionKeeper auth.FeeCollectionKeeper
 	bankKeeper          bank.Keeper
@@ -78,6 +83,7 @@ type HashgardApp struct {
 	crisisKeeper        crisis.Keeper
 	paramsKeeper        params.Keeper
 	issueKeeper         issue.Keeper
+	recordKeeper        record.Keeper
 	boxKeeper           box.Keeper
 }
 
@@ -98,6 +104,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		cdc:              cdc,
 		invCheckPeriod:   invCheckPeriod,
 		keyMain:          sdk.NewKVStoreKey(bam.MainStoreKey),
+		keyAccMustMemo:   sdk.NewKVStoreKey(acc.StoreKey),
 		keyAccount:       sdk.NewKVStoreKey(auth.StoreKey),
 		keyStaking:       sdk.NewKVStoreKey(staking.StoreKey),
 		tkeyStaking:      sdk.NewTransientStoreKey(staking.TStoreKey),
@@ -107,6 +114,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		keySlashing:      sdk.NewKVStoreKey(slashing.StoreKey),
 		keyGov:           sdk.NewKVStoreKey(gov.StoreKey),
 		keyIssue:         sdk.NewKVStoreKey(issue.StoreKey),
+		keyRecord:        sdk.NewKVStoreKey(record.StoreKey),
 		keyBox:           sdk.NewKVStoreKey(box.StoreKey),
 		keyFeeCollection: sdk.NewKVStoreKey(auth.FeeStoreKey),
 		keyExchange:      sdk.NewKVStoreKey(exchange.StoreKey),
@@ -120,6 +128,12 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		app.tkeyParams,
 	)
 
+	app.accMustMemoKeeper = acc.NewKeeper(
+		app.cdc,
+		app.keyAccMustMemo,
+		app.paramsKeeper.Subspace(acc.DefaultParamspace),
+		acc.DefaultCodespace,
+	)
 	// define the accountKeeper
 	app.accountKeeper = auth.NewAccountKeeper(
 		app.cdc,
@@ -184,6 +198,13 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		app.feeCollectionKeeper,
 		issue.DefaultCodespace)
 
+	app.recordKeeper = record.NewKeeper(
+		app.cdc,
+		app.keyRecord,
+		app.paramsKeeper,
+		app.paramsKeeper.Subspace(record.DefaultParamspace),
+		record.DefaultCodespace)
+
 	app.boxKeeper = box.NewKeeper(
 		app.cdc,
 		app.keyBox,
@@ -233,7 +254,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 	)
 
 	app.bankKeeper = *bankKeeper.SetHooks(
-		NewBankHooks(app.boxKeeper.Hooks(), app.issueKeeper.Hooks()),
+		NewBankHooks(app.boxKeeper.Hooks(), app.issueKeeper.Hooks(), app.accMustMemoKeeper.Hooks()),
 	)
 
 	// register the crisis routes
@@ -243,6 +264,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 
 	// register message routes
 	app.Router().
+		AddRoute(acc.RouterKey, acc.NewHandler(app.accMustMemoKeeper)).
 		AddRoute(bank.RouterKey, bank.NewHandler(app.bankKeeper)).
 		AddRoute(staking.RouterKey, staking.NewHandler(app.stakingKeeper)).
 		AddRoute(distribution.RouterKey, distribution.NewHandler(app.distributionKeeper)).
@@ -250,10 +272,12 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		AddRoute(gov.RouterKey, gov.NewHandler(app.govKeeper)).
 		AddRoute(exchange.RouterKey, exchange.NewHandler(app.exchangeKeeper)).
 		AddRoute(issue.RouterKey, issue.NewHandler(app.issueKeeper)).
+		AddRoute(record.RouterKey, record.NewHandler(app.recordKeeper)).
 		AddRoute(box.RouterKey, box.NewHandler(app.boxKeeper)).
 		AddRoute(crisis.RouterKey, crisis.NewHandler(app.crisisKeeper))
 
 	app.QueryRouter().
+		AddRoute(acc.QuerierRoute, acc.NewQuerier(app.accMustMemoKeeper)).
 		AddRoute(auth.QuerierRoute, auth.NewQuerier(app.accountKeeper)).
 		AddRoute(staking.QuerierRoute, staking.NewQuerier(app.stakingKeeper, app.cdc)).
 		AddRoute(slashing.QuerierRoute, slashing.NewQuerier(app.slashingKeeper, app.cdc)).
@@ -261,12 +285,14 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		AddRoute(distribution.QuerierRoute, distribution.NewQuerier(app.distributionKeeper)).
 		AddRoute(exchange.QuerierRoute, exchange.NewQuerier(app.exchangeKeeper, app.cdc)).
 		AddRoute(issue.QuerierRoute, issue.NewQuerier(app.issueKeeper)).
+		AddRoute(record.QuerierRoute, record.NewQuerier(app.recordKeeper)).
 		AddRoute(box.QuerierRoute, box.NewQuerier(app.boxKeeper)).
 		AddRoute(mint.QuerierRoute, mint.NewQuerier(app.mintKeeper))
 
 	// initialize BaseApp
 	app.MountStores(
 		app.keyMain,
+		app.keyAccMustMemo,
 		app.keyAccount,
 		app.keyStaking,
 		app.keyMint,
@@ -274,6 +300,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 		app.keySlashing,
 		app.keyGov,
 		app.keyIssue,
+		app.keyRecord,
 		app.keyBox,
 		app.keyFeeCollection,
 		app.keyExchange,
@@ -301,6 +328,7 @@ func NewHashgardApp(logger log.Logger, db dbm.DB, traceStore io.Writer,
 func MakeCodec() *codec.Codec {
 	cdc := codec.New()
 
+	acc.RegisterCodec(cdc)
 	auth.RegisterCodec(cdc)
 	bank.RegisterCodec(cdc)
 	staking.RegisterCodec(cdc)
@@ -309,6 +337,7 @@ func MakeCodec() *codec.Codec {
 	gov.RegisterCodec(cdc)
 	exchange.RegisterCodec(cdc)
 	issue.RegisterCodec(cdc)
+	record.RegisterCodec(cdc)
 	box.RegisterCodec(cdc)
 	crisis.RegisterCodec(cdc)
 	sdk.RegisterCodec(cdc)
@@ -379,12 +408,14 @@ func (app *HashgardApp) initFromGenesisState(ctx sdk.Context, genesisState Genes
 	}
 
 	// initialize module-specific stores
+	acc.InitGenesis(ctx, app.accMustMemoKeeper, genesisState.AccMustMemoData)
 	auth.InitGenesis(ctx, app.accountKeeper, app.feeCollectionKeeper, genesisState.AuthData)
 	bank.InitGenesis(ctx, app.bankKeeper, genesisState.BankData)
 	slashing.InitGenesis(ctx, app.slashingKeeper, genesisState.SlashingData, genesisState.StakingData.Validators.ToSDKValidators())
 	gov.InitGenesis(ctx, app.govKeeper, genesisState.GovData)
 	mint.InitGenesis(ctx, app.mintKeeper, genesisState.MintData)
 	issue.InitGenesis(ctx, app.issueKeeper, genesisState.IssueData)
+	record.InitGenesis(ctx, app.recordKeeper, genesisState.RecordData)
 	box.InitGenesis(ctx, app.boxKeeper, genesisState.BoxData)
 	exchange.InitGenesis(ctx, app.exchangeKeeper, genesisState.ExchangeData)
 	crisis.InitGenesis(ctx, app.crisisKeeper, genesisState.CrisisData)
@@ -520,12 +551,15 @@ var _ bank.BankHooks = BankHooks{}
 type BankHooks struct {
 	boxHooks   box.Hooks
 	issueHooks issue.Hooks
+	accHooks acc.Hooks
+
 }
 
-func NewBankHooks(boxHooks box.Hooks, issueHooks issue.Hooks) BankHooks {
+func NewBankHooks(boxHooks box.Hooks, issueHooks issue.Hooks, accHooks acc.Hooks) BankHooks {
 	return BankHooks{
 		boxHooks:   boxHooks,
 		issueHooks: issueHooks,
+		accHooks: accHooks,
 	}
 }
 
@@ -542,4 +576,8 @@ func (bankHooks BankHooks) CanSend(ctx sdk.Context, fromAddr sdk.AccAddress, toA
 	}
 
 	return true, nil
+}
+
+func (bankHooks BankHooks) CheckMustMemoAddress(ctx sdk.Context, toAddr sdk.AccAddress, memo string) (bool, sdk.Error) {
+	return bankHooks.accHooks.CheckMustMemoAddress(ctx, toAddr, memo)
 }

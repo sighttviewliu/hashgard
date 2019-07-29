@@ -31,7 +31,7 @@ hashgardcli deposit interest-cancel [box-id] [amount] [flags]
 ### 取回注入的利息
 
 ```shell
-hashgardcli deposit interest-cancel boxab3jlxpt2pt 200 --from
+hashgardcli deposit interest-cancel boxab3jlxpt2pt 200 --from $you_wallet_name
 ```
 
 仅限注入地址取回注入的利息。

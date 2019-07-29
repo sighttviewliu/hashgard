@@ -19,8 +19,7 @@ hashgardcli gov deposit [proposal-id] [deposit] [flags]
 ### Deposit
 
 ```shell
- hashgardcli gov deposit  1 50gard --from=hashgard --chain-id=hashgard -o=json --indent
-```
+ hashgardcli gov deposit  1 50gard --from $you_wallet_name
 
 You need to deposit 50 gard to activate the proposal
 

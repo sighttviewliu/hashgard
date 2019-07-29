@@ -13,7 +13,7 @@ hashgardcli keys add <name> [flags]
 ## Flags
 
 | Name, shorthand      | Type  | Required  | Default| Description      |
-| --------------- | --------- | ----------------------------- | ----- |
+| --------------- | --------- | ----------------------------- | ----- | ----- |
 | --account       | int | false| 0 | Account number for HD derivation                      |
 | --index         | int | false| 0 | Add indent to JSON response          |
 | --interactive | string | false|| Interactively prompt user for BIP39 passphrase and mnemonic|

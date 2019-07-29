@@ -1,7 +1,7 @@
 # hashgardcli future query
 
 ## Description
-Query by future box ID 
+Query by future box ID
 
 ## Usage
 ```shell
@@ -12,7 +12,7 @@ hashgardcli future query [box-id]
 
 | Name| Type  | Required | Default   | Description        |
 | ------ | ------ | -------- | ------ | ------------ |
-| box-id | string | true       |        | 盒子的 id |
+| box-id | string | true       |        | box ID|
 
 
 

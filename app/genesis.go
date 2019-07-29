@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/hashgard/hashgard/x/record"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -17,6 +18,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	acc "github.com/cosmos/cosmos-sdk/x/account"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/bank"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
@@ -24,10 +26,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	tmtypes "github.com/tendermint/tendermint/types"
 
+	"github.com/hashgard/hashgard/x/distribution"
 	"github.com/hashgard/hashgard/x/exchange"
 	"github.com/hashgard/hashgard/x/gov"
 	"github.com/hashgard/hashgard/x/mint"
-	"github.com/hashgard/hashgard/x/distribution"
 )
 
 var (
@@ -41,6 +43,7 @@ var (
 // State to Unmarshal
 type GenesisState struct {
 	Accounts         []GenesisAccount          `json:"accounts"`
+	AccMustMemoData  acc.GenesisState          `json:"must-memo-addresses"`
 	AuthData         auth.GenesisState         `json:"auth"`
 	BankData         bank.GenesisState         `json:"bank"`
 	StakingData      staking.GenesisState      `json:"staking"`
@@ -50,6 +53,7 @@ type GenesisState struct {
 	GovData          gov.GenesisState          `json:"gov"`
 	ExchangeData     exchange.GenesisState     `json:"exchange"`
 	IssueData        issue.GenesisState        `json:"issue"`
+	RecordData       record.GenesisState       `json:"record"`
 	BoxData          box.GenesisState          `json:"box"`
 	CrisisData       crisis.GenesisState       `json:"crisis"`
 	GenTxs           []json.RawMessage         `json:"gentxs"`
@@ -57,6 +61,7 @@ type GenesisState struct {
 
 func NewGenesisState(
 	accounts []GenesisAccount,
+	accMustMemoData acc.GenesisState,
 	authData auth.GenesisState,
 	bankData bank.GenesisState,
 	stakingData staking.GenesisState,
@@ -66,12 +71,14 @@ func NewGenesisState(
 	slashingData slashing.GenesisState,
 	exchangeData exchange.GenesisState,
 	issueData issue.GenesisState,
+	recordData record.GenesisState,
 	boxData box.GenesisState,
 	crisisData crisis.GenesisState,
 ) GenesisState {
 
 	return GenesisState{
 		Accounts:         accounts,
+		AccMustMemoData:  accMustMemoData,
 		AuthData:         authData,
 		BankData:         bankData,
 		StakingData:      stakingData,
@@ -80,6 +87,7 @@ func NewGenesisState(
 		GovData:          govData,
 		SlashingData:     slashingData,
 		IssueData:        issueData,
+		RecordData:       recordData,
 		BoxData:          boxData,
 		ExchangeData:     exchangeData,
 		CrisisData:       crisisData,
@@ -101,6 +109,7 @@ func (gs GenesisState) Sanitize() {
 func NewDefaultGenesisState() GenesisState {
 	return GenesisState{
 		Accounts:         nil,
+		AccMustMemoData:  acc.DefaultGenesisState(),
 		AuthData:         auth.DefaultGenesisState(),
 		BankData:         bank.DefaultGenesisState(),
 		StakingData:      createStakingGenesisState(),
@@ -110,6 +119,7 @@ func NewDefaultGenesisState() GenesisState {
 		SlashingData:     slashing.DefaultGenesisState(),
 		ExchangeData:     exchange.DefaultGenesisState(),
 		IssueData:        createIssueGenesisState(),
+		RecordData:       createRecordGenesisState(),
 		BoxData:          createBoxGenesisState(),
 		CrisisData:       createCrisisGenesisState(),
 		GenTxs:           nil,
@@ -163,6 +173,10 @@ func createBoxGenesisState() box.GenesisState {
 func createIssueGenesisState() issue.GenesisState {
 	genesisState := issue.DefaultGenesisState()
 	genesisState.Params = issue.DefaultParams(StakeDenom)
+	return genesisState
+}
+func createRecordGenesisState() record.GenesisState {
+	genesisState := record.DefaultGenesisState()
 	return genesisState
 }
 
@@ -327,6 +341,9 @@ func HashgardValidateGenesisState(genesisState GenesisState) error {
 		return nil
 	}
 
+	if err := acc.ValidateGenesis(genesisState.AccMustMemoData); err != nil {
+		return err
+	}
 	if err := auth.ValidateGenesis(genesisState.AuthData); err != nil {
 		return err
 	}
@@ -346,6 +363,9 @@ func HashgardValidateGenesisState(genesisState GenesisState) error {
 		return err
 	}
 	if err := issue.ValidateGenesis(genesisState.IssueData); err != nil {
+		return err
+	}
+	if err := record.ValidateGenesis(genesisState.RecordData); err != nil {
 		return err
 	}
 	if err := box.ValidateGenesis(genesisState.BoxData); err != nil {

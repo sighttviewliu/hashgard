@@ -138,7 +138,7 @@ func getMockApp(t *testing.T, genState box.GenesisState, genAccs []auth.Account)
 	keeper = box.NewKeeper(mapp.Cdc, keyBox, pk, pk.Subspace("testBox"), &ck, ik, fck, types.DefaultCodespace)
 	sk = staking.NewKeeper(mapp.Cdc, keyStaking, tkeyStaking, ck, pk.Subspace(staking.DefaultParamspace), staking.DefaultCodespace)
 
-	ck.SetHooks(keeper.Hooks())
+	ck.SetHooks(NewMockHooks(keeper))
 
 	mapp.Router().AddRoute(types.RouterKey, box.NewHandler(keeper))
 	mapp.QueryRouter().AddRoute(types.QuerierRoute, box.NewQuerier(keeper))
