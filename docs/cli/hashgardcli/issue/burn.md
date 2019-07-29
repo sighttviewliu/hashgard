@@ -13,7 +13,7 @@ Token holder or the Owner burn the token he holds
 ## Example
 ### burn coin
 ```shell
-hashgardcli issue burn coin174876e800 88888 --from
+hashgardcli issue burn coin174876e800 88888 --from $you_wallet_name
 ```
 The result is as follows：
 ```txt

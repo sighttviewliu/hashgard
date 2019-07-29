@@ -29,7 +29,7 @@ hashgardcli deposit cancel [box-id] [amount] [flags]
 ### 进行存款取回
 
 ```shell
-hashgardcli deposit cancel boxab3jlxpt2pt 10000 --from
+hashgardcli deposit cancel boxab3jlxpt2pt 10000 --from $you_wallet_name
 ```
 
 

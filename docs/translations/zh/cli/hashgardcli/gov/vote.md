@@ -19,7 +19,7 @@ hashgardcli gov vote [proposal-id] [option] [flags]
 ### 给提案投票
 
 ```shell
-hashgardcli gov vote 1 yes --chain-id=hashgard --from=hashgard
+hashgardcli gov vote 1 yes --chain-id=hashgard --from $you_wallet_name
 ```
 
 输入正确的密码之后，你就完成了对于所指定的提案投票。

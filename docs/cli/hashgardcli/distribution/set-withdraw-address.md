@@ -16,7 +16,7 @@ hashgardcli distribution set-withdraw-addr [withdraw-address] [flags]
 
 ## Example
 ```shell
-hashgardcli distribution set-withdraw-addr gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl --from joehe1 --chain-id=hashgard --output=json --indent
+hashgardcli distribution set-withdraw-addr gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl --from $you_wallet_name 
 ```
 
 The result is as follows：

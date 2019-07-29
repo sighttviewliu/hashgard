@@ -13,7 +13,7 @@ Owner 可以对自己代币进行补充描述，描述文件使用不超过 1024
 ## 例子
 ### 给代币设置描述
 ```shell
-hashgardcli issue describe coin174876e802 /description.json --from
+hashgardcli issue describe coin174876e802 /description.json --from $you_wallet_name
 ```
 #### 模板
 ```json

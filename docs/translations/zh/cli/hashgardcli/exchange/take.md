@@ -54,7 +54,7 @@ Sum(supply) = Shares(actual) * Price(supply), 这部分的金额会从订单的 
 使用 18apple 与之交易， 实际扣除 16 apple， 会获得 2 gard。
 
 ```shell
-hashgardcli exchange take 3 --amount 18apple --from mykey --chain-id hashgard -o=json --indent
+hashgardcli exchange take 3 --amount 18apple --from $you_wallet_name --chain-id hashgard -o=json --indent
 ```
 
 输入正确的密码后，同 order_id 为 3 的订单交易。

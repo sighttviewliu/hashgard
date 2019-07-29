@@ -24,7 +24,7 @@ When the freeze function is turned on，Owenr freezes the transfer of the specif
 
 ### Freeze specified account transfer
 ```shell
-hashgardcli issue freeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n\ 253382641454 --from
+hashgardcli issue freeze in coin174876e800 gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n\ 253382641454 --from $you_wallet_name
 ```
 The result is as follows：
 ```txt

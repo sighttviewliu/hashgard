@@ -24,7 +24,7 @@ hashgardcli exchange create [flags]
 ### 创建订单
 
 ```shell
-hashgardcli exchange make --supply 100gard --target 800apple --from mykey --chain-id hashgard --indent -o=json
+hashgardcli exchange make --supply 100gard --target 800apple --from $you_wallet_name --chain-id hashgard --indent -o=json
 ```
 
 输入正确的密码后，创建了一笔 100gard 交换 800apple 的订单。

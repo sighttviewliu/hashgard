@@ -60,7 +60,7 @@ a123  offline gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n     gardpub1ytql0csgqg
 ```shell
 # 使用 hashagrd 这个账户转 10gard 至
 # a123（gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n）这个账户
-hashgardcli bank send gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n 10gard --from=hashgard
+hashgardcli bank send gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n 10gard --from $you_wallet_name
 ```
 
 #### 使用多签账号给其他账号转账
@@ -77,12 +77,12 @@ hashgardcli bank send gard19thul47y2afwr67l4hlv9hu5593uw0rqhashgjdm7jj 10gard --
 2. 使用账户 a1 签名：
 
 ```shell
-hashgardcli bank sign unsignedTx.json --multisig=gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n  --from=a1 --output-document=a1sign.json
+hashgardcli bank sign unsignedTx.json --multisig=gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n  --from a1 --output-document=a1sign.json
 ```
 3. 使用账户 a2 签名：
 
 ```shell
-hashgardcli bank sign unsignedTx.json --multisig=gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n  --from=a2 --output-document=a2sign.json
+hashgardcli bank sign unsignedTx.json --multisig=gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n  --from a2 --output-document=a2sign.json
 ```
 4. 使用多签账号进行多签：
 

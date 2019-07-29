@@ -24,7 +24,7 @@
 ## 例子
 ### 创建锁定盒子
 ```shell
-hashgardcli lock create lockbox 8987gard 1562123084 --from
+hashgardcli lock create lockbox 8987gard 1562123084 --from $you_wallet_name
 ```
 输入正确的密码后，锁定完成。
 ```txt

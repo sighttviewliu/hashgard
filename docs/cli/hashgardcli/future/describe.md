@@ -13,7 +13,7 @@ hashgardcli future describe [box-id] [description-file] [flags]
 ## Example
 ### describes the box
 ```shell
-hashgardcli future describe boxaa3jlxpt2ps .path/Desktop/description.json --from
+hashgardcli future describe boxaa3jlxpt2ps .path/Desktop/description.json --from $you_wallet_name
 ```
 ### Template
 ```shell

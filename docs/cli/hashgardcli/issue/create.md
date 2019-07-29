@@ -28,7 +28,7 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags]
 ### Issue a new coin
 
 ```shell
-hashgardcli issue create issuename AAA 10000000000000 --from
+hashgardcli issue create issuename AAA 10000000000000 --from $you_wallet_name
 ```
 
 The result is as follows：
