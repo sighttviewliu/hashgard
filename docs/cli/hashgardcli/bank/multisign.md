@@ -62,7 +62,7 @@ The file unsignedTx.json contains the unsigned transaction encoded in JSON. a1 c
 ```shell
 hashgardcli bank sign unsignedTx.json \
     --multisig=gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n \
-    --from=a1 \
+    --from a1 \
     --output-document=a1sign.json
 ```
 
@@ -71,7 +71,7 @@ Once the signature is generated, a1 transmits both unsignedTx.json and a1sign.js
 ```shell
 hashgardcli bank sign unsignedTx.json \
     --multisig=gard15l5yzrq3ff8fl358ng430cc32lzkvxc30n405n \
-    --from=a2 \
+    --from a2 \
     --output-document=a2sign.json
 ```
 

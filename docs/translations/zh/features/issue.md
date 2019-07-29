@@ -16,7 +16,7 @@ hashgardcli issue create [name] [symbol] [total-supply] [flags]
 以发行总数量为 100 亿的 BTC
 
 ```shell
-hashgardcli issue create bitcoin BTC 10000000000000 --from
+hashgardcli issue create bitcoin BTC 10000000000000 --from $you_wallet_name
 ```
 
 详细信息请参阅 [issue create](../cli/hashgardcli/issue/create.md)
@@ -54,7 +54,7 @@ hashgardcli bank send [to_address] [amount] [flags]
 输入命令和你要转出的地址和数量，调取[flags]中的`--from`来调取钱包
 
 ```shell
-hashgardcli bank send gard14wgcav3k99yz309vn7j6n3m50j32vkg426ktt0  20000coin174876e800 --from one
+hashgardcli bank send gard14wgcav3k99yz309vn7j6n3m50j32vkg426ktt0  20000coin174876e800 --from $you_wallet_name
 ```
 
 以本地 one 钱包为例子给 gard14wgcav3k99yz309vn7j6n3m50j32vkg426ktt0 发送 20000 个 coin74876e800
@@ -85,7 +85,7 @@ hashgardcli issue mint [issue-id] [amount][flags]
 以冻结 gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7 Apple（coin74876e800）代币 账号转入和转出功能 至公元 2100-1-1 01:01:01 为例
 
 ```shell
- hashgardcli issue freeze in-out coin74876e800 gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7 4102419661 --from WalletName
+ hashgardcli issue freeze in-out coin74876e800 gardkenrwk5k4ng70e5s9zfsttxpnlesx5ps0gfdv7 4102419661 --from $you_wallet_name
 ```
 
 详细信息请参阅[issue freeze](../cli/hashgardcli/issue/freeze.md)

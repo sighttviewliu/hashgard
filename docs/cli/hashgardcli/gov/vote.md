@@ -20,7 +20,7 @@ hashgardcli gov vote [proposal-id] [option] [flags]
 ### Vote for proposal
 
 ```shell
-hashgardcli gov vote 1 yes --chain-id=hashgard --from=hashgard
+hashgardcli gov vote 1 yes --chain-id=hashgard --from $you_wallet_name
 ```
 
 After the proposal is officially activated, you can vote on this proposal

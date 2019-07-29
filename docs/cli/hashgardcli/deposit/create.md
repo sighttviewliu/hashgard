@@ -37,7 +37,7 @@
 ## Example
 ### create deposit box
 ```shell
-hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price=2  --start-time=1558079700  --establish-time=1558080300 --maturity-time=1558080900 --interest=9898coin174876e800  --from
+hashgardcli deposit create  mingone 10000coin174876e800  --bottom-line=0 --price=2  --start-time=1558079700  --establish-time=1558080300 --maturity-time=1558080900 --interest=9898coin174876e800  --from $you_wallet_name
 ```
 The result is as follows：
 ```txt

@@ -13,7 +13,7 @@ Owner Describes the issue token，Must be json file no larger than 1024 bytes.
 ## Example
 ### Set a description for the token
 ```shell
-hashgardcli issue describe coin174876e802 /description.json --from
+hashgardcli issue describe coin174876e802 /description.json --from $you_wallet_name
 ```
 #### Template
 ```shell

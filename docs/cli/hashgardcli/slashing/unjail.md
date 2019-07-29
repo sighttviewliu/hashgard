@@ -44,7 +44,7 @@ ERROR: Msg 0 failed: {"codespace":"SLASH","code":103,"message":"validator not ja
 If the validator was jailed and the jailing period passed, release the validator by unjail command.
 
 ```shell
-hashgardcli slashing unjail --from=<key name> --chain-id=<chain-id>
+hashgardcli slashing unjail --from <key name> --chain-id <chain-id>
 ```
 
 The result is as follows：

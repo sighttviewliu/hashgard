@@ -13,7 +13,7 @@ Token owner transfer the ownership to new account
 ## Example
 ### transfer ownership
 ```shell
- hashgardcli issue transfer-ownership coin174876e802 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 --from
+ hashgardcli issue transfer-ownership coin174876e802 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 --from $you_wallet_name
 ```
 The result is as follows：
 ```txt

@@ -27,7 +27,7 @@ hashgardcli issue disable [issue-id][flags]
 ### disable mint of coin
 
 ```shell
-hashgardcli issue disable coin174876e800 minting --from
+hashgardcli issue disable coin174876e800 minting --from $you_wallet_name
 ```
 
 After entering the correct password，Disable token minting

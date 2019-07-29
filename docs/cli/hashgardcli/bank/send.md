@@ -18,7 +18,7 @@ hashgardcli bank send [to_address] [amount] [flags]
 ### Create and sign a send tx
 
 ```shell
-hashgardcli bank send gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl 10gard --from=hashgard --chain-id=hashgard --indent -o json
+hashgardcli bank send gard1c9vrvvz08hd4entr0y5kfrt43v6malv60qtjfl 10gard --from $you_wallet_name
 ```
 
 After that, you can get remote node status as follows:

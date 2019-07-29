@@ -24,9 +24,9 @@ hashgardcli distribution withdraw-rewards [validator-addr] [flags]
 
 1. Retrieve the proceeds from the delegator
     ```shell
-    hashgardcli distribution withdraw-rewards gard34mhjjyyc7mehvaay0f3d4hj8qx3ee3w3eq5nq --from mykey --chain-id=hashgard
+    hashgardcli distribution withdraw-rewards gard34mhjjyyc7mehvaay0f3d4hj8qx3ee3w3eq5nq --from $you_wallet_name
     ```
 2. If the delegator is a owner of a validator, withdraw all delegation rewards and validator commission rewards:
     ```shell
-    hashgardcli distribution withdraw-rewards --commission=true from mykey  --chain-id=sif-1000
+    hashgardcli distribution withdraw-rewards --commission true --from $you_wallet_name
     ```

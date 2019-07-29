@@ -13,7 +13,7 @@
 ## 例子
 ### 销毁代币
 ```shell
-hashgardcli issue burn-from coin174876e801 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 88 --from
+hashgardcli issue burn-from coin174876e801 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 88 --from $you_wallet_name
 ```
 输入正确的密码之后，你就销毁了其他人账户里的代币。
 ```txt

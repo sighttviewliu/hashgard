@@ -29,7 +29,7 @@ hashgardcli future cancel [box-id] [amount] [flags]
 ### 取回 token
 
 ```shell
-hashgardcli future cancel boxac3jlxpt2pt 100 --from
+hashgardcli future cancel boxac3jlxpt2pt 100 --from $you_wallet_name
 ```
 
 

@@ -19,7 +19,7 @@ hashgardcli exchange cancel [order_id] [flags]
 ### Cancel order
 
 ```shell
-hashgardcli exchange cancel 2 --from mykey --chain-id hashgard -o=json --indent
+hashgardcli exchange cancel 2 --from $you_wallet_name
 ```
 
 The result is as follows：
