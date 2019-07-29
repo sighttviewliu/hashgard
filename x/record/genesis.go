@@ -56,8 +56,8 @@ func InitGenesis(ctx sdk.Context, keeper keeper.Keeper, data GenesisState) {
 func ExportGenesis(ctx sdk.Context, keeper keeper.Keeper) GenesisState {
 	genesisState := GenesisState{}
 
-	startingIssueId, _ := keeper.PeekCurrentRecordID(ctx)
-	genesisState.StartingRecordId = startingIssueId
+	startingRecordId, _ := keeper.PeekCurrentRecordID(ctx)
+	genesisState.StartingRecordId = startingRecordId
 
 	genesisState.Records = keeper.List(ctx, params.RecordQueryParams{
 		Limit: 99999999,
