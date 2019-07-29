@@ -13,7 +13,7 @@ Owner 可以对自己发行的盒子进行补充描述，描述文件使用不�
 ## 例子
 ### 给盒子设置描述
 ```shell
-hashgardcli lock describe boxaa3jlxpt2ps .path/Desktop/description.json --from
+hashgardcli lock describe boxaa3jlxpt2ps .path/Desktop/description.json --from $you_wallet_name
 ```
 #### 模板
 ```shell

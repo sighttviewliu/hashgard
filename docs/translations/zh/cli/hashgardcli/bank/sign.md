@@ -31,7 +31,7 @@ hashgardcli bank sign [file] [flags]
 首先你必须使用 **hashgardcli bank send**  命令和标志 **--generate-only** 来生成一个发送记录，如下：
 
 ```shell
-hashgardcli bank send gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx 10gard --from=test --chain-id=hashgard --generate-only
+hashgardcli bank send gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx 10gard --from $you_wallet_name --chain-id hashgard --generate-only
 
 {"type":"auth/StdTx","value":{"msg":[{"type":"cosmos-sdk/Send","value":{"inputs":[{"address":"gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx","coins":[{"denom":"gard","amount":"10000000000000000000"}]}],"outputs":[{"address":"gard9aamjx3xszzxgqhrh0yqd4hkurkea7f6d429yx","coins":[{"denom":"gard","amount":"10000000000000000000"}]}]}}],"fee":{"amount":[{"denom":"gard","amount":"4000000000000000"}],"gas":"200000"},"signatures":null,"memo":""}}
 ```

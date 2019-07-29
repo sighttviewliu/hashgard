@@ -15,7 +15,7 @@ Owner 可以将代币的所有者转移到新的账户下，如要将代币也�
 
 ### 转移 Owner
 ```shell
- hashgardcli issue transfer-ownership coin174876e802 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 --from
+ hashgardcli issue transfer-ownership coin174876e802 gard1lgs73mwr56u2f4z4yz36w8mf7ym50e7myrqn65 --from $you_wallet_name
 ```
 输入正确的密码之后，你的该代币的 onwer 就完成了转移。
 ```txt

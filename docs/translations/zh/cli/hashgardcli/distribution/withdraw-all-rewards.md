@@ -17,5 +17,5 @@ hashgardcli distribution withdraw-all-rewards [flags]
 
 取回所有委托产生的收益
 ```shell
-hashgardcli distribution withdraw-all-rewards --from mykey --chain-id=hashgard
+hashgardcli distribution withdraw-all-rewards --from $you_wallet_name --chain-id hashgard
 ```

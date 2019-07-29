@@ -59,7 +59,7 @@ hashgardcli gov submit-proposal \
     --title="notice proposal" \
     --type="Text" \
     --description="a new text proposal" \
-    --from=foo
+    --from $you_wallet_name
 ```
 
 The result is as follows：
@@ -92,7 +92,7 @@ The result is as follows：
 ```shell
 hashgardcli gov submit-proposal \
     --proposal="path/to/proposal.json" \
-    --from=foo
+    --from $you_wallet_name
 ```
 File template
 ```json
@@ -135,7 +135,7 @@ The result is as follows：
 
 ### Submit a 'ParameterChange' type proposal
 ```shell
-hashgardcli gov submit-proposal --title="Test-Proposal" --description="My awesome proposal" --type="ParameterChange" --deposit="10gard" --param="box/lock_create_fee=10gard,mint/inflation=1" --from
+hashgardcli gov submit-proposal --title="Test-Proposal" --description="My awesome proposal" --type="ParameterChange" --deposit="10gard" --param="box/lock_create_fee=10gard,mint/inflation=1" --from $you_wallet_name
 ```
 ```text
 Height: 14596
@@ -162,7 +162,7 @@ hashgardcli gov submit-proposal \
     --title="hashgard" \
     --type="SoftwareUpgrade" \
     --description="a new software upgrade proposal" \
-    --from=hashgard
+    --from $you_wallet_name
 ```
 
 

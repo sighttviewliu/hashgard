@@ -13,7 +13,7 @@ Owner describes the box。The description file must be in josn format and no mor
 ## Example
 ### Set a description for the box
 ```shell
-hashgardcli deposit describe boxab3jlxpt2pt .path/description.json --from 
+hashgardcli deposit describe boxab3jlxpt2pt .path/description.json --from $you_wallet_name
 ```
 ### Template
 ```shell

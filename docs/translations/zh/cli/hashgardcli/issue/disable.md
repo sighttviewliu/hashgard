@@ -27,7 +27,7 @@ hashgardcli issue disable [issue-id][flags][flags]
 ### 禁用已经发行的代币的增发功能
 
 ```shell
-hashgardcli issue disable coin174876e800 minting --from=
+hashgardcli issue disable coin174876e800 minting --from $you_wallet_name
 ```
 
 输入正确的密码之后，你就将你的通证的增发功能关闭了。

@@ -16,5 +16,5 @@ hashgardcli distribution withdraw-all-rewards [flags]
 ## Example
 
 ```shell
-hashgardcli distribution withdraw-all-rewards --from mykey --chain-id=hashgard
+hashgardcli distribution withdraw-all-rewards --from $you_wallet_name
 ```

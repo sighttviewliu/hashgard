@@ -21,7 +21,7 @@ hashgardcli stake redelegate \
 gardvaloper1m3m4l6g5774qe5jj8cwlyasue22yh32jmhrxfx \
 gardvaloper1xn4kvq867rap8vkrwfnp5n2entvpq2avtd0ytq \
 10gard \
---chain-id=hashgard --from=hashgard --gas=auto
+--chain-id=hashgard --from $you_wallet_name --gas=auto
 ```
 
 > 设置 `--gas=auto` 会自动计算 gas

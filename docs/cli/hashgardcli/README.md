@@ -57,6 +57,7 @@ All commands which can be used to send transactions have these global flags. The
 11. [lock command](./lock/README.md)
 12. [future command](./future/README.md)
 13. [faucet command](./faucet/send.md)
+14. [record command](./record/README.md)
 
 
 ## hashgardcli Config command

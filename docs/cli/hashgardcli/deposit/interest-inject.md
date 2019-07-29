@@ -29,7 +29,7 @@ hashgardcli deposit interest-inject [box-id] [amount] [flags]
 ### Inject interest
 
 ```shell
-hashgardcli deposit interest-inject boxab3jlxpt2ps 9898  --from
+hashgardcli deposit interest-inject boxab3jlxpt2ps 9898  --from $you_wallet_name
 ```
 
 PS：`interest-inject` 注入的数量是指按最大值和时间来计算的。譬如发行一个 10000gard 的存款盒子，周期是 10 天，达成存款数量为 2000，利息总量是 500apple。那么日利率为 500/10/10000=0.5%。在 establish-time 的时候，如果只有 5000gard 存入，那么系统会自动退回 500*5000/10000=250gard 至利息注入的账户。
