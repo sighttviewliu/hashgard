@@ -152,9 +152,7 @@ func (keeper Keeper) processFutureBoxInjectByEndBlocker(ctx sdk.Context, box *ty
 	}
 	if box.Future.Injects != nil {
 		for _, v := range box.Future.Injects {
-			if err := keeper.CancelDepositedCoin(ctx, v.Address, sdk.NewCoins(sdk.NewCoin(box.TotalAmount.Token.Denom, v.Amount)), box.Id); err != nil {
-				return err
-			}
+			keeper.CancelDepositedCoin(ctx, v.Address, sdk.NewCoins(sdk.NewCoin(box.TotalAmount.Token.Denom, v.Amount)), box.Id)
 		}
 	}
 	box.Status = types.BoxClosed
