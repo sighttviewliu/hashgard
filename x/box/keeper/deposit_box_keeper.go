@@ -175,10 +175,8 @@ func (keeper Keeper) ProcessDepositBoxByEndBlocker(ctx sdk.Context, box *types.B
 }
 func (keeper Keeper) backBoxInterestInjects(ctx sdk.Context, box *types.BoxInfo) sdk.Error {
 	for _, v := range box.Deposit.InterestInjects {
-		if err := keeper.CancelDepositedCoin(ctx, v.Address,
-			sdk.NewCoins(sdk.NewCoin(box.Deposit.Interest.Token.Denom, v.Amount)), box.Id); err != nil {
-			return err
-		}
+		keeper.CancelDepositedCoin(ctx, v.Address,
+			sdk.NewCoins(sdk.NewCoin(box.Deposit.Interest.Token.Denom, v.Amount)), box.Id)
 	}
 	return nil
 }
