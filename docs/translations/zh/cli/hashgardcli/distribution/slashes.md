@@ -1,4 +1,4 @@
-# hashgardcli distribution params
+# hashgardcli distribution slashes
 
 ## 描述
 
