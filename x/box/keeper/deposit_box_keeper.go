@@ -256,13 +256,9 @@ func (keeper Keeper) processDepositBoxInjectByEndBlocker(ctx sdk.Context, box *t
 	box.Status = types.BoxClosed
 
 	if box.Deposit.TotalInject.IsZero() || box.Deposit.TotalInject.LT(box.Deposit.BottomLine) {
-		if err := keeper.backBoxInterestInjects(ctx, box); err != nil {
-			return err
-		}
+		keeper.backBoxInterestInjects(ctx, box)
 	} else {
-		if err := keeper.backBoxUnUsedInterestInjects(ctx, box); err != nil {
-			return err
-		}
+		keeper.backBoxUnUsedInterestInjects(ctx, box)
 		box.Status = types.DepositBoxInterest
 		keeper.InsertActiveBoxQueue(ctx, box.Deposit.MaturityTime, box.Id)
 	}
