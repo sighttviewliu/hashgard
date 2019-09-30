@@ -22,4 +22,3 @@ git commit -m 'deploy-docs'
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
  git push -f git@github.com:hashgard/github-pages.git master:gh-pages
 
-cd -
