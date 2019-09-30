@@ -593,6 +593,8 @@ def get_redemption_information(sender_address, draws):  # 查询该地址对应�
 
 def set_event_pool(amount):  # 设立活动奖池
     sender_address = GetTxSender()
+    if BalanceOf(sender_address, [GARD_DENOM])[0] < amount:  # 判断余额是否足够初始化
+        raise Exception("余额不足")
     event_pool = Get(KEY_EVENT_POOL)
     if not event_pool:
         ContractBalanceInject(sender_address, GARD_DENOM, amount)
