@@ -3,7 +3,7 @@
 
 ### HRC-10 Token发行合约
 
-[StandardToken](./StandardTokenDocs.md)
+[HRC10Token](./HRC10TokenDocs.md)
 
 ### 时时彩模拟游戏合约
 
