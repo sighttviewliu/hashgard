@@ -40,3 +40,13 @@ $hashgardcli --help
 ## Testnets
 
 [hashgard testnets](https://github.com/hashgard/testnets)
+
+## Smart Contract
+
+#### Hashgard VM OpCode Documentation:
+
+[hashgard VM](./docs/translations/cn/smart-contract-opcode.md)
+
+#### Hashgard Smart Contract Examples:
+
+[examples](./smartcontract/README.md)
