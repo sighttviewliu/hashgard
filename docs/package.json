@@ -1,7 +1,7 @@
 {
-  "name": "hashgard",
+  "name": "hashgard-docs",
   "version": "1.0.0",
-  "description": "harhgard",
+  "description": "harhgard-docs",
   "main": "index.js",
   "scripts": {
     "docs:dev": "vuepress dev .",
