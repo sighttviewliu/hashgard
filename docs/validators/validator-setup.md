@@ -1,12 +1,4 @@
-# Run a Validator on the Cosmos Hub Mainnet
-
-::: tip
-Information on how to join the mainnet (`genesis.json` file and seeds) is held [in our `launch` repo](https://github.com/cosmos/launch/tree/master/latest). 
-:::
-
-Before setting up your validator node, make sure you've already gone through the [Full Node Setup](../join-mainnet.md) guide.
-
-If you plan to use a KMS (key management system), you should go through these steps first: [Using a KMS](kms/kms.md).
+# Run a Validator on the Hashgard Testnet
 
 ## What is a Validator?
 
@@ -29,12 +21,12 @@ hashgard tendermint show-validator
 To create your validator, just use the following command:
 
 ::: warning 
-Don't use more `uatom` than you have! 
+Don't use more `agard` than you have! 
 :::
 
 ```bash
 hashgardcli tx staking create-validator \
-  --amount=1000000uatom \
+  --amount=1000000agard \
   --pubkey=$(hashgard tendermint show-validator) \
   --moniker="choose a moniker" \
   --chain-id=<chain_id> \
@@ -43,7 +35,7 @@ hashgardcli tx staking create-validator \
   --commission-max-change-rate="0.01" \
   --min-self-delegation="1" \
   --gas="auto" \
-  --gas-prices="0.025uatom" \
+  --gas-prices="0.025agard" \
   --from=<key_name>
 ```
 
@@ -52,7 +44,7 @@ When specifying commission parameters, the `commission-max-change-rate` is used 
 :::
 
 ::: tip
-`Min-self-delegation` is a stritly positive integer that represents the minimum amount of self-delegated voting power your validator must always have. A `min-self-delegation` of 1 means your validator will never have a self-delegation lower than `1atom`, or `1000000uatom`
+`Min-self-delegation` is a stritly positive integer that represents the minimum amount of self-delegated voting power your validator must always have. A `min-self-delegation` of 1 means your validator will never have a self-delegation lower than `1atom`, or `1000000agard`
 :::
 
 You can confirm that you are in the validator set by using a third party explorer.
@@ -60,7 +52,7 @@ You can confirm that you are in the validator set by using a third party explore
 ## Participate in Genesis as a Validator
 
 ::: warning
-The genesis ceremony for the Cosmos Hub mainnet is closed. Please skip to the next section.
+The genesis ceremony for the Hashgard mainnet is closed. Please skip to the next section.
 :::
 
 If you want to participate in genesis as a validator, you need to justify that
@@ -79,12 +71,12 @@ A `gentx` is a JSON file carrying a self-delegation. All genesis transactions ar
 :::
 
 ::: warning Note
-Don't use more `uatom` than you have! 
+Don't use more `agard` than you have! 
 :::
 
 ```bash
 hashgard gentx \
-  --amount <amount_of_delegation_uatom> \
+  --amount <amount_of_delegation_agard> \
   --commission-rate <commission_rate> \
   --commission-max-rate <commission_max_rate> \
   --commission-max-change-rate <commission_max_change_rate> \
@@ -114,7 +106,7 @@ hashgardcli tx staking edit-validator
   --details="To infinity and beyond!" \
   --chain-id=<chain_id> \
   --gas="auto" \
-  --gas-prices="0.025uatom" \
+  --gas-prices="0.025agard" \
   --from=<key_name> \
   --commission-rate="0.10"
 ```
@@ -161,7 +153,7 @@ Your validator is active if the following command returns anything:
 hashgardcli query tendermint-validator-set | grep "$(hashgard tendermint show-validator)"
 ```
 
-You should now see your validator in one of the Cosmos Hub explorers. You are looking for the `bech32` encoded `address` in the `~/.hashgard/config/priv_validator.json` file.
+You should now see your validator in one of the Hashgard explorers. You are looking for the `bech32` encoded `address` in the `~/.hashgard/config/priv_validator.json` file.
 
 ::: warning Note
 To be in the validator set, you need to have more total voting power than the 100th validator.

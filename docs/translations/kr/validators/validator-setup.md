@@ -1,7 +1,7 @@
 # 퍼블릭 테스트넷에서 밸리데이터 운영하기
 
 ::: tip
-현재 테스트넷을 참가하는 방법은 [`testnet` repo](https://github.com/cosmos/testnets/tree/master/latest)에 있습니다. 최신 테스트넷에 대한 정보를 확인하시려면 해당 링크를 확인해주세요. 
+현재 테스트넷을 참가하는 방법은 [`testnet` repo](https://github.com/hashgard/testnets/tree/master/latest)에 있습니다. 최신 테스트넷에 대한 정보를 확인하시려면 해당 링크를 확인해주세요. 
 :::
 
 __Note__: 이 문서는 **퍼블릭 테스트넷** 검증인들을 위해서만 작성되었습니다.
@@ -30,13 +30,9 @@ hashgard tendermint show-validator
 
 다음은 `hashgard gentx` 명령을 입력하세요:
 
-::: warning 참고
-보유하고 있는 `STAKE`이상을 이용하지 마십시오. 언제나 [Faucet](https://faucet.cosmos.network/)을 통해서 추가 `STAKE`를 받으실 수 있습니다.
-:::
-
 ```bash
 hashgardcli tx staking create-validator \
-  --amount=5000000uatom \
+  --amount=5000000agard \
   --pubkey=$(hashgard tendermint show-validator) \
   --moniker="choose a moniker" \
   --chain-id=<chain_id> \
@@ -85,10 +81,10 @@ Fetch the `genesis.json` file into `hashgard`'s config directory.
 
 ```bash
 mkdir -p $HOME/.hashgard/config
-curl https://raw.githubusercontent.com/cosmos/testnets/master/latest/genesis.json > $HOME/.hashgard/config/genesis.json
+curl https://raw.githubusercontent.com/hashgard/testnets/master/latest/genesis.json > $HOME/.hashgard/config/genesis.json
 ```
 
-__참고:__ 이 항목에서는 최신 테스트넷 관련 정보가 있는 [테스트넷 repo](https://github.com/cosmos/testnets)의 `latest` 디렉토리를 사용합니다. 만약 다른 테스트넷에 연결하신다면 이용하시는 파일을 확인하시기 바랍니다.
+__참고:__ 이 항목에서는 최신 테스트넷 관련 정보가 있는 [테스트넷 repo](https://github.com/hashgard/testnets)의 `latest` 디렉토리를 사용합니다. 만약 다른 테스트넷에 연결하신다면 이용하시는 파일을 확인하시기 바랍니다.
 
 이제 다른 제네시스 밸리데이터들의 제네시스 트랜잭션을 가져옵니다. 현재 밸리데이터들이 본인들의 제네시스 트랜잭션을 제공할 수 있는 리포지토리가 없는 상태이나, 추후 테스트넷에서 검증 후 추가될 예정입니다.
 
@@ -115,7 +111,7 @@ hashgard start
 ```bash
 hashgardcli tx staking edit-validator
   --moniker="choose a moniker" \
-  --website="https://cosmos.network" \
+  --website="https://hashgard.network" \
   --identity=6A0D65E29A4CBC8E \
   --details="To infinity and beyond!" \
   --chain-id=<chain_id> \
@@ -133,7 +129,7 @@ __참고__: `commission-rate` 값은 다음의 규칙을 따라야 합니다:
 검증인의 정보는 다음 명령어로 확인이 가능합니다:
 
 ```bash
-hashgardcli query staking validator <account_cosmos>
+hashgardcli query staking validator <account_hashgard>
 ```
 
 ## 밸리데이터 서명 정보 추적하기
@@ -163,8 +159,6 @@ hashgardcli tx slashing unjail \
 hashgardcli query tendermint-validator-set | grep "$(hashgard tendermint show-validator)"
 ```
 
-코스모스 테스트넷의 경우 코스모스 [익스플로러](https://explorecosmos.network/validators)를 통해서 밸리데이터가 운영되고 있는지 확인하실 수 있습니다. `~/.hashgard/config/priv_validator.json` 파일의 `bech32` 인코딩이된 `address` 항목을 참고하세요.
-
 ::: warning 참고
 검증인 세트에 포함되시기 원하신다면 100등 밸리데이터보다 보팅 파워(voting power)가 높아야 합니다.
 :::
@@ -181,10 +175,10 @@ hashgardcli query tendermint-validator-set | grep "$(hashgard tendermint show-va
 hashgard start
 ```
 
-당신의 풀노드가 최신 블록높이에 싱크될때까지 기다리십시오. 이후, 다음 명령어를 실행하십시오. 참고로 `<cosmos>` 항목은 밸리데이터 계정의 주소이며, `<name>`은 밸리데이터 계정의 이름입니다. 해당 정보는 `hashgardcli keys list` 명령어를 통해 확인하실 수 있습니다.
+당신의 풀노드가 최신 블록높이에 싱크될때까지 기다리십시오. 이후, 다음 명령어를 실행하십시오. 참고로 `<hashgard>` 항목은 밸리데이터 계정의 주소이며, `<name>`은 밸리데이터 계정의 이름입니다. 해당 정보는 `hashgardcli keys list` 명령어를 통해 확인하실 수 있습니다.
 
 ```bash
-hashgardcli tx slashing unjail <cosmos> --chain-id=<chain_id> --from=<from>
+hashgardcli tx slashing unjail <hashgard> --chain-id=<chain_id> --from=<from>
 ```
 
 ::: danger 경고

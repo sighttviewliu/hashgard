@@ -6,8 +6,6 @@
 
 __중요__: 이 문서에 설명되어있는 모든 단계를 신중하게 진행하십시오. 특정 행동의 실수는 소유하고 있는 아톰의 손실을 초래할 수 있습니다. 진행 전 이 문서에 있는 모든 절차를 자세히 확인하시고 필요시 코스모스 팀에게 연락하십시오. **이 문서는 참고용 정보를 제공하기 위해 번역된 영어 원문의 번역본입니다. 이 문서에 포함되어있는 정보의 완결성은 보장되지 않으며, 개인의 행동에 따른 손실을 책임지지 않습니다. 꼭 영어 원문을 참고하시기 바랍니다. 만약 이 문서의 정보와 영어 원문의 정보가 다른 경우, 영어 문서의 정보가 상위 권한을 가지게 됩니다.**
 
-CLI를 사용하는 위임자는 매우 실험적인 블록체인 기술이 사용되고 있는 코스모스 허브를 사용하게됩니다. 코스모스 허브는 우수한 기술을 기반으로 다수의 보안 감사를 진행했으나 문제, 업데이트 그리고 버그가 존재할 수 있습니다. 또한 블록체인 기술을 사용하는 것은 상당한 기술적 배경을 필요로 하며, 공식 팀의 컨트롤 밖에 있는 리스크가 따릅니다. 유저는 이 소프트웨어를 사용함으로써 암호학 기반 소프트웨어를 사용하는 리스크를 인지하고 있음을 인정하는 것입니다. (참고 문서: [인터체인 코스모스 펀드레이저 약관](https://github.com/cosmos/cosmos/blob/master/fundraiser/Interchain%20Cosmos%20Contribution%20Terms%20-%20FINAL.pdf))
-
 인터체인 재단(Interchain Foundation)과 텐더민트 팀은 소프트웨어 사용으로 발생하는 모든 손실에 대해서 책임을 지지 않습니다. Apache 2.0 라이선스 기반의 오픈소스 소프트웨어를 사용하는 것은 각 개인의 책임이며, 소프트웨어는 그 어떤 보증과 조건이 없는 'As Is(있는 그대로)' 기반으로 제공됩니다.
 
 모든 행동은 신중하고 침착하게 진행하시기 바랍니다.
@@ -23,7 +21,7 @@ CLI를 사용하는 위임자는 매우 실험적인 블록체인 기술이 사�
     + [다른 풀노드와 연결하기](#connecting-to-a-remote-full-node)
 - [`hashgardcli` 설정하기](#setting-up-hashgardcli)
 - [상태(state) 조회하기](#querying-the-state)
-- [아톰 위임하기 / 위임 철회(unbond)하기 / 보상 수령하기](#bonding-atoms-and-withdrawing-rewards)
+- [아톰 위임하기 / 위임 철회(unbond)하기 / 보상 수령하기](#bonding-gards-and-withdrawing-rewards)
 - [거버넌스에 참여하기](#participating-in-governance)
 - [오프라인 컴퓨터에서 트랜잭션 서명하기](#signing-transactions-from-an-offline-computer)
 
@@ -34,10 +32,6 @@ CLI를 사용하는 위임자는 매우 실험적인 블록체인 기술이 사�
 ::: 경고
 **추가적인 행동을 진행하기 전 최신 `hashgardcli` 클라이언트를 다운로드 하셨는지 확인하십시오**
 :::
-
-[**바이너리 설치하기**]
-
-[**소스에서 설치하기**](https://cosmos.network/docs/gaia/installation.html)
 
 ## 코스모스 계정
 
@@ -82,7 +76,7 @@ CLI를 사용하는 위임자는 매우 실험적인 블록체인 기술이 사�
 **12 단어 시드키를 분실하거나 그 누구와도 공유하지 마세요. 자금 탈취와 손실을 예방하기 위해서는 다수의 시드키 사본을 만드시고 금고 같이 본인만이 알 수 있는 안전한 곳에 보관하는 것을 추천합니다. 누군가 시드키를 가지게 된 경우, 관련 프라이빗 키와 모든 계정의 소유권을 가지게 됩니다.**
 :::
 
-주소는 특정 계정을 구분하는 용도로 사용되며, 단어로 이루어진 특정 프리픽스(예, cosmos10)와 스트링 값을 조합한 값입니다 (예, `cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg`). 주소는 누군가 자산을 특정 계정으로 전송할때 사용되며, 퍼블릭키를 사용해 프라이빗 키를 추출하는 것은 불가능합니다.
+주소는 특정 계정을 구분하는 용도로 사용되며, 단어로 이루어진 특정 프리픽스(예, gard10)와 스트링 값을 조합한 값입니다 (예, `gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg`). 주소는 누군가 자산을 특정 계정으로 전송할때 사용되며, 퍼블릭키를 사용해 프라이빗 키를 추출하는 것은 불가능합니다.
 
 ### 펀드레이저 계정 복구하기
 
@@ -145,7 +139,7 @@ hashgardcli keys add <키 명칭 지정(YourKeyName)> --recover
 
 1. [Ledger Live 앱](https://www.ledger.com/pages/ledger-live) 다운로드
 2. 렛저 기기를 USB로 연결한 후 최신 펌웨어 버전으로 업데이트
-3. Ledger Live 앱스토어로 이동한 후, "Cosmos" 애플리케이션 다운로드. (이 단계는 다소 시간이 걸릴 수 있습니다)
+3. Ledger Live 앱스토어로 이동한 후, "Hashgard" 애플리케이션 다운로드. (이 단계는 다소 시간이 걸릴 수 있습니다)
 4. 렛저 기기에서 코스모스 앱 선택
 
 계정을 생성하기 위해서는 다음 명령어를 실행하십시오:
@@ -205,12 +199,6 @@ hashgardcli keys add <키 명칭 지정(yourKeyName)> --recover --account 1
 **경고: 12개 단어 / 24개 단어 시드키를 그 누구와도 공유하지 마세요. 시드키는 본인만이 알고있어야 합니다. 특히 이메일, 메시지 등의 수단으로 블록체인 서비스 지원을 사칭해 시드키를 요청할 수 있으니 주의를 바랍니다. 코스모스 팀, 텐더민트 팀 그리고 인터체인 재단은 절대로 이메일을 통해 개인 정보 또는 시드키를 요청하지 않습니다.**.
 ::: 
 
-### 직접 풀노드 운영하기
-
-이 방법이 가장 안전한 방법이지만, 대량의 리소스를 필요로 합니다. 풀노드를 직접 운영하기 위해서는 우수한 인터넷 대역폭과 최소 1TB 상당의 하드디스크 용량을 필요로 합니다.
-
-[풀노드를 운영하는 절차](https://cosmos.network/docs/gaia/join-mainnet.html)와 [`hashgard`를 설치하는 방법](https://cosmos.network/docs/gaia/installation.html)은 첨부된 링크를 확인하세요.
-
 ### 외부 풀노드에 연결하기
 
 만약 본인이 직접 풀노드를 운영하는 것을 원하지 않는다면 다른 사람의 풀노드에 연결을 할 수 있습니다. 이 과정에서는 신뢰할 수 있는 풀노드 운영자에만 연결하세요. 악의적인 풀노드 운영자는 트랜잭션을 막거나 틀린 정보를 전달할 가능성이 있습니다. 하지만 프라이빗 키는 당신의 컴퓨터/렛저 기기에 저장되어 있기 때문에 풀노드 운영자는 절대로 자금을 탈취할 수 없습니다. 검증된 검증인, 월렛 제공자, 거래소 등의 풀노드에만 연결하는 것을 추천드립니다.
@@ -258,8 +246,6 @@ hashgardcli config chain-id gos-3
 
 ## 블록체인 상태 조회하기
 
-[`hashgardcli`](https://cosmos.network/docs/gaia/hashgardcli.html)는 계정 잔고, 스테이킹 중인 토큰 수량, 지급 가능한 보상, 거버넌스 프로포절 등 블록체인과 관련된 모든 정보를 확인할 수 있게 합니다. 다음은 위임자에게 유용한 명령어들입니다. 다음 명령어를 실행하기 전 [hashgardcli 설정](#setting-up-hashgardcli)을 진행하세요.
-
 ```bash
 // 계정 잔고와 계정 관련 정보 조회
 hashgardcli query account
@@ -267,16 +253,16 @@ hashgardcli query account
 // 검증인 목록 조회
 hashgardcli query validators
 
-// 검증인 주소로 (예시: cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) 검증인 정보 조회
+// 검증인 주소로 (예시: gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) 검증인 정보 조회
 hashgardcli query validator <검증인 주소(validatorAddress)>
 
-// 위임자 주소로 (예시: cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) 계정의 모든 위임 기록 조회
+// 위임자 주소로 (예시: gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) 계정의 모든 위임 기록 조회
 hashgardcli query delegations <위임자 주소(delegatorAddress)>
 
 // 위임자가 특정 검증인에게 위임한 기록 조회
 hashgardcli query delegations <위임자 주소(delegatorAddress)> <검증인 주소(validatorAddress)>
 
-// 위임자 주소로 (예시: cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) 위임자 리워드 조회
+// 위임자 주소로 (예시: gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) 위임자 리워드 조회
 hashgardcli query distribution rewards <위임자 주소(delegatorAddress)> 
 
 // 예치금(deposit)을 대기중인 모든 프로포절 조회
@@ -300,7 +286,7 @@ hashgardcli query
 ## 트랜잭션 전송하기
 
 ::: warning
-코스모스 메인넷에서는 `uatom` 단위가 표준 단위로 사용됩니다. `1atom = 1,000,000uatom`으로 환산됩니다.
+코스모스 메인넷에서는 `agard` 단위가 표준 단위로 사용됩니다. `1gard = 1,000,000agard`으로 환산됩니다.
 :::
 
 ### 가스와 수수료에 대해서
@@ -319,7 +305,7 @@ hashgardcli query
 트랜잭션 피(`fees`)는 `gas` 수량과 `gasPrice`를 곱한 값입니다. 유저는 3개의 값 중 2개의 값을 입력하게 됩니다. `gasPrice`가 높을수록 트랜잭션이 블록에 포함될 확률이 높아집니다.
 
 ::: tip
-메인넷 권장 `gas-prices`는 `0.025uatom` 입니다.
+메인넷 권장 `gas-prices`는 `0.025agard` 입니다.
 :::
 
 ### 아톰 위임하기 / 리워드 수령하기
@@ -334,7 +320,7 @@ hashgardcli query
 
 ```bash
 // 아톰 위임하기 
-// 각 플래그 값 예시: <위임할 수량(amountToBound)> = 10000uatom, <검증인의 bech32 주소(bech32AddressOfValidator)> = gardvaloper18thamkhnj9wz8pa4nhnp9rldprgant57pk2m8s, <가스 가격(gasPrice)> = 0.025uatom
+// 각 플래그 값 예시: <위임할 수량(amountToBound)> = 10000agard, <검증인의 bech32 주소(bech32AddressOfValidator)> = gardvaloper18thamkhnj9wz8pa4nhnp9rldprgant57pk2m8s, <가스 가격(gasPrice)> = 0.025agard
 
 hashgardcli tx staking --amount <위임할 수량(amountToBond)> --validator <검증인의 bech32 주소(bech32AddressOfValidator)> --from <위임자 키 명칭(delegatorKeyName)> --gas auto --gas-prices <가스 가격(gasPrice)>
 
@@ -389,13 +375,13 @@ hashgardcli query tx <tx 해시값(txHash)>
 ```bash
 // 프로포절 제안하기
 // <프로포절 종류(type)>=text/parameter_change/software_upgrade
-// 플래그 값 예시: <가스 가격(gasPrice)>=0.025uatom
+// 플래그 값 예시: <가스 가격(gasPrice)>=0.025agard
 
-hashgardcli tx gov submit-proposal --title "Test Proposal" --description "My awesome proposal" --type <프로포절 종류(type)> --deposit=10000000uatom --gas auto --gas-prices <가스 가격(gasPrice)> --from <위임자 키 명칭(delegatorKeyName)>
+hashgardcli tx gov submit-proposal --title "Test Proposal" --description "My awesome proposal" --type <프로포절 종류(type)> --deposit=10000000agard --gas auto --gas-prices <가스 가격(gasPrice)> --from <위임자 키 명칭(delegatorKeyName)>
 
 // 프로포절의 예치금 추가하기
 // 프로포절의 proposalID 조회: $hashgardcli query gov proposals --status deposit_period
-// 파라미터 값 예시: <예치금(deposit)>=10000000uatom
+// 파라미터 값 예시: <예치금(deposit)>=10000000agard
 
 hashgardcli tx gov deposit <프로포절 ID(proposalID)> <추가할 예치금(deposit)> --gas auto --gas-prices <가스 가격(gasPrice)> --from <위임자 키 명칭(delegatorKeyName)>
 
@@ -412,7 +398,7 @@ hashgardcli tx gov vote <프로포절 ID(proposalID)> <표 선택(option)> --gas
 
 ```bash
 // 아톰 본딩하기 
-// 플래그 값 예시: <본딩할 수량(amountToBond)>=10000000uatom, <위임할 검증인의 bech32 주소(bech32AddressOfValidator)>=gardvaloper18thamkhnj9wz8pa4nhnp9rldprgant57pk2m8s, <가스 가격(gasPrice)>=0.025uatom
+// 플래그 값 예시: <본딩할 수량(amountToBond)>=10000000agard, <위임할 검증인의 bech32 주소(bech32AddressOfValidator)>=gardvaloper18thamkhnj9wz8pa4nhnp9rldprgant57pk2m8s, <가스 가격(gasPrice)>=0.025agard
 
 hashgardcli tx staking --amount <본딩할 수량(amountToBond)> --validator <위임할 검증인의 bech32 주소(bech32AddressOfValidator)> --gas auto --gas-prices <가스 가격(gasPrice)> --generate-only > unsignedTX.json
 ```
