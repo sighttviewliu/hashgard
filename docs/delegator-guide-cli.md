@@ -1,6 +1,6 @@
 # Delegator Guide (CLI)
 
-This document contains all the necessary information for delegators to interact with the Cosmos Hub through the Command-Line Interface (CLI).
+This document contains all the necessary information for delegators to interact with the Hashgard through the Command-Line Interface (CLI).
 
 It also contains instructions on how to manage accounts, restore accounts from the fundraiser and use a ledger nano device.
 
@@ -10,7 +10,7 @@ carefully, as negligence in this significant process could lead to an indefinite
 loss of your Atoms. Therefore, read through the following instructions in their 
 entirety prior to proceeding and reach out to us in case you need support.
 
-Please also note that you are about to interact with the Cosmos Hub, a
+Please also note that you are about to interact with the Hashgard, a
 blockchain technology containing highly experimental software. While the
 blockchain has been developed in accordance to the state of the art and audited
 with utmost care, we can nevertheless expect to have issues, updates and bugs.
@@ -18,7 +18,7 @@ Furthermore, interaction with blockchain technology requires
 advanced technical skills and always entails risks that are outside our control.
 By using the software, you confirm that you understand the inherent risks
 associated with cryptographic software (see also risk section of the 
-[Interchain Cosmos Contribution terms](https://github.com/cosmos/cosmos/blob/master/fundraiser/Interchain%20Cosmos%20Contribution%20Terms%20-%20FINAL.pdf)) and that the Interchain Foundation and/or 
+[Interchain Hashgard Contribution terms](https://github.com/hashgard/hashgard/blob/master/fundraiser/Interchain%20Hashgard%20Contribution%20Terms%20-%20FINAL.pdf)) and that the Interchain Foundation and/or 
 the Tendermint Team may not be held liable for potential damages arising out of the use of the
 software. Any use of this open source software released under the Apache 2.0 license is
 done at your own risk and on a "AS IS" basis, without warranties or conditions
@@ -30,10 +30,10 @@ Please exercise extreme caution!
 ## Table of Contents
 
 - [Installing `hashgardcli`](#installing-hashgardcli)
-- [Cosmos Accounts](#cosmos-accounts)
+- [Hashgard Accounts](#hashgard-accounts)
     + [Restoring an Account from the Fundraiser](#restoring-an-account-from-the-fundraiser)
     + [Creating an Account](#creating-an-account)
-- [Accessing the Cosmos Hub Network](#accessing-the-cosmos-hub-network)
+- [Accessing the Hashgard Network](#accessing-the-hashgard-hub-network)
     + [Running Your Own Full-Node](#running-your-own-full-node)
     + [Connecting to a Remote Full-Node](#connecting-to-a-remote-full-node)
 - [Setting Up `hashgardcli`](#setting-up-hashgardcli)
@@ -52,11 +52,6 @@ Please exercise extreme caution!
 **Please check that you download the latest stable release of `hashgardcli` that is available**
 :::
 
-[**Download the binaries**]
-Not available yet.
-
-[**Install from source**](https://cosmos.network/docs/cosmos-hub/installation.html)
-
 ::: tip
 `hashgardcli` is used from a terminal. To open the terminal, follow these steps:
 - **Windows**: `Start` > `All Programs` > `Accessories` > `Command Prompt`
@@ -64,9 +59,9 @@ Not available yet.
 - **Linux**: `Ctrl` + `Alt` + `T`
 :::
 
-## Cosmos Accounts
+## Hashgard Accounts
 
-At the core of every Cosmos account, there is a seed, which takes the form of a 12 or 24-words mnemonic. From this mnemonic, it is possible to create any number of Cosmos accounts, i.e. pairs of private key/public key. This is called an HD wallet (see [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) for more information on the HD wallet specification).
+At the core of every Hashgard account, there is a seed, which takes the form of a 12 or 24-words mnemonic. From this mnemonic, it is possible to create any number of Hashgard accounts, i.e. pairs of private key/public key. This is called an HD wallet (see [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) for more information on the HD wallet specification).
 
 ```
      Account 0                         Account 1                         Account 2
@@ -107,7 +102,7 @@ The funds stored in an account are controlled by the private key. This private k
 **Do not lose or share your 12 words with anyone. To prevent theft or loss of funds, it is best to ensure that you keep multiple copies of your mnemonic, and store it in a safe, secure place and that only you know how to access. If someone is able to gain access to your mnemonic, they will be able to gain access to your private keys and control the accounts associated with them.**
 :::
 
-The address is a public string with a human-readable prefix (e.g. `cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg`) that identifies your account. When someone wants to send you funds, they send it to your address. It is computationally infeasible to find the private key associated with a given address. 
+The address is a public string with a human-readable prefix (e.g. `gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg`) that identifies your account. When someone wants to send you funds, they send it to your address. It is computationally infeasible to find the private key associated with a given address. 
 
 ### Restoring an Account from the Fundraiser
 
@@ -115,11 +110,11 @@ The address is a public string with a human-readable prefix (e.g. `cosmos10snjt8
 *NOTE: This section only concerns fundraiser participants*
 :::
 
-If you participated in the fundraiser, you should be in possession of a 12-words mnemonic. Newly generated mnemonics use 24 words, but 12-word mnemonics are also compatible with all the Cosmos tools. 
+If you participated in the fundraiser, you should be in possession of a 12-words mnemonic. Newly generated mnemonics use 24 words, but 12-word mnemonics are also compatible with all the Hashgard tools. 
 
 #### On a Ledger Device
 
-At the core of a ledger device, there is a mnemonic used to generate accounts on multiple blockchains (including the Cosmos Hub). Usually, you will create a new mnemonic when you initialize your ledger device. However, it is possible to tell the ledger device to use a mnemonic provided by the user instead. Let us go ahead and see how you can input the mnemonic you obtained during the fundraiser as the seed of your ledger device. 
+At the core of a ledger device, there is a mnemonic used to generate accounts on multiple blockchains (including the Hashgard). Usually, you will create a new mnemonic when you initialize your ledger device. However, it is possible to tell the ledger device to use a mnemonic provided by the user instead. Let us go ahead and see how you can input the mnemonic you obtained during the fundraiser as the seed of your ledger device. 
 
 ::: warning
 *NOTE: To do this, **it is preferable to use a brand new ledger device.**. Indeed, there can be only one mnemonic per ledger device. If, however, you want to use a ledger that is already initialized with a seed, you can reset it by going in `Settings`>`Device`>`Reset All`. **Please note that this will wipe out the seed currently stored on the device. If you have not properly secured the associated mnemonic, you could lose your funds!!!***
@@ -165,12 +160,12 @@ To create an account, you just need to have `hashgardcli` installed. Before crea
 **Only use Ledger devices that you bought factory new or trust fully**
 :::
 
-When you initialize your ledger, a 24-word mnemonic is generated and stored in the device. This mnemonic is compatible with Cosmos and Cosmos accounts can be derived from it. Therefore, all you have to do is make your ledger compatible with `hashgardcli`. To do so, you need to go through the following steps:
+When you initialize your ledger, a 24-word mnemonic is generated and stored in the device. This mnemonic is compatible with Hashgard and Hashgard accounts can be derived from it. Therefore, all you have to do is make your ledger compatible with `hashgardcli`. To do so, you need to go through the following steps:
 
 1. Download the Ledger Live app [here](https://www.ledger.com/pages/ledger-live). 
 2. Connect your ledger via USB and update to the latest firmware
-3. Go to the ledger live app store, and download the "Cosmos" application (this can take a while). **Note: You may have to enable `Dev Mode` in the `Settings` of Ledger Live to be able to download the "Cosmos" application**. 
-4. Navigate to the Cosmos app on your ledger device
+3. Go to the ledger live app store, and download the "Hashgard" application (this can take a while). **Note: You may have to enable `Dev Mode` in the `Settings` of Ledger Live to be able to download the "Hashgard" application**. 
+4. Navigate to the Hashgard app on your ledger device
 
 Then, to create an account, use the following command:
 
@@ -225,19 +220,19 @@ hashgardcli keys add <yourKeyName> --recover --account 1
 This command will prompt you to input a passphrase as well as your mnemonic. Change the account number to generate a different account. 
 
 
-## Accessing the Cosmos Hub Network
+## Accessing the Hashgard Network
 
 In order to query the state and send transactions, you need a way to access the network. To do so, you can either run your own full-node, or connect to someone else's.
 
 ::: danger
-**NOTE: Do not share your mnemonic (12 or 24 words) with anyone. The only person who should ever need to know it is you. This is especially important if you are ever approached via email or direct message by someone requesting that you share your mnemonic for any kind of blockchain services or support. No one from Cosmos, the Tendermint team or the Interchain Foundation will ever send an email that asks for you to share any kind of account credentials or your mnemonic."**.
+**NOTE: Do not share your mnemonic (12 or 24 words) with anyone. The only person who should ever need to know it is you. This is especially important if you are ever approached via email or direct message by someone requesting that you share your mnemonic for any kind of blockchain services or support. No one from Hashgard, the Tendermint team or the Interchain Foundation will ever send an email that asks for you to share any kind of account credentials or your mnemonic."**.
 ::: 
 
 ### Running Your Own Full-Node
 
 This is the most secure option, but comes with relatively high resource requirements. In order to run your own full-node, you need good bandwidth and at least 1TB of disk space. 
 
-You will find the tutorial on how to install `hashgard` [here](https://cosmos.network/docs/cosmos-hub/installation.html), and the guide to run a full-node [here](https://cosmos.network/docs/cosmos-hub/join-mainnet.html).
+You will find the tutorial on how to install `hashgard` [here](./installation.md), and the guide to run a full-node [here](./join-testnet.md).
 
 ### Connecting to a Remote Full-Node
 
@@ -248,14 +243,14 @@ In order to connect to the full-node, you will need an address of the following 
 ## Setting Up `hashgardcli`
 
 ::: tip
-**Before setting up `hashgardcli`, make sure you have set up a way to [access the Cosmos Hub network](#accessing-the-cosmos-hub-network)**
+**Before setting up `hashgardcli`, make sure you have set up a way to [access the Hashgard network](#accessing-the-hashgard-hub-network)**
 :::
 
 ::: warning
 **Please check that you are always using the latest stable release of `hashgardcli`**
 :::
 
-`hashgardcli` is the tool that enables you to interact with the node that runs on the Cosmos Hub network, whether you run it yourself or not. Let us set it up properly.
+`hashgardcli` is the tool that enables you to interact with the node that runs on the Hashgard network, whether you run it yourself or not. Let us set it up properly.
 
 In order to set up `hashgardcli`, use the following command:
 
@@ -286,7 +281,7 @@ hashgardcli config trust-node false
 Finally, let us set the `chain-id` of the blockchain we want to interact with:
 
 ```bash
-hashgardcli config chain-id cosmoshub-2
+hashgardcli config chain-id sif-8000
 ```
 
 ## Querying the State
@@ -307,13 +302,13 @@ hashgardcli query staking validators
 // query the information of a validator given their address (e.g. gardvaloper1n5pepvmgsfd3p2tqqgvt505jvymmstf6s9gw27)
 hashgardcli query staking validator <validatorAddress>
 
-// query all delegations made from a delegator given their address (e.g. cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg)
+// query all delegations made from a delegator given their address (e.g. gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg)
 hashgardcli query staking delegations <delegatorAddress>
 
-// query a specific delegation made from a delegator (e.g. cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) to a validator (e.g. gardvaloper1n5pepvmgsfd3p2tqqgvt505jvymmstf6s9gw27) given their addresses
+// query a specific delegation made from a delegator (e.g. gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg) to a validator (e.g. gardvaloper1n5pepvmgsfd3p2tqqgvt505jvymmstf6s9gw27) given their addresses
 hashgardcli query staking delegation <delegatorAddress> <validatorAddress>
 
-// query the rewards of a delegator given a delegator address (e.g. cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg)
+// query the rewards of a delegator given a delegator address (e.g. gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg)
 hashgardcli query distribution rewards <delegatorAddress> 
 
 // query all proposals currently open for depositing
@@ -337,12 +332,12 @@ For each command, you can use the `-h` or `--help` flag to get more information.
 ## Sending Transactions
 
 ::: warning
-On Cosmos Hub mainnet, the accepted denom is `uatom`, where `1atom = 1,000,000uatom`
+On Hashgard mainnet, the accepted denom is `uatom`, where `1atom = 1,000,000uatom`
 :::
 
 ### A Note on Gas and Fees
 
-Transactions on the Cosmos Hub network need to include a transaction fee in order to be processed. This fee pays for the gas required to run the transaction. The formula is the following:
+Transactions on the Hashgard network need to include a transaction fee in order to be processed. This fee pays for the gas required to run the transaction. The formula is the following:
 
 ```
 fees = ceil(gas * gasPrices)
@@ -370,7 +365,7 @@ For mainnet, the recommended `gas-prices` is `0.025uatom`.
 
 ```bash
 // Send a certain amount of tokens to an address
-// Ex value for parameters (do not actually use these values in your tx!!): <to_address>=cosmos16m93fezfiezhvnjajzrfyszml8qm92a0w67ntjhd3d0 <amount>=1000000uatom 
+// Ex value for parameters (do not actually use these values in your tx!!): <to_address>=gard16m93fezfiezhvnjajzrfyszml8qm92a0w67ntjhd3d0 <amount>=1000000uatom 
 // Ex value for flags: <gasPrice>=0.025uatom
 
 hashgardcli tx send <to_address> <amount> --from <yourKeyName> --gas auto --gas-adjustment 1.5 --gas-prices <gasPrice>
@@ -380,10 +375,6 @@ hashgardcli tx send <to_address> <amount> --from <yourKeyName> --gas auto --gas-
 
 ::: tip
 **Before you can bond atoms and withdraw rewards, you need to [set up `hashgardcli`](#setting-up-hashgardcli) and [create an account](#creating-an-account)**
-:::
-
-::: warning
-**Before bonding Atoms, please read the [delegator faq](https://cosmos.network/resources/delegators) to understand the risk and responsibilities involved with delegating**
 :::
 
 ::: warning
@@ -443,7 +434,7 @@ Double check with a block explorer if you interact with the network through a tr
 
 #### Primer on Governance
 
-The Cosmos Hub has a built-in governance system that lets bonded Atom holders vote on proposals. There are three types of proposal:
+The Hashgard has a built-in governance system that lets bonded Atom holders vote on proposals. There are three types of proposal:
 
 - `Text Proposals`: These are the most basic type of proposals. They can be used to get the opinion of the network on a given topic. 
 - `Parameter Proposals`: These are used to update the value of an existing parameter.
@@ -491,17 +482,17 @@ If you do not have a ledger device and want to interact with your private key on
 
 ```bash
 // Bond Atoms 
-// ex value for flags: <amountToBound>=10000000uatom, <bech32AddressOfValidator>=gardvaloper18thamkhnj9wz8pa4nhnp9rldprgant57pk2m8s, <gasPrice>=0.025uatom, <delegatorAddress>=cosmos10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg
+// ex value for flags: <amountToBound>=10000000uatom, <bech32AddressOfValidator>=gardvaloper18thamkhnj9wz8pa4nhnp9rldprgant57pk2m8s, <gasPrice>=0.025uatom, <delegatorAddress>=gard10snjt8dmpr5my0h76xj48ty80uzwhraqalu4eg
 
 hashgardcli tx staking delegate <validatorAddress> <amountToBond> --from <delegatorAddress> --gas auto --gas-adjustment 1.5 --gas-prices <gasPrice> --generate-only > unsignedTX.json
 ```
 
 In order to sign, you will also need the `chain-id`, `account-number` and `sequence`. The `chain-id` is a unique identifier for the blockchain on which you are submitting the transaction. The `account-number` is an identifier generated when your account first receives funds. The `sequence` number is used to keep track of the number of transactions you have sent and prevent replay attacks.
 
-Get the chain-id from the genesis file (`cosmoshub-2`), and the two other fields using the account query:
+Get the chain-id from the genesis file (`sif-8000`), and the two other fields using the account query:
 
 ```bash
-hashgardcli query account <yourAddress> --chain-id cosmoshub-2
+hashgardcli query account <yourAddress> --chain-id sif-8000
 ```
 
 Then, copy `unsignedTx.json` and transfer it (e.g. via USB) to the offline computer. If it is not done already, [create an account on the offline computer](#using-a-computer). For additional security, you can double check the parameters of your transaction before signing it using the following command:
@@ -513,7 +504,7 @@ cat unsignedTx.json
 Now, sign the transaction using the following command. You will need the `chain-id`, `sequence` and `account-number` obtained earlier:
 
 ```bash
-hashgardcli tx sign unsignedTx.json --from <delegatorKeyName> --offline --chain-id cosmoshub-2 --sequence <sequence> --account-number <account-number> > signedTx.json
+hashgardcli tx sign unsignedTx.json --from <delegatorKeyName> --offline --chain-id sif-8000 --sequence <sequence> --account-number <account-number> > signedTx.json
 ```
 
 Copy `signedTx.json` and transfer it back to the online computer. Finally, use the following command to broadcast the transaction:

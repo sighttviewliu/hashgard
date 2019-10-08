@@ -27,7 +27,7 @@ The `genesis_time` is defined at the top of the genesis file. It is a `UTC` time
 The `chain_id` is a unique identifier for your chain. It helps differentiate between different chains using the same version of the software.
 
 ```json
-"chain_id": "cosmoshub-2",
+"chain_id": "sif-8000",
 ```
 
 ## Consensus Parameters
@@ -68,7 +68,7 @@ The application state defines the initial state of the state-machine.
 In this section, initial allocation of tokens is defined. It is possible to add accounts manually by directly editing the genesis file, but it is also possible to use the following command:
 
 ```bash
-// Example: hashgard add-genesis-account cosmos1qs8tnw2t8l6amtzvdemnnsq9dzk0ag0z37gh3h 10000000gard
+// Example: hashgard add-genesis-account gard1qs8tnw2t8l6amtzvdemnnsq9dzk0ag0z37gh3h 10000000gard
 
 hashgard add-genesis-account <account-address> <amount><denom>
 ```
@@ -78,7 +78,7 @@ This command creates an item in the `accounts` list, under the `app_state` secti
 ```json
 "accounts": [
       {
-        "address": "cosmos1qs8tnw2t8l6amtzvdemnnsq9dzk0ag0z37gh3h",
+        "address": "gard1qs8tnw2t8l6amtzvdemnnsq9dzk0ag0z37gh3h",
         "coins": [
           {
             "denom": "uatom",
