@@ -30,19 +30,19 @@ hashgardcli config chain-id gaia-9004
 
 키의 형태는 총 3개가 있습니다:
 
-- `cosmos`
+- `gard`
   - `hashgardcli keys add`로 생성되는 계정 키
   - 자금을 받는데 사용
-  - 예시) `cosmos15h6vd5f0wqps26zjlwrc6chah08ryu4hzzdwhc`
+  - 예시) `gard15h6vd5f0wqps26zjlwrc6chah08ryu4hzzdwhc`
 
 * `gardvaloper`
   - 특정 검증인을 운영자와 연관하는데 사용됨
   - 스테이킹 명령 요청에 이용됨
   - 예시) `gardvaloper1carzvgq3e6y3z5kz5y6gxp3wpy3qdrv928vyah`
 
-- `cosmospub`
+- `gardpub`
   - `hashgardcli keys add`로 생성되는 계정 키
-  - 예시) `cosmospub1zcjduc3q7fu03jnlu2xpl75s2nkt7krm6grh4cc5aqth73v0zwmea25wj2hsqhlqzm`
+  - 예시) `gardpub1zcjduc3q7fu03jnlu2xpl75s2nkt7krm6grh4cc5aqth73v0zwmea25wj2hsqhlqzm`
 - `gardvalconspub`
   - `hashgard init`로 새로운 노드가 생성될때 같이 생성되는 키.
   - `hashgard tendermint show-validator` 명령으로 키 값을 확인할 수 있음
@@ -136,25 +136,21 @@ hashgardcli tx send ... --fees=100photino
 또는
 
 ```bash
-hashgardcli tx send ... --gas-prices=1uatom
+hashgardcli tx send ... --gas-prices=1agard
 ```
 
 ### 계정
-
-#### 테스트 토큰 받기
-
-토큰을 받기 가장 쉬운 곳은 [코스모스 테스트넷 faucet](https://faucetcosmos.network) 입니다. 만약 해당 faucet이 작동하지 않는 경우 [#cosmos-validators](https://riot.im/app/#/room/#cosmos-validators:matrix.org) 채팅 방에서 요청을 하실 수 있습니다. 해당 faucet은 스테이킹을 하려고 하시는 계정의 `cosmos` 주소를 입력하시면 됩니다.
 
 #### 계정 잔고 조회하기
 
 주소에 토큰을 받으신 후 잔고를 확인하시려면 다음 명령어를 입력하시면 됩니다:
 
 ```bash
-hashgardcli query account <account_cosmos(코스모스 주소)>
+hashgardcli query account <account_gard(코스모스 주소)>
 ```
 
 ::: warning 참고
-계정의 토큰 잔고가 `0`인 계정을 조회하실 경우 다음과 같은 에러 메시지가 표시될 수 있습니다: `No account with address <account_cosmos> was found in the state.` 노드가 체인과 완벽하게 연동이 안된 상태에서 조회를 할 경우 동일한 에러가 발생할 수 있습니다.
+계정의 토큰 잔고가 `0`인 계정을 조회하실 경우 다음과 같은 에러 메시지가 표시될 수 있습니다: `No account with address <account_gard> was found in the state.` 노드가 체인과 완벽하게 연동이 안된 상태에서 조회를 할 경우 동일한 에러가 발생할 수 있습니다.
 :::
 
 ### 토큰 전송하기
@@ -162,7 +158,7 @@ hashgardcli query account <account_cosmos(코스모스 주소)>
 한 계정에서 다른 계정으로 토큰/코인을 전송하기 위해서는 다음 명령어를 이용하시면 됩니다:
 
 ```bash
-hashgardcli tx send <destination_cosmos(수신자 코스모스 주소)> 10faucetToken \
+hashgardcli tx send <destination_gard(수신자 코스모스 주소)> 10faucetToken \
   --chain-id=<chain_id(체인 아이디)> \
   --from=<key_name(보낼 키/계정 이름)> \
 ```
@@ -178,20 +174,20 @@ hashgardcli tx send <destination_cosmos(수신자 코스모스 주소)> 10faucet
 이제 토큰을 전송한 계정과 토큰을 받은 계정의 잔고를 확인합니다:
 
 ```bash
-hashgardcli query account <account_cosmos(보낸 코스모스 계정 주소)>
-hashgardcli query account <destination_cosmos(수신자 코스모스 주소)>
+hashgardcli query account <account_gard(보낸 코스모스 계정 주소)>
+hashgardcli query account <destination_gard(수신자 코스모스 주소)>
 ```
 
 특정 블록 높의에서의 잔고를 확인하고 싶으시다면 `--block` 플래그를 사용하실 수 있습니다:
 
 ```bash
-hashgardcli query account <account_cosmos(코스모스 코스모스 주소)> --block=<block_height(블록 높이)>
+hashgardcli query account <account_gard(코스모스 코스모스 주소)> --block=<block_height(블록 높이)>
 ```
 
 트랜잭션을 실제 전파하지 않고 시뮬레이션을 하시려면 명령어 뒤에 `--dry-run` 플래그를 추가하세요:
 
 ```bash
-hashgardcli tx send <destination_cosmosaccaddr(받는이 계정 주소)> 10faucetToken \
+hashgardcli tx send <destination_gardaccaddr(받는이 계정 주소)> 10faucetToken \
   --chain-id=<chain_id(체인아이디)> \
   --from=<key_name(보내는 키/계정 이름)> \
   --dry-run
@@ -200,7 +196,7 @@ hashgardcli tx send <destination_cosmosaccaddr(받는이 계정 주소)> 10fauce
 또한 트랜잭션을 빌드한 후 해당 트랜잭션을 JSON 포맷으로 STDOUT에 프린트 하시기를 원하면 `--generate-only`를 명령어에 추가하시면 됩니다:
 
 ```bash
-hashgardcli tx send <destination_cosmosaccaddr(받는이 코스모스 주소)> 10faucetToken \
+hashgardcli tx send <destination_gardaccaddr(받는이 코스모스 주소)> 10faucetToken \
   --chain-id=<chain_id(체인 아이디)> \
   --from=<key_name(보내는 키/계정 이름)> \
   --generate-only > unsignedSendTx.json
@@ -261,14 +257,6 @@ hashgardcli query txs --tags='<tag(태그)>:<value(값)>' --page=1 --limit=20
 
 액션 태그는 관련 메시지의 `Type()` 명령이 응답하는 메시지 타입과 언제나 동일합니다.
 
-각 SDK 모듈에 대한 `tags`는 여기에서 확인할 수 있습니다:
-
-- [Common tags](https://github.com/cosmos/cosmos-sdk/blob/d1e76221d8e28824bb4791cb4ad8662d2ae9051e/types/tags.go#L57-L63)
-- [Staking tags](https://github.com/cosmos/cosmos-sdk/blob/d1e76221d8e28824bb4791cb4ad8662d2ae9051e/x/staking/tags/tags.go#L8-L24)
-- [Governance tags](https://github.com/cosmos/cosmos-sdk/blob/d1e76221d8e28824bb4791cb4ad8662d2ae9051e/x/gov/tags/tags.go#L8-L22)
-- [Slashing tags](https://github.com/cosmos/cosmos-sdk/blob/d1e76221d8e28824bb4791cb4ad8662d2ae9051e/x/slashing/handler.go#L52)
-- [Distribution tags](https://github.com/cosmos/cosmos-sdk/blob/develop/x/distribution/tags/tags.go#L8-L17)
-- [Bank tags](https://github.com/cosmos/cosmos-sdk/blob/d1e76221d8e28824bb4791cb4ad8662d2ae9051e/x/bank/keeper.go#L193-L206)
 :::
 
 #### 트랜잭션 해시로 검색하기
@@ -312,7 +300,7 @@ hashgardcli query slashing params
 
 #### 검증인에게 위임하기
 
-메인넷에서는 `atom`을 특정 검증인에게 위임할 수 있습니다. 스테이킹에 참여하는 [위임인](/resources/delegators-faq)은 검증인 보상의 일부를 받을 수 있습니다. 관련 정보는 [코스모스 토큰 모델](https://github.com/cosmos/cosmos/raw/master/Cosmos_Token_Model.pdf)에서 확인하세요.
+메인넷에서는 `gard`을 특정 검증인에게 위임할 수 있습니다. 
 
 ##### 검증인 조회하기
 
@@ -330,12 +318,12 @@ hashgardcli query staking validator <account_gardval(gardval 계정)>
 
 #### 토큰 본딩하기
 
-테스트넷의 경우 `atom`이 아닌 `stake`를 위임합니다. 특정 테스트넷 검증인에게 토큰을 본딩하기 위해서는:
+테스트넷의 경우 `gard`이 아닌 `stake`를 위임합니다. 특정 테스트넷 검증인에게 토큰을 본딩하기 위해서는:
 
 
 ```bash
 hashgardcli tx staking delegate \
-  --amount=10000000uatom \
+  --amount=10000000agard \
   --validator=<validator(검증인 주소)> \
   --from=<key_name(트랜잭션을 발생할 키/계정 이름)> \
   --chain-id=<chain_id(체인 아이디)>
@@ -350,11 +338,6 @@ hashgardcli keys show [name] --bech val
 여기에서`[name]`은 `hashgard`를 처음 설정하셨을때 정의한 키의 명칭입니다.
 
 토큰이 본딩되고 있는 기간 동안에는 다른 본딩된 토큰과 함께 하나의 '풀'을 이룹니다. 검증인들과 위임인들은 해당 풀의 소유량에 비례하는 보상을 받게 됩니다.
-
-
-::: tip 참고
-보유하고 있는 `stake` 이상을 사용하지 마세요. `stake`가 더 필요한 경우 [Faucet](https://faucetcosmos.network/)에서 추가로 받으실 수 있습니다!
-:::
 
 ##### 위임 조회
 
@@ -378,7 +361,7 @@ hashgardcli query staking delegation <delegator_addr(위임자 코스모스 주�
 ```bash
 hashgardcli tx staking unbond \
   <validator_addr> \
-  10atom \
+  10gard \
   --from=<key_name> \
   --chain-id=<chain_id>
 ```
@@ -396,7 +379,7 @@ hashgardcli query staking unbonding-delegation <delegator_addr(위임자 주소)
 또는 특정 위임자의 모든 언본딩 정보를 확인하고 싶으신 경우:
 
 ```bash
-hashgardcli query staking unbonding-delegations <account_cosmos(위임자 주소)>
+hashgardcli query staking unbonding-delegations <account_gard(위임자 주소)>
 ```
 
 추가적으로 특정 검증인으로 부터 언본딩하는 정보를 확인하고 싶으신 경우:
@@ -413,7 +396,7 @@ hashgardcli query staking unbonding-delegations-from <account_gardval(검증인 
 hashgardcli tx staking redelegate \
   <src-validator-operator-addr> \
   <dst-validator-operator-addr> \
-  10atom \
+  10gard \
   --from=<key_name> \
   --chain-id=<chain_id>
 ```
@@ -433,7 +416,7 @@ hashgardcli query staking redelegation <delegator_addr(위임자 주소)> <src_v
 특정 위임자의 모든 검증인에 대한 재위임을 확인하고 싶으신 경우:
 
 ```bash
-hashgardcli query staking redelegations <account_cosmos(위임자 코스모스 주소)>
+hashgardcli query staking redelegations <account_gard(위임자 코스모스 주소)>
 ```
 
 특정 검증인에 대한 재위임을 확인하고 싶으신 경우:
@@ -508,7 +491,7 @@ hashgardcli tx gov submit-proposal \
   --title=<title(프로포절 제목)> \
   --description=<description(프로포절 설명)> \
   --type=<Text/ParameterChange/SoftwareUpgrade(프로포절 타입)> \
-  --deposit=<40000000uatom(예치금 수량)> \
+  --deposit=<40000000agard(예치금 수량)> \
   --from=<name(트랜잭션을 발생시킬 키/계정 이름)> \
   --chain-id=<chain_id(체인 아이디)>
 ```
@@ -540,7 +523,7 @@ hashgardcli query gov proposer <proposal_id(프로포절 ID)>
 프로포절이 네트워크에 전파되기 위해서는 해당 프로포절의 보증금이 `minDeposit` 값 이상이어야 합니다 (현재 기본 값은 `10 stake`입니다). 만약 사전에 생성한 프로포절이 해당 기준을 충족하지 못하였다면 추후에 보증금을 추가 예치하여 활성화할 수 있습니다. 프로포절의 보증금이 최소 값을 도달하면 해당 프로포절의 투표는 활성화 됩니다:
 
 ```bash
-hashgardcli tx gov deposit <proposal_id(프로포절 ID)> <200000000uatom(금액)> \
+hashgardcli tx gov deposit <proposal_id(프로포절 ID)> <200000000agard(금액)> \
   --from=<name(트랜잭션을 발생시킬 키/계정 이름)> \
   --chain-id=<chain_id(체인 아이디)>
 ```
@@ -661,10 +644,10 @@ hashgardcli query distribution rewards <delegator_address(위임자 주소)>
 
 ```
 hashgardcli keys add \
-  --pubkey=cosmospub1addwnpepqtd28uwa0yxtwal5223qqr5aqf5y57tc7kk7z8qd4zplrdlk5ez5kdnlrj4 \
+  --pubkey=gardpub1addwnpepqtd28uwa0yxtwal5223qqr5aqf5y57tc7kk7z8qd4zplrdlk5ez5kdnlrj4 \
   p2
  hashgardcli keys add \
-  --pubkey=cosmospub1addwnpepqgj04jpm9wrdml5qnss9kjxkmxzywuklnkj0g3a3f8l5wx9z4ennz84ym5t \
+  --pubkey=gardpub1addwnpepqgj04jpm9wrdml5qnss9kjxkmxzywuklnkj0g3a3f8l5wx9z4ennz84ym5t \
   p3
  hashgardcli keys add \
   --multisig-threshold=2
@@ -681,7 +664,7 @@ hashgardcli keys show --address p1p2p3
 위 주소를 기반으로 멀티시그 트랜잭션을 생성하는 과정의 첫 단계는 다음과 같습니다:
 
 ```bash
-hashgardcli tx send cosmos1570v2fq3twt0f0x02vhxpuzc9jc4yl30q2qned 10000000uatom \
+hashgardcli tx send gard1570v2fq3twt0f0x02vhxpuzc9jc4yl30q2qned 10000000agard \
   --from=<multisig_address(멀티시그 주소)> \
   --generate-only > unsignedTx.json
 ```
