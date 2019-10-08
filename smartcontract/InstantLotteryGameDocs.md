@@ -95,10 +95,23 @@ hashgardcli tx contract call contractaf4e12578e579affc09dd434c8faee45c1060778 "s
 ### 查询投注号码
 
 ```shell
-hashgardcli query contract method contractaf4e12578e579affc09dd434c8faee45c1060778  "string:query_users_number,[string:$walletaddress,string:$issue]"
+hashgardcli query contract method contractaf4e12578e579affc09dd434c8faee45c1060778  "string:query_users_number,[string:$walletaddress,string:$issue]"    --return array
 ```
 
 参数依次为：查询的地址，期号
+
+返回：
+
+```shell
+{
+  "address": "contractaf4e12578e579affc09dd434c8faee45c1060778",
+  "code": "string:query_users_number,[string:gard1xvn48vn3ljwk2d3vynv8ugkl373d93tfp9zae3,string:2019093021]",
+  "data": "[888]"
+}
+
+```
+
+返回的 data 中的参数为改期此地址投注的号码
 
 
 
@@ -120,6 +133,50 @@ hashgardcli tx contract call contractaf4e12578e579affc09dd434c8faee45c1060778 "s
 
 
 
+### 查询开奖人记录
+
+```shell
+hashgardcli query contract method contractaf4e12578e579affc09dd434c8faee45c1060778  "string:query_draws_lottery_user,[string:2019093021]"   --return array
+```
+
+参数为需要查询的指定期数
+
+返回：
+
+```shell
+{
+  "address": "contractaf4e12578e579affc09dd434c8faee45c1060778",
+  "code": "string:query_draws_lottery_user,[string:2019093021]",
+  "data": "[gard1xvn48vn3ljwk2d3vynv8ugkl373d93tfp9zae3,1570521673,1883000000000000000000]"
+}
+```
+
+返回的 data 中的列表参数依次为：开奖地址，开奖时间，开奖奖励
+
+
+
+### 查询指定期数的中奖额度信息
+
+```shell
+hashgardcli query contract method contractaf4e12578e579affc09dd434c8faee45c1060778  "string:query_amount_award,[string:2019093021]"   --return array
+```
+
+参数为需要查询的指定期数
+
+返回：
+
+```shell
+{
+  "address": "contractaf4e12578e579affc09dd434c8faee45c1060778",
+  "code": "string:query_amount_award,[string:2019093021]",
+  "data": "[10000000000000000000000000,8117000000000000000000,0,10000000000000000000000,0]"
+}
+```
+
+返回的 data 中的列表参数依次为：开奖时的系统奖池额度，开奖时的用户奖池额度，一等奖总共中奖投注额度，二等奖总共中奖投注额度，三等奖总共中奖投注额度
+
+
+
 ### 兑奖
 
 ```shell
@@ -133,10 +190,22 @@ hashgardcli tx contract call contractaf4e12578e579affc09dd434c8faee45c1060778 "s
 ### 查询兑奖信息
 
 ```shell
-hashgardcli query contract method contractaf4e12578e579affc09dd434c8faee45c1060778  "string:get_redemption_information,[string:$walletaddress,string:$issue]"
+hashgardcli query contract method contractaf4e12578e579affc09dd434c8faee45c1060778  "string:get_redemption_information,[string:$walletaddress,string:$issue]"	 --return array
 ```
 
 参数依次为：查询的地址，期号
+
+返回：
+
+```shell
+{
+  "address": "contractaf4e12578e579affc09dd434c8faee45c1060778",
+  "code": "string:get_redemption_information,[string:gard1xvn48vn3ljwk2d3vynv8ugkl373d93tfp9zae3,string:2019093021]",
+  "data": "[1570523965,1623400000000000000000]"
+}
+```
+
+返回的 data 中的列表参数依次为：兑奖的时间戳，兑奖获得的奖励
 
 
 
