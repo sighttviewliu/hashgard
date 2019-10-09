@@ -311,10 +311,6 @@ hashgardcli query
 ### 아톰 위임하기 / 리워드 수령하기
 
 ::: warning
-**아톰을 위임하기 전에 [위임자 faq](https://cosmos.network/resources/delegators)를 먼저 확인하시고 위임에 따르는 책임과 위험을 사전에 인지하시기 바랍니다**
-:::
-
-::: warning
 **참고: 다음 명령어는 온라인 상태인 컴퓨터에서 실행되어야 합니다. 해당 명령은 렛저 하드웨어 월렛 기기를 사용해 실행하는 것을 추천드립니다. 오프라인으로 트랜잭션을 발생하는 방법을 확인하기 위해서는 [여기](#signing-transactions-from-an-offline-computer)를 참고하세요.**
 ::: 
 

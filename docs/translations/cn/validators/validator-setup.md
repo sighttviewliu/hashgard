@@ -1,11 +1,6 @@
 # 在测试网上运行一个验证人
 
-> 提示
->
-> 加入主网所需的信息(`genesis.json`和种子节点)在[`testnets` repo](https://github.com/cosmos/launch/tree/master/latest)中可以找到。
-
-
-在启动你验证人节点前，确定你已经完成了[启动全节点](../join-testnet.md)教程。
+在启动你验证人节点前，确定你已经完成了[启动全节点](https://github.com/hashgard/testnets/blob/master/docs/README.md)教程。
 
 ## 什么是验证人?
 
@@ -18,7 +13,7 @@
 > 如果你想要成为 Hashgard 网络的验证人，你应该考虑[节点安全](./security.md)。
 
 
-如果你已经[启动了一个全节点](../join-testnet.md)，可以跳过下一节的内容。
+如果你已经[启动了一个全节点](https://github.com/hashgard/testnets/blob/master/docs/README.md)，可以跳过下一节的内容。
 
 ## 创建你的验证人
 

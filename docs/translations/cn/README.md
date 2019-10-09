@@ -9,7 +9,7 @@
 ## 加入 Hashgard 测试网
 
 - [安装 `hashgard`](./installation.md)
-- [运行一个全节点并加入测试网](./join-testnet.md)
+- [运行一个全节点并加入测试网](https://github.com/hashgard/testnets/blob/master/docs_CN/README.md)
 - [升级为验证人节点](./validators/validator-setup.md)
 
 ## 部署你自己的 `hashgard` 私有测试网
