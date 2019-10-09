@@ -173,7 +173,7 @@
 | ---- | ----------------------- | ------------------------------ | ------------------------------------------------------------ | ---- |
 | 1    | System.Contract.Call    | 合约调用                       | 静态调用：合约代码 给定 合约地址+参数<br />动态调用1: 调用者 给定 合约地址，合约代码给定参数<br />动态调用2: 调用者 给定 合约地址+参数<br /> | -    |
 | 2    | System.Contract.Create  | 合约部署                       | 合约代码，合约名，合约版本                                   | -    |
-| 3    | System.Contract.Upgrade | 合约升级（已完成，待后续开放） | 合约代码，合约名，合约版本                                   | -    |
+| 3    | System.Contract.Upgrade | 合约升级（已完成，待后续开放） | 合约地址，合约代码，合约名，合约版本                         | -    |
 | 4    | System.Contract.Destroy | 合约销毁（已完成，待后续开放） | 合约地址                                                     | -    |
 | 5    | System.Contract.Exists  | 合约是否存在                   | 合约地址                                                     | -    |
 
@@ -187,3 +187,31 @@
 | 4    | System.Bank.TokenGet  | 获取账户HRC10-Token余额 | address                    | balance |
 | 5    | System.Bank.TokenSend | HRC10-Token转账         | from_addr, to_addr, amount | -       |
 
+
+
+#### 3.拓展库
+
+| 序号 | 指令                               | 功能                                                         | 输入                      | 输出       |
+| ---- | ---------------------------------- | ------------------------------------------------------------ | ------------------------- | ---------- |
+| 1    | hashgard.libgard.list_remove_elt   | 移除列表l中的元素elt                                         | l, elt                    | l          |
+| 2    | hashgard.libgard.elt_in            | 判断列表l中是否存在元素elt                                   | l, elt                    | true/false |
+| 3    | hashgard.libgard.int               | string转int(默认10进制，支持16进制)                          | arg, scale=10             | num        |
+| 4    | hashgard.libgard.str               | int（10进制）转string                                        | arg_int                   | string     |
+| 5    | hashgard.libgard.hex               | 10进制 转 16进制                                             | arg_int                   | hex        |
+| 6    | hashgard.libgard.byte2int          | byte转int                                                    | cur_byte                  | Int        |
+| 7    | hashgard.libgard.upper             | 字符串小写字母转大写字母                                     | string                    | STRING     |
+| 8    | hashgard.libgard.lower             | 字符串大写字母转小写字母                                     | STRING                    | string     |
+| 9    | hashgard.libgard.bytes2hexstring   | 字节串转String(默认大写)                                     | bytes, big=False          | string     |
+| 10   | hashgard.libgard.hexstring2bytes   | String转字节串                                               | string                    | bytes      |
+| 11   | hashgard.libgard.bytearray_reverse | 字节数组反序                                                 | bytearray                 | bytearray  |
+| 12   | hashgard.libgard.split             | 通过指定分隔符c对字符串str_t,进行切片                        | str_t, c                  | str        |
+| 13   | hashgard.libgard.join              | 将序列lst中的元素以指定的字符c连接生成一个新的字符串         | c, lst                    | str        |
+| 14   | hashgard.libgard.mulconcat         | 将字符串str中的元素以指定的字符a,b的形式，去除连接符生成一个新的字符串 | *arg（a,str,b)            | str        |
+| 15   | hashgard.builtins.state            | 拼接多个参数                                                 | *args(str1,str2,str3,...) | str        |
+| 16   | hashgard.builtins.concat           | 拼接两个string                                               | str1, str2                | str        |
+| 17   | hashgard.safeMath.Add              | 安全加法                                                     | a, b                      | sum        |
+| 18   | hashgard.safeMath.Sub              | 安全减法                                                     | a, b                      | diff       |
+| 19   | hashgard.safeMath.Mul              | 安全乘法                                                     | a, b                      | product    |
+| 20   | hashgard.safeMath.Div              | 安全除法                                                     | a, b                      | quotient   |
+| 21   | hashgard.string.math               | 全匹配两个字符串                                             | s, p                      | true/false |
+| 22   | hashgard.string.find               | 字符串查找子串(有返回下标，无返回-1)                         | s, p                      | index      |
