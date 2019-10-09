@@ -17,7 +17,7 @@ Must specify these options: --chain-id  when --trust-node is false
 `hashgardcli`의 설정 파일은 `$HOME/.hashgardcli/config/config.toml` 경로에 저장되며, 파일 수정 또는 `hashgardcli config` 명령어를 통해 수정할 수 있습니다:
 
 ```bash
-hashgardcli config chain-id gaia-9004
+hashgardcli config chain-id sif-8000
 ```
 
 명령어 사용에 관련한 정보는 help를 참고하세요: `hashgardcli config --help`.

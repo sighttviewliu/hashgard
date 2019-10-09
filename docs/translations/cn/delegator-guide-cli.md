@@ -174,7 +174,7 @@ hashgardcli keys add <yourKeyName> --recover --account 1
 这是最安全的途径，但需要相当多的资源。您需要有较大的带宽和至少1TB的磁盘容量来运行一个全节点。  
 
 
- `hashgard`的安装教程在[这里](./installation.md)， 如何运行一个全节点指导在[这里](./join-testnet.md)
+ `hashgard`的安装教程在[这里](./installation.md)， 如何运行一个全节点指导在[这里](https://github.com/hashgard/testnets/blob/master/docs/README.md)
 
 ### 连接到一个远程全节点
 
