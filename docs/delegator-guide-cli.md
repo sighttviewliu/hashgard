@@ -232,7 +232,7 @@ In order to query the state and send transactions, you need a way to access the 
 
 This is the most secure option, but comes with relatively high resource requirements. In order to run your own full-node, you need good bandwidth and at least 1TB of disk space. 
 
-You will find the tutorial on how to install `hashgard` [here](./installation.md), and the guide to run a full-node [here](./join-testnet.md).
+You will find the tutorial on how to install `hashgard` [here](./installation.md), and the guide to run a full-node [here](https://github.com/hashgard/testnets/blob/master/docs/README.md).
 
 ### Connecting to a Remote Full-Node
 

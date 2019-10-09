@@ -36,7 +36,7 @@ hashgardcli config trust-node true
 最后，设置我们想要与之交互链的`chain-id`：
 
 ```bash
-hashgardcli config chain-id cosmoshub-2
+hashgardcli config chain-id sif-8000
 ```
 
 ### Key
@@ -179,11 +179,11 @@ hashgardcli tx send ... --gas-prices=0.025agard
 在你的地址收到token后，你可以通过以下命令查看账户的余额：
 
 ```bash
-hashgardcli query account <account_cosmos>
+hashgardcli query account <account_gard>
 ```
 
 ::: warning Note
-当你查询余额为零的帐户时，你将收到以下错误：`No account with address <account_cosmos> was found in the state.` 
+当你查询余额为零的帐户时，你将收到以下错误：`No account with address <account_gard> was found in the state.` 
 如果你在节点与区块链完全同步之前就查询，也会发生这种情况。这些都很正常。
 :::
 
@@ -192,7 +192,7 @@ hashgardcli query account <account_cosmos>
 你可以通过如下命令从一个账户发送资金到另一个账户：
 
 ```bash
-hashgardcli tx send <destination_cosmos> 10faucetToken \
+hashgardcli tx send <destination_gard> 10faucetToken \
   --chain-id=<chain_id> \
   --from=<key_name> 
 ```
@@ -210,20 +210,20 @@ gas估算可能是不准确的，因为状态变化可能发生在模拟结束�
 现在，查看源账户和目标账户的更新后的余额：
 
 ```bash
-hashgardcli query account <account_cosmos>
-hashgardcli query account <destination_cosmos>
+hashgardcli query account <account_gard>
+hashgardcli query account <destination_gard>
 ```
 
 你还可以使用`--block`标识查询在特定高度区块下你的余额：
 
 ```bash
-hashgardcli query account <account_cosmos> --block=<block_height>
+hashgardcli query account <account_gard> --block=<block_height>
 ```
 
 你可以通过在命令行中附加`--dry-run`标识来模拟交易而不实际广播它：
 
 ```bash
-hashgardcli tx send <destination_cosmosaccaddr> 10faucetToken \
+hashgardcli tx send <destination_gardaccaddr> 10faucetToken \
   --chain-id=<chain_id> \
   --from=<key_name> \
   --dry-run
@@ -232,7 +232,7 @@ hashgardcli tx send <destination_cosmosaccaddr> 10faucetToken \
 此外，你可以通过将`--generate-only`附加到命令行参数列表来构建交易并将其JSON格式打印到STDOUT：
 
 ```bash
-hashgardcli tx send <destination_cosmosaccaddr> 10faucetToken \
+hashgardcli tx send <destination_gardaccaddr> 10faucetToken \
   --chain-id=<chain_id> \
   --from=<key_name> \
   --generate-only > unsignedSendTx.json
@@ -398,7 +398,7 @@ hashgardcli query staking delegations <delegator_addr>
 ```bash
 hashgardcli tx staking unbond \
   <validator_addr> \
-  10atom \
+  10gard \
   --from=<key_name> \
   --chain-id=<chain_id>
 ```
@@ -416,7 +416,7 @@ hashgardcli query staking unbonding-delegation <delegator_addr> <validator_addr>
 或者你可以查看当前你所有的unbonding-delegation:
 
 ```bash
-hashgardcli query staking unbonding-delegations <account_cosmos>
+hashgardcli query staking unbonding-delegations <account_gard>
 ```
 
 此外，你可以从特定验证人获取所有unbonding-delegation：
@@ -435,7 +435,7 @@ hashgardcli query staking unbonding-delegations-from <account_gardval>
 hashgardcli tx staking redelegate \
   <src-validator-operator-addr> \
   <dst-validator-operator-addr> \
-  10atom \
+  10gard \
   --from=<key_name> \
   --chain-id=<chain_id>
 ```
@@ -455,7 +455,7 @@ hashgardcli query staking redelegation <delegator_addr> <src_val_addr> <dst_val_
 或者，如果你可以检查所有当前的unbonding-delegation：
 
 ```bash
-hashgardcli query staking redelegations <account_cosmos>
+hashgardcli query staking redelegations <account_gard>
 ```
 
 此外，你可以查询某个特定验证人的所有转出的重新绑定：
@@ -743,11 +743,11 @@ hashgardcli query distribution rewards <delegator_address>
 ```bash
 hashgardcli keys add \
   p2 \
-  --pubkey=cosmospub1addwnpepqtd28uwa0yxtwal5223qqr5aqf5y57tc7kk7z8qd4zplrdlk5ez5kdnlrj4
+  --pubkey=gardpub1addwnpepqtd28uwa0yxtwal5223qqr5aqf5y57tc7kk7z8qd4zplrdlk5ez5kdnlrj4
 
 hashgardcli keys add \
   p3 \
-  --pubkey=cosmospub1addwnpepqgj04jpm9wrdml5qnss9kjxkmxzywuklnkj0g3a3f8l5wx9z4ennz84ym5t
+  --pubkey=gardpub1addwnpepqgj04jpm9wrdml5qnss9kjxkmxzywuklnkj0g3a3f8l5wx9z4ennz84ym5t
 
 hashgardcli keys add \
   p1p2p3 \
@@ -772,7 +772,7 @@ hashgardcli keys show p1p2p3 --show-multisig
 创建多签交易的第一步是使用上面创建的多签地址初始化：
 
 ```bash
-hashgardcli tx send cosmos1570v2fq3twt0f0x02vhxpuzc9jc4yl30q2qned 10000000gard \
+hashgardcli tx send gard1570v2fq3twt0f0x02vhxpuzc9jc4yl30q2qned 10000000gard \
   --from=<multisig_address> \
   --generate-only > unsignedTx.json
 ```

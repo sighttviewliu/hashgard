@@ -7,7 +7,7 @@ Hashgard 公链采用 Go 语言编写，它可以在任何能够编译并运行 
 `hashgard`，这是 Hashgard 节点的主程序，它将作为系统服务运行并接入 Hashgard 网络。
 `hashgardcli`，这是 Hashgard 命令行客户端，用来执行大部分命令，如创建钱包、发送交易等。
 
-安装后，你可以作为[全节点](./join-testnet.md)或是[验证人节点](./validators/validator-setup.md)加入到测试网。
+安装后，你可以作为[全节点](https://github.com/hashgard/testnets/blob/master/docs/README.md)或是[验证人节点](./validators/validator-setup.md)加入到测试网。
 
 ### 配置您的服务器
 
@@ -61,14 +61,7 @@ Cosmos SDK 需要安装**Go 1.13+**
 
 ### 安装二进制执行程序
 
-接下来，安装最新版本的 Hashgard。需要确认您 `git checkout 了正确的[发布版本](https://github.com/hashgard/hashgard/releases)。
-
-```bash
-git clone -b <latest-release-tag> https://gitlab.hashgard.com/hashgard/hashgard
-cd gaia && make install
-```
-
-> _注意_: 如果在这一步中出现问题，请检查你是否安装的是 Go 的最新稳定版本。
+接下来，安装最新版本的 Hashgard: [发布版本](https://github.com/hashgard/hashgard/releases)。
 
 等`hashgard`和`hashgardcli`可执行程序安装完之后，请检查:
 
@@ -98,4 +91,4 @@ build tags 指定了可执行程序具有的特殊特性。
 
 ### 接下来
 
-然后你可以选择 [加入测试网](./join-testnet.md) 或是 [创建私有测试网](./deploy-testnet.md)。
+然后你可以选择 [加入测试网](https://github.com/hashgard/testnets/blob/master/docs_CN/README.md) 或是 [创建私有测试网](./deploy-testnet.md)。
