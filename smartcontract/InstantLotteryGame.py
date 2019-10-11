@@ -483,6 +483,23 @@ def draw():  # 开奖
     PutArray(award_key, [str(sys_pool), str(now_users_pool), str(fist_amount), str(second_amount), str(thrid_amount)])  # 记录每一期的中奖额度信息
 
     PutArray(KEY_LAST_NUMBER_DRAWS, [draws, str(now_time)])  # 最后一期期数和期数结束时间
+    
+    all_periods = query_periods_list()
+    list = []
+    for i in range(len(all_periods)):
+        list.append(all_periods[i])
+    new_list = []
+    if len(list) == 24:
+        for i in range(len(list)):
+            if i != len(list) - 1:
+                new_list.append(list[i + 1])
+            else:
+                break
+        new_list.append(draws)
+        PutArray(KEY_PERIODS_LIST, new_list)
+    else:
+        list.append(draws)
+        PutArray(KEY_PERIODS_LIST, list)                # 记录之前的期数，最多24个
 
     draws = get_period_generation()
     Put(KEY_NUMBER_DRAWS, draws)  # 期数变更
@@ -493,15 +510,6 @@ def draw():  # 开奖
 
     draws_time_key = concat(draws, KEY_PERIODS_TIME)
     Put(draws_time_key, now_time)                           # 当前期号对应的时间戳
-
-    all_periods = query_periods_list()
-    list = []
-    for i in range(len(all_periods)):
-        list.append(all_periods[i])
-    if len(list) == 24:
-        list = list[1:]
-    list.append(draws)
-    PutArray(KEY_PERIODS_LIST, list)                    # 所有列表 24 个
 
     ContractBalanceSend(sender, GARD_DENOM, lettry_amount)  # 给开奖人奖金
     return True
