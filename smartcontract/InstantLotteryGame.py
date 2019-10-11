@@ -484,6 +484,16 @@ def draw():  # 开奖
 
     PutArray(KEY_LAST_NUMBER_DRAWS, [draws, str(now_time)])  # 最后一期期数和期数结束时间
     
+    draws = get_period_generation()
+    Put(KEY_NUMBER_DRAWS, draws)  # 期数变更
+
+    key = concat(draws, KEY_DRAWS_PID)
+    now_pid = get_pid()
+    Put(key, now_pid)  # 更改这期的pid
+
+    draws_time_key = concat(draws, KEY_PERIODS_TIME)
+    Put(draws_time_key, now_time)                           # 当前期号对应的时间戳
+    
     all_periods = query_periods_list()
     list = []
     for i in range(len(all_periods)):
@@ -500,16 +510,6 @@ def draw():  # 开奖
     else:
         list.append(draws)
         PutArray(KEY_PERIODS_LIST, list)                # 记录之前的期数，最多24个
-
-    draws = get_period_generation()
-    Put(KEY_NUMBER_DRAWS, draws)  # 期数变更
-
-    key = concat(draws, KEY_DRAWS_PID)
-    now_pid = get_pid()
-    Put(key, now_pid)  # 更改这期的pid
-
-    draws_time_key = concat(draws, KEY_PERIODS_TIME)
-    Put(draws_time_key, now_time)                           # 当前期号对应的时间戳
 
     ContractBalanceSend(sender, GARD_DENOM, lettry_amount)  # 给开奖人奖金
     return True
